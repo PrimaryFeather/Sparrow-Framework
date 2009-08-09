@@ -1,0 +1,662 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DE019C391026360B00ECB0AC /* SPTween.m in Sources */ = {isa = PBXBuildFile; fileRef = DE7044760FB62080007F5ECC /* SPTween.m */; };
+		DE019C3A1026361200ECB0AC /* SPDelayedInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFB1B94100926260022C117 /* SPDelayedInvocation.m */; };
+		DE019C3B1026363D00ECB0AC /* SPNSExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = DE68EA160FBB5660004DBC95 /* SPNSExtensions.m */; };
+		DE019C3C1026364800ECB0AC /* SPJuggler.m in Sources */ = {isa = PBXBuildFile; fileRef = DE7044270FB61506007F5ECC /* SPJuggler.m */; };
+		DEEA933A101E32E10071DD21 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE9CF1EB0FED3128008A32FF /* CoreGraphics.framework */; };
+		DEEA933B101E32E10071DD21 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
+		DEEA933C101E32E10071DD21 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD14FF0DC6FC520079059D /* OpenGLES.framework */; };
+		DEEA933D101E32E10071DD21 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD15070DC6FC5B0079059D /* QuartzCore.framework */; };
+		DEEA933E101E32E10071DD21 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		DEEA934E101E33F00071DD21 /* libSparrow.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DEFE4BC2101B317600E22471 /* libSparrow.a */; };
+		DEEA9364101E383D0071DD21 /* SPPointTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DEABCF5B0F7AE187003B6C9D /* SPPointTest.m */; };
+		DEEA9365101E383D0071DD21 /* SPMatrixTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DE8F1E2D0F7C1F3A0085E9E4 /* SPMatrixTest.m */; };
+		DEEA9366101E383D0071DD21 /* SPDisplayObjectTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DE469D6E0F938FAB00F56E91 /* SPDisplayObjectTest.m */; };
+		DEEA9367101E383D0071DD21 /* SPDisplayObjectContainerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DEB21CF80F93C9780080D5C2 /* SPDisplayObjectContainerTest.m */; };
+		DEEA9368101E383D0071DD21 /* SPQuadTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DED2B6F90FA0CF5900083578 /* SPQuadTest.m */; };
+		DEEA9369101E383D0071DD21 /* SPStageTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DED67F330FA3514C0050E779 /* SPStageTest.m */; };
+		DEEA936A101E383D0071DD21 /* SPRectangleTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DED67F7C0FA359F00050E779 /* SPRectangleTest.m */; };
+		DEEA936B101E383D0071DD21 /* SPEventDispatcherTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DEE594490FA63BA800E3AEFC /* SPEventDispatcherTest.m */; };
+		DEEA936C101E383D0071DD21 /* SPTweenTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DE75E8660FBDC57E00C64495 /* SPTweenTest.m */; };
+		DEEA936D101E383D0071DD21 /* SPImageTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DE0853A40FEC286900DAF53C /* SPImageTest.m */; };
+		DEEA9403101E44F10071DD21 /* Sparrow.h in Headers */ = {isa = PBXBuildFile; fileRef = DEEA9402101E44F10071DD21 /* Sparrow.h */; };
+		DEFE4BCE101B31DF00E22471 /* SPTransitions.m in Sources */ = {isa = PBXBuildFile; fileRef = DED859440FB883EE00D3D7D2 /* SPTransitions.m */; };
+		DEFE4BD1101B31DF00E22471 /* SPView.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC2B67A0F6D4CE90063AB1D /* SPView.m */; };
+		DEFE4BD2101B31DF00E22471 /* SPEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = DEE593D20FA6116B00E3AEFC /* SPEvent.m */; };
+		DEFE4BD3101B31DF00E22471 /* SPEventDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC2B6810F6D51430063AB1D /* SPEventDispatcher.m */; };
+		DEFE4BD4101B31DF00E22471 /* SPTouch.m in Sources */ = {isa = PBXBuildFile; fileRef = DEE4449D0FABA7860085D36D /* SPTouch.m */; };
+		DEFE4BD5101B31DF00E22471 /* SPTouchEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = DEE444A90FABABBB0085D36D /* SPTouchEvent.m */; };
+		DEFE4BD6101B31DF00E22471 /* SPEnterFrameEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = DEEEB8C90FAA2C300059D72B /* SPEnterFrameEvent.m */; };
+		DEFE4BD7101B31DF00E22471 /* SPDisplayObject.m in Sources */ = {isa = PBXBuildFile; fileRef = DE2ED8050F6D52080012B6BA /* SPDisplayObject.m */; };
+		DEFE4BD8101B31DF00E22471 /* SPDisplayObjectContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = DE2ED8090F6D53020012B6BA /* SPDisplayObjectContainer.m */; };
+		DEFE4BD9101B31DF00E22471 /* SPSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = DE4D6AEB0F75913D0045CBF7 /* SPSprite.m */; };
+		DEFE4BDA101B31DF00E22471 /* SPStage.m in Sources */ = {isa = PBXBuildFile; fileRef = DE2ED8590F6D54AC0012B6BA /* SPStage.m */; };
+		DEFE4BDB101B31DF00E22471 /* SPQuad.m in Sources */ = {isa = PBXBuildFile; fileRef = DE2ED8560F6D54900012B6BA /* SPQuad.m */; };
+		DEFE4BDC101B31DF00E22471 /* SPImage.m in Sources */ = {isa = PBXBuildFile; fileRef = DE08535D0FEC21F500DAF53C /* SPImage.m */; };
+		DEFE4BDD101B31DF00E22471 /* SPTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = DED4EFCA0FF9439D0093AD29 /* SPTextField.m */; };
+		DEFE4BDE101B31DF00E22471 /* SPTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = DE0853F90FEC2CFF00DAF53C /* SPTexture.m */; };
+		DEFE4BDF101B31DF00E22471 /* SPStaticTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = DECF84320FF649D50026A4ED /* SPStaticTexture.m */; };
+		DEFE4BE0101B31DF00E22471 /* SPSubTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = DECF84BA0FF681BA0026A4ED /* SPSubTexture.m */; };
+		DEFE4BE1101B31DF00E22471 /* SPButton.m in Sources */ = {isa = PBXBuildFile; fileRef = DED85312100BC9DA0014F729 /* SPButton.m */; };
+		DEFE4BE2101B31DF00E22471 /* SPMatrix.m in Sources */ = {isa = PBXBuildFile; fileRef = DE469D260F9386FD00F56E91 /* SPMatrix.m */; };
+		DEFE4BE3101B31DF00E22471 /* SPPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = DE469D280F9386FD00F56E91 /* SPPoint.m */; };
+		DEFE4BE4101B31DF00E22471 /* SPRectangle.m in Sources */ = {isa = PBXBuildFile; fileRef = DE469D2A0F9386FD00F56E91 /* SPRectangle.m */; };
+		DEFE4BE6101B31DF00E22471 /* SPTextureAtlas.m in Sources */ = {isa = PBXBuildFile; fileRef = DECF84270FF619150026A4ED /* SPTextureAtlas.m */; };
+		DEFE4C38101B5FB100E22471 /* SPRendering.m in Sources */ = {isa = PBXBuildFile; fileRef = DE9CF1BC0FED2678008A32FF /* SPRendering.m */; };
+		DEFE4C3A101B5FB100E22471 /* SPTouchProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = DEDCD3AD0FADEE280022011C /* SPTouchProcessor.m */; };
+		DEFE4C3C101B5FB100E22471 /* SPDisplayObject_Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = DEDCD44F0FADFFA40022011C /* SPDisplayObject_Internal.m */; };
+		DEFE4C3E101B5FB900E22471 /* SPTouch_Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = DEDCD3D00FADF52B0022011C /* SPTouch_Internal.m */; };
+		DEFE4C40101B5FB900E22471 /* SPEvent_Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = DEDCD44B0FADFF250022011C /* SPEvent_Internal.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DEEA934C101E33ED0071DD21 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DEFE4BC1101B317600E22471;
+			remoteInfo = SparrowLib;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		28FD14FF0DC6FC520079059D /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		28FD15070DC6FC5B0079059D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		DE08535C0FEC21F500DAF53C /* SPImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPImage.h; sourceTree = "<group>"; };
+		DE08535D0FEC21F500DAF53C /* SPImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPImage.m; sourceTree = "<group>"; };
+		DE0853A40FEC286900DAF53C /* SPImageTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPImageTest.m; sourceTree = "<group>"; };
+		DE0853F80FEC2CFF00DAF53C /* SPTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPTexture.h; sourceTree = "<group>"; };
+		DE0853F90FEC2CFF00DAF53C /* SPTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPTexture.m; sourceTree = "<group>"; };
+		DE2ED8040F6D52080012B6BA /* SPDisplayObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPDisplayObject.h; sourceTree = "<group>"; };
+		DE2ED8050F6D52080012B6BA /* SPDisplayObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPDisplayObject.m; sourceTree = "<group>"; };
+		DE2ED8080F6D53020012B6BA /* SPDisplayObjectContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPDisplayObjectContainer.h; sourceTree = "<group>"; };
+		DE2ED8090F6D53020012B6BA /* SPDisplayObjectContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPDisplayObjectContainer.m; sourceTree = "<group>"; };
+		DE2ED8550F6D54900012B6BA /* SPQuad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPQuad.h; sourceTree = "<group>"; };
+		DE2ED8560F6D54900012B6BA /* SPQuad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPQuad.m; sourceTree = "<group>"; };
+		DE2ED8580F6D54AC0012B6BA /* SPStage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPStage.h; sourceTree = "<group>"; };
+		DE2ED8590F6D54AC0012B6BA /* SPStage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPStage.m; sourceTree = "<group>"; };
+		DE469D240F9386FD00F56E91 /* SPMakros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPMakros.h; sourceTree = "<group>"; };
+		DE469D250F9386FD00F56E91 /* SPMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPMatrix.h; sourceTree = "<group>"; };
+		DE469D260F9386FD00F56E91 /* SPMatrix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPMatrix.m; sourceTree = "<group>"; };
+		DE469D270F9386FD00F56E91 /* SPPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPPoint.h; sourceTree = "<group>"; };
+		DE469D280F9386FD00F56E91 /* SPPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPPoint.m; sourceTree = "<group>"; };
+		DE469D290F9386FD00F56E91 /* SPRectangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPRectangle.h; sourceTree = "<group>"; };
+		DE469D2A0F9386FD00F56E91 /* SPRectangle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPRectangle.m; sourceTree = "<group>"; };
+		DE469D6E0F938FAB00F56E91 /* SPDisplayObjectTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPDisplayObjectTest.m; sourceTree = "<group>"; };
+		DE4D6AEA0F75913D0045CBF7 /* SPSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPSprite.h; sourceTree = "<group>"; };
+		DE4D6AEB0F75913D0045CBF7 /* SPSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPSprite.m; sourceTree = "<group>"; };
+		DE68EA150FBB5660004DBC95 /* SPNSExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPNSExtensions.h; sourceTree = "<group>"; };
+		DE68EA160FBB5660004DBC95 /* SPNSExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPNSExtensions.m; sourceTree = "<group>"; };
+		DE7044260FB61506007F5ECC /* SPJuggler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPJuggler.h; sourceTree = "<group>"; };
+		DE7044270FB61506007F5ECC /* SPJuggler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPJuggler.m; sourceTree = "<group>"; };
+		DE70442A0FB618AE007F5ECC /* SPAnimatable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPAnimatable.h; sourceTree = "<group>"; };
+		DE7044750FB62080007F5ECC /* SPTween.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPTween.h; sourceTree = "<group>"; };
+		DE7044760FB62080007F5ECC /* SPTween.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPTween.m; sourceTree = "<group>"; };
+		DE75E8660FBDC57E00C64495 /* SPTweenTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPTweenTest.m; sourceTree = "<group>"; };
+		DE8F1E2D0F7C1F3A0085E9E4 /* SPMatrixTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPMatrixTest.m; sourceTree = "<group>"; };
+		DE9CF1BC0FED2678008A32FF /* SPRendering.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPRendering.m; sourceTree = "<group>"; };
+		DE9CF1EB0FED3128008A32FF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		DEABCF5B0F7AE187003B6C9D /* SPPointTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPPointTest.m; sourceTree = "<group>"; };
+		DEB21CF80F93C9780080D5C2 /* SPDisplayObjectContainerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPDisplayObjectContainerTest.m; sourceTree = "<group>"; };
+		DEC2B6790F6D4CE90063AB1D /* SPView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPView.h; sourceTree = "<group>"; };
+		DEC2B67A0F6D4CE90063AB1D /* SPView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPView.m; sourceTree = "<group>"; };
+		DEC2B6800F6D51430063AB1D /* SPEventDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPEventDispatcher.h; sourceTree = "<group>"; };
+		DEC2B6810F6D51430063AB1D /* SPEventDispatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPEventDispatcher.m; sourceTree = "<group>"; };
+		DECF84260FF619150026A4ED /* SPTextureAtlas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPTextureAtlas.h; sourceTree = "<group>"; };
+		DECF84270FF619150026A4ED /* SPTextureAtlas.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPTextureAtlas.m; sourceTree = "<group>"; };
+		DECF84310FF649D50026A4ED /* SPStaticTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPStaticTexture.h; sourceTree = "<group>"; };
+		DECF84320FF649D50026A4ED /* SPStaticTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPStaticTexture.m; sourceTree = "<group>"; };
+		DECF84B90FF681BA0026A4ED /* SPSubTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPSubTexture.h; sourceTree = "<group>"; };
+		DECF84BA0FF681BA0026A4ED /* SPSubTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPSubTexture.m; sourceTree = "<group>"; };
+		DED2B6F90FA0CF5900083578 /* SPQuadTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPQuadTest.m; sourceTree = "<group>"; };
+		DED4EFC90FF9439D0093AD29 /* SPTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPTextField.h; sourceTree = "<group>"; };
+		DED4EFCA0FF9439D0093AD29 /* SPTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPTextField.m; sourceTree = "<group>"; };
+		DED67F330FA3514C0050E779 /* SPStageTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPStageTest.m; sourceTree = "<group>"; };
+		DED67F7C0FA359F00050E779 /* SPRectangleTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPRectangleTest.m; sourceTree = "<group>"; };
+		DED85311100BC9DA0014F729 /* SPButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPButton.h; sourceTree = "<group>"; };
+		DED85312100BC9DA0014F729 /* SPButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPButton.m; sourceTree = "<group>"; };
+		DED859430FB883EE00D3D7D2 /* SPTransitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPTransitions.h; sourceTree = "<group>"; };
+		DED859440FB883EE00D3D7D2 /* SPTransitions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPTransitions.m; sourceTree = "<group>"; };
+		DEDCD3AC0FADEE280022011C /* SPTouchProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPTouchProcessor.h; sourceTree = "<group>"; };
+		DEDCD3AD0FADEE280022011C /* SPTouchProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPTouchProcessor.m; sourceTree = "<group>"; };
+		DEDCD3CF0FADF52B0022011C /* SPTouch_Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPTouch_Internal.h; sourceTree = "<group>"; };
+		DEDCD3D00FADF52B0022011C /* SPTouch_Internal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPTouch_Internal.m; sourceTree = "<group>"; };
+		DEDCD44A0FADFF250022011C /* SPEvent_Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPEvent_Internal.h; sourceTree = "<group>"; };
+		DEDCD44B0FADFF250022011C /* SPEvent_Internal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPEvent_Internal.m; sourceTree = "<group>"; };
+		DEDCD44E0FADFFA40022011C /* SPDisplayObject_Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPDisplayObject_Internal.h; sourceTree = "<group>"; };
+		DEDCD44F0FADFFA40022011C /* SPDisplayObject_Internal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPDisplayObject_Internal.m; sourceTree = "<group>"; };
+		DEE4449C0FABA7860085D36D /* SPTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPTouch.h; sourceTree = "<group>"; };
+		DEE4449D0FABA7860085D36D /* SPTouch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPTouch.m; sourceTree = "<group>"; };
+		DEE444A80FABABBB0085D36D /* SPTouchEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPTouchEvent.h; sourceTree = "<group>"; };
+		DEE444A90FABABBB0085D36D /* SPTouchEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPTouchEvent.m; sourceTree = "<group>"; };
+		DEE593D10FA6116B00E3AEFC /* SPEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPEvent.h; sourceTree = "<group>"; };
+		DEE593D20FA6116B00E3AEFC /* SPEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPEvent.m; sourceTree = "<group>"; };
+		DEE594490FA63BA800E3AEFC /* SPEventDispatcherTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPEventDispatcherTest.m; sourceTree = "<group>"; };
+		DEEA9335101E32A30071DD21 /* UnitTest.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTest.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DEEA937F101E3BA20071DD21 /* UnitTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
+		DEEA9402101E44F10071DD21 /* Sparrow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sparrow.h; sourceTree = "<group>"; };
+		DEEEB8C80FAA2C300059D72B /* SPEnterFrameEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPEnterFrameEvent.h; sourceTree = "<group>"; };
+		DEEEB8C90FAA2C300059D72B /* SPEnterFrameEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPEnterFrameEvent.m; sourceTree = "<group>"; };
+		DEFB1B93100926260022C117 /* SPDelayedInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPDelayedInvocation.h; sourceTree = "<group>"; };
+		DEFB1B94100926260022C117 /* SPDelayedInvocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPDelayedInvocation.m; sourceTree = "<group>"; };
+		DEFE4BC2101B317600E22471 /* libSparrow.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSparrow.a; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DEEA9332101E32A30071DD21 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DEEA933A101E32E10071DD21 /* CoreGraphics.framework in Frameworks */,
+				DEEA933B101E32E10071DD21 /* Foundation.framework in Frameworks */,
+				DEEA933C101E32E10071DD21 /* OpenGLES.framework in Frameworks */,
+				DEEA933D101E32E10071DD21 /* QuartzCore.framework in Frameworks */,
+				DEEA933E101E32E10071DD21 /* UIKit.framework in Frameworks */,
+				DEEA934E101E33F00071DD21 /* libSparrow.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DEFE4BC0101B317600E22471 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		080E96DDFE201D6D7F000001 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				DEDCD3CE0FADF2100022011C /* System */,
+				DEDCD3C60FADF1870022011C /* Events */,
+				DEDCD3B00FADF1720022011C /* Display */,
+				DEE202BD0FBDAD2900B8A467 /* Animation */,
+				DE469D310F93870A00F56E91 /* Utils */,
+				DEEA9402101E44F10071DD21 /* Sparrow.h */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DEFE4BC2101B317600E22471 /* libSparrow.a */,
+				DEEA9335101E32A30071DD21 /* UnitTest.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
+			isa = PBXGroup;
+			children = (
+				DEABCDE80F7ABE71003B6C9D /* UnitTests */,
+				080E96DDFE201D6D7F000001 /* Classes */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+			);
+			name = CustomTemplate;
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				DEEA937F101E3BA20071DD21 /* UnitTests-Info.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DE9CF1EB0FED3128008A32FF /* CoreGraphics.framework */,
+				28FD15070DC6FC5B0079059D /* QuartzCore.framework */,
+				28FD14FF0DC6FC520079059D /* OpenGLES.framework */,
+				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
+				1D30AB110D05D00D00671497 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DE469D310F93870A00F56E91 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				DE469D240F9386FD00F56E91 /* SPMakros.h */,
+				DE469D250F9386FD00F56E91 /* SPMatrix.h */,
+				DE469D260F9386FD00F56E91 /* SPMatrix.m */,
+				DE469D270F9386FD00F56E91 /* SPPoint.h */,
+				DE469D280F9386FD00F56E91 /* SPPoint.m */,
+				DE469D290F9386FD00F56E91 /* SPRectangle.h */,
+				DE469D2A0F9386FD00F56E91 /* SPRectangle.m */,
+				DE68EA150FBB5660004DBC95 /* SPNSExtensions.h */,
+				DE68EA160FBB5660004DBC95 /* SPNSExtensions.m */,
+				DECF84260FF619150026A4ED /* SPTextureAtlas.h */,
+				DECF84270FF619150026A4ED /* SPTextureAtlas.m */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
+		DEABCDE80F7ABE71003B6C9D /* UnitTests */ = {
+			isa = PBXGroup;
+			children = (
+				DEABCF5B0F7AE187003B6C9D /* SPPointTest.m */,
+				DE8F1E2D0F7C1F3A0085E9E4 /* SPMatrixTest.m */,
+				DE469D6E0F938FAB00F56E91 /* SPDisplayObjectTest.m */,
+				DEB21CF80F93C9780080D5C2 /* SPDisplayObjectContainerTest.m */,
+				DED2B6F90FA0CF5900083578 /* SPQuadTest.m */,
+				DED67F330FA3514C0050E779 /* SPStageTest.m */,
+				DED67F7C0FA359F00050E779 /* SPRectangleTest.m */,
+				DEE594490FA63BA800E3AEFC /* SPEventDispatcherTest.m */,
+				DE75E8660FBDC57E00C64495 /* SPTweenTest.m */,
+				DE0853A40FEC286900DAF53C /* SPImageTest.m */,
+			);
+			path = UnitTests;
+			sourceTree = "<group>";
+		};
+		DED85A930FB49E6D000BAA95 /* Internal */ = {
+			isa = PBXGroup;
+			children = (
+				DEDCD3CF0FADF52B0022011C /* SPTouch_Internal.h */,
+				DEDCD3D00FADF52B0022011C /* SPTouch_Internal.m */,
+				DEDCD44A0FADFF250022011C /* SPEvent_Internal.h */,
+				DEDCD44B0FADFF250022011C /* SPEvent_Internal.m */,
+			);
+			name = Internal;
+			sourceTree = "<group>";
+		};
+		DED85A940FB49E90000BAA95 /* Internal */ = {
+			isa = PBXGroup;
+			children = (
+				DE9CF1BC0FED2678008A32FF /* SPRendering.m */,
+				DEDCD3AC0FADEE280022011C /* SPTouchProcessor.h */,
+				DEDCD3AD0FADEE280022011C /* SPTouchProcessor.m */,
+				DEDCD44E0FADFFA40022011C /* SPDisplayObject_Internal.h */,
+				DEDCD44F0FADFFA40022011C /* SPDisplayObject_Internal.m */,
+			);
+			name = Internal;
+			sourceTree = "<group>";
+		};
+		DEDCD3B00FADF1720022011C /* Display */ = {
+			isa = PBXGroup;
+			children = (
+				DED85A940FB49E90000BAA95 /* Internal */,
+				DE2ED8040F6D52080012B6BA /* SPDisplayObject.h */,
+				DE2ED8050F6D52080012B6BA /* SPDisplayObject.m */,
+				DE2ED8080F6D53020012B6BA /* SPDisplayObjectContainer.h */,
+				DE2ED8090F6D53020012B6BA /* SPDisplayObjectContainer.m */,
+				DE4D6AEA0F75913D0045CBF7 /* SPSprite.h */,
+				DE4D6AEB0F75913D0045CBF7 /* SPSprite.m */,
+				DE2ED8580F6D54AC0012B6BA /* SPStage.h */,
+				DE2ED8590F6D54AC0012B6BA /* SPStage.m */,
+				DE2ED8550F6D54900012B6BA /* SPQuad.h */,
+				DE2ED8560F6D54900012B6BA /* SPQuad.m */,
+				DE08535C0FEC21F500DAF53C /* SPImage.h */,
+				DE08535D0FEC21F500DAF53C /* SPImage.m */,
+				DED4EFC90FF9439D0093AD29 /* SPTextField.h */,
+				DED4EFCA0FF9439D0093AD29 /* SPTextField.m */,
+				DE0853F80FEC2CFF00DAF53C /* SPTexture.h */,
+				DE0853F90FEC2CFF00DAF53C /* SPTexture.m */,
+				DECF84310FF649D50026A4ED /* SPStaticTexture.h */,
+				DECF84320FF649D50026A4ED /* SPStaticTexture.m */,
+				DECF84B90FF681BA0026A4ED /* SPSubTexture.h */,
+				DECF84BA0FF681BA0026A4ED /* SPSubTexture.m */,
+				DED85311100BC9DA0014F729 /* SPButton.h */,
+				DED85312100BC9DA0014F729 /* SPButton.m */,
+			);
+			name = Display;
+			sourceTree = "<group>";
+		};
+		DEDCD3C60FADF1870022011C /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				DED85A930FB49E6D000BAA95 /* Internal */,
+				DEE593D10FA6116B00E3AEFC /* SPEvent.h */,
+				DEE593D20FA6116B00E3AEFC /* SPEvent.m */,
+				DEC2B6800F6D51430063AB1D /* SPEventDispatcher.h */,
+				DEC2B6810F6D51430063AB1D /* SPEventDispatcher.m */,
+				DEE4449C0FABA7860085D36D /* SPTouch.h */,
+				DEE4449D0FABA7860085D36D /* SPTouch.m */,
+				DEE444A80FABABBB0085D36D /* SPTouchEvent.h */,
+				DEE444A90FABABBB0085D36D /* SPTouchEvent.m */,
+				DEEEB8C80FAA2C300059D72B /* SPEnterFrameEvent.h */,
+				DEEEB8C90FAA2C300059D72B /* SPEnterFrameEvent.m */,
+			);
+			name = Events;
+			sourceTree = "<group>";
+		};
+		DEDCD3CE0FADF2100022011C /* System */ = {
+			isa = PBXGroup;
+			children = (
+				DEC2B6790F6D4CE90063AB1D /* SPView.h */,
+				DEC2B67A0F6D4CE90063AB1D /* SPView.m */,
+			);
+			name = System;
+			sourceTree = "<group>";
+		};
+		DEE202BD0FBDAD2900B8A467 /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				DE70442A0FB618AE007F5ECC /* SPAnimatable.h */,
+				DE7044260FB61506007F5ECC /* SPJuggler.h */,
+				DE7044270FB61506007F5ECC /* SPJuggler.m */,
+				DED859430FB883EE00D3D7D2 /* SPTransitions.h */,
+				DED859440FB883EE00D3D7D2 /* SPTransitions.m */,
+				DE7044750FB62080007F5ECC /* SPTween.h */,
+				DE7044760FB62080007F5ECC /* SPTween.m */,
+				DEFB1B93100926260022C117 /* SPDelayedInvocation.h */,
+				DEFB1B94100926260022C117 /* SPDelayedInvocation.m */,
+			);
+			name = Animation;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		DEFE4BBE101B317600E22471 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DEEA9403101E44F10071DD21 /* Sparrow.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		DEEA9334101E32A30071DD21 /* UnitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DEEA9339101E32A40071DD21 /* Build configuration list for PBXNativeTarget "UnitTests" */;
+			buildPhases = (
+				DEEA9331101E32A30071DD21 /* Sources */,
+				DEEA9332101E32A30071DD21 /* Frameworks */,
+				DEEA9333101E32A30071DD21 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DEEA934D101E33ED0071DD21 /* PBXTargetDependency */,
+			);
+			name = UnitTests;
+			productName = UnitTest;
+			productReference = DEEA9335101E32A30071DD21 /* UnitTest.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+		DEFE4BC1101B317600E22471 /* Sparrow */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DEFE4BCC101B317A00E22471 /* Build configuration list for PBXNativeTarget "Sparrow" */;
+			buildPhases = (
+				DEFE4BBE101B317600E22471 /* Headers */,
+				DEFE4BBF101B317600E22471 /* Sources */,
+				DEFE4BC0101B317600E22471 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Sparrow;
+			productName = SparrowLib;
+			productReference = DEFE4BC2101B317600E22471 /* libSparrow.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Sparrow" */;
+			compatibilityVersion = "Xcode 3.1";
+			hasScannedForEncodings = 1;
+			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DEFE4BC1101B317600E22471 /* Sparrow */,
+				DEEA9334101E32A30071DD21 /* UnitTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		DEEA9333101E32A30071DD21 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DEEA9331101E32A30071DD21 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DEEA9364101E383D0071DD21 /* SPPointTest.m in Sources */,
+				DEEA9365101E383D0071DD21 /* SPMatrixTest.m in Sources */,
+				DEEA9366101E383D0071DD21 /* SPDisplayObjectTest.m in Sources */,
+				DEEA9367101E383D0071DD21 /* SPDisplayObjectContainerTest.m in Sources */,
+				DEEA9368101E383D0071DD21 /* SPQuadTest.m in Sources */,
+				DEEA9369101E383D0071DD21 /* SPStageTest.m in Sources */,
+				DEEA936A101E383D0071DD21 /* SPRectangleTest.m in Sources */,
+				DEEA936B101E383D0071DD21 /* SPEventDispatcherTest.m in Sources */,
+				DEEA936C101E383D0071DD21 /* SPTweenTest.m in Sources */,
+				DEEA936D101E383D0071DD21 /* SPImageTest.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DEFE4BBF101B317600E22471 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DEFE4BE6101B31DF00E22471 /* SPTextureAtlas.m in Sources */,
+				DEFE4C3E101B5FB900E22471 /* SPTouch_Internal.m in Sources */,
+				DEFE4C40101B5FB900E22471 /* SPEvent_Internal.m in Sources */,
+				DEFE4C38101B5FB100E22471 /* SPRendering.m in Sources */,
+				DEFE4C3A101B5FB100E22471 /* SPTouchProcessor.m in Sources */,
+				DEFE4C3C101B5FB100E22471 /* SPDisplayObject_Internal.m in Sources */,
+				DEFE4BE2101B31DF00E22471 /* SPMatrix.m in Sources */,
+				DEFE4BE3101B31DF00E22471 /* SPPoint.m in Sources */,
+				DEFE4BE4101B31DF00E22471 /* SPRectangle.m in Sources */,
+				DEFE4BD7101B31DF00E22471 /* SPDisplayObject.m in Sources */,
+				DEFE4BD8101B31DF00E22471 /* SPDisplayObjectContainer.m in Sources */,
+				DEFE4BD9101B31DF00E22471 /* SPSprite.m in Sources */,
+				DEFE4BDA101B31DF00E22471 /* SPStage.m in Sources */,
+				DEFE4BDB101B31DF00E22471 /* SPQuad.m in Sources */,
+				DEFE4BDC101B31DF00E22471 /* SPImage.m in Sources */,
+				DEFE4BDD101B31DF00E22471 /* SPTextField.m in Sources */,
+				DEFE4BDE101B31DF00E22471 /* SPTexture.m in Sources */,
+				DEFE4BDF101B31DF00E22471 /* SPStaticTexture.m in Sources */,
+				DEFE4BE0101B31DF00E22471 /* SPSubTexture.m in Sources */,
+				DEFE4BE1101B31DF00E22471 /* SPButton.m in Sources */,
+				DEFE4BD2101B31DF00E22471 /* SPEvent.m in Sources */,
+				DEFE4BD3101B31DF00E22471 /* SPEventDispatcher.m in Sources */,
+				DEFE4BD4101B31DF00E22471 /* SPTouch.m in Sources */,
+				DEFE4BD5101B31DF00E22471 /* SPTouchEvent.m in Sources */,
+				DEFE4BD6101B31DF00E22471 /* SPEnterFrameEvent.m in Sources */,
+				DEFE4BD1101B31DF00E22471 /* SPView.m in Sources */,
+				DEFE4BCE101B31DF00E22471 /* SPTransitions.m in Sources */,
+				DE019C391026360B00ECB0AC /* SPTween.m in Sources */,
+				DE019C3A1026361200ECB0AC /* SPDelayedInvocation.m in Sources */,
+				DE019C3B1026363D00ECB0AC /* SPNSExtensions.m in Sources */,
+				DE019C3C1026364800ECB0AC /* SPJuggler.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DEEA934D101E33ED0071DD21 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DEFE4BC1101B317600E22471 /* Sparrow */;
+			targetProxy = DEEA934C101E33ED0071DD21 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Daniel Sperl";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "649F17D4-26BF-4FDA-A66D-BC080AF4D08C";
+				SDKROOT = iphoneos2.2.1;
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = iphoneos2.2.1;
+			};
+			name = Release;
+		};
+		DEEA9337101E32A40071DD21 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INFOPLIST_FILE = "UnitTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					SenTestingKit,
+					"-framework",
+					UIKit,
+					"-ObjC",
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = UnitTest;
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		DEEA9338101E32A40071DD21 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				INFOPLIST_FILE = "UnitTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					SenTestingKit,
+					"-framework",
+					UIKit,
+					"-ObjC",
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = UnitTest;
+				WRAPPER_EXTENSION = octest;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		DEFE4BC3101B317700E22471 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_PEDANTIC = NO;
+				OTHER_LDFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = Sparrow;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				SDKROOT = iphoneos3.0;
+			};
+			name = Debug;
+		};
+		DEFE4BC4101B317700E22471 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_WARN_PEDANTIC = NO;
+				OTHER_LDFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = Sparrow;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				SDKROOT = iphoneos3.0;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Sparrow" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DEEA9339101E32A40071DD21 /* Build configuration list for PBXNativeTarget "UnitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DEEA9337101E32A40071DD21 /* Debug */,
+				DEEA9338101E32A40071DD21 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DEFE4BCC101B317A00E22471 /* Build configuration list for PBXNativeTarget "Sparrow" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DEFE4BC3101B317700E22471 /* Debug */,
+				DEFE4BC4101B317700E22471 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}

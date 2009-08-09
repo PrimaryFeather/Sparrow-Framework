@@ -1,0 +1,9 @@
+<TextureAtlas imagePath="atlas.png">
+  <SubTexture name="astronaut" x="0" y="0" width="115" height="179"/>
+  <SubTexture name="jupiter" x="158" y="0" width="152" height="150"/>
+  <SubTexture name="moon" x="314" y="0" width="130" height="130"/>
+  <SubTexture name="saturn" x="314" y="130" width="184" height="140"/>
+  <SubTexture name="button_yes" x="0" y="260" width="95" height="80"/>
+  <SubTexture name="button_no" x="95" y="260" width="95" height="80"/>
+  <SubTexture name="button_wide" x="0" y="338" width="167" height="47"/>
+</TextureAtlas>

@@ -1,0 +1,5 @@
+<TextureAtlas imagePath="atlas_test.png">
+  <SubTexture name="red" x="10" y="10" width="130" height="30"/>
+  <SubTexture name="green" x="140" y="10" width="50" height="80"/>
+  <SubTexture name="blue" x="90" y="90" width="160" height="30"/>
+</TextureAtlas>
