@@ -122,6 +122,13 @@
     return [self boundsInSpace:nil];
 }
 
+- (SPDisplayObject*)hitTestPoint:(SPPoint*)localPoint
+{    
+    if (!self.isVisible) return nil; // when overriding this method, make this check as well!
+    else if ([[self boundsInSpace:self] containsPoint:localPoint]) return self;
+    else return nil;
+}
+
 - (SPPoint*)localToGlobal:(SPPoint*)localPoint
 {
     // move up until parent is nil
@@ -153,12 +160,6 @@
     SPPoint *localPoint = [transformationMatrix transformPoint:globalPoint];
     [transformationMatrix release];
     return localPoint;
-}
-
-- (BOOL)hitTestPoint:(SPPoint*)globalPoint
-{
-    SPPoint *localPoint = [self globalToLocal:globalPoint];
-    return [self.bounds containsPoint:localPoint];
 }
 
 - (void)dispatchEvent:(SPEvent*)event

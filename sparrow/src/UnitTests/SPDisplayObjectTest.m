@@ -124,7 +124,7 @@
 {
     SPSprite *sprite = [[SPSprite alloc] init];
     sprite.x = 10;
-    sprite.y = 20;    
+    sprite.y = 20;
     SPSprite *sprite2 = [[SPSprite alloc] init];
     sprite2.x = 150;
     sprite2.y = 200;    
@@ -141,17 +141,20 @@
 
 - (void)testHitTestPoint
 {
-    SPSprite *sprite = [[SPSprite alloc] init];
-    sprite.x = 10;
-    sprite.y = 20;
-    
     SPQuad *quad = [[SPQuad alloc] initWithWidth:25 height:10];
-    [sprite addChild:quad];
     
-    STAssertTrue([quad hitTestPoint:[SPPoint pointWithX:15 y:25]], @"point not inside");
+    STAssertNotNil([quad hitTestPoint:[SPPoint pointWithX:15 y:5]], @"point should be inside");
+    STAssertNotNil([quad hitTestPoint:[SPPoint pointWithX:0 y:0]],  @"point should be inside");
+    STAssertNotNil([quad hitTestPoint:[SPPoint pointWithX:25 y:0]], @"point should be inside");
+    STAssertNotNil([quad hitTestPoint:[SPPoint pointWithX:25 y:10]], @"point should be inside");
+    STAssertNotNil([quad hitTestPoint:[SPPoint pointWithX:0 y:10]], @"point should be inside");
+    STAssertNil([quad hitTestPoint:[SPPoint pointWithX:-1 y:-1]], @"point should be outside");    
+    STAssertNil([quad hitTestPoint:[SPPoint pointWithX:26 y:11]], @"point should be outside");
+    
+    quad.isVisible = NO;
+    STAssertNil([quad hitTestPoint:[SPPoint pointWithX:15 y:5]], @"hitTest should fail, object invisible");
     
     [quad release];
-    [sprite release];
 }
 
 @end

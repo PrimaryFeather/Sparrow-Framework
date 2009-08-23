@@ -13,6 +13,8 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
+		DE396AE8104055A100C27DDF /* CustomHitTestScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DE396AE7104055A100C27DDF /* CustomHitTestScene.m */; };
+		DE396AEB104056A500C27DDF /* RoundButton.m in Sources */ = {isa = PBXBuildFile; fileRef = DE396AEA104056A500C27DDF /* RoundButton.m */; };
 		DED0B68F101C8654008D3794 /* atlas.png in Resources */ = {isa = PBXBuildFile; fileRef = DED0B68D101C8654008D3794 /* atlas.png */; };
 		DED0B690101C8654008D3794 /* atlas.xml in Resources */ = {isa = PBXBuildFile; fileRef = DED0B68E101C8654008D3794 /* atlas.xml */; };
 		DED0B707101C8F9B008D3794 /* button_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = DED0B705101C8F9B008D3794 /* button_blue.png */; };
@@ -62,6 +64,10 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* Demo_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Demo_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Demo-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Demo-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		DE396AE6104055A100C27DDF /* CustomHitTestScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomHitTestScene.h; sourceTree = "<group>"; };
+		DE396AE7104055A100C27DDF /* CustomHitTestScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomHitTestScene.m; sourceTree = "<group>"; };
+		DE396AE9104056A500C27DDF /* RoundButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoundButton.h; sourceTree = "<group>"; };
+		DE396AEA104056A500C27DDF /* RoundButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoundButton.m; sourceTree = "<group>"; };
 		DED0B68D101C8654008D3794 /* atlas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = atlas.png; path = media/atlas.png; sourceTree = "<group>"; };
 		DED0B68E101C8654008D3794 /* atlas.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = atlas.xml; path = media/atlas.xml; sourceTree = "<group>"; };
 		DED0B705101C8F9B008D3794 /* button_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_blue.png; path = media/button_blue.png; sourceTree = "<group>"; };
@@ -101,18 +107,12 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				DE396AE51040556300C27DDF /* Helpers */,
+				DE396AE41040555100C27DDF /* Scenes */,
 				DEFE4CEA101B684B00E22471 /* Game.h */,
 				DEFE4CEB101B684B00E22471 /* Game.m */,
-				DEFE4CEC101B684B00E22471 /* TouchScene.h */,
-				DEFE4CED101B684B00E22471 /* TouchScene.m */,
-				DEFE4CEE101B684B00E22471 /* TouchSheet.h */,
-				DEFE4CEF101B684B00E22471 /* TouchSheet.m */,
 				1D3623240D0F684500981E51 /* DemoAppDelegate.h */,
 				1D3623250D0F684500981E51 /* DemoAppDelegate.m */,
-				DED0B717101C90CB008D3794 /* AtlasScene.h */,
-				DED0B718101C90CB008D3794 /* AtlasScene.m */,
-				DED0B7EE101CE0A9008D3794 /* TextScene.h */,
-				DED0B7EF101CE0A9008D3794 /* TextScene.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -170,6 +170,32 @@
 				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DE396AE41040555100C27DDF /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				DEFE4CEC101B684B00E22471 /* TouchScene.h */,
+				DEFE4CED101B684B00E22471 /* TouchScene.m */,
+				DED0B717101C90CB008D3794 /* AtlasScene.h */,
+				DED0B718101C90CB008D3794 /* AtlasScene.m */,
+				DED0B7EE101CE0A9008D3794 /* TextScene.h */,
+				DED0B7EF101CE0A9008D3794 /* TextScene.m */,
+				DE396AE6104055A100C27DDF /* CustomHitTestScene.h */,
+				DE396AE7104055A100C27DDF /* CustomHitTestScene.m */,
+			);
+			name = Scenes;
+			sourceTree = "<group>";
+		};
+		DE396AE51040556300C27DDF /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				DEFE4CEE101B684B00E22471 /* TouchSheet.h */,
+				DEFE4CEF101B684B00E22471 /* TouchSheet.m */,
+				DE396AE9104056A500C27DDF /* RoundButton.h */,
+				DE396AEA104056A500C27DDF /* RoundButton.m */,
+			);
+			name = Helpers;
 			sourceTree = "<group>";
 		};
 		DEFE4D40101B6C4A00E22471 /* Products */ = {
@@ -269,6 +295,8 @@
 				DEFE4CF2101B684B00E22471 /* TouchSheet.m in Sources */,
 				DED0B719101C90CB008D3794 /* AtlasScene.m in Sources */,
 				DED0B7F0101CE0A9008D3794 /* TextScene.m in Sources */,
+				DE396AE8104055A100C27DDF /* CustomHitTestScene.m in Sources */,
+				DE396AEB104056A500C27DDF /* RoundButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

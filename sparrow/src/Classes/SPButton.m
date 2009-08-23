@@ -78,6 +78,8 @@
     return [self initWithUpState:texture];   
 }
 
+#pragma mark -
+
 - (void)onTouch:(SPTouchEvent*)touchEvent
 {    
     if (!mEnabled) return;    

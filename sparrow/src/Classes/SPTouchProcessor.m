@@ -18,17 +18,6 @@
 #define MULTITAP_TIME 0.25f
 #define MULTITAP_DIST 25
 
-// --- private interface ---------------------------------------------------------------------------
-
-@interface  SPTouchProcessor ()
-
-- (SPDisplayObject*)findTouchTargetIn:(SPDisplayObject*)displayObject atPosition:(SPPoint*)position;
-
-@end
-
-
-// --- class implementation ------------------------------------------------------------------------
-
 @implementation SPTouchProcessor
 
 @synthesize root = mRoot;
@@ -72,7 +61,7 @@
                 {
                     // target could have been removed from stage -> find new target in that case
                     SPPoint *touchPosition = [SPPoint pointWithX:touch.globalX y:touch.globalY];
-                    existingTouch.target = [self findTouchTargetIn:mRoot atPosition:touchPosition];            
+                    existingTouch.target = [mRoot hitTestPoint:touchPosition];       
                 }
                
                 currentTouch = existingTouch;
@@ -92,7 +81,7 @@
             currentTouch.phase = touch.phase;
             currentTouch.tapCount = touch.tapCount;
             SPPoint *touchPosition = [SPPoint pointWithX:touch.globalX y:touch.globalY];
-            currentTouch.target = [self findTouchTargetIn:mRoot atPosition:touchPosition];            
+            currentTouch.target = [mRoot hitTestPoint:touchPosition];
             [mCurrentTouches addObject:currentTouch];
         }        
     }
@@ -120,31 +109,6 @@
 
     SP_RELEASE_POOL(pool);
 }
-
-- (SPDisplayObject*)findTouchTargetIn:(SPDisplayObject*)displayObject atPosition:(SPPoint*)position
-{    
-    if (!displayObject.isVisible) return nil;
-    
-    if ([displayObject isKindOfClass:[SPDisplayObjectContainer class]])
-    {
-        SPDisplayObjectContainer *container = (SPDisplayObjectContainer*)displayObject;
-        for (int i=container.numChildren-1; i>=0; --i) // front to back!
-        {
-            SPDisplayObject *child = [container childAtIndex:i];
-            SPMatrix *transformationMatrix = [displayObject transformationMatrixToSpace:child];
-            SPPoint *transformedPosition = [transformationMatrix transformPoint:position];
-            SPDisplayObject *target = [self findTouchTargetIn:child atPosition:transformedPosition];
-            if (target) return target;
-        }        
-    }
-    else
-    {
-        if ([[displayObject boundsInSpace:displayObject] containsPoint:position]) 
-            return displayObject;
-    }
-    return nil;
-}
-
 
 #pragma mark -
 

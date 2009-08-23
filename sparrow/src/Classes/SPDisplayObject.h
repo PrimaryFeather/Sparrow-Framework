@@ -50,6 +50,6 @@
 - (SPRectangle*)boundsInSpace:(SPDisplayObject*)targetCoordinateSpace;
 - (SPPoint*)localToGlobal:(SPPoint*)localPoint;
 - (SPPoint*)globalToLocal:(SPPoint*)globalPoint;
-- (BOOL)hitTestPoint:(SPPoint*)globalPoint;
+- (SPDisplayObject*)hitTestPoint:(SPPoint*)localPoint;
 
 @end

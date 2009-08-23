@@ -10,6 +10,7 @@
 #import "AtlasScene.h"
 #import "TouchScene.h"
 #import "TextScene.h"
+#import "CustomHitTestScene.h"
 
 // --- private interface ---------------------------------------------------------------------------
 
@@ -51,13 +52,11 @@
         mTextButton.y = mTouchButton.y + mTouchButton.height;
         [mSceneButtons addChild:mTextButton];
         
-        /*
-        SPButton *mAtlasButton;    
-        SPButton *mTouchButton;
-        SPButton *mTextButton;
-        SPButton *mTweenButton;
-        SPButton *mBackButton;    
-        */
+        mCustomHitTestButton = [SPButton buttonWithUpState:sceneButtonTexture text:@"Custom hit-test"];
+        [mCustomHitTestButton addEventListener:@selector(onCustomHitTestButtonTriggered:)
+                                      atObject:self forType:SP_EVENT_TYPE_TRIGGERED];
+        mCustomHitTestButton.y = mTextButton.y + mTextButton.height;
+        [mSceneButtons addChild:mCustomHitTestButton];
         
         SPTexture *backButtonTexture = [SPStaticTexture textureWithContentsOfFile:@"button_yellow.png"];
         mBackButton = [[SPButton alloc] initWithUpState:backButtonTexture text:@"back"];
@@ -111,6 +110,13 @@
     [scene release];
 }
 
+- (void)onCustomHitTestButtonTriggered:(SPEvent*)event
+{
+    SPSprite *scene = [[CustomHitTestScene alloc] init];
+    [self showScene:scene];
+    [scene release];
+}
+
 #pragma mark -
 
 - (void)dealloc
@@ -118,6 +124,7 @@
     [mAtlasButton removeEventListenersAtObject:self forType:SP_EVENT_TYPE_TRIGGERED];
     [mTouchButton removeEventListenersAtObject:self forType:SP_EVENT_TYPE_TRIGGERED];
     [mTextButton  removeEventListenersAtObject:self forType:SP_EVENT_TYPE_TRIGGERED];
+    [mCustomHitTestButton removeEventListenersAtObject:self forType:SP_EVENT_TYPE_TRIGGERED];
     
     [mSceneButtons release]; // automatically releases all child buttons    
     [mBackButton release];
