@@ -33,7 +33,9 @@
         listeners = [NSMutableArray array];
         [mEventListeners setObject:listeners forKey:eventType];        
     }    
-    [listeners addObject:[NSInvocation invocationWithTarget:object selector:listener]];
+    NSInvocation *invocation = [NSInvocation invocationWithTarget:object selector:listener];
+    [invocation retainArguments];
+    [listeners addObject:invocation];
 }
 
 - (void)removeEventListener:(SEL)listener atObject:(id)object forType:(NSString*)eventType

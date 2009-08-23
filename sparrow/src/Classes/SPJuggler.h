@@ -13,7 +13,6 @@
 {
   @private
     NSMutableSet *mObjects;
-    double mCurrentTime;
 }
 
 - (void)addObject:(id<SPAnimatable>)object;

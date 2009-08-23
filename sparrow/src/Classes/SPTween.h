@@ -38,7 +38,7 @@
 - (id)initWithTarget:(id)target time:(double)time transition:(NSString*)transition;
 - (id)initWithTarget:(id)target time:(double)time;
 
-- (void)addProperty:(NSString*)property targetValue:(float)value;
+- (void)animateProperty:(NSString*)property targetValue:(float)value;
 
 + (SPTween*)tweenWithTarget:(id)target time:(double)time transition:(NSString*)transition;
 + (SPTween*)tweenWithTarget:(id)target time:(double)time;

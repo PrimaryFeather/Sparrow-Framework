@@ -19,8 +19,8 @@
     SPButton *mAtlasButton;    
     SPButton *mTouchButton;
     SPButton *mTextButton;
+    SPButton *mAnimationButton;
     SPButton *mCustomHitTestButton;
-    SPButton *mTweenButton;
 
 }
 

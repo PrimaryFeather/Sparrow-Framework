@@ -10,12 +10,14 @@
 #import "SPMakros.h"
 #import "SPEnterFrameEvent.h"
 #import "SPTouchProcessor.h"
+#import "SPJuggler.h"
 
 @implementation SPStage
 
 @synthesize width = mWidth;
 @synthesize height = mHeight;
 @synthesize frameRate = mFrameRate;
+@synthesize juggler = mJuggler;
 
 - (id)initWithWidth:(float)width height:(float)height
 {    
@@ -24,6 +26,7 @@
         mWidth = width;
         mHeight = height;
         mTouchProcessor = [[SPTouchProcessor alloc] initWithRoot:self];
+        mJuggler = [[SPJuggler alloc] init];
     }
     return self;
 }
@@ -45,6 +48,9 @@
         mFrameRate = (float)mFrameCount / (float)mCumulatedTime;
         mFrameCount = mCumulatedTime = 0;
     }
+    
+    // advance juggler
+    [mJuggler advanceTime:seconds];
     
     // dispatch EnterFrameEvent
     SPEnterFrameEvent *enterFrameEvent = [[SPEnterFrameEvent alloc] 
@@ -113,6 +119,7 @@
 - (void)dealloc 
 {    
     [mTouchProcessor release];
+    [mJuggler release];
     [super dealloc];
 }
 

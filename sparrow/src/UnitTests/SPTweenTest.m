@@ -57,9 +57,9 @@
     quad.alpha = startAlpha;
     
     SPTween *tween = [SPTween tweenWithTarget:quad time:totalTime transition:SP_TRANSITION_LINEAR];
-    [tween addProperty:@"x" targetValue:endX];
-    [tween addProperty:@"y" targetValue:endY];
-    [tween addProperty:@"alpha" targetValue:endAlpha];    
+    [tween animateProperty:@"x" targetValue:endX];
+    [tween animateProperty:@"y" targetValue:endY];
+    [tween animateProperty:@"alpha" targetValue:endAlpha];    
     [tween addEventListener:@selector(onTweenStarted:) atObject:self forType:SP_EVENT_TYPE_TWEEN_STARTED];
     [tween addEventListener:@selector(onTweenUpdated:) atObject:self forType:SP_EVENT_TYPE_TWEEN_UPDATED];    
     [tween addEventListener:@selector(onTweenCompleted:) atObject:self forType:SP_EVENT_TYPE_TWEEN_COMPLETED];

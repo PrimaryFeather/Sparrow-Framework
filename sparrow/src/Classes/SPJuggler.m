@@ -12,34 +12,27 @@
 
 @implementation SPJuggler
 
-@synthesize currentTime = mCurrentTime;
-
 - (id)init
 {    
     if (self = [super init])
     {        
         mObjects = [[NSMutableSet alloc] init];
-        mCurrentTime = 0.0;        
     }
     return self;
 }
 
-- (double)totalTime
+- (BOOL)isComplete
 {
-    return DBL_MAX;
+    return NO;
 }
 
-- (void)setCurrentTime:(double)currentTime
+- (void)advanceTime:(double)seconds
 {
-    double delta = currentTime - mCurrentTime;
-    mCurrentTime = currentTime;    
-    NSMutableSet *remainingObjects = [[NSMutableSet alloc] initWithCapacity:mObjects.count];
-    
+    NSMutableSet *remainingObjects = [[NSMutableSet alloc] initWithCapacity:mObjects.count];    
     for (id<SPAnimatable> object in mObjects)    
     {
-        object.currentTime += delta;        
-        if (object.currentTime < object.totalTime)
-            [remainingObjects addObject:object];
+        [object advanceTime:seconds];        
+        if (!object.isComplete) [remainingObjects addObject:object];
     }
     
     [mObjects release];

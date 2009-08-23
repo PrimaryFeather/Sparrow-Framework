@@ -52,7 +52,7 @@
     return [self initWithTarget:target time:time transition:SP_TRANSITION_LINEAR];
 }
 
-- (void)addProperty:(NSString*)property targetValue:(float)value
+- (void)animateProperty:(NSString*)property targetValue:(float)value
 {
     SEL getter = NSSelectorFromString(property);
     SEL setter = NSSelectorFromString([NSString stringWithFormat:@"set%@%@:", 
@@ -78,10 +78,15 @@
     [mEndValues addObject:[NSNumber numberWithFloat:value]];    
 }
 
+- (void)advanceTime:(double)seconds
+{
+    [self setCurrentTime:mCurrentTime + seconds];
+}
+
 - (void)setCurrentTime:(double)currentTime
 {
     double previousTime = mCurrentTime;    
-    mCurrentTime = currentTime;
+    mCurrentTime = MIN(mTotalTime, currentTime);
 
     if (mCurrentTime < 0 || previousTime >= mTotalTime) return;
     
@@ -128,6 +133,11 @@
 {
     NSString *selectorName = NSStringFromSelector(mTransitionInvocation.selector);
     return [selectorName substringToIndex:selectorName.length - [TRANS_SUFFIX length]];
+}
+
+- (BOOL)isComplete
+{
+    return mCurrentTime >= mTotalTime;
 }
 
 + (SPTween*)tweenWithTarget:(id)target time:(double)time transition:(NSString*)transition

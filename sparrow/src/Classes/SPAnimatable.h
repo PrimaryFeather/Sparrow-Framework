@@ -10,7 +10,8 @@
 
 @protocol SPAnimatable
 
-@property (nonatomic, readonly) double totalTime;
-@property (nonatomic, assign)   double currentTime;
+- (void)advanceTime:(double)seconds;
+
+@property (nonatomic, readonly) BOOL isComplete;
 
 @end

@@ -21,6 +21,7 @@
 		DED0B708101C8F9B008D3794 /* button_yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = DED0B706101C8F9B008D3794 /* button_yellow.png */; };
 		DED0B719101C90CB008D3794 /* AtlasScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DED0B718101C90CB008D3794 /* AtlasScene.m */; };
 		DED0B7F0101CE0A9008D3794 /* TextScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DED0B7EF101CE0A9008D3794 /* TextScene.m */; };
+		DED6FF371041623A001FF6C8 /* AnimationScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DED6FF361041623A001FF6C8 /* AnimationScene.m */; };
 		DEEA9430101E45B80071DD21 /* libSparrow.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DEFE4D46101B6C4A00E22471 /* libSparrow.a */; };
 		DEFE4CF0101B684B00E22471 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFE4CEB101B684B00E22471 /* Game.m */; };
 		DEFE4CF1101B684B00E22471 /* TouchScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFE4CED101B684B00E22471 /* TouchScene.m */; };
@@ -76,6 +77,8 @@
 		DED0B718101C90CB008D3794 /* AtlasScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtlasScene.m; sourceTree = "<group>"; };
 		DED0B7EE101CE0A9008D3794 /* TextScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextScene.h; sourceTree = "<group>"; };
 		DED0B7EF101CE0A9008D3794 /* TextScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextScene.m; sourceTree = "<group>"; };
+		DED6FF351041623A001FF6C8 /* AnimationScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationScene.h; sourceTree = "<group>"; };
+		DED6FF361041623A001FF6C8 /* AnimationScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationScene.m; sourceTree = "<group>"; };
 		DEFE4CEA101B684B00E22471 /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
 		DEFE4CEB101B684B00E22471 /* Game.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Game.m; sourceTree = "<group>"; };
 		DEFE4CEC101B684B00E22471 /* TouchScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchScene.h; sourceTree = "<group>"; };
@@ -183,6 +186,8 @@
 				DED0B7EF101CE0A9008D3794 /* TextScene.m */,
 				DE396AE6104055A100C27DDF /* CustomHitTestScene.h */,
 				DE396AE7104055A100C27DDF /* CustomHitTestScene.m */,
+				DED6FF351041623A001FF6C8 /* AnimationScene.h */,
+				DED6FF361041623A001FF6C8 /* AnimationScene.m */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -297,6 +302,7 @@
 				DED0B7F0101CE0A9008D3794 /* TextScene.m in Sources */,
 				DE396AE8104055A100C27DDF /* CustomHitTestScene.m in Sources */,
 				DE396AEB104056A500C27DDF /* RoundButton.m in Sources */,
+				DED6FF371041623A001FF6C8 /* AnimationScene.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

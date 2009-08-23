@@ -10,6 +10,7 @@
 #import "SPDisplayObjectContainer.h"
 
 @class SPTouchProcessor;
+@class SPJuggler;
 
 @interface SPStage : SPDisplayObjectContainer
 {
@@ -23,9 +24,11 @@
     float mFrameRate;
     
     SPTouchProcessor *mTouchProcessor;
+    SPJuggler *mJuggler;
 }
 
 @property (nonatomic, readonly) float frameRate;
+@property (nonatomic, readonly) SPJuggler *juggler;
 
 - (id)initWithWidth:(float)width height:(float)height;
 - (void)advanceTime:(double)seconds;

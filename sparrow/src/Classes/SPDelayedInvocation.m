@@ -41,16 +41,26 @@
         [mInvocations addObject:anInvocation];
 }
 
+- (void)advanceTime:(double)seconds
+{
+    self.currentTime = mCurrentTime + seconds;
+}
+
 - (void)setCurrentTime:(double)currentTime
 {
     double previousTime = mCurrentTime;    
-    mCurrentTime = currentTime;
+    mCurrentTime = MIN(mTotalTime, currentTime);
     
     if (previousTime < mTotalTime && mCurrentTime >= mTotalTime)
     {
         for (NSInvocation *inv in mInvocations)                    
             [inv invokeWithTarget:mTarget];
     }    
+}
+
+- (BOOL)isComplete
+{
+    return mCurrentTime >= mTotalTime;
 }
 
 + (SPDelayedInvocation*)invocationWithTarget:(id)target delay:(double)time

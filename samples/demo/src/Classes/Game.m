@@ -10,6 +10,7 @@
 #import "AtlasScene.h"
 #import "TouchScene.h"
 #import "TextScene.h"
+#import "AnimationScene.h"
 #import "CustomHitTestScene.h"
 
 // --- private interface ---------------------------------------------------------------------------
@@ -31,7 +32,7 @@
         SPTexture *sceneButtonTexture = [SPStaticTexture textureWithContentsOfFile:@"button_blue.png"];        
 
         mSceneButtons = [[SPSprite alloc] init];
-        mSceneButtons.x = (self.stage.width - sceneButtonTexture.width) / 2.0f;
+        mSceneButtons.x = (self.width - sceneButtonTexture.width) / 2.0f;
         mSceneButtons.y = 20;        
         [self addChild:mSceneButtons];        
         
@@ -51,13 +52,19 @@
                                forType:SP_EVENT_TYPE_TRIGGERED];
         mTextButton.y = mTouchButton.y + mTouchButton.height;
         [mSceneButtons addChild:mTextButton];
+
+        mAnimationButton = [SPButton buttonWithUpState:sceneButtonTexture text:@"Animations"];
+        [mAnimationButton addEventListener:@selector(onAnimationButtonTriggered:) atObject:self
+                               forType:SP_EVENT_TYPE_TRIGGERED];
+        mAnimationButton.y = mTextButton.y + mTextButton.height;
+        [mSceneButtons addChild:mAnimationButton];        
         
         mCustomHitTestButton = [SPButton buttonWithUpState:sceneButtonTexture text:@"Custom hit-test"];
         [mCustomHitTestButton addEventListener:@selector(onCustomHitTestButtonTriggered:)
                                       atObject:self forType:SP_EVENT_TYPE_TRIGGERED];
-        mCustomHitTestButton.y = mTextButton.y + mTextButton.height;
-        [mSceneButtons addChild:mCustomHitTestButton];
-        
+        mCustomHitTestButton.y =  mAnimationButton.y + mAnimationButton.height;
+        [mSceneButtons addChild:mCustomHitTestButton];        
+
         SPTexture *backButtonTexture = [SPStaticTexture textureWithContentsOfFile:@"button_yellow.png"];
         mBackButton = [[SPButton alloc] initWithUpState:backButtonTexture text:@"back"];
         mBackButton.isVisible = NO;
@@ -110,6 +117,13 @@
     [scene release];
 }
 
+- (void)onAnimationButtonTriggered:(SPEvent*)event
+{
+    SPSprite *scene = [[AnimationScene alloc] init];
+    [self showScene:scene];
+    [scene release];
+}
+
 - (void)onCustomHitTestButtonTriggered:(SPEvent*)event
 {
     SPSprite *scene = [[CustomHitTestScene alloc] init];
@@ -124,6 +138,7 @@
     [mAtlasButton removeEventListenersAtObject:self forType:SP_EVENT_TYPE_TRIGGERED];
     [mTouchButton removeEventListenersAtObject:self forType:SP_EVENT_TYPE_TRIGGERED];
     [mTextButton  removeEventListenersAtObject:self forType:SP_EVENT_TYPE_TRIGGERED];
+    [mAnimationButton removeEventListenersAtObject:self forType:SP_EVENT_TYPE_TRIGGERED];
     [mCustomHitTestButton removeEventListenersAtObject:self forType:SP_EVENT_TYPE_TRIGGERED];
     
     [mSceneButtons release]; // automatically releases all child buttons    
