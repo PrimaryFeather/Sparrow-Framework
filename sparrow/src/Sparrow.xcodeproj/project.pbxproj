@@ -11,6 +11,7 @@
 		DE019C3A1026361200ECB0AC /* SPDelayedInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFB1B94100926260022C117 /* SPDelayedInvocation.m */; };
 		DE019C3B1026363D00ECB0AC /* SPNSExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = DE68EA160FBB5660004DBC95 /* SPNSExtensions.m */; };
 		DE019C3C1026364800ECB0AC /* SPJuggler.m in Sources */ = {isa = PBXBuildFile; fileRef = DE7044270FB61506007F5ECC /* SPJuggler.m */; };
+		DE1F946B10470CD40084D470 /* SPJugglerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DE1F9446104704440084D470 /* SPJugglerTest.m */; };
 		DEEA933A101E32E10071DD21 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE9CF1EB0FED3128008A32FF /* CoreGraphics.framework */; };
 		DEEA933B101E32E10071DD21 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		DEEA933C101E32E10071DD21 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD14FF0DC6FC520079059D /* OpenGLES.framework */; };
@@ -77,6 +78,7 @@
 		DE0853A40FEC286900DAF53C /* SPImageTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPImageTest.m; sourceTree = "<group>"; };
 		DE0853F80FEC2CFF00DAF53C /* SPTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPTexture.h; sourceTree = "<group>"; };
 		DE0853F90FEC2CFF00DAF53C /* SPTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPTexture.m; sourceTree = "<group>"; };
+		DE1F9446104704440084D470 /* SPJugglerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPJugglerTest.m; sourceTree = "<group>"; };
 		DE2ED8040F6D52080012B6BA /* SPDisplayObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPDisplayObject.h; sourceTree = "<group>"; };
 		DE2ED8050F6D52080012B6BA /* SPDisplayObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPDisplayObject.m; sourceTree = "<group>"; };
 		DE2ED8080F6D53020012B6BA /* SPDisplayObjectContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPDisplayObjectContainer.h; sourceTree = "<group>"; };
@@ -261,6 +263,7 @@
 				DEE594490FA63BA800E3AEFC /* SPEventDispatcherTest.m */,
 				DE75E8660FBDC57E00C64495 /* SPTweenTest.m */,
 				DE0853A40FEC286900DAF53C /* SPImageTest.m */,
+				DE1F9446104704440084D470 /* SPJugglerTest.m */,
 			);
 			path = UnitTests;
 			sourceTree = "<group>";
@@ -459,6 +462,7 @@
 				DEEA936B101E383D0071DD21 /* SPEventDispatcherTest.m in Sources */,
 				DEEA936C101E383D0071DD21 /* SPTweenTest.m in Sources */,
 				DEEA936D101E383D0071DD21 /* SPImageTest.m in Sources */,
+				DE1F946B10470CD40084D470 /* SPJugglerTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -20,6 +20,7 @@
 {
     SPJuggler *mJuggler;
     SPQuad *mQuad;    
+    BOOL mStartedReached;
 }
 
 @end
@@ -28,28 +29,42 @@
 
 @implementation SPJugglerTest
 
+- (void)setUp
+{
+    mStartedReached = NO;
+}
+
 - (void)testModificationWhileInEvent
 {    
     mJuggler = [[SPJuggler alloc] init];
     
     SPQuad *quad = [[SPQuad alloc] initWithWidth:100 height:100];    
     SPTween *tween = [SPTween tweenWithTarget:quad time:1.0f];
-    [tween animateProperty:@"x" targetValue:20];    
     [tween addEventListener:@selector(onTweenCompleted:) atObject:self 
                     forType:SP_EVENT_TYPE_TWEEN_COMPLETED];    
     [mJuggler addObject:tween];
     
-    [mJuggler advanceTime:0.3]; // -> 0.3 (start)
-    [mJuggler advanceTime:0.3]; // -> 0.6 (update)
-
-    STAssertNoThrow([mJuggler advanceTime:0.5], // -> 1.1 (complete) 
+    [mJuggler advanceTime:0.4]; // -> 0.4 (start)
+    [mJuggler advanceTime:0.4]; // -> 0.8 (update)    
+    
+    STAssertNoThrow([mJuggler advanceTime:0.4], // -> 1.2 (complete)
                     @"juggler could not cope with modification in tween callback");
+    
+    [mJuggler advanceTime:0.4]; // 1.6 (start of new tween)
+    STAssertTrue(mStartedReached, @"juggler ignored modification made in callback");    
 }
 
 - (void)onTweenCompleted:(SPEvent*)event
 {
-    SPTween *tween = [SPTween tweenWithTarget:mQuad time:0.5];    
+    SPTween *tween = [SPTween tweenWithTarget:mQuad time:1.0f];        
+    [tween addEventListener:@selector(onTweenStarted:) atObject:self 
+                    forType:SP_EVENT_TYPE_TWEEN_STARTED];
     [mJuggler addObject:tween];
+}
+
+- (void)onTweenStarted:(SPEvent*)event
+{
+    mStartedReached = YES;
 }
 
 - (void)dealloc

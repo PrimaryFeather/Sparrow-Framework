@@ -28,17 +28,16 @@
 
 - (void)advanceTime:(double)seconds
 {
-    NSMutableSet *remainingObjects = [[NSMutableSet alloc] initWithCapacity:mObjects.count];    
-    for (id<SPAnimatable> object in mObjects)    
+    // we need work with a copy, since user-code could modify the collection during the enumeration
+    NSMutableSet *objectsCopy = [mObjects copy];
+    for (id<SPAnimatable> object in objectsCopy)    
     {
         [object advanceTime:seconds];        
-        if (!object.isComplete) [remainingObjects addObject:object];
-    }
-    
-    [mObjects release];
-    mObjects = remainingObjects;
+        if (object.isComplete) [self removeObject:object];
+    }    
+    [objectsCopy release];
 }
-
+ 
 - (void)addObject:(id<SPAnimatable>)object
 {
     [mObjects addObject:object];    
