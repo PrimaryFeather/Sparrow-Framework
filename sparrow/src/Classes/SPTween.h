@@ -20,20 +20,22 @@
   @private
     id mTarget;
     NSInvocation *mTransitionInvocation;
-    NSMutableArray *mInvocations;    
+    NSMutableArray *mProperties;
+    NSMutableArray *mInvocations;
     NSMutableArray *mStartValues;
     NSMutableArray *mEndValues;
     
     double mTotalTime;
     double mCurrentTime;
+    double mDelay;
     BOOL mRoundToInt;
 }
 
 @property (nonatomic, readonly) id target;
 @property (nonatomic, readonly) NSString *transition;
 @property (nonatomic, assign)   BOOL roundToInt;
-@property (nonatomic, readonly) double totalTime;
-@property (nonatomic, assign)   double currentTime;
+@property (nonatomic, readonly) double time;
+@property (nonatomic, assign)   double delay;
 
 - (id)initWithTarget:(id)target time:(double)time transition:(NSString*)transition;
 - (id)initWithTarget:(id)target time:(double)time;

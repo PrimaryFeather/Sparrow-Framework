@@ -26,8 +26,8 @@
 
 @implementation SPTween
 
-@synthesize totalTime = mTotalTime;
-@synthesize currentTime = mCurrentTime;
+@synthesize time = mTotalTime;
+@synthesize delay = mDelay;
 @synthesize target = mTarget;
 @synthesize roundToInt = mRoundToInt;
 
@@ -36,9 +36,11 @@
     if (self = [super init])
     {
         mTarget = [target retain];
-        mTotalTime = time;
+        mTotalTime = MAX(0.0001, time); // zero is not allowed
         mCurrentTime = 0;
+        mDelay = 0;
         mRoundToInt = NO;
+        mProperties  = [[NSMutableArray alloc] init];
         mInvocations = [[NSMutableArray alloc] init];
         mStartValues = [[NSMutableArray alloc] init];
         mEndValues = [[NSMutableArray alloc] init];
@@ -53,47 +55,52 @@
 }
 
 - (void)animateProperty:(NSString*)property targetValue:(float)value
-{
+{    
     SEL getter = NSSelectorFromString(property);
     SEL setter = NSSelectorFromString([NSString stringWithFormat:@"set%@%@:", 
                                        [[property substringToIndex:1] uppercaseString], 
                                        [property substringFromIndex:1]]);
  
     if (![mTarget respondsToSelector:getter] || ![mTarget respondsToSelector:setter])
-        [NSException raise:SP_EXC_INVALID_OPERATION format:@"property not found or readonly: '%@'", property];
-    
-    // find the start value    
-    float startValue = 0.0f;
-    
-    NSInvocation *getterInv = [NSInvocation invocationWithTarget:mTarget selector:getter]; 
-    [getterInv invoke];
-    [getterInv getReturnValue:&startValue];
+        [NSException raise:SP_EXC_INVALID_OPERATION format:@"property not found or readonly: '%@'", property];    
     
     // create invocation vor setter
     NSInvocation *setterInv = [NSInvocation invocationWithTarget:mTarget selector:setter];    
     [mInvocations addObject:setterInv];    
     
-    // save start- & endValue
-    [mStartValues addObject:[NSNumber numberWithFloat:startValue]];
-    [mEndValues addObject:[NSNumber numberWithFloat:value]];    
+    // save property & endValue, placeholder for startValue
+    [mProperties addObject:property];
+    [mStartValues addObject:[NSNull null]];
+    [mEndValues addObject:[NSNumber numberWithFloat:value]];
 }
 
 - (void)advanceTime:(double)seconds
 {
-    [self setCurrentTime:mCurrentTime + seconds];
-}
-
-- (void)setCurrentTime:(double)currentTime
-{
     double previousTime = mCurrentTime;    
-    mCurrentTime = MIN(mTotalTime, currentTime);
+    mCurrentTime = MIN(mTotalTime, mCurrentTime + seconds);
 
     if (mCurrentTime < 0 || previousTime >= mTotalTime) return;
     
     float ratio = mCurrentTime / mTotalTime;    
     for (int i=0; i<mStartValues.count; ++i)
     {
-        float startValue = [[mStartValues objectAtIndex:i] floatValue];
+        NSNumber *startValueNumber = [mStartValues objectAtIndex:i];
+        if ((NSNull*) startValueNumber == [NSNull null])
+        {
+            // The tween should use the value of the property at the moment it starts.
+            // Since the start can be delayed, we have to read the value here, not when 
+            // the tween instance itself is created.            
+
+            SEL getter = NSSelectorFromString([mProperties objectAtIndex:i]);
+            float startValue = 0.0f;    
+            NSInvocation *getterInv = [NSInvocation invocationWithTarget:mTarget selector:getter]; 
+            [getterInv invoke];
+            [getterInv getReturnValue:&startValue];
+            startValueNumber = [NSNumber numberWithFloat:startValue];
+            [mStartValues replaceObjectAtIndex:i withObject:startValueNumber];
+        }        
+        
+        float startValue = [startValueNumber floatValue];
         float endValue = [[mEndValues objectAtIndex:i] floatValue];
         float delta = endValue - startValue;
         float transitionValue = 0;
@@ -112,9 +119,10 @@
     
     if (previousTime <= 0 && mCurrentTime > 0)
         [self dispatchEvent:[SPEvent eventWithType:SP_EVENT_TYPE_TWEEN_STARTED]];
-    else if (previousTime > 0 && mCurrentTime < mTotalTime)
-        [self dispatchEvent:[SPEvent eventWithType:SP_EVENT_TYPE_TWEEN_UPDATED]];    
-    else if (previousTime < mTotalTime && mCurrentTime >= mTotalTime)
+    
+    [self dispatchEvent:[SPEvent eventWithType:SP_EVENT_TYPE_TWEEN_UPDATED]];    
+    
+    if (previousTime < mTotalTime && mCurrentTime >= mTotalTime)
         [self dispatchEvent:[SPEvent eventWithType:SP_EVENT_TYPE_TWEEN_COMPLETED]];
 }
 
@@ -140,6 +148,12 @@
     return mCurrentTime >= mTotalTime;
 }
 
+- (void)setDelay:(double)delay
+{
+    mCurrentTime = mCurrentTime + mDelay - delay;
+    mDelay = delay;
+}
+
 + (SPTween*)tweenWithTarget:(id)target time:(double)time transition:(NSString*)transition
 {
     return [[[SPTween alloc] initWithTarget:target time:time transition:transition] autorelease];
@@ -154,6 +168,7 @@
 {
     [mTarget release];
     [mTransitionInvocation release];
+    [mProperties release];
     [mInvocations release];
     [mStartValues release];
     [mEndValues release];

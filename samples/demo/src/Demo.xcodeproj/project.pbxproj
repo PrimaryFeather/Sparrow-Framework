@@ -321,6 +321,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Daniel Sperl";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Daniel Sperl";
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -334,6 +336,8 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = Demo;
+				PROVISIONING_PROFILE = "649F17D4-26BF-4FDA-A66D-BC080AF4D08C";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "649F17D4-26BF-4FDA-A66D-BC080AF4D08C";
 				USER_HEADER_SEARCH_PATHS = "$(SPARROW_SRC)/**";
 			};
 			name = Debug;
