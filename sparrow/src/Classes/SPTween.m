@@ -40,8 +40,8 @@
         mCurrentTime = 0;
         mDelay = 0;
         mRoundToInt = NO;
-        mProperties  = [[NSMutableArray alloc] init];
-        mInvocations = [[NSMutableArray alloc] init];
+        mGetters  = [[NSMutableArray alloc] init];
+        mSetters = [[NSMutableArray alloc] init];
         mStartValues = [[NSMutableArray alloc] init];
         mEndValues = [[NSMutableArray alloc] init];
         self.transition = transition;        
@@ -64,12 +64,14 @@
     if (![mTarget respondsToSelector:getter] || ![mTarget respondsToSelector:setter])
         [NSException raise:SP_EXC_INVALID_OPERATION format:@"property not found or readonly: '%@'", property];    
     
-    // create invocation vor setter
-    NSInvocation *setterInv = [NSInvocation invocationWithTarget:mTarget selector:setter];    
-    [mInvocations addObject:setterInv];    
+    // create invocations
+    NSInvocation *getterInv = [NSInvocation invocationWithTarget:mTarget selector:getter];
+    [mGetters addObject:getterInv];
     
-    // save property & endValue, placeholder for startValue
-    [mProperties addObject:property];
+    NSInvocation *setterInv = [NSInvocation invocationWithTarget:mTarget selector:setter];    
+    [mSetters addObject:setterInv];        
+    
+    // save placeholder for startValue, endValue
     [mStartValues addObject:[NSNull null]];
     [mEndValues addObject:[NSNumber numberWithFloat:value]];
 }
@@ -88,12 +90,11 @@
         if ((NSNull*) startValueNumber == [NSNull null])
         {
             // The tween should use the value of the property at the moment it starts.
-            // Since the start can be delayed, we have to read the value here, not when 
-            // the tween instance itself is created.            
+            // Since the start can be delayed, we have to read the value here, 
+            // not in 'animateProperty:targetValue:'
 
-            SEL getter = NSSelectorFromString([mProperties objectAtIndex:i]);
-            float startValue = 0.0f;    
-            NSInvocation *getterInv = [NSInvocation invocationWithTarget:mTarget selector:getter]; 
+            float startValue = 0.0f;
+            NSInvocation *getterInv = [mGetters objectAtIndex:i];
             [getterInv invoke];
             [getterInv getReturnValue:&startValue];
             startValueNumber = [NSNumber numberWithFloat:startValue];
@@ -112,7 +113,7 @@
         float currentValue = startValue + transitionValue;        
         if (mRoundToInt) currentValue = roundf(currentValue);
     
-        NSInvocation *setterInv = [mInvocations objectAtIndex:i];
+        NSInvocation *setterInv = [mSetters objectAtIndex:i];
         [setterInv setArgument:&currentValue atIndex:2];
         [setterInv invoke];        
     }
@@ -168,8 +169,8 @@
 {
     [mTarget release];
     [mTransitionInvocation release];
-    [mProperties release];
-    [mInvocations release];
+    [mGetters release];
+    [mSetters release];
     [mStartValues release];
     [mEndValues release];
     [super dealloc];

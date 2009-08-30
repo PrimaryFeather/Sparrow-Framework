@@ -20,8 +20,8 @@
   @private
     id mTarget;
     NSInvocation *mTransitionInvocation;
-    NSMutableArray *mProperties;
-    NSMutableArray *mInvocations;
+    NSMutableArray *mSetters;
+    NSMutableArray *mGetters;
     NSMutableArray *mStartValues;
     NSMutableArray *mEndValues;
     
