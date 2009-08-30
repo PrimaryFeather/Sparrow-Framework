@@ -23,7 +23,7 @@
     
     Game *game = [[Game alloc] initWithWidth:320 height:480];        
     sparrowView.stage = game;
-    sparrowView.isPaused = NO;     
+    sparrowView.isStarted = YES;     
     [window makeKeyAndVisible];
     [game release];    
     

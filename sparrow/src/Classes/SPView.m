@@ -10,6 +10,7 @@
 #import <OpenGLES/EAGLDrawable.h>
 
 #import "SPStage.h"
+#import "SPStage_Internal.h"
 #import "SPView.h"
 #import "SPMakros.h"
 #import "SPTouch.h"
@@ -55,7 +56,7 @@
 
 - (id)initialize
 {
-    self.frameRate = 60;
+    self.frameRate = 60.0f;
     self.multipleTouchEnabled = YES;
     self.backgroundColor = [UIColor blackColor];
     [[UIApplication sharedApplication] setStatusBarHidden:YES animated:NO];
@@ -90,33 +91,43 @@
     }
 }
 
-- (void)setFrameRate:(int)value
+- (void)setFrameRate:(double)value
 {    
     mFrameRate = value;    
-    if (!self.isPaused)
+    if (self.isStarted)
     {
-        self.isPaused = YES;
-        self.isPaused = NO;
+        self.isStarted = NO;
+        self.isStarted = YES;
     }
 }
 
-- (BOOL)isPaused
+- (BOOL)isStarted
 {
-    return mTimer == nil;
+    return mTimer != nil;
 }
 
-- (void)setIsPaused:(BOOL)value
+- (void)setIsStarted:(BOOL)value
 {
-    if (self.isPaused == value) return;
-    if (!value && mFrameRate > 0)
+    if (self.isStarted == value) return;
+    if (value && mFrameRate > 0.0f)
     {
-        mLastFrameTimestamp = SP_TIMESTAMP();
         self.timer = [NSTimer scheduledTimerWithTimeInterval:(1.0f / mFrameRate) 
                               target:self selector:@selector(renderStage) userInfo:nil repeats:YES];
     }
     else
     {
         self.timer = nil;
+    }
+}
+
+- (void)setStage:(SPStage*)stage
+{
+    if (mStage != stage)
+    {
+        mStage.nativeView = nil;
+        [mStage release];
+        mStage = [stage retain];
+        mStage.nativeView = self;        
     }
 }
 
@@ -191,28 +202,22 @@
 
 - (void) touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event 
 {   
-    //NSLog(@"TouchesBegan: %d touches, event.allTouches: %d, timeStamp: %f",
-    //      touches.count, event.allTouches.count, event.timestamp);	
     [self processTouchEvent:event];
 } 
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event 
 {	
-    //NSLog(@"TouchesMoved: %d touches, event.allTouches: %d, timeStamp: %f",
-    //      touches.count, event.allTouches.count, event.timestamp);	
     [self processTouchEvent:event];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event 
 {
-    //NSLog(@"TouchesEnded: %d touches, event.allTouches: %d, timeStamp: %f",
-    //      touches.count, event.allTouches.count, event.timestamp);	
     [self processTouchEvent:event];
 }
 
 - (void)processTouchEvent:(UIEvent*)event
 {
-    if (mLastTouchTimestamp != event.timestamp)
+    if (self.isStarted && mLastTouchTimestamp != event.timestamp)
     {
         SP_CREATE_POOL(pool);
         
@@ -246,7 +251,8 @@
 {    
     self.timer = nil; // invalidates timer    
     if ([EAGLContext currentContext] == mContext) [EAGLContext setCurrentContext:nil];
-    [mContext release];   
+    [mContext release];  
+    [mStage release];
     
     [super dealloc];
 }

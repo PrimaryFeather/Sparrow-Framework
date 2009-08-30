@@ -17,18 +17,17 @@
   @private
     float mWidth;
     float mHeight;     
-    
-    // fps calculation
-    double mCumulatedTime;
-    int mFrameCount;
-    float mFrameRate;
-    
+ 
+    // helpers
     SPTouchProcessor *mTouchProcessor;
     SPJuggler *mJuggler;
+    
+    id mNativeView;
 }
 
-@property (nonatomic, readonly) float frameRate;
+@property (nonatomic, assign)   double frameRate;
 @property (nonatomic, readonly) SPJuggler *juggler;
+@property (nonatomic, readonly) id nativeView;
 
 - (id)initWithWidth:(float)width height:(float)height;
 - (void)advanceTime:(double)seconds;

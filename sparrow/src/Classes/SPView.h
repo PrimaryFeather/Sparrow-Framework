@@ -32,7 +32,7 @@ Note that setting the view non-opaque will only work if the EAGL surface has an 
     GLuint mFramebuffer;
     
     NSTimer *mTimer;
-    int mFrameRate;
+    double mFrameRate;
     double mLastFrameTimestamp;
     double mLastTouchTimestamp;
 }
@@ -40,8 +40,8 @@ Note that setting the view non-opaque will only work if the EAGL surface has an 
 - (id)initWithFrame:(CGRect)aRect;
 - (id)initWithCoder:(NSCoder*)coder;
 
-@property (nonatomic, assign) BOOL isPaused;
-@property (nonatomic, assign) int frameRate;
+@property (nonatomic, assign) BOOL isStarted;
+@property (nonatomic, assign) double frameRate;
 @property (nonatomic, retain) SPStage *stage;
 
 @end

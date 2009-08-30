@@ -16,8 +16,8 @@
 
 @synthesize width = mWidth;
 @synthesize height = mHeight;
-@synthesize frameRate = mFrameRate;
 @synthesize juggler = mJuggler;
+@synthesize nativeView = mNativeView;
 
 - (id)initWithWidth:(float)width height:(float)height
 {    
@@ -39,16 +39,7 @@
 - (void)advanceTime:(double)seconds
 {    
     SP_CREATE_POOL(pool);
-    
-    // update frameRate    
-    mCumulatedTime += seconds;
-    ++mFrameCount;
-    if (mCumulatedTime >= 1)
-    {        
-        mFrameRate = (float)mFrameCount / (float)mCumulatedTime;
-        mFrameCount = mCumulatedTime = 0;
-    }
-    
+            
     // advance juggler
     [mJuggler advanceTime:seconds];
     
@@ -112,6 +103,16 @@
 - (void)setRotationZ:(float)value
 {
     [NSException raise:SP_EXC_INVALID_OPERATION format:@"cannot rotate stage"];
+}
+
+- (void)setFrameRate:(double)value
+{
+    [mNativeView setFrameRate:value];
+}
+
+- (double)frameRate
+{
+    return [mNativeView frameRate];
 }
 
 #pragma mark -
