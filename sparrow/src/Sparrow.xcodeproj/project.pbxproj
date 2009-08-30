@@ -12,8 +12,7 @@
 		DE019C3B1026363D00ECB0AC /* SPNSExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = DE68EA160FBB5660004DBC95 /* SPNSExtensions.m */; };
 		DE019C3C1026364800ECB0AC /* SPJuggler.m in Sources */ = {isa = PBXBuildFile; fileRef = DE7044270FB61506007F5ECC /* SPJuggler.m */; };
 		DE1F946B10470CD40084D470 /* SPJugglerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DE1F9446104704440084D470 /* SPJugglerTest.m */; };
-		DE2AD84B104A84F1001AF0A0 /* SPStage_Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = DE2AD84A104A84F1001AF0A0 /* SPStage_Internal.m */; };
-		DE2AD9BD104A9C32001AF0A0 /* SPStage_Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = DE2AD84A104A84F1001AF0A0 /* SPStage_Internal.m */; };
+		DEE0D8AA104B06FE009A7C99 /* SPStage_Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = DE2AD84A104A84F1001AF0A0 /* SPStage_Internal.m */; };
 		DEEA933A101E32E10071DD21 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE9CF1EB0FED3128008A32FF /* CoreGraphics.framework */; };
 		DEEA933B101E32E10071DD21 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		DEEA933C101E32E10071DD21 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD14FF0DC6FC520079059D /* OpenGLES.framework */; };
@@ -469,7 +468,6 @@
 				DEEA936C101E383D0071DD21 /* SPTweenTest.m in Sources */,
 				DEEA936D101E383D0071DD21 /* SPImageTest.m in Sources */,
 				DE1F946B10470CD40084D470 /* SPJugglerTest.m in Sources */,
-				DE2AD84B104A84F1001AF0A0 /* SPStage_Internal.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -508,7 +506,7 @@
 				DE019C3A1026361200ECB0AC /* SPDelayedInvocation.m in Sources */,
 				DE019C3B1026363D00ECB0AC /* SPNSExtensions.m in Sources */,
 				DE019C3C1026364800ECB0AC /* SPJuggler.m in Sources */,
-				DE2AD9BD104A9C32001AF0A0 /* SPStage_Internal.m in Sources */,
+				DEE0D8AA104B06FE009A7C99 /* SPStage_Internal.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
