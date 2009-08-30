@@ -177,20 +177,17 @@
     }
 }
 
-- (SPDisplayObject*)hitTestPoint:(SPPoint*)localPoint
+- (SPDisplayObject*)hitTestPoint:(SPPoint*)localPoint forTouch:(BOOL)isTouch;
 {
-    if (!self.isVisible) return nil;
+    if (isTouch && (!self.isVisible || !self.isTouchable)) 
+        return nil;
     
     for (int i=self.numChildren-1; i>=0; --i) // front to back!
     {
         SPDisplayObject *child = [self childAtIndex:i];        
-        
-        // the visibilty check has to be done by child as well, here it's just an optimization
-        if (!child.isVisible) continue; 
-        
         SPMatrix *transformationMatrix = [self transformationMatrixToSpace:child];
         SPPoint  *transformedPoint = [transformationMatrix transformPoint:localPoint];
-        SPDisplayObject *target = [child hitTestPoint:transformedPoint];
+        SPDisplayObject *target = [child hitTestPoint:transformedPoint forTouch:isTouch];
         if (target) return target;
     }
     

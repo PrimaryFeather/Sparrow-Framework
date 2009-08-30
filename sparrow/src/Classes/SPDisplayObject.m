@@ -24,6 +24,7 @@
 @synthesize parent = mParent;
 @synthesize alpha = mAlpha;
 @synthesize isVisible = mVisible;
+@synthesize isTouchable = mTouchable;
 
 #pragma mark -
 
@@ -43,6 +44,7 @@
         mScaleX = 1.0f;
         mScaleY = 1.0f;
         mVisible = YES;
+        mTouchable = YES;
     }
     return self;
 }
@@ -122,10 +124,13 @@
     return [self boundsInSpace:nil];
 }
 
-- (SPDisplayObject*)hitTestPoint:(SPPoint*)localPoint
-{    
-    if (!self.isVisible) return nil; // when overriding this method, make this check as well!
-    else if ([[self boundsInSpace:self] containsPoint:localPoint]) return self;
+- (SPDisplayObject*)hitTestPoint:(SPPoint*)localPoint forTouch:(BOOL)isTouch;
+{
+    // on a touch test, invisible or untouchable objects cause the test to fail
+    if (isTouch && (!self.isVisible || !self.isTouchable)) return nil;
+    
+    // otherwise, check bounding box
+    if ([[self boundsInSpace:self] containsPoint:localPoint]) return self; 
     else return nil;
 }
 

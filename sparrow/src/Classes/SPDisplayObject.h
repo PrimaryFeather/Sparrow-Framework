@@ -24,6 +24,7 @@
     float mRotationZ;
     float mAlpha;
     BOOL mVisible;
+    BOOL mTouchable;
     
     SPDisplayObjectContainer *mParent;    
     double mLastTouchTimestamp;
@@ -38,6 +39,7 @@
 @property (nonatomic, assign) float rotationZ;
 @property (nonatomic, assign) float alpha;
 @property (nonatomic, assign) BOOL isVisible;
+@property (nonatomic, assign) BOOL isTouchable;
 @property (nonatomic, readonly) SPRectangle *bounds;
 @property (nonatomic, readonly) SPDisplayObjectContainer *parent;
 @property (nonatomic, readonly) SPDisplayObject *root;
@@ -50,6 +52,6 @@
 - (SPRectangle*)boundsInSpace:(SPDisplayObject*)targetCoordinateSpace;
 - (SPPoint*)localToGlobal:(SPPoint*)localPoint;
 - (SPPoint*)globalToLocal:(SPPoint*)globalPoint;
-- (SPDisplayObject*)hitTestPoint:(SPPoint*)localPoint;
+- (SPDisplayObject*)hitTestPoint:(SPPoint*)localPoint forTouch:(BOOL)isTouch;
 
 @end

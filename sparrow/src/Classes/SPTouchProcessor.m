@@ -61,7 +61,7 @@
                 {
                     // target could have been removed from stage -> find new target in that case
                     SPPoint *touchPosition = [SPPoint pointWithX:touch.globalX y:touch.globalY];
-                    existingTouch.target = [mRoot hitTestPoint:touchPosition];       
+                    existingTouch.target = [mRoot hitTestPoint:touchPosition forTouch:YES];       
                 }
                
                 currentTouch = existingTouch;
@@ -81,7 +81,7 @@
             currentTouch.phase = touch.phase;
             currentTouch.tapCount = touch.tapCount;
             SPPoint *touchPosition = [SPPoint pointWithX:touch.globalX y:touch.globalY];
-            currentTouch.target = [mRoot hitTestPoint:touchPosition];
+            currentTouch.target = [mRoot hitTestPoint:touchPosition forTouch:YES];
             [mCurrentTouches addObject:currentTouch];
         }        
     }
