@@ -111,13 +111,14 @@
     if (self.isStarted == value) return;
     if (value && mFrameRate > 0.0f)
     {
+        mLastFrameTimestamp = SP_TIMESTAMP();
         self.timer = [NSTimer scheduledTimerWithTimeInterval:(1.0f / mFrameRate) 
                               target:self selector:@selector(renderStage) userInfo:nil repeats:YES];
     }
     else
     {
         self.timer = nil;
-    }
+    }    
 }
 
 - (void)setStage:(SPStage*)stage
