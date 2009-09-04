@@ -22,21 +22,17 @@
 @property (nonatomic, assign) float y;
 @property (nonatomic, assign) float width;
 @property (nonatomic, assign) float height;
+@property (nonatomic, readonly) BOOL isEmpty;
 
 - (id)initWithX:(float)x y:(float)y width:(float)width height:(float)height;
-- (BOOL)containsPoint:(SPPoint*)point;
 - (BOOL)containsX:(float)x y:(float)y;
-
-+ (SPRectangle*)rectangleWithX:(float)x y:(float)y width:(float)width height:(float)height;
-
-/*
-// todo: add at least the following methods:
+- (BOOL)containsPoint:(SPPoint*)point;
 - (BOOL)containsRectangle:(SPRectangle*)rectangle;
 - (BOOL)intersectsRectangle:(SPRectangle*)rectangle;
 - (SPRectangle*)intersectionWithRectangle:(SPRectangle*)rectangle;
 - (SPRectangle*)uniteWithRectangle:(SPRectangle*)rectangle; 
-- (BOOL)isEqual;
-// property: empty (set+get)
-*/
+- (void)setEmpty;
+
++ (SPRectangle*)rectangleWithX:(float)x y:(float)y width:(float)width height:(float)height;
  
 @end

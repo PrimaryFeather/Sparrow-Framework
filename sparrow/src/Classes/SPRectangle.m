@@ -34,14 +34,70 @@
     return [self initWithX:0.0f y:0.0f width:0.0f height:0.0f];
 }
 
+- (BOOL)containsX:(float)x y:(float)y
+{
+    return x >= mX && y >= mY && x <= mX + mWidth && y <= mY + mHeight;
+}
+
 - (BOOL)containsPoint:(SPPoint*)point
 {
     return [self containsX:point.x y:point.y];
 }
 
-- (BOOL)containsX:(float)x y:(float)y
+- (BOOL)containsRectangle:(SPRectangle*)rectangle
 {
-    return x >= mX && y >= mY && x <= mX + mWidth && y <= mY + mHeight;
+    float rX = rectangle.x;
+    float rY = rectangle.y;
+    float rWidth = rectangle.width;
+    float rHeight = rectangle.height;
+
+    return rX >= mX && rX + rWidth <= mX + mWidth &&
+           rY >= mY && rY + rHeight <= mY + mHeight;
+}
+
+- (BOOL)intersectsRectangle:(SPRectangle*)rectangle
+{
+    float rX = rectangle.x;
+    float rY = rectangle.y;
+    float rWidth = rectangle.width;
+    float rHeight = rectangle.height;
+    
+    BOOL outside = 
+        (rX <= mX && rX + rWidth <= mX)  || (rX >= mX + mWidth && rX + rWidth >= mX + mWidth) ||
+        (rY <= mY && rY + rHeight <= mY) || (rY >= mY + mHeight && rY + rHeight >= mY + mHeight);
+    return !outside;
+}
+
+- (SPRectangle*)intersectionWithRectangle:(SPRectangle*)rectangle
+{
+    float left = MAX(mX, rectangle.x);
+    float right = MIN(mX + mWidth, rectangle.x + rectangle.width);
+    float top = MAX(mY, rectangle.y);
+    float bottom = MIN(mY + mHeight, rectangle.y + rectangle.height);
+    
+    if (left > right || top > bottom)
+        return [SPRectangle rectangleWithX:0 y:0 width:0 height:0];
+    else
+        return [SPRectangle rectangleWithX:left y:top width:right-left height:bottom-top];
+}
+
+- (SPRectangle*)uniteWithRectangle:(SPRectangle*)rectangle
+{
+    float left = MIN(mX, rectangle.x);
+    float right = MAX(mX + mWidth, rectangle.x + rectangle.width);
+    float top = MIN(mY, rectangle.y);
+    float bottom = MAX(mY + mHeight, rectangle.y + rectangle.height);
+    return [SPRectangle rectangleWithX:left y:top width:right-left height:bottom-top];
+}
+
+- (void)setEmpty
+{
+    mX = mY = mWidth = mHeight = 0;
+}
+
+- (BOOL)isEmpty
+{
+    return mWidth == 0 || mHeight == 0;
 }
 
 - (BOOL)isEqual:(id)other 
