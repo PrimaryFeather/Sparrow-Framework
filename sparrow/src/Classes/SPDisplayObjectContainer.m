@@ -57,13 +57,16 @@
 
 - (void)addChild:(SPDisplayObject *)child atIndex:(int)index
 {
+    [child retain];
     [child removeFromParent];
-    [mChildren insertObject:child atIndex:index];
+    [mChildren insertObject:child atIndex:index];    
     child.parent = self;
     
     [child dispatchEvent:[SPEvent eventWithType:SP_EVENT_TYPE_ADDED]];
     if (self.stage)
         [child dispatchEvent:[SPEvent eventWithType:SP_EVENT_TYPE_ADDED_TO_STAGE]];
+    
+    [child release];
 }
 
 - (BOOL)containsChild:(SPDisplayObject *)child
@@ -75,7 +78,7 @@
         SPDisplayObject *currentChild = [self childAtIndex:i];
         if ([currentChild isKindOfClass:[SPDisplayObjectContainer class]])
         {
-            if ([(SPDisplayObjectContainer*)currentChild containsChild:child]) return YES;
+            if ([(SPDisplayObjectContainer *)currentChild containsChild:child]) return YES;
         }
         else
         {
@@ -100,27 +103,26 @@
 
 - (void)removeChild:(SPDisplayObject *)child
 {
-    if ([self containsChild:child])
-    {
-        [child retain];
-        [mChildren removeObject:child];
-        child.parent = nil;
-        
-        [child dispatchEvent:[SPEvent eventWithType:SP_EVENT_TYPE_REMOVED]];
-        if (self.stage) 
-            [child dispatchEvent:[SPEvent eventWithType:SP_EVENT_TYPE_REMOVED_FROM_STAGE]];        
-        [child release];
-    }
-    else [NSException raise:SP_EXC_NOT_RELATED format:@"Object is not a child of this container"];
+    int childIndex = [self childIndex:child];
+    if (childIndex == SP_NOT_FOUND)
+        [NSException raise:SP_EXC_NOT_RELATED format:@"Object is not a child of this container"];
+    else 
+        [self removeChildAtIndex:childIndex];
 }
 
 - (void)removeChildAtIndex:(int)index
 {
-    if (index > 0 && index < self.numChildren)
+    if (index >= 0 && index < self.numChildren)
     {
-        SPDisplayObject *child = [self childAtIndex:index];        
+        SPDisplayObject *child = [[self childAtIndex:index] retain];
         [mChildren removeObjectAtIndex:index];
         child.parent = nil;        
+        
+        [child dispatchEvent:[SPEvent eventWithType:SP_EVENT_TYPE_REMOVED]];
+        if (self.stage) 
+            [child dispatchEvent:[SPEvent eventWithType:SP_EVENT_TYPE_REMOVED_FROM_STAGE]];        
+        
+        [child release];
     }
     else [NSException raise:SP_EXC_INDEX_OUT_OF_BOUNDS format:@"Invalid child index"];        
 }
