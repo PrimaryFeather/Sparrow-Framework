@@ -57,6 +57,23 @@
     [mTouchProcessor processTouches:touches];
 }
 
+- (SPDisplayObject*)hitTestPoint:(SPPoint*)localPoint forTouch:(BOOL)isTouch;
+{
+    if (isTouch && (!self.isVisible || !self.isTouchable)) 
+        return nil;
+    
+    SPDisplayObject *target = [super hitTestPoint:localPoint forTouch:isTouch];
+    
+    // different to other containers, the stage should acknowledge touches even in empty parts.
+    if (!target)
+    {
+        SPRectangle *bounds = [SPRectangle rectangleWithX:self.x y:self.y 
+                                                    width:self.width height:self.height];
+        if ([bounds containsPoint:localPoint])      
+            target = self;
+    }
+    return target;
+}
 
 #pragma mark -
 
