@@ -54,13 +54,13 @@
 
 - (SPPoint*)addPoint:(SPPoint*)point
 {
-    SPPoint *result = [[SPPoint alloc] initWithX:mX+point.x y:mY+point.y];    
+    SPPoint *result = [[SPPoint alloc] initWithX:mX+point->mX y:mY+point->mY];    
     return [result autorelease];
 }
 
 - (SPPoint*)subtractPoint:(SPPoint*)point
 {
-    SPPoint *result = [[SPPoint alloc] initWithX:mX-point.x y:mY-point.y];    
+    SPPoint *result = [[SPPoint alloc] initWithX:mX-point->mX y:mY-point->mY];    
     return [result autorelease];
 }
 
@@ -81,7 +81,7 @@
     else 
     {
         SPPoint *point = (SPPoint*)other;
-        return SP_IS_FLOAT_EQUAL(mX, point.x) && SP_IS_FLOAT_EQUAL(mY, point.y);    
+        return SP_IS_FLOAT_EQUAL(mX, point->mX) && SP_IS_FLOAT_EQUAL(mY, point->mY);    
     }
 }
 

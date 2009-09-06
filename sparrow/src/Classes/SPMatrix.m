@@ -58,12 +58,12 @@
 
 - (void)concatMatrix:(SPMatrix*)matrix
 {
-    [self setValuesA: matrix.a * mA  + matrix.c * mB 
-                   b: matrix.b * mA  + matrix.d * mB 
-                   c: matrix.a * mC  + matrix.c * mD
-                   d: matrix.b * mC  + matrix.d * mD
-                  tx: matrix.a * mTx + matrix.c * mTy + matrix.tx * W
-                  ty: matrix.b * mTx + matrix.d * mTy + matrix.ty * W];
+    [self setValuesA: matrix->mA * mA  + matrix->mC * mB 
+                   b: matrix->mB * mA  + matrix->mD * mB 
+                   c: matrix->mA * mC  + matrix->mC * mD
+                   d: matrix->mB * mC  + matrix->mD * mD
+                  tx: matrix->mA * mTx + matrix->mC * mTy + matrix->mTx * W
+                  ty: matrix->mB * mTx + matrix->mD * mTy + matrix->mTy * W];
 }
 
 - (void)translateXBy:(float)dx yBy:(float)dy
@@ -121,9 +121,9 @@
     else 
     {    
         SPMatrix *matrix = (SPMatrix*)other;
-        return SP_IS_FLOAT_EQUAL(mA, matrix.a) && SP_IS_FLOAT_EQUAL(mB, matrix.b) &&
-               SP_IS_FLOAT_EQUAL(mB, matrix.b) && SP_IS_FLOAT_EQUAL(mC, matrix.c) &&
-               SP_IS_FLOAT_EQUAL(mTx, matrix.tx) && SP_IS_FLOAT_EQUAL(mTy, matrix.ty);
+        return SP_IS_FLOAT_EQUAL(mA, matrix->mA) && SP_IS_FLOAT_EQUAL(mB, matrix->mB) &&
+               SP_IS_FLOAT_EQUAL(mB, matrix->mB) && SP_IS_FLOAT_EQUAL(mC, matrix->mC) &&
+               SP_IS_FLOAT_EQUAL(mTx, matrix->mTx) && SP_IS_FLOAT_EQUAL(mTy, matrix->mTy);
     }
 }
 

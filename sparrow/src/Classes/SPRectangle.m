@@ -46,10 +46,10 @@
 
 - (BOOL)containsRectangle:(SPRectangle*)rectangle
 {
-    float rX = rectangle.x;
-    float rY = rectangle.y;
-    float rWidth = rectangle.width;
-    float rHeight = rectangle.height;
+    float rX = rectangle->mX;
+    float rY = rectangle->mY;
+    float rWidth = rectangle->mWidth;
+    float rHeight = rectangle->mHeight;
 
     return rX >= mX && rX + rWidth <= mX + mWidth &&
            rY >= mY && rY + rHeight <= mY + mHeight;
@@ -57,10 +57,10 @@
 
 - (BOOL)intersectsRectangle:(SPRectangle*)rectangle
 {
-    float rX = rectangle.x;
-    float rY = rectangle.y;
-    float rWidth = rectangle.width;
-    float rHeight = rectangle.height;
+    float rX = rectangle->mX;
+    float rY = rectangle->mY;
+    float rWidth = rectangle->mWidth;
+    float rHeight = rectangle->mHeight;
     
     BOOL outside = 
         (rX <= mX && rX + rWidth <= mX)  || (rX >= mX + mWidth && rX + rWidth >= mX + mWidth) ||
@@ -70,10 +70,10 @@
 
 - (SPRectangle*)intersectionWithRectangle:(SPRectangle*)rectangle
 {
-    float left = MAX(mX, rectangle.x);
-    float right = MIN(mX + mWidth, rectangle.x + rectangle.width);
-    float top = MAX(mY, rectangle.y);
-    float bottom = MIN(mY + mHeight, rectangle.y + rectangle.height);
+    float left = MAX(mX, rectangle->mX);
+    float right = MIN(mX + mWidth, rectangle->mX + rectangle->mWidth);
+    float top = MAX(mY, rectangle->mY);
+    float bottom = MIN(mY + mHeight, rectangle->mY + rectangle->mHeight);
     
     if (left > right || top > bottom)
         return [SPRectangle rectangleWithX:0 y:0 width:0 height:0];
@@ -83,10 +83,10 @@
 
 - (SPRectangle*)uniteWithRectangle:(SPRectangle*)rectangle
 {
-    float left = MIN(mX, rectangle.x);
-    float right = MAX(mX + mWidth, rectangle.x + rectangle.width);
-    float top = MIN(mY, rectangle.y);
-    float bottom = MAX(mY + mHeight, rectangle.y + rectangle.height);
+    float left = MIN(mX, rectangle->mX);
+    float right = MAX(mX + mWidth, rectangle->mX + rectangle->mWidth);
+    float top = MIN(mY, rectangle->mY);
+    float bottom = MAX(mY + mHeight, rectangle->mY + rectangle->mHeight);
     return [SPRectangle rectangleWithX:left y:top width:right-left height:bottom-top];
 }
 
@@ -107,8 +107,8 @@
     else 
     {
         SPRectangle *rect = (SPRectangle*)other;
-        return SP_IS_FLOAT_EQUAL(mX, rect.x) && SP_IS_FLOAT_EQUAL(mY, rect.y) &&
-               SP_IS_FLOAT_EQUAL(mWidth, rect.width) && SP_IS_FLOAT_EQUAL(mHeight, rect.height);    
+        return SP_IS_FLOAT_EQUAL(mX, rect->mX) && SP_IS_FLOAT_EQUAL(mY, rect->mY) &&
+               SP_IS_FLOAT_EQUAL(mWidth, rect->mWidth) && SP_IS_FLOAT_EQUAL(mHeight, rect->mHeight);    
     }
 }
 
