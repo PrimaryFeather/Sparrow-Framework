@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SPPoolObject.h"
 #import "SPPoint.h"
 
-@interface SPRectangle : NSObject <NSCopying>
+@interface SPRectangle : SPPoolObject <NSCopying>
 {
   @private
     float mX;

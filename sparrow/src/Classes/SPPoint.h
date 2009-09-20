@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SPPoolObject.h"
 
-@interface SPPoint : NSObject <NSCopying>
+@interface SPPoint : SPPoolObject <NSCopying>
 {
   @private
     float mX;

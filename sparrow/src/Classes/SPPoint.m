@@ -119,4 +119,12 @@
     return [[[self class] allocWithZone:zone] initWithX:mX y:mY];
 }
 
+#pragma mark SPPoolObject
+
++ (SPPoolInfo *)poolInfo
+{
+    static SPPoolInfo poolInfo;
+    return &poolInfo;
+}
+
 @end

@@ -151,4 +151,12 @@
                                                      tx:mTx ty:mTy];
 }
 
+#pragma mark SPPoolObject
+
++ (SPPoolInfo *)poolInfo
+{
+    static SPPoolInfo poolInfo;
+    return &poolInfo;
+}
+
 @end

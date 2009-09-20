@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SPPoolObject.h"
 
 @class SPPoint;
 
@@ -15,7 +16,7 @@
 // |b d ty|
 // |0 0  1|
  
-@interface SPMatrix : NSObject <NSCopying>
+@interface SPMatrix : SPPoolObject <NSCopying>
 {
   @private
     float mA, mB, mC, mD;
