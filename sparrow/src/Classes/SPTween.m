@@ -105,6 +105,7 @@
         float endValue = [[mEndValues objectAtIndex:i] floatValue];
         float delta = endValue - startValue;
         float transitionValue = 0;
+
         [mTransitionInvocation setArgument:&delta atIndex:2];
         [mTransitionInvocation setArgument:&ratio atIndex:3];        
         [mTransitionInvocation invoke];
@@ -118,13 +119,28 @@
         [setterInv invoke];        
     }
     
-    if (previousTime <= 0 && mCurrentTime > 0)
-        [self dispatchEvent:[SPEvent eventWithType:SP_EVENT_TYPE_TWEEN_STARTED]];
+    if (previousTime <= 0 && mCurrentTime > 0 &&
+        [self hasEventListenerForType:SP_EVENT_TYPE_TWEEN_STARTED])
+    {
+        SPEvent *event = [[SPEvent alloc] initWithType:SP_EVENT_TYPE_TWEEN_STARTED];        
+        [self dispatchEvent:event];
+        [event release];        
+    }
     
-    [self dispatchEvent:[SPEvent eventWithType:SP_EVENT_TYPE_TWEEN_UPDATED]];    
+    if ([self hasEventListenerForType:SP_EVENT_TYPE_TWEEN_UPDATED])
+    {
+        SPEvent *event = [[SPEvent alloc] initWithType:SP_EVENT_TYPE_TWEEN_UPDATED];
+        [self dispatchEvent:event];    
+        [event release];
+    }
     
-    if (previousTime < mTotalTime && mCurrentTime >= mTotalTime)
-        [self dispatchEvent:[SPEvent eventWithType:SP_EVENT_TYPE_TWEEN_COMPLETED]];
+    if (previousTime < mTotalTime && mCurrentTime >= mTotalTime &&
+        [self hasEventListenerForType:SP_EVENT_TYPE_TWEEN_COMPLETED])
+    {
+        SPEvent *event = [[SPEvent alloc] initWithType:SP_EVENT_TYPE_TWEEN_COMPLETED];
+        [self dispatchEvent:event];
+        [event release];        
+    }        
 }
 
 - (void)setTransition:(NSString*)transition

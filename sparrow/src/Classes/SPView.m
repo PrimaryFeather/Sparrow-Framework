@@ -111,7 +111,7 @@
     if (self.isStarted == value) return;
     if (value && mFrameRate > 0.0f)
     {
-        mLastFrameTimestamp = SP_TIMESTAMP();
+        mLastFrameTimestamp = CACurrentMediaTime();
         self.timer = [NSTimer scheduledTimerWithTimeInterval:(1.0f / mFrameRate) 
                               target:self selector:@selector(renderStage) userInfo:nil repeats:YES];
     }
@@ -141,12 +141,12 @@
     glBindFramebufferOES(GL_FRAMEBUFFER_OES, mFramebuffer);
     glViewport(0, 0, mWidth, mHeight);
     
-    double now = SP_TIMESTAMP();
+    double now = CACurrentMediaTime();
     double timePassed = now - mLastFrameTimestamp;
-    [self.stage advanceTime:timePassed];
+    [mStage advanceTime:timePassed];
     mLastFrameTimestamp = now;
         
-    [self.stage render];
+    [mStage render];
     
     glBindRenderbufferOES(GL_RENDERBUFFER_OES, mRenderbuffer);
     [mContext presentRenderbuffer:GL_RENDERBUFFER_OES];
@@ -224,7 +224,7 @@
         
         // convert to SPTouches and forward to stage
         NSMutableSet *touches = [NSMutableSet set];        
-        double now = SP_TIMESTAMP();
+        double now = CACurrentMediaTime();
         for (UITouch *uiTouch in [event touchesForView:self])
         {
             CGPoint location = [uiTouch locationInView:self];            

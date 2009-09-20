@@ -12,11 +12,14 @@
 
 @implementation SPJuggler
 
+@synthesize lifeTime = mLifeTime;
+
 - (id)init
 {    
     if (self = [super init])
     {        
         mObjects = [[NSMutableSet alloc] init];
+        mLifeTime = 0.0;
     }
     return self;
 }
@@ -28,14 +31,14 @@
 
 - (void)advanceTime:(double)seconds
 {
+    mLifeTime += seconds;
+    
     // we need work with a copy, since user-code could modify the collection during the enumeration
-    NSMutableSet *objectsCopy = [mObjects copy];
-    for (id<SPAnimatable> object in objectsCopy)    
+    for (id<SPAnimatable> object in [mObjects allObjects])    
     {
         [object advanceTime:seconds];        
         if (object.isComplete) [self removeObject:object];
     }    
-    [objectsCopy release];
 }
  
 - (void)addObject:(id<SPAnimatable>)object
@@ -48,6 +51,11 @@
     [mObjects removeObject:object];
 }
 
+- (void)removeAllObjects;
+{
+    [mObjects removeAllObjects];
+}
+ 
 - (id)delayInvocationAtTarget:(id)target byTime:(double)time
 {
     SPDelayedInvocation *delayedInvoc = [SPDelayedInvocation invocationWithTarget:target delay:time];

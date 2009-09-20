@@ -73,9 +73,8 @@
 {
     if ([self isEqual:child]) return YES; 
     
-    for (int i=0; i<[self numChildren]; ++i)
+    for (SPDisplayObject *currentChild in mChildren)
     {
-        SPDisplayObject *currentChild = [self childAtIndex:i];
         if ([currentChild isKindOfClass:[SPDisplayObjectContainer class]])
         {
             if ([(SPDisplayObjectContainer *)currentChild containsChild:child]) return YES;
@@ -114,7 +113,7 @@
 {
     if (index >= 0 && index < self.numChildren)
     {
-        SPDisplayObject *child = [[self childAtIndex:index] retain];
+        SPDisplayObject *child = [[mChildren objectAtIndex:index] retain];
         [mChildren removeObjectAtIndex:index];
         child.parent = nil;        
         
@@ -151,8 +150,8 @@
 
 - (void)dispatchEventOnChildren:(SPEvent*)event
 {
-    for (int i=0; i<self.numChildren; ++i)
-        [[self childAtIndex:i] dispatchEvent:event];
+    for (SPDisplayObject *child in mChildren)
+        [child dispatchEvent:event];
 }
 
 - (SPRectangle*)boundsInSpace:(SPDisplayObject*)targetCoordinateSpace
@@ -162,13 +161,12 @@
     if (numChildren == 0) 
         return [SPRectangle rectangleWithX:0 y:0 width:0 height:0];
     else if (numChildren == 1) 
-        return [[self childAtIndex:0] boundsInSpace:targetCoordinateSpace];
+        return [[mChildren objectAtIndex:0] boundsInSpace:targetCoordinateSpace];
     else
     {
         float minX = FLT_MAX, maxX = -FLT_MAX, minY = FLT_MAX, maxY = -FLT_MAX;    
-        for (int i=0; i<numChildren; ++i)
-        {    
-            SPDisplayObject *child = [self childAtIndex:i];
+        for (SPDisplayObject *child in mChildren)
+        {
             SPRectangle *childBounds = [child boundsInSpace:targetCoordinateSpace];        
             minX = MIN(minX, childBounds.x);
             maxX = MAX(maxX, childBounds.x + childBounds.width);
@@ -186,7 +184,7 @@
     
     for (int i=self.numChildren-1; i>=0; --i) // front to back!
     {
-        SPDisplayObject *child = [self childAtIndex:i];        
+        SPDisplayObject *child = [mChildren objectAtIndex:i];
         SPMatrix *transformationMatrix = [self transformationMatrixToSpace:child];
         SPPoint  *transformedPoint = [transformationMatrix transformPoint:localPoint];
         SPDisplayObject *target = [child hitTestPoint:transformedPoint forTouch:isTouch];

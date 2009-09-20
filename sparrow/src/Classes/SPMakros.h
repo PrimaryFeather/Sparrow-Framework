@@ -45,4 +45,4 @@
 
 #define SP_IS_FLOAT_EQUAL(f1, f2)   (fabsf((f1)-(f2)) < SP_FLOAT_EPSILON)
 
-#define SP_TIMESTAMP()              [NSDate timeIntervalSinceReferenceDate]
+
