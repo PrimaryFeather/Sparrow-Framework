@@ -20,6 +20,21 @@
 
 #define ZPOS 0
 
+// --- c functions ---
+
+static void bindTexture(uint textureID)
+{
+    static uint lastTextureID = UINT_MAX;
+    
+    if (lastTextureID != textureID)
+    {    
+        lastTextureID = textureID;
+        glBindTexture(GL_TEXTURE_2D, textureID);
+    }    
+}
+
+// ---
+
 @implementation SPStage (Rendering)
 
 - (void)render
@@ -37,20 +52,22 @@
     
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();    
-    glOrthof(-self.width/2.0f, self.width/2.0f, -self.height/2.0f, self.height/2.0f, -1.0f, 1.0f);        
+    glOrthof(-mWidth/2.0f, mWidth/2.0f, -mHeight/2.0f, mHeight/2.0f, -1.0f, 1.0f);        
     
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();    
     glScalef(1.0f, -1.0f, 1.0f);
-    glTranslatef(-self.width/2.0f, -self.height/2.0f, 0.0f);
+    glTranslatef(-mWidth/2.0f, -mHeight/2.0f, 0.0f);
     
     [super render];
     
     glDisable(GL_BLEND);
     glDisable(GL_TEXTURE_2D);
     
+    #if DEBUG
     GLenum error = glGetError();
     if (error != 0) NSLog(@"Warning: There was an OpenGL error: #%d", error);
+    #endif
 }
 
 @end
@@ -61,10 +78,8 @@
 {    
     if (self.alpha == 0 || !self.isVisible) return;
     
-    for (int i=0; i<self.numChildren; ++i)
-    {
-        SPDisplayObject* child = [self childAtIndex:i];
-        
+    for (SPDisplayObject *child in self)
+    {        
         glPushMatrix();        
         glTranslatef(child.x, child.y, ZPOS);        
         glRotatef(SP_R2D(child.rotationZ), 0.0f, 0.0f, 1.0f);
@@ -81,32 +96,44 @@
 
 @end
 
+
+
 @implementation SPQuad (Rendering)
 
 - (void)render
 {
     if (self.alpha == 0 || !self.isVisible) return;
     
-    GLfloat vertices[] = { 0, 0, mWidth, 0, mWidth, mHeight, 0, mHeight };   
+    static GLfloat vertices[8];   
+    static GLubyte colors[16];   
     
-    GLubyte colors[16];    
+    vertices[2] = mWidth;
+    vertices[4] = mWidth;
+    vertices[5] = mHeight;
+    vertices[7] = mHeight;        
+ 
     GLubyte alpha = (GLubyte) (self.alpha * 255);
-    int pos = 0;
+    GLubyte* pos = colors;
     for (int i=0; i<4; ++i) 
     {
-        uint color = [self colorOfVertex:i];        
-        colors[pos++] = SP_COLOR_PART_RED(color);
-        colors[pos++] = SP_COLOR_PART_GREEN(color);
-        colors[pos++] = SP_COLOR_PART_BLUE(color);
-        colors[pos++] = alpha;
+        uint color = mVertexColors[i];        
+        *(pos++) = SP_COLOR_PART_RED(color);
+        *(pos++) = SP_COLOR_PART_GREEN(color);
+        *(pos++) = SP_COLOR_PART_BLUE(color);
+        *(pos++) = alpha;
     }
-
+    
+    // If this method is called from a subclass, it has most probably bound a texture (on purpose).
+    // But if this is a 'real' quad, we have to disable any texture.
+    if (self->isa == [SPQuad class])
+        bindTexture(0);
+    
     glEnableClientState(GL_VERTEX_ARRAY);
     glEnableClientState(GL_COLOR_ARRAY);    
     
     glVertexPointer(2, GL_FLOAT, 0, vertices);
     glColorPointer(4, GL_UNSIGNED_BYTE, 0, colors);
-
+    
     glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
     
     glDisableClientState(GL_VERTEX_ARRAY);
@@ -119,31 +146,23 @@
 
 - (void)render
 {
-    if (self.alpha == 0 || !self.isVisible) return;
-
-    SPRectangle *clipping = mTexture.clipping;
-    float texCoords[] = 
-    { 
-        clipping.x + mTexCoords[0] * clipping.width, 
-        clipping.y + mTexCoords[1] * clipping.height,
-        clipping.x + mTexCoords[2] * clipping.width, 
-        clipping.y + mTexCoords[3] * clipping.height,
-        clipping.x + mTexCoords[4] * clipping.width, 
-        clipping.y + mTexCoords[5] * clipping.height,
-        clipping.x + mTexCoords[6] * clipping.width, 
-        clipping.y + mTexCoords[7] * clipping.height 
-    };
+    if (self.alpha == 0 || !self.isVisible) return;    
     
-    glBindTexture(GL_TEXTURE_2D, mTexture.textureID);
+    static float texCoords[8]; 
+    
+    SPRectangle *clipping = mTexture.clipping;    
+    for (int i=0; i<4; ++i)
+    {
+        texCoords[2*i]   = clipping.x + mTexCoords[2*i]   * clipping.width; 
+        texCoords[2*i+1] = clipping.y + mTexCoords[2*i+1] * clipping.height;        
+    }
+    
+    bindTexture(mTexture.textureID);
     
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
     glTexCoordPointer(2, GL_FLOAT, 0, texCoords);
     
     [super render];    
-    
-    glBindTexture(GL_TEXTURE_2D, 0);
-    
-    // todo: minimize calls to glBindTexture
 }
 
 @end
@@ -155,27 +174,23 @@
     if (self.alpha == 0 || !self.isVisible) return;
     
     SPRectangle *clipping = mTexture.clipping;
-    float texCoords[] = 
-    { 
-        clipping.x, 
-        clipping.y,
-        clipping.x + clipping.width, 
-        clipping.y,
-        clipping.x + clipping.width, 
-        clipping.y + clipping.height,
-        clipping.x, 
-        clipping.y + clipping.height 
-    };
+    static float texCoords[8]; 
+     
+    texCoords[0] = clipping.x; 
+    texCoords[1] = clipping.y;
+    texCoords[2] = clipping.x + clipping.width; 
+    texCoords[3] = clipping.y;
+    texCoords[4] = clipping.x + clipping.width;
+    texCoords[5] = clipping.y + clipping.height;
+    texCoords[6] = clipping.x; 
+    texCoords[7] = clipping.y + clipping.height;    
     
-    glBindTexture(GL_TEXTURE_2D, mTexture.textureID);
+    bindTexture(mTexture.textureID);
     
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
     glTexCoordPointer(2, GL_FLOAT, 0, texCoords);
     
     [super render];    
-    
-    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 @end
-
