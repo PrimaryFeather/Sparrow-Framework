@@ -127,7 +127,7 @@
 - (SPDisplayObject*)hitTestPoint:(SPPoint*)localPoint forTouch:(BOOL)isTouch;
 {
     // on a touch test, invisible or untouchable objects cause the test to fail
-    if (isTouch && (!self.isVisible || !self.isTouchable)) return nil;
+    if (isTouch && (!mVisible || !mTouchable)) return nil;
     
     // otherwise, check bounding box
     if ([[self boundsInSpace:self] containsPoint:localPoint]) return self; 
@@ -190,7 +190,7 @@
 
 - (void)setWidth:(float)value
 {
-    mScaleX = value / (self.width / self.scaleX);
+    mScaleX = value / (self.width / mScaleX);
 }
 
 - (float)height
@@ -200,7 +200,7 @@
 
 - (void)setHeight:(float)value
 {
-    mScaleY = value / (self.height / self.scaleY);
+    mScaleY = value / (self.height / mScaleY);
 }
 
 - (void)setRotationZ:(float)value
@@ -232,9 +232,9 @@
 - (SPMatrix*)transformationMatrix
 {
     SPMatrix *matrix = [[SPMatrix alloc] init];
-    [matrix scaleXBy:self.scaleX yBy:self.scaleY];
-    [matrix rotateBy:self.rotationZ];
-    [matrix translateXBy:self.x yBy:self.y];
+    [matrix scaleXBy:mScaleX yBy:mScaleY];
+    [matrix rotateBy:mRotationZ];
+    [matrix translateXBy:mX yBy:mY];
     return [matrix autorelease];
 }
 

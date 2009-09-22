@@ -14,6 +14,24 @@
 
 @implementation SPStage
 
+// --- c functions ---
+
+static void dispatchEnterFrameEvent(SPDisplayObject *object, SPEnterFrameEvent *event)
+{
+    // EnterFrameEvents are dispatched in every frame, and they traverse the entire display tree --
+    // thus, it pays off handling them in their own c function.
+    
+    [object dispatchEvent:event];    
+    if ([object isKindOfClass:[SPDisplayObjectContainer class]])
+    {
+        SPDisplayObjectContainer *container = (SPDisplayObjectContainer *)object;
+        for (SPDisplayObject *child in container)        
+            dispatchEnterFrameEvent(child, event);
+    }    
+}
+
+// -------------------
+
 @synthesize width = mWidth;
 @synthesize height = mHeight;
 @synthesize juggler = mJuggler;
@@ -45,8 +63,8 @@
     
     // dispatch EnterFrameEvent
     SPEnterFrameEvent *enterFrameEvent = [[SPEnterFrameEvent alloc] 
-        initWithType:SP_EVENT_TYPE_ENTER_FRAME passedTime:seconds];    
-    [self dispatchEvent:enterFrameEvent];
+        initWithType:SP_EVENT_TYPE_ENTER_FRAME passedTime:seconds];        
+    dispatchEnterFrameEvent(self, enterFrameEvent);
     [enterFrameEvent release];
 
     SP_RELEASE_POOL(pool);

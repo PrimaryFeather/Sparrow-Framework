@@ -35,9 +35,7 @@
     
     if (self = [super init]) 
     {
-        mChildren = [[NSMutableArray alloc] initWithCapacity:4];
-        [self addEventListener:@selector(dispatchEventOnChildren:) atObject:self
-                       forType:SP_EVENT_TYPE_ENTER_FRAME];        
+        mChildren = [[NSMutableArray alloc] init];
         [self addEventListener:@selector(dispatchEventOnChildren:) atObject:self 
                        forType:SP_EVENT_TYPE_ADDED_TO_STAGE];
         [self addEventListener:@selector(dispatchEventOnChildren:) atObject:self
@@ -145,7 +143,6 @@
     return [mChildren count];
 }
 
-
 #pragma mark -
 
 - (void)dispatchEventOnChildren:(SPEvent*)event
@@ -194,16 +191,22 @@
     return nil;
 }
 
-
 #pragma mark -
 
 - (void)dealloc 
 {    
     [mChildren release];
-    [self removeEventListenersAtObject:self forType:SP_EVENT_TYPE_ENTER_FRAME];
     [self removeEventListenersAtObject:self forType:SP_EVENT_TYPE_ADDED_TO_STAGE];
     [self removeEventListenersAtObject:self forType:SP_EVENT_TYPE_REMOVED_FROM_STAGE];
     [super dealloc];
+}
+
+#pragma mark NSFastEnumeration
+
+- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id *)stackbuf 
+                                    count:(NSUInteger)len
+{
+    return [mChildren countByEnumeratingWithState:state objects:stackbuf count:len];
 }
 
 @end

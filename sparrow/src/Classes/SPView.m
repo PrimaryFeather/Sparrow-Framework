@@ -56,7 +56,7 @@
 
 - (id)initialize
 {
-    self.frameRate = 60.0f;
+    self.frameRate = 30.0f;
     self.multipleTouchEnabled = YES;
     self.backgroundColor = [UIColor blackColor];
     [[UIApplication sharedApplication] setStatusBarHidden:YES animated:NO];

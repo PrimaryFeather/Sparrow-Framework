@@ -95,7 +95,7 @@
     {    
         // we can enumerate directly of the array, since "add"- and "removeEventListener" won't
         // change it, but instead always create a new array.
-        
+        [listeners retain];
         for (NSInvocation *inv in listeners)
         {
             [inv setArgument:&event atIndex:2];
@@ -106,6 +106,7 @@
                 break;
             }
         }
+        [listeners release];
     }
     
     if (!stopImmediatPropagation)

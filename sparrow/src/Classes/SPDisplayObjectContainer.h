@@ -9,13 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "SPDisplayObject.h"
 
-@interface SPDisplayObjectContainer : SPDisplayObject 
+@interface SPDisplayObjectContainer : SPDisplayObject <NSFastEnumeration>
 {
   @private
     NSMutableArray *mChildren;
 }
 
-@property (readonly) int numChildren;
+@property (nonatomic, readonly) int numChildren;
 
 - (void)addChild:(SPDisplayObject *)child;
 - (void)addChild:(SPDisplayObject *)child atIndex:(int)index;

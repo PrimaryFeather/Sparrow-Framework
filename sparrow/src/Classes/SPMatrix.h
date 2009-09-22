@@ -29,6 +29,7 @@
 @property (nonatomic, assign) float d;
 @property (nonatomic, assign) float tx;
 @property (nonatomic, assign) float ty;
+@property (nonatomic, readonly) float determinant;
 
 // designated initializer
 - (id)initWithA:(float)a b:(float)b c:(float)c d:(float)d tx:(float)tx ty:(float)ty;

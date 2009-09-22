@@ -14,21 +14,23 @@
 #define V 0
 #define W 1
 
-// --- private interface ---------------------------------------------------------------------------
-
-@interface SPMatrix ()
-
-@property (nonatomic, readonly) float determinant;
-
-- (void)setValuesA:(float)a b:(float)b c:(float)c d:(float)d tx:(float)tx ty:(float)ty;
-
-@end
-
-// --- class implementation ------------------------------------------------------------------------
-
 @implementation SPMatrix
 
 @synthesize a=mA, b=mB, c=mC, d=mD, tx=mTx, ty=mTy;
+
+// --- c functions ---
+
+static void setValues(SPMatrix *matrix, float a, float b, float c, float d, float tx, float ty)
+{
+    matrix->mA = a;
+    matrix->mB = b;
+    matrix->mC = c;
+    matrix->mD = d;
+    matrix->mTx = tx;
+    matrix->mTy = ty;    
+}
+
+// ---
 
 - (id)initWithA:(float)a b:(float)b c:(float)c d:(float)d tx:(float)tx ty:(float)ty
 {
@@ -58,12 +60,12 @@
 
 - (void)concatMatrix:(SPMatrix*)matrix
 {
-    [self setValuesA: matrix->mA * mA  + matrix->mC * mB 
-                   b: matrix->mB * mA  + matrix->mD * mB 
-                   c: matrix->mA * mC  + matrix->mC * mD
-                   d: matrix->mB * mC  + matrix->mD * mD
-                  tx: matrix->mA * mTx + matrix->mC * mTy + matrix->mTx * W
-                  ty: matrix->mB * mTx + matrix->mD * mTy + matrix->mTy * W];
+    setValues(self, matrix->mA * mA  + matrix->mC * mB, 
+                    matrix->mB * mA  + matrix->mD * mB, 
+                    matrix->mA * mC  + matrix->mC * mD,
+                    matrix->mB * mC  + matrix->mD * mD,
+                    matrix->mA * mTx + matrix->mC * mTy + matrix->mTx * W,
+                    matrix->mB * mTx + matrix->mD * mTy + matrix->mTy * W);
 }
 
 - (void)translateXBy:(float)dx yBy:(float)dy
@@ -97,7 +99,7 @@
 
 - (void)identity
 {
-    [self setValuesA:1.0f b:0.0f c:0.0f d:1.0f tx:0.0f ty:0.0f];
+    setValues(self, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f);
 }
 
 - (SPPoint*)transformPoint:(SPPoint*)point
@@ -109,9 +111,7 @@
 - (void)invert
 {
     float det = self.determinant;
-    [self setValuesA:mD/det b:-mB/det c:-mC/det d:mA/det 
-                  tx:(mC*mTy-mD*mTx)/det 
-                  ty:(mB*mTx-mA*mTy)/det];
+    setValues(self, mD/det, -mB/det, -mC/det, mA/det, (mC*mTy-mD*mTx)/det, (mB*mTx-mA*mTy)/det);
 }
 
 - (BOOL)isEqual:(id)other 
