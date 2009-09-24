@@ -24,6 +24,7 @@
     Game *game = [[Game alloc] initWithWidth:320 height:480];        
     sparrowView.stage = game;
     sparrowView.isStarted = YES;     
+    sparrowView.frameRate = 30;
     [window makeKeyAndVisible];
     [game release];    
     
@@ -31,19 +32,26 @@
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application 
-{
-	sparrowView.frameRate = 5;
+{    
+    sparrowView.frameRate = 5;
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application 
 {
-	sparrowView.frameRate = 60;
+	sparrowView.frameRate = 30;
 }
 
 - (void)dealloc 
 {
     [window release];
     [super dealloc];
+}
+
+- (void)applicationDidReceiveMemoryWarning:(UIApplication *)application
+{
+    [SPPoint purgePool];
+    [SPRectangle purgePool];
+    [SPMatrix purgePool];    
 }
 
 @end

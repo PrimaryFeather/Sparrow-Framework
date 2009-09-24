@@ -12,6 +12,7 @@
 #import "TextScene.h"
 #import "AnimationScene.h"
 #import "CustomHitTestScene.h"
+#import "BenchmarkScene.h"
 
 // --- private interface ---------------------------------------------------------------------------
 
@@ -65,6 +66,12 @@
         mCustomHitTestButton.y =  mAnimationButton.y + mAnimationButton.height;
         [mSceneButtons addChild:mCustomHitTestButton];        
 
+        mBenchmarkButton = [SPButton buttonWithUpState:sceneButtonTexture text:@"Benchmark"];
+        [mBenchmarkButton addEventListener:@selector(onBenchmarkButtonTriggered:) atObject:self
+                              forType:SP_EVENT_TYPE_TRIGGERED];
+        mBenchmarkButton.y = mCustomHitTestButton.y + mCustomHitTestButton.height;
+        [mSceneButtons addChild:mBenchmarkButton];
+        
         SPTexture *backButtonTexture = [SPStaticTexture textureWithContentsOfFile:@"button_yellow.png"];
         mBackButton = [[SPButton alloc] initWithUpState:backButtonTexture text:@"back"];
         mBackButton.isVisible = NO;
@@ -131,6 +138,13 @@
     [scene release];
 }
 
+- (void)onBenchmarkButtonTriggered:(SPEvent*)event
+{
+    SPSprite *scene = [[BenchmarkScene alloc] init];
+    [self showScene:scene];
+    [scene release];    
+}
+
 #pragma mark -
 
 - (void)dealloc
@@ -140,6 +154,7 @@
     [mTextButton  removeEventListenersAtObject:self forType:SP_EVENT_TYPE_TRIGGERED];
     [mAnimationButton removeEventListenersAtObject:self forType:SP_EVENT_TYPE_TRIGGERED];
     [mCustomHitTestButton removeEventListenersAtObject:self forType:SP_EVENT_TYPE_TRIGGERED];
+    [mBenchmarkButton removeEventListenersAtObject:self forType:SP_EVENT_TYPE_TRIGGERED];
     
     [mSceneButtons release]; // automatically releases all child buttons    
     [mBackButton release];

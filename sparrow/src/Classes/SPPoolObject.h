@@ -24,11 +24,20 @@ typedef struct
 }
 
 + (SPPoolInfo *)poolInfo;
++ (int)purgePool;
 
 @end
 
 #else
 
 typedef NSObject SPPoolObject;
+
+@interface NSObject (SPPoolObjectExtensions)
+
++ (SPPoolInfo *)poolInfo;
++ (int)purgePool;
+
+@end
+
 
 #endif

@@ -61,6 +61,27 @@
     if (0) [super dealloc]; // just to shut down a compiler warning ...
 }
 
+- (void)purge
+{
+    [super dealloc];
+}
+
++ (int)purgePool
+{
+    SPPoolInfo *poolInfo = [self poolInfo];    
+    SPPoolObject *lastElement;    
+    
+    int count=0;
+    while (lastElement = poolInfo->lastElement)
+    {
+        ++count;        
+        poolInfo->lastElement = lastElement->mPoolPredecessor;
+        [lastElement purge];
+    }
+    
+    return count;
+}
+
 + (SPPoolInfo *)poolInfo
 {
     [NSException raise:NSGenericException format:COMPLAIN_MISSING_IMP, self];
@@ -68,5 +89,22 @@
 }
 
 @end
+
+#else
+
+@implementation NSObject (SPPoolObjectExtensions)
+
++ (SPPoolInfo *)poolInfo 
+{
+    return nil;
+}
+
++ (int)purgePool
+{
+    return 0;
+}
+
+@end
+
 
 #endif

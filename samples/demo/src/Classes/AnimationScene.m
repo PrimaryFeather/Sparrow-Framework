@@ -22,7 +22,6 @@
     if (self = [super init])
     {
         [self setupScene];        
-        mTweening = NO;
     }
     return self;
 }
@@ -56,14 +55,14 @@
 
 - (void)onStartButtonPressed:(SPEvent*)event
 {
-    if (mTweening) return;
-    
+    mStartButton.isEnabled = NO;
     [self resetSaturn];
     
     // to animate any numeric property of an arbitrary object (not just display objects!), you
     // can create a 'Tween'. One tween object animates one target for a certain time, with
-    // a certain transition function.
-    SPTween *tween = [SPTween tweenWithTarget:mSaturn time:5.0f transition:SP_TRANSITION_EASE_IN];
+    // a certain transition function.    
+    
+    SPTween *tween = [[SPTween alloc] initWithTarget:mSaturn time:5.0f transition:SP_TRANSITION_EASE_IN];
 
     // you can animate any property as long as it's numeric (float, double, int). 
     // it is animated from it's current value to a target value.
@@ -81,13 +80,11 @@
     // There is a default juggler at the stage, but you can create your own jugglers, as well.
     // That way, you can group animations into logical parts.
     [self.stage.juggler addObject:tween];
-    
-    mTweening = YES;
 }
 
 - (void)onTweenComplete:(SPEvent*)event
-{
-    mTweening = NO;
+{    
+    mStartButton.isEnabled = YES;
     [(SPTween*)event.target removeEventListenersAtObject:self forType:SP_EVENT_TYPE_TWEEN_COMPLETED];
 }
 

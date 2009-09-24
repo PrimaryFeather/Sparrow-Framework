@@ -13,7 +13,6 @@
 {
     SPButton *mStartButton;
     SPImage *mSaturn;
-    BOOL mTweening;
 }
 
 @end

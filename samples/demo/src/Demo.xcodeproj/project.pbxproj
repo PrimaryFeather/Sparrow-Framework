@@ -13,6 +13,7 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
+		DE0F755910641630004F2821 /* BenchmarkScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DE0F755810641630004F2821 /* BenchmarkScene.m */; };
 		DE396AE8104055A100C27DDF /* CustomHitTestScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DE396AE7104055A100C27DDF /* CustomHitTestScene.m */; };
 		DE396AEB104056A500C27DDF /* RoundButton.m in Sources */ = {isa = PBXBuildFile; fileRef = DE396AEA104056A500C27DDF /* RoundButton.m */; };
 		DED0B68F101C8654008D3794 /* atlas.png in Resources */ = {isa = PBXBuildFile; fileRef = DED0B68D101C8654008D3794 /* atlas.png */; };
@@ -65,6 +66,8 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* Demo_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Demo_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Demo-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Demo-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		DE0F755710641630004F2821 /* BenchmarkScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BenchmarkScene.h; sourceTree = "<group>"; };
+		DE0F755810641630004F2821 /* BenchmarkScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BenchmarkScene.m; sourceTree = "<group>"; };
 		DE396AE6104055A100C27DDF /* CustomHitTestScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomHitTestScene.h; sourceTree = "<group>"; };
 		DE396AE7104055A100C27DDF /* CustomHitTestScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomHitTestScene.m; sourceTree = "<group>"; };
 		DE396AE9104056A500C27DDF /* RoundButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoundButton.h; sourceTree = "<group>"; };
@@ -188,6 +191,8 @@
 				DE396AE7104055A100C27DDF /* CustomHitTestScene.m */,
 				DED6FF351041623A001FF6C8 /* AnimationScene.h */,
 				DED6FF361041623A001FF6C8 /* AnimationScene.m */,
+				DE0F755710641630004F2821 /* BenchmarkScene.h */,
+				DE0F755810641630004F2821 /* BenchmarkScene.m */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -303,6 +308,7 @@
 				DE396AE8104055A100C27DDF /* CustomHitTestScene.m in Sources */,
 				DE396AEB104056A500C27DDF /* RoundButton.m in Sources */,
 				DED6FF371041623A001FF6C8 /* AnimationScene.m in Sources */,
+				DE0F755910641630004F2821 /* BenchmarkScene.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,6 +335,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Demo_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = "";
 				INFOPLIST_FILE = "Demo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				OTHER_LDFLAGS = (
@@ -336,8 +343,8 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = Demo;
-				PROVISIONING_PROFILE = "649F17D4-26BF-4FDA-A66D-BC080AF4D08C";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "649F17D4-26BF-4FDA-A66D-BC080AF4D08C";
+				PROVISIONING_PROFILE = "8F2B7F7C-97B8-4A99-B7EE-104D609292F6";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8F2B7F7C-97B8-4A99-B7EE-104D609292F6";
 				USER_HEADER_SEARCH_PATHS = "$(SPARROW_SRC)/**";
 			};
 			name = Debug;
@@ -346,17 +353,23 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Daniel Sperl";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Daniel Sperl";
 				COPY_PHASE_STRIP = YES;
 				DEAD_CODE_STRIPPING = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Demo_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = "";
 				INFOPLIST_FILE = "Demo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				"New Setting" = "";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
 				);
 				PRODUCT_NAME = Demo;
+				PROVISIONING_PROFILE = "8F2B7F7C-97B8-4A99-B7EE-104D609292F6";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8F2B7F7C-97B8-4A99-B7EE-104D609292F6";
 				USER_HEADER_SEARCH_PATHS = "$(SPARROW_SRC)/**";
 			};
 			name = Release;

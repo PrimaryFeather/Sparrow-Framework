@@ -21,6 +21,7 @@
     SPButton *mTextButton;
     SPButton *mAnimationButton;
     SPButton *mCustomHitTestButton;
+    SPButton *mBenchmarkButton;
 
 }
 

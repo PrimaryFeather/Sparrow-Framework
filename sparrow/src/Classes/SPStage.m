@@ -154,6 +154,10 @@ static void dispatchEnterFrameEvent(SPDisplayObject *object, SPEnterFrameEvent *
 
 - (void)dealloc 
 {    
+    [SPPoint purgePool];
+    [SPRectangle purgePool];
+    [SPMatrix purgePool];    
+    
     [mTouchProcessor release];
     [mJuggler release];
     [super dealloc];
