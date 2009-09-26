@@ -67,47 +67,43 @@
 
 - (SPMatrix*)transformationMatrixToSpace:(SPDisplayObject*)targetCoordinateSpace
 {   
-    // nil represents the target coordinate space of a direct parent.
-    if (targetCoordinateSpace == nil) 
-        return self.transformationMatrix;
-    else if (targetCoordinateSpace == self)
+    if (targetCoordinateSpace == self)
         return [SPMatrix matrixWithIdentity];
     
-    SP_CREATE_POOL(pool);
-
-    // move up from target object until we find a common parent
-    SPMatrix *targetMatrix = [[SPMatrix alloc] init];
-    SPDisplayObject *currentObject = targetCoordinateSpace;    
+    // move up from self until we find a common parent
+    SPMatrix *selfMatrix = [[SPMatrix alloc] init];
+    SPDisplayObject *currentObject = self;    
     
     while (![currentObject isKindOfClass:[SPDisplayObjectContainer class]] ||
-           ![(SPDisplayObjectContainer*)currentObject containsChild:self])
+           ![(SPDisplayObjectContainer*)currentObject containsChild:targetCoordinateSpace])
     {
         SPMatrix *currentMatrix = currentObject.transformationMatrix;
-        [targetMatrix concatMatrix:currentMatrix];
+        [selfMatrix concatMatrix:currentMatrix];
         currentObject = [currentObject parent];
         if (currentObject == nil)
         {
-            SP_RELEASE_POOL(pool);
-            [NSException raise:SP_EXC_NOT_RELATED format:@"Object not connected to target"];
+            if (targetCoordinateSpace)
+                [NSException raise:SP_EXC_NOT_RELATED format:@"Object not connected to target"];
+            else
+                return [selfMatrix autorelease]; // targetCoordinateSpace 'nil' represents the 
+                                                 // target coordinate space of a nonexisting parent.
         }
     }
     
-    // now move up from self until we reach common parent
+    // now move up from target until we reach the common parent
     SPDisplayObject *commonParent = currentObject;
-    SPMatrix *selfMatrix = [[SPMatrix alloc] init];
-    currentObject = self;
+    SPMatrix *targetMatrix = [[SPMatrix alloc] init];
+    currentObject = targetCoordinateSpace;
     while (currentObject != commonParent)
     {        
         SPMatrix *currentMatrix = currentObject.transformationMatrix;        
-        [selfMatrix concatMatrix:currentMatrix];
+        [targetMatrix concatMatrix:currentMatrix];
         currentObject = [currentObject parent];
     }    
-      
+    
     [targetMatrix invert];
     [selfMatrix concatMatrix:targetMatrix];
     [targetMatrix release];
-    
-    SP_RELEASE_POOL(pool);
     
     return [selfMatrix autorelease];
 }
@@ -121,7 +117,7 @@
 
 - (SPRectangle*)bounds
 {
-    return [self boundsInSpace:nil];
+    return [self boundsInSpace:self.parent];
 }
 
 - (SPDisplayObject*)hitTestPoint:(SPPoint*)localPoint forTouch:(BOOL)isTouch;
@@ -185,7 +181,7 @@
 
 - (float)width
 {
-    return [self boundsInSpace:nil].width; 
+    return [self boundsInSpace:self.parent].width; 
 }
 
 - (void)setWidth:(float)value
@@ -195,7 +191,7 @@
 
 - (float)height
 {
-    return [self boundsInSpace:nil].height;
+    return [self boundsInSpace:self.parent].height;
 }
 
 - (void)setHeight:(float)value

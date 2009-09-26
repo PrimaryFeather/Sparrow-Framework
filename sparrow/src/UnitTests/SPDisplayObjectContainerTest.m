@@ -35,6 +35,8 @@
 
 @implementation SPDisplayObjectContainerTest
 
+#define E 0.0001f
+
 - (void) setUp
 {
     mAdded = mAddedToStage = mRemoved = mRemovedFromStage = 0;
@@ -204,6 +206,29 @@
     STAssertEqualObjects(expectedBounds, bounds, @"wrong bounds: %@", bounds);    
     
     [root release];
+}
+
+- (void)testSize
+{
+    SPQuad *quad1 = [SPQuad quadWithWidth:100 height:100];
+    SPQuad *quad2 = [SPQuad quadWithWidth:100 height:100];
+    quad2.x = quad2.y = 100;
+    
+    SPSprite *sprite = [SPSprite sprite];
+    SPSprite *childSprite = [SPSprite sprite];
+    
+    [sprite addChild:childSprite];
+    [childSprite addChild:quad1];
+    [childSprite addChild:quad2];
+        
+    
+    STAssertEqualsWithAccuracy(200.0f, sprite.width, E, @"wrong width: %f", sprite.width);
+    STAssertEqualsWithAccuracy(200.0f, sprite.height, E, @"wrong height: %f", sprite.height);
+        
+    sprite.scaleX = 2;
+    sprite.scaleY = 2;
+    STAssertEqualsWithAccuracy(400.0f, sprite.width, E, @"wrong width: %f", sprite.width);
+    STAssertEqualsWithAccuracy(400.0f, sprite.height, E, @"wrong height: %f", sprite.height);    
 }
 
 - (void)addQuadToSprite:(SPSprite*)sprite
