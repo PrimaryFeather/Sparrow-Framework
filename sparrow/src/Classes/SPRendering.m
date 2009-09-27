@@ -41,8 +41,9 @@ static void bindTexture(uint textureID)
 {    
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); 
-
+    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA); // note: not GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA,
+                                                 //       because of premultiplied png textures!
+    
     glDisable(GL_CULL_FACE);
     glDisable(GL_LIGHTING);
     glDisable(GL_DEPTH_TEST);
@@ -112,15 +113,20 @@ static void bindTexture(uint textureID)
     vertices[5] = mHeight;
     vertices[7] = mHeight;        
  
-    GLubyte alpha = (GLubyte) (self.alpha * 255);
+    // Since the iPhone loads png images with premultiplied alpha values, we need to use the
+    // blending function "GL_ONE, GL_ONE_MINUS_SRC_ALPHA" (instead of the usual blending function, 
+    // "GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA"). Thus, we have to premultiply the alpha values
+    // generally. This might change in the future, when more texture formats are supported.
+    
+    float alpha = self.alpha;
     GLubyte* pos = colors;
     for (int i=0; i<4; ++i) 
     {
         uint color = mVertexColors[i];        
-        *(pos++) = SP_COLOR_PART_RED(color);
-        *(pos++) = SP_COLOR_PART_GREEN(color);
-        *(pos++) = SP_COLOR_PART_BLUE(color);
-        *(pos++) = alpha;
+        *(pos++) = (GLubyte) (SP_COLOR_PART_RED(color) * alpha);
+        *(pos++) = (GLubyte) (SP_COLOR_PART_GREEN(color) * alpha);
+        *(pos++) = (GLubyte) (SP_COLOR_PART_BLUE(color) * alpha);        
+        *(pos++) = (GLubyte) (alpha * 255);
     }
     
     // If this method is called from a subclass, it has most probably bound a texture (on purpose).
@@ -163,6 +169,8 @@ static void bindTexture(uint textureID)
     glTexCoordPointer(2, GL_FLOAT, 0, texCoords);
     
     [super render];    
+    
+    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }
 
 @end
@@ -190,7 +198,9 @@ static void bindTexture(uint textureID)
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
     glTexCoordPointer(2, GL_FLOAT, 0, texCoords);
     
-    [super render];    
+    [super render];  
+    
+    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }
 
 @end
