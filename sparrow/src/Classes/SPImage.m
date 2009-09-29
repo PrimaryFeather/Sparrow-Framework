@@ -35,7 +35,8 @@
 
 - (id)initWithWidth:(float)width height:(float)height
 {
-    return [self initWithTexture:[SPStaticTexture textureWithData:NULL width:width height:height]];
+    return [self initWithTexture:[SPStaticTexture textureWithData:NULL width:width height:height
+                                  format:SPTextureFormatRGBA premultipliedAlpha:NO]];
 }
 
 - (void)setTexCoords:(SPPoint*)coords ofVertex:(int)vertexID

@@ -13,6 +13,7 @@
 @implementation SPTexture
 
 @synthesize clipping = mClipping;
+@synthesize hasPremultipliedAlpha = mPremultipliedAlpha;
 
 - (id)init
 {    

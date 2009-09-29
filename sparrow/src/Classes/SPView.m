@@ -15,6 +15,7 @@
 #import "SPMakros.h"
 #import "SPTouch.h"
 #import "SPTouch_Internal.h"
+#import "SPRenderSupport.h"
 
 // --- private interface ---------------------------------------------------------------------------
 
@@ -22,6 +23,7 @@
 
 @property (nonatomic, retain) EAGLContext *context;
 @property (nonatomic, retain) NSTimer *timer;
+@property (nonatomic, retain) id displayLink;
 
 - (id)initialize;
 - (BOOL)createFramebuffer;
@@ -35,9 +37,12 @@
 
 @implementation SPView
 
+#define REFRESH_RATE 60
+
 @synthesize stage = mStage;
 @synthesize context = mContext;
 @synthesize timer = mTimer;
+@synthesize displayLink = mDisplayLink;
 @synthesize frameRate = mFrameRate;
 
 #pragma mark -
@@ -56,10 +61,15 @@
 
 - (id)initialize
 {
+    // A system version of 3.1 or greater is required to use CADisplayLink.
+    NSString *currSysVer = [[UIDevice currentDevice] systemVersion];
+    if ([currSysVer compare:@"3.1" options:NSNumericSearch] != NSOrderedAscending)
+        mDisplayLinkSupported = YES;
+
     self.frameRate = 30.0f;
     self.multipleTouchEnabled = YES;
     self.backgroundColor = [UIColor blackColor];
-    [[UIApplication sharedApplication] setStatusBarHidden:YES animated:NO];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES animated:NO];    
     
     // get the layer
     CAEAGLLayer *eaglLayer = (CAEAGLLayer *)self.layer;
@@ -77,6 +87,8 @@
         return nil;
     }    
     
+    mRenderSupport = [[SPRenderSupport alloc] init];
+    
     return self;
 }
 
@@ -91,9 +103,27 @@
     }
 }
 
-- (void)setFrameRate:(double)value
+- (void)setDisplayLink:(id)newDisplayLink
+{
+    if (mDisplayLink != newDisplayLink)
+    {
+        [mDisplayLink invalidate];
+        mDisplayLink = newDisplayLink;
+    }
+}
+
+- (void)setFrameRate:(float)value
 {    
-    mFrameRate = value;    
+    if (mDisplayLinkSupported)
+    {
+        int frameInterval = 1;            
+        while (REFRESH_RATE / frameInterval > value)
+            ++frameInterval;
+        mFrameRate = REFRESH_RATE / frameInterval;
+    }
+    else 
+        mFrameRate = value;
+    
     if (self.isStarted)
     {
         self.isStarted = NO;
@@ -103,7 +133,7 @@
 
 - (BOOL)isStarted
 {
-    return mTimer != nil;
+    return mTimer || mDisplayLink;
 }
 
 - (void)setIsStarted:(BOOL)value
@@ -112,12 +142,27 @@
     if (value && mFrameRate > 0.0f)
     {
         mLastFrameTimestamp = CACurrentMediaTime();
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:(1.0f / mFrameRate) 
-                              target:self selector:@selector(renderStage) userInfo:nil repeats:YES];
+        
+        if (mDisplayLinkSupported)
+        {
+            mDisplayLink = [NSClassFromString(@"CADisplayLink") 
+                            displayLinkWithTarget:self selector:@selector(renderStage)];
+            
+			[mDisplayLink setFrameInterval: (int)(REFRESH_RATE / mFrameRate)];
+			[mDisplayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+        }
+        else 
+        {
+            // timer used as a fallback
+            self.timer = [NSTimer scheduledTimerWithTimeInterval:(1.0f / mFrameRate) 
+                target:self selector:@selector(renderStage) userInfo:nil repeats:YES];            
+        }
+
     }
     else
     {
         self.timer = nil;
+        self.displayLink = nil;
     }    
 }
 
@@ -146,7 +191,7 @@
     [mStage advanceTime:timePassed];
     mLastFrameTimestamp = now;
         
-    [mStage render];
+    [mStage render:mRenderSupport];
     
     glBindRenderbufferOES(GL_RENDERBUFFER_OES, mRenderbuffer);
     [mContext presentRenderbuffer:GL_RENDERBUFFER_OES];
@@ -251,7 +296,10 @@
 - (void)dealloc 
 {    
     self.timer = nil; // invalidates timer    
+    self.displayLink = nil; // invalidates displayLink
+    
     if ([EAGLContext currentContext] == mContext) [EAGLContext setCurrentContext:nil];
+    [mRenderSupport release];
     [mContext release];  
     [mStage release];
     

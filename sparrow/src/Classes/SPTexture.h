@@ -16,11 +16,13 @@
 {
   @protected    
     SPRectangle *mClipping;
+    BOOL mPremultipliedAlpha;
 }
 
 @property (nonatomic, readonly) float width;
 @property (nonatomic, readonly) float height;
 @property (nonatomic, readonly) uint textureID;
+@property (nonatomic, readonly) BOOL hasPremultipliedAlpha;
 @property (nonatomic, retain) SPRectangle *clipping;
 
 @end

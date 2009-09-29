@@ -13,6 +13,7 @@
 #import "SPImage.h"
 #import "SPTextField.h"
 #import "SPTexture.h"
+#import "SPRenderSupport.h"
 
 #import <OpenGLES/EAGL.h>
 #import <OpenGLES/ES1/gl.h>
@@ -20,29 +21,12 @@
 
 #define ZPOS 0
 
-// --- c functions ---
-
-static void bindTexture(uint textureID)
-{
-    static uint lastTextureID = UINT_MAX;
-    
-    if (lastTextureID != textureID)
-    {    
-        lastTextureID = textureID;
-        glBindTexture(GL_TEXTURE_2D, textureID);
-    }    
-}
-
-// ---
-
 @implementation SPStage (Rendering)
 
-- (void)render
+- (void)render:(SPRenderSupport *)support;
 {    
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
-    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA); // note: not GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA,
-                                                 //       because of premultiplied png textures!
     
     glDisable(GL_CULL_FACE);
     glDisable(GL_LIGHTING);
@@ -60,7 +44,7 @@ static void bindTexture(uint textureID)
     glScalef(1.0f, -1.0f, 1.0f);
     glTranslatef(-mWidth/2.0f, -mHeight/2.0f, 0.0f);
     
-    [super render];
+    [super render:support];
     
     glDisable(GL_BLEND);
     glDisable(GL_TEXTURE_2D);
@@ -75,7 +59,7 @@ static void bindTexture(uint textureID)
 
 @implementation SPDisplayObjectContainer (Rendering)
 
-- (void)render
+- (void)render:(SPRenderSupport *)support;
 {    
     if (self.alpha == 0 || !self.isVisible) return;
     
@@ -88,7 +72,7 @@ static void bindTexture(uint textureID)
         
         float originalAlpha = child.alpha;        
         child.alpha *= self.alpha;
-        [child render];
+        [child render:support];
         child.alpha = originalAlpha;
         
         glPopMatrix();        
@@ -97,13 +81,16 @@ static void bindTexture(uint textureID)
 
 @end
 
-
-
 @implementation SPQuad (Rendering)
 
-- (void)render
+- (void)render:(SPRenderSupport *)support;
 {
     if (self.alpha == 0 || !self.isVisible) return;
+    
+    // If this method is called from a subclass, it has most probably bound a texture (on purpose).
+    // But if this is a 'real' quad, we have to disable any texture.
+    if (self->isa == [SPQuad class])
+        [support bindTexture:nil];
     
     static GLfloat vertices[8];   
     static GLubyte colors[16];   
@@ -113,27 +100,28 @@ static void bindTexture(uint textureID)
     vertices[5] = mHeight;
     vertices[7] = mHeight;        
  
-    // Since the iPhone loads png images with premultiplied alpha values, we need to use the
-    // blending function "GL_ONE, GL_ONE_MINUS_SRC_ALPHA" (instead of the usual blending function, 
-    // "GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA"). Thus, we have to premultiply the alpha values
-    // generally. This might change in the future, when more texture formats are supported.
-    
     float alpha = self.alpha;
     GLubyte* pos = colors;
     for (int i=0; i<4; ++i) 
     {
         uint color = mVertexColors[i];        
-        *(pos++) = (GLubyte) (SP_COLOR_PART_RED(color) * alpha);
-        *(pos++) = (GLubyte) (SP_COLOR_PART_GREEN(color) * alpha);
-        *(pos++) = (GLubyte) (SP_COLOR_PART_BLUE(color) * alpha);        
+        
+        if (support.usingPremultipliedAlpha)
+        {
+            *(pos++) = (GLubyte) (SP_COLOR_PART_RED(color) * alpha);
+            *(pos++) = (GLubyte) (SP_COLOR_PART_GREEN(color) * alpha);
+            *(pos++) = (GLubyte) (SP_COLOR_PART_BLUE(color) * alpha);        
+        }
+        else 
+        {
+            *(pos++) = (GLubyte) SP_COLOR_PART_RED(color);
+            *(pos++) = (GLubyte) SP_COLOR_PART_GREEN(color);
+            *(pos++) = (GLubyte) SP_COLOR_PART_BLUE(color);
+        }        
+        
         *(pos++) = (GLubyte) (alpha * 255);
     }
-    
-    // If this method is called from a subclass, it has most probably bound a texture (on purpose).
-    // But if this is a 'real' quad, we have to disable any texture.
-    if (self->isa == [SPQuad class])
-        bindTexture(0);
-    
+        
     glEnableClientState(GL_VERTEX_ARRAY);
     glEnableClientState(GL_COLOR_ARRAY);    
     
@@ -150,7 +138,7 @@ static void bindTexture(uint textureID)
 
 @implementation SPImage (Rendering)
 
-- (void)render
+- (void)render:(SPRenderSupport *)support;
 {
     if (self.alpha == 0 || !self.isVisible) return;    
     
@@ -163,12 +151,12 @@ static void bindTexture(uint textureID)
         texCoords[2*i+1] = clipping.y + mTexCoords[2*i+1] * clipping.height;        
     }
     
-    bindTexture(mTexture.textureID);
+    [support bindTexture:mTexture];
     
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
     glTexCoordPointer(2, GL_FLOAT, 0, texCoords);
-    
-    [super render];    
+   
+    [super render:support];    
     
     glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }
@@ -177,7 +165,7 @@ static void bindTexture(uint textureID)
 
 @implementation SPTextField (Rendering)
 
-- (void)render
+- (void)render:(SPRenderSupport *)support;
 {
     if (self.alpha == 0 || !self.isVisible) return;
     
@@ -193,12 +181,12 @@ static void bindTexture(uint textureID)
     texCoords[6] = clipping.x; 
     texCoords[7] = clipping.y + clipping.height;    
     
-    bindTexture(mTexture.textureID);
+    [support bindTexture:mTexture];
     
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
     glTexCoordPointer(2, GL_FLOAT, 0, texCoords);
     
-    [super render];  
+    [super render:support];  
     
     glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }

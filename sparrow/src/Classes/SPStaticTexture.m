@@ -32,15 +32,21 @@
 @synthesize repeat = mRepeat;
 
 - (id)initWithData:(const void*)imgData width:(int)width height:(int)height
+            format:(SPTextureFormat)format premultipliedAlpha:(BOOL)pma
 {
     if (self = [super init])
     {        
         mWidth = width;
         mHeight = height;
         mRepeat = NO;
+        mPremultipliedAlpha = pma;
         
         if (imgData)
         {
+            GLenum glTexFormat;            
+            if (format == SPTextureFormatRGBA) glTexFormat = GL_RGBA;            
+            else                               glTexFormat = GL_ALPHA;
+            
             glGenTextures(1, &mTextureID);
             glBindTexture(GL_TEXTURE_2D, mTextureID);    
             
@@ -49,12 +55,12 @@
             glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);   
             glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, mRepeat ? GL_REPEAT : GL_CLAMP_TO_EDGE); 
             glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, mRepeat ? GL_REPEAT : GL_CLAMP_TO_EDGE); 
-            
-            // format and type are fixed (for now), to avoid any OpenGL data types in the interface
-            // this might be changed when support for PVRTC textures is added (see below).
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, imgData);
+           
+            glTexImage2D(GL_TEXTURE_2D, 0, glTexFormat, width, height, 0, glTexFormat, 
+                         GL_UNSIGNED_BYTE, imgData);
             
             glBindTexture(GL_TEXTURE_2D, 0);
+            
         }
         else
         {
@@ -83,7 +89,8 @@
 
 - (id)init
 {
-    return [self initWithData:NULL width:32 height:32];
+    return [self initWithData:NULL width:32 height:32 
+                       format:SPTextureFormatRGBA premultipliedAlpha:NO];
 }
 
 - (id)initWithImage:(UIImage*)image
@@ -108,12 +115,18 @@
     CGContextDrawImage(context, CGRectMake(0, legalHeight-origHeight, origWidth, origHeight), 
                        image.CGImage);
     
-    self = [self initWithData:imageData width:legalWidth height:legalHeight];   
+    CGImageAlphaInfo info = CGImageGetAlphaInfo(image.CGImage);
+    BOOL pma = (info == kCGImageAlphaPremultipliedFirst || info == kCGImageAlphaPremultipliedLast);
+    SPTextureFormat textureFormat = SPTextureFormatRGBA;
+        
+    self = [self initWithData:imageData width:legalWidth height:legalHeight 
+                       format:textureFormat premultipliedAlpha:pma];   
     
     CGContextRelease(context);
     free(imageData);    
 
-    self.clipping = [SPRectangle rectangleWithX:0 y:0 width:origWidth/legalWidth height:origHeight/legalHeight];    
+    self.clipping = [SPRectangle rectangleWithX:0 y:0 width:origWidth/legalWidth 
+                                                     height:origHeight/legalHeight];    
     return self;
 }
 
@@ -174,8 +187,10 @@
 }
 
 + (SPStaticTexture*)textureWithData:(const void*)imgData width:(int)width height:(int)height
+                             format:(SPTextureFormat)format premultipliedAlpha:(BOOL)pma
 {
-    return [[[SPStaticTexture alloc] initWithData:imgData width:width height:height] autorelease];
+    return [[[SPStaticTexture alloc] initWithData:imgData width:width height:height 
+                                           format:format premultipliedAlpha:pma] autorelease];
 }
 
 - (void)dealloc

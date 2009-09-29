@@ -140,12 +140,12 @@ static void dispatchEnterFrameEvent(SPDisplayObject *object, SPEnterFrameEvent *
     [NSException raise:SP_EXC_INVALID_OPERATION format:@"cannot rotate stage"];
 }
 
-- (void)setFrameRate:(double)value
+- (void)setFrameRate:(float)value
 {
     [mNativeView setFrameRate:value];
 }
 
-- (double)frameRate
+- (float)frameRate
 {
     return [mNativeView frameRate];
 }

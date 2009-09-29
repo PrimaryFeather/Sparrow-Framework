@@ -13,6 +13,7 @@
 #import <OpenGLES/ES1/glext.h>
 
 @class SPStage;
+@class SPRenderSupport;
 
 /*
 This class wraps the CAEAGLLayer from CoreAnimation into a convenient UIView subclass.
@@ -26,13 +27,17 @@ Note that setting the view non-opaque will only work if the EAGL surface has an 
     int mHeight;
     
     SPStage *mStage;
+    SPRenderSupport *mRenderSupport;
     
     EAGLContext *mContext;    
     GLuint mRenderbuffer;
-    GLuint mFramebuffer;
+    GLuint mFramebuffer;    
     
+    float mFrameRate;
     NSTimer *mTimer;
-    double mFrameRate;
+    id mDisplayLink;
+    BOOL mDisplayLinkSupported;        
+    
     double mLastFrameTimestamp;
     double mLastTouchTimestamp;
 }
@@ -40,8 +45,8 @@ Note that setting the view non-opaque will only work if the EAGL surface has an 
 - (id)initWithFrame:(CGRect)aRect;
 - (id)initWithCoder:(NSCoder*)coder;
 
-@property (nonatomic, assign) BOOL isStarted;
-@property (nonatomic, assign) double frameRate;
+@property (nonatomic, assign) BOOL  isStarted;
+@property (nonatomic, assign) float frameRate;
 @property (nonatomic, retain) SPStage *stage;
 
 @end

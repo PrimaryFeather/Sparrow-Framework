@@ -11,12 +11,12 @@
 
 @interface BenchmarkScene ()
 
-- (SPSprite *)createTestSprite;
-- (void)onBenchmarkComplete;
+- (void)addTestObject;
+- (void)benchmarkComplete;
 
 @end
 
-#define DURATION 15
+#define WAIT_TIME 0.1f
 
 @implementation BenchmarkScene
 
@@ -26,6 +26,13 @@
     {
         mAtlas = [[SPTextureAtlas alloc] initWithContentsOfFile:@"atlas.xml"];   
         
+        // the container will hold all test objects
+        mContainer = [[SPSprite alloc] init];
+        mContainer.isTouchable = NO; // we do not need touch events on the test objects -- thus, 
+                                     // it is more efficient to disable them.
+        [self addChild:mContainer atIndex:0];        
+        [mContainer release];
+        
         // we create a button that is used to start the benchmark.
         mStartButton = [[SPButton alloc] initWithUpState:[mAtlas textureByName:@"button_wide"] 
                                                     text:@"Start benchmark"];
@@ -34,19 +41,51 @@
         mStartButton.x = 80;
         mStartButton.y = 20;
         [self addChild:mStartButton];
-        [mStartButton release];
+        [mStartButton release];        
         
         mJuggler = [[SPJuggler alloc] init];
-        [self addEventListener:@selector(onEnterFrame:) atObject:self
-                       forType:SP_EVENT_TYPE_ENTER_FRAME];
+        mStarted = NO;
+        
+        [self addEventListener:@selector(onEnterFrame:) atObject:self forType:SP_EVENT_TYPE_ENTER_FRAME];
     }
     return self;    
 }
 
 - (void)onEnterFrame:(SPEnterFrameEvent *)event
-{
-    [mJuggler advanceTime:event.passedTime];
-    ++mFrameCount;
+{    
+    [mJuggler advanceTime:event.passedTime];    
+    
+    if (mStarted)
+    {
+        mElapsed += event.passedTime;
+        ++mFrameCount;
+
+        if (mFrameCount % mWaitFrames == 0)
+        {
+            float targetFPS = self.stage.frameRate;
+            float realFPS = mWaitFrames / mElapsed;
+            
+            if (ceilf(realFPS) >= targetFPS)
+            {
+                mFailCount = 0;
+                [self addTestObject];            
+            }
+            else 
+            {
+                ++mFailCount;                
+                
+                if (mFailCount > targetFPS / 3.0f)
+                    mWaitFrames = 15; // slow down creation process to be more exact               
+                if (mFailCount == targetFPS)
+                    [self benchmarkComplete]; // target fps not reached for one complete second
+            }
+
+            mElapsed = mFrameCount = 0;
+        }
+    }
+    
+    for (SPDisplayObject *child in mContainer)    
+        child.rotationZ += 0.05f;    
 }
 
 - (void)onStartButtonPressed:(SPEvent*)event
@@ -54,93 +93,69 @@
     NSLog(@"starting benchmark");
     
     mStartButton.isEnabled = NO;
+    mStarted = YES;
+    mFailCount = 0;
+    mWaitFrames = 3;
+    
     [mResultText removeFromParent];
     mResultText = nil;
     
     mFrameCount = 0;
-    mStartMoment = CACurrentMediaTime();
-    
-    int numX = 12;
-    int numY = 16;
-    
-    int diffX = 320 / numX;
-    int diffY = 480 / numY;
-           
-    [mJuggler removeAllObjects];
-    [mContainer removeFromParent];
-    mContainer = [[SPSprite alloc] init];
-    mContainer.isTouchable = NO;
-    
-    mContainer.x = (320.0f / diffX) / 2;
-    mContainer.y = (480.0f / diffY) / 2;
-    
-    for (int x=0; x<numX; ++x)
-    {
-        for (int y=0; y<numY; ++y)
-        {
-            SPSprite *testSprite = [self createTestSprite];
-            testSprite.x = x * diffX;
-            testSprite.y = y * diffY;
-            
-            float rotation = SP_D2R((x*numY+y) * (360 / (numX * numY)));
-            testSprite.rotationZ = rotation;
-            
-            [mContainer addChild:testSprite];
-
-            SPTween *tween = [[SPTween alloc] initWithTarget:testSprite time:DURATION];
-            [tween animateProperty:@"rotationZ" targetValue:SP_D2R(rotation + 360 * 2)];
-            //[tween animateProperty:@"y" targetValue:testSprite.y + 50];
-            [mJuggler addObject:tween];
-            [tween release];
-
-        }
-    }
-    
-    [self addChild:mContainer atIndex:0];
-    [mContainer release];
-    
-    [[mJuggler delayInvocationAtTarget:self byTime:DURATION] onBenchmarkComplete];            
-    
 }
 
-- (void)onBenchmarkComplete
+- (void)benchmarkComplete
 {
-    float fps = (float)mFrameCount / DURATION;
+    mStarted = NO;
+    mStartButton.isEnabled = YES;
+    [mJuggler removeAllObjects];
     
     NSLog(@"benchmark complete!");
-    NSLog(@"number of frames: %d", mFrameCount);
-    NSLog(@"fps: %.2f", fps);
-    NSLog(@"real duration: %f", CACurrentMediaTime() - mStartMoment);
+    NSLog(@"fps: %d", self.stage.frameRate);
+    NSLog(@"number of objects: %d", mContainer.numChildren);
     
-    [mContainer removeFromParent];
-    mContainer = nil;
-    mStartButton.isEnabled = YES;
+    NSString *resultString = [NSString stringWithFormat:@"Result:\n%d objects\nwith %.1f fps", 
+                              mContainer.numChildren, self.stage.frameRate]; 
     
-    NSString *resultString = [NSString stringWithFormat:@"Result:\n%.2f fps", fps]; 
-    
-    mResultText = [[SPTextField alloc] initWithWidth:250 height:200 text:resultString];
+    mResultText = [SPTextField textFieldWithWidth:250 height:200 text:resultString];
     mResultText.fontSize = 30;
-    mResultText.fontColor = 0xffffff;
+    mResultText.color = 0xffffff;
     mResultText.x = (320 - mResultText.width) / 2;
     mResultText.y = (480 - mResultText.height) / 2;
     
     [self addChild:mResultText];
+    
+    while (mContainer.numChildren > 0)
+        [mContainer removeChildAtIndex:0];    
 }
 
-- (SPSprite *)createTestSprite
+float getRandomNumber()
 {
-    SPSprite *sprite = [SPSprite sprite];    
+    return (float) arc4random() / UINT_MAX;
+}
+
+- (void)addTestObject
+{
+    SPSprite *sprite = [[SPSprite alloc] init];
+    int border = 15;
+    sprite.x = border + getRandomNumber() * 320 - 2*border;
+    sprite.y = border + getRandomNumber() * 480 - 2*border;
     
-    SPImage *moon = [[SPImage alloc] initWithTexture:[mAtlas textureByName:@"moon"]];    
-    //SPQuad *moon = [[SPQuad alloc] initWithWidth:130.0f height:130.0f];
-    //moon.color = 0xff0000;
+    SPImage *moon = [[SPImage alloc] initWithTexture:[mAtlas textureByName:@"moon"]];        
     moon.scaleX = moon.scaleY = 0.3f;
-    moon.x = -moon.width/2 + 25;  
+    moon.x = -moon.width/2 + 25;
     moon.y = -moon.height / 2;
     
     [sprite addChild:moon];
     [moon release];
-    return sprite;
+    
+    sprite.alpha = 0.0f;
+    SPTween *fadeIn = [[SPTween alloc] initWithTarget:sprite time:0.25];
+    [fadeIn animateProperty:@"alpha" targetValue:1.0f];
+    [mJuggler addObject:fadeIn];
+    [fadeIn release];
+    
+    [mContainer addChild:sprite];
+    [sprite release];
 }
 
 - (void)dealloc

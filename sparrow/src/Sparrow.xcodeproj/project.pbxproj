@@ -12,6 +12,8 @@
 		DE019C3B1026363D00ECB0AC /* SPNSExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = DE68EA160FBB5660004DBC95 /* SPNSExtensions.m */; };
 		DE019C3C1026364800ECB0AC /* SPJuggler.m in Sources */ = {isa = PBXBuildFile; fileRef = DE7044270FB61506007F5ECC /* SPJuggler.m */; };
 		DE1F946B10470CD40084D470 /* SPJugglerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DE1F9446104704440084D470 /* SPJugglerTest.m */; };
+		DE20D9CB10713B0C006658C9 /* SPRenderSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = DE20D9C910713B0C006658C9 /* SPRenderSupport.h */; };
+		DE20D9CC10713B0C006658C9 /* SPRenderSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = DE20D9CA10713B0C006658C9 /* SPRenderSupport.m */; };
 		DED9B51D10629D9F00989853 /* SPPoolObject.h in Headers */ = {isa = PBXBuildFile; fileRef = DED9B51B10629D9F00989853 /* SPPoolObject.h */; };
 		DED9B51E10629D9F00989853 /* SPPoolObject.m in Sources */ = {isa = PBXBuildFile; fileRef = DED9B51C10629D9F00989853 /* SPPoolObject.m */; };
 		DEE0D8AA104B06FE009A7C99 /* SPStage_Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = DE2AD84A104A84F1001AF0A0 /* SPStage_Internal.m */; };
@@ -82,6 +84,8 @@
 		DE0853F80FEC2CFF00DAF53C /* SPTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPTexture.h; sourceTree = "<group>"; };
 		DE0853F90FEC2CFF00DAF53C /* SPTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPTexture.m; sourceTree = "<group>"; };
 		DE1F9446104704440084D470 /* SPJugglerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPJugglerTest.m; sourceTree = "<group>"; };
+		DE20D9C910713B0C006658C9 /* SPRenderSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPRenderSupport.h; sourceTree = "<group>"; };
+		DE20D9CA10713B0C006658C9 /* SPRenderSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPRenderSupport.m; sourceTree = "<group>"; };
 		DE2AD849104A84F1001AF0A0 /* SPStage_Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPStage_Internal.h; sourceTree = "<group>"; };
 		DE2AD84A104A84F1001AF0A0 /* SPStage_Internal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPStage_Internal.m; sourceTree = "<group>"; };
 		DE2ED8040F6D52080012B6BA /* SPDisplayObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPDisplayObject.h; sourceTree = "<group>"; };
@@ -239,6 +243,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		DE20D9C810713AD0006658C9 /* Rendering */ = {
+			isa = PBXGroup;
+			children = (
+				DE9CF1BC0FED2678008A32FF /* SPRendering.m */,
+				DE20D9C910713B0C006658C9 /* SPRenderSupport.h */,
+				DE20D9CA10713B0C006658C9 /* SPRenderSupport.m */,
+			);
+			name = Rendering;
+			sourceTree = "<group>";
+		};
 		DE469D310F93870A00F56E91 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -291,7 +305,6 @@
 		DED85A940FB49E90000BAA95 /* Internal */ = {
 			isa = PBXGroup;
 			children = (
-				DE9CF1BC0FED2678008A32FF /* SPRendering.m */,
 				DEDCD3AC0FADEE280022011C /* SPTouchProcessor.h */,
 				DEDCD3AD0FADEE280022011C /* SPTouchProcessor.m */,
 				DEDCD44E0FADFFA40022011C /* SPDisplayObject_Internal.h */,
@@ -305,6 +318,7 @@
 		DEDCD3B00FADF1720022011C /* Display */ = {
 			isa = PBXGroup;
 			children = (
+				DE20D9C810713AD0006658C9 /* Rendering */,
 				DED85A940FB49E90000BAA95 /* Internal */,
 				DE2ED8040F6D52080012B6BA /* SPDisplayObject.h */,
 				DE2ED8050F6D52080012B6BA /* SPDisplayObject.m */,
@@ -384,6 +398,7 @@
 			files = (
 				DEEA9403101E44F10071DD21 /* Sparrow.h in Headers */,
 				DED9B51D10629D9F00989853 /* SPPoolObject.h in Headers */,
+				DE20D9CB10713B0C006658C9 /* SPRenderSupport.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -515,6 +530,7 @@
 				DE019C3C1026364800ECB0AC /* SPJuggler.m in Sources */,
 				DEE0D8AA104B06FE009A7C99 /* SPStage_Internal.m in Sources */,
 				DED9B51E10629D9F00989853 /* SPPoolObject.m in Sources */,
+				DE20D9CC10713B0C006658C9 /* SPRenderSupport.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

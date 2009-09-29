@@ -203,16 +203,16 @@
 
 - (uint)fontColor
 {
-    if (mTextField) return mTextField.fontColor;
+    if (mTextField) return mTextField.color;
     else return SP_DEFAULT_FONT_COLOR;
 }
 
 - (void)setFontColor:(uint)value
 {
     [self createTextField];
-    mTextField.fontColor = value;
+    mTextField.color = value;
 }
-
+ 
 #pragma mark -
 
 + (SPButton*)buttonWithUpState:(SPTexture*)upState downState:(SPTexture*)downState

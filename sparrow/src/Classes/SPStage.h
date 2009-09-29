@@ -25,7 +25,7 @@
     id mNativeView;
 }
 
-@property (nonatomic, assign)   double frameRate;
+@property (nonatomic, assign)   float frameRate;
 @property (nonatomic, readonly) SPJuggler *juggler;
 @property (nonatomic, readonly) id nativeView;
 

@@ -13,6 +13,7 @@
 
 @class SPDisplayObjectContainer;
 @class SPStage;
+@class SPRenderSupport;
 
 @interface SPDisplayObject : SPEventDispatcher 
 {
@@ -46,7 +47,7 @@
 @property (nonatomic, readonly) SPStage *stage;
 @property (nonatomic, readonly) SPMatrix *transformationMatrix;
 
-- (void)render;
+- (void)render:(SPRenderSupport*)support;
 - (void)removeFromParent;
 - (SPMatrix*)transformationMatrixToSpace:(SPDisplayObject*)targetCoordinateSpace;
 - (SPRectangle*)boundsInSpace:(SPDisplayObject*)targetCoordinateSpace;

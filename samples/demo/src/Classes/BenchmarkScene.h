@@ -17,8 +17,10 @@
 
     SPSprite *mContainer;
     int mFrameCount;
-    double mStartMoment;
- 
+    double mElapsed; 
+    BOOL mStarted;
+    int mFailCount;
+    int mWaitFrames;
 }
 
 @end

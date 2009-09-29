@@ -13,10 +13,10 @@
 {
   @private
     NSMutableSet *mObjects;
-    double mLifeTime;
+    double mElapsedTime;
 }
 
-@property (nonatomic, readonly) double lifeTime;
+@property (nonatomic, readonly) double elapsedTime;
 
 - (void)addObject:(id<SPAnimatable>)object;
 - (void)removeObject:(id<SPAnimatable>)object;

@@ -12,14 +12,14 @@
 
 @implementation SPJuggler
 
-@synthesize lifeTime = mLifeTime;
+@synthesize elapsedTime = mElapsedTime;
 
 - (id)init
 {    
     if (self = [super init])
     {        
         mObjects = [[NSMutableSet alloc] init];
-        mLifeTime = 0.0;
+        mElapsedTime = 0.0;
     }
     return self;
 }
@@ -31,7 +31,7 @@
 
 - (void)advanceTime:(double)seconds
 {
-    mLifeTime += seconds;
+    mElapsedTime += seconds;
     
     // we need work with a copy, since user-code could modify the collection during the enumeration
     for (id<SPAnimatable> object in [mObjects allObjects])    

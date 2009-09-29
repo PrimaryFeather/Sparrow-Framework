@@ -32,30 +32,23 @@
 @synthesize text = mText;
 @synthesize fontName = mFontName;
 @synthesize fontSize = mFontSize;
-@synthesize fontColor = mFontColor;
 @synthesize hAlign = mHAlign;
 @synthesize vAlign = mVAlign;
-@synthesize background = mBackground;
-@synthesize backgroundColor = mBackgroundColor;
 @synthesize border = mBorder;
-@synthesize borderColor = mBorderColor;
 @synthesize texture = mTexture;
 
 - (id)initWithWidth:(float)width height:(float)height text:(NSString*)text fontName:(NSString*)name 
-          fontColor:(uint)color fontSize:(float)size
+          fontSize:(float)size color:(uint)color 
 {
     if (self = [super initWithWidth:width height:height])
     {    
         mText = [text copy];
-        mFontColor = color;
+        self.color = color;
         mFontName = [name copy];
         mFontSize = size;
         mHAlign = SPHAlignCenter;
         mVAlign = SPVAlignCenter;
-        mBackground = NO;
-        mBackgroundColor = 0xffffff;
         mBorder = NO;
-        mBorderColor = 0x0;       
         mTexture = nil;        
         mRequiresRedraw = YES;                
         [self addEventListener:@selector(onEnterFrame:) atObject:self forType:SP_EVENT_TYPE_ENTER_FRAME];
@@ -66,7 +59,7 @@
 - (id)initWithWidth:(float)width height:(float)height text:(NSString*)text;
 {
     return [self initWithWidth:width height:height text:text fontName:SP_DEFAULT_FONT_NAME
-                     fontColor:SP_DEFAULT_FONT_COLOR fontSize:SP_DEFAULT_FONT_SIZE];   
+                     fontSize:SP_DEFAULT_FONT_SIZE color:SP_DEFAULT_FONT_COLOR];   
 }
 
 - (id)initWithWidth:(float)width height:(float)height
@@ -85,18 +78,15 @@
 
 - (SPTexture*)createTexture
 {
-    SP_CREATE_POOL(pool);
-    
-    int legalWidth = 2;    while (legalWidth < mWidth) legalWidth *= 2;
-    int legalHeight = 2;   while (legalHeight < mHeight) legalHeight *=2;
+    int legalWidth  = 2;   while (legalWidth  < mWidth)  legalWidth  *= 2;
+    int legalHeight = 2;   while (legalHeight < mHeight) legalHeight *= 2;
     
     SPPoint *textSize = [self textSize];
     
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    void *imageData = malloc(legalWidth * legalHeight * 4);
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
+    void *imageData = malloc(legalWidth * legalHeight);
     CGContextRef context = CGBitmapContextCreate(imageData, legalWidth, legalHeight,
-                                                 8, 4 * legalWidth, colorSpace, 
-                                                 kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
+                                                 8, legalWidth, colorSpace, kCGImageAlphaNone);
     CGColorSpaceRelease(colorSpace);
     CGContextClearRect(context, CGRectMake(0, 0, legalWidth, legalHeight));
     
@@ -107,32 +97,19 @@
     
     UIGraphicsPushContext(context);    
     
-    if (mBackground)
-    {
-        CGContextSetRGBFillColor(context, SP_COLOR_PART_RED(mBackgroundColor) / 255.0f, 
-                                          SP_COLOR_PART_GREEN(mBackgroundColor) / 255.0f,  
-                                          SP_COLOR_PART_BLUE(mBackgroundColor) / 255.0f, 1.0f);     
-        CGContextFillRect(context, CGRectMake(0, 0, mWidth, mHeight));
-    }
-    
     if (mBorder)
     {
-        CGContextSetRGBStrokeColor(context, SP_COLOR_PART_RED(mBorderColor) / 255.0f, 
-                                            SP_COLOR_PART_GREEN(mBorderColor) / 255.0f,  
-                                            SP_COLOR_PART_BLUE(mBorderColor) / 255.0f, 1.0f);
+        CGContextSetGrayStrokeColor(context, 1.0f, 1.0f);
         CGContextSetLineWidth(context, 1.0f);
         CGContextStrokeRect(context, CGRectMake(0.5f, 0.5f, mWidth-1, mHeight-1));
     }
-    
-    CGContextSetRGBFillColor(context, SP_COLOR_PART_RED(mFontColor) / 255.0f, 
-                                      SP_COLOR_PART_GREEN(mFontColor) / 255.0f,  
-                                      SP_COLOR_PART_BLUE(mFontColor) / 255.0f, 1.0f);     
-    
+        
+    CGContextSetGrayFillColor(context, 1.0f, 1.0f);
     UILineBreakMode lbm = UILineBreakModeTailTruncation;
  
     float yOffset = 0;
     if (mVAlign == SPVAlignCenter)      yOffset = (mHeight - textSize.y) / 2.0f;
-    else if (mVAlign == SPVAlignBottom) yOffset = mHeight - textSize.y;    
+    else if (mVAlign == SPVAlignBottom) yOffset =  mHeight - textSize.y;    
     
     [mText drawInRect:CGRectMake(0, yOffset, mWidth, mHeight)
              withFont:[UIFont fontWithName:mFontName size:mFontSize] 
@@ -140,13 +117,13 @@
     
     UIGraphicsPopContext();
     
-    SPTexture* texture = [[SPStaticTexture alloc] initWithData:imageData width:legalWidth height:legalHeight];
+    SPTexture* texture = [[SPStaticTexture alloc] initWithData:imageData 
+        width:legalWidth height:legalHeight format:SPTextureFormatAlpha premultipliedAlpha:NO];
+
     texture.clipping = [SPRectangle rectangleWithX:0 y:0 width:mWidth/legalWidth height:mHeight/legalHeight];    
     
     CGContextRelease(context);
     free(imageData);
-    
-    SP_RELEASE_POOL(pool);
     
     return [texture autorelease];    
 }
@@ -187,7 +164,7 @@
     return [self textSize].y;
 }
 
-- (void)setText:(NSString*)text
+- (void)setText:(NSString *)text
 {
     if (![text isEqualToString:mText])
     {
@@ -197,7 +174,7 @@
     }
 }
 
-- (void)setFontName:(NSString*)fontName
+- (void)setFontName:(NSString *)fontName
 {
     if (![fontName isEqualToString:mFontName])
     {
@@ -215,34 +192,7 @@
         mRequiresRedraw = YES;
     }
 }
-
-- (void)setFontColor:(uint)fontColor
-{
-    if (fontColor != mFontColor)
-    {
-        mFontColor = fontColor;
-        mRequiresRedraw = YES;
-    }
-}
-
-- (void)setBackground:(BOOL)background
-{
-    if (background != mBackground)
-    {
-        mBackground = background;
-        mRequiresRedraw = YES;
-    }
-}
-
-- (void)setBackgroundColor:(uint)color
-{
-    if (color != mBackgroundColor)
-    {
-        mBackgroundColor = color;
-        mRequiresRedraw = YES;
-    }
-}
-
+ 
 - (void)setBorder:(BOOL)border
 {
     if (border != mBorder)
@@ -251,16 +201,7 @@
         mRequiresRedraw = YES;
     }
 }
-
-- (void)setBorderColor:(uint)borderColor
-{
-    if (borderColor != mBorderColor)
-    {
-        mBorderColor = borderColor;
-        mRequiresRedraw = YES;
-    }
-}
-
+ 
 - (void)setHAlign:(SPHAlign)hAlign
 {
     if (hAlign != mHAlign)
@@ -279,11 +220,11 @@
     }
 }
 
-+ (SPTextField*)textFieldWithWidth:(float)width height:(float)height text:(NSString*)text fontName:(NSString*)name
-               fontColor:(uint)color fontSize:(float)size
++ (SPTextField*)textFieldWithWidth:(float)width height:(float)height text:(NSString*)text 
+                          fontName:(NSString*)name fontSize:(float)size color:(uint)color
 {
     return [[[SPTextField alloc] initWithWidth:width height:height text:text fontName:name 
-                                     fontColor:color fontSize:size] autorelease];
+                                     fontSize:size color:color] autorelease];
 }
 
 + (SPTextField*)textFieldWithWidth:(float)width height:(float)height text:(NSString*)text

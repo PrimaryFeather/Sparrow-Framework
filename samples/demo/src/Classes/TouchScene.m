@@ -38,16 +38,16 @@
     
     SPTextField *infoText = [SPTextField textFieldWithWidth:300 height:100 
                                                        text:description fontName:@"Verdana" 
-                                                  fontColor:0xffffff fontSize:13];    
+                                                   fontSize:13 color:0xffffff];    
     infoText.x = infoText.y = 10;
     infoText.vAlign = SPVAlignTop;
     infoText.hAlign = SPHAlignLeft;
     [self addChild:infoText];
-    
+        
     SPTextureAtlas *atlas = [SPTextureAtlas atlasWithContentsOfFile:@"atlas.xml"];
     SPImage *astronaut = [SPImage imageWithTexture:[atlas textureByName:@"astronaut"]];
     SPImage *moon = [SPImage imageWithTexture:[atlas textureByName:@"moon"]];
-
+    
     // to find out how to react to touch events have a look at the TouchSheet class! 
     // It's part of the demo.
                              

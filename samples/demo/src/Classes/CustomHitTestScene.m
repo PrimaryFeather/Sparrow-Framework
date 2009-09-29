@@ -36,11 +36,11 @@
     
     SPTextField *infoText = [SPTextField textFieldWithWidth:300 height:100 
                                                        text:description fontName:@"Verdana" 
-                                                  fontColor:0xffffff fontSize:13];    
+                                                   fontSize:13 color:0xffffff];    
     infoText.x = infoText.y = 10;
     infoText.vAlign = SPVAlignTop;
     infoText.hAlign = SPHAlignLeft;
-    [self addChild:infoText];    
+    [self addChild:infoText];
         
     // 'RoundButton' is a helper class of the Demo, not a part of Sparrow!
     // have a look at its code to understand this sample.

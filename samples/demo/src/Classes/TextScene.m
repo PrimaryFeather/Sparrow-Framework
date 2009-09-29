@@ -27,47 +27,40 @@
 
 - (void)setupScene
 {
-    SPQuad *background = [SPQuad quadWithWidth:320 height:480];
-    background.color = 0xffffff;
-    [self addChild:background];
-     
     int offset = 10;
     
     SPTextField *defaultTF = [SPTextField textFieldWithWidth:300 height:60 
-        text:@"TextFields can be created in different flavors. This is the default one."];
+        text:@"TextFields can be created in different flavors."];
+    defaultTF.color = 0xffffff;
     defaultTF.x = defaultTF.y = offset;    
-    defaultTF.background = YES;
     [self addChild:defaultTF];
     
     SPTextField *colorTF = [SPTextField textFieldWithWidth:300 height:60 
-        text:@"They can have border and background, and all colors can be configured."];
+        text:@"They can have a border and a color."];
     colorTF.x = offset;
     colorTF.y = defaultTF.y + defaultTF.height + offset;
     colorTF.border = YES;
-    colorTF.borderColor = 0x0;
-    colorTF.background = YES;
-    colorTF.backgroundColor = 0x00ff00;
-    colorTF.fontColor = 0x0000ff;
+    colorTF.color = 0xaaaaff;
     [self addChild:colorTF];
     
-    SPTextField *leftTF = [SPTextField textFieldWithWidth:145 height:60 
-        text:@"Text can be aligned top-left ..."];
-    leftTF.x = offset;
+    SPTextField *leftTF = [SPTextField textFieldWithWidth:145 height:80 
+        text:@"Text can be aligned in different ways, e.g. top-left ..."];
+    leftTF.x = offset;    
     leftTF.y = colorTF.y + colorTF.height + offset;
-    leftTF.backgroundColor = 0xffaaaa;
-    leftTF.background = YES;
     leftTF.hAlign = SPHAlignLeft;
     leftTF.vAlign = SPVAlignTop;
+    leftTF.border = YES;
+    leftTF.color = 0xffaaaa;
     [self addChild:leftTF];
     
-    SPTextField *rightTF = [SPTextField textFieldWithWidth:145 height:60 
+    SPTextField *rightTF = [SPTextField textFieldWithWidth:145 height:80 
         text:@"... or bottom right ..."];
     rightTF.x = 2*offset + leftTF.width;
     rightTF.y = colorTF.y + colorTF.height + offset;
-    rightTF.backgroundColor = 0xaaffaa;
-    rightTF.background = YES;
     rightTF.hAlign = SPHAlignRight;
     rightTF.vAlign = SPVAlignBottom;
+    rightTF.color = 0xaaffaa;
+    rightTF.border = YES;
     [self addChild:rightTF];
     
     SPTextField *fontTF = [SPTextField textFieldWithWidth:300 height:100 
@@ -76,10 +69,10 @@
     fontTF.y = leftTF.y + leftTF.height + offset;
     fontTF.hAlign = SPHAlignCenter;
     fontTF.vAlign = SPVAlignCenter;
-    fontTF.fontSize = 17;
+    fontTF.fontSize = 18;
     fontTF.fontName = @"Georgia-Bold";
-    fontTF.background = YES;
-    fontTF.backgroundColor = 0xbbbbbb;
+    fontTF.border = YES;
+    fontTF.color = 0xffffff;
     [self addChild:fontTF];
 }
 

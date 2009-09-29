@@ -52,7 +52,7 @@
 
 #pragma mark -
 
-- (void)render
+- (void)render:(SPRenderSupport*)support
 {
     // override in subclass
 }
