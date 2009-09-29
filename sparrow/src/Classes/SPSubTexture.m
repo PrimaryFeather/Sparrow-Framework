@@ -19,6 +19,7 @@
     if (self = [super init])
     {
         mBaseTexture = [texture retain];
+        mPremultipliedAlpha = texture.hasPremultipliedAlpha;
 
         // convert region to clipping rectangle (which has values between 0 and 1)
         float clipWidth = texture.clipping.width;

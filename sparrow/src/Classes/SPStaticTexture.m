@@ -76,15 +76,11 @@
     if (![[NSFileManager defaultManager] fileExistsAtPath:fullPath])
         return nil;
     
-    SP_CREATE_POOL(pool);
-    
     NSString *imgType = [[path pathExtension] lowercaseString];
     if ([imgType isEqualToString:@"pvrtc"])
         return [self initWithContentsOfPvrtcFile:fullPath];            
     else
-        return [self initWithImage:[UIImage imageNamed:path]];
-    
-    SP_RELEASE_POOL(pool);
+        return [self initWithImage:[UIImage imageNamed:path]];    
 }
 
 - (id)init
@@ -114,13 +110,9 @@
     CGContextClearRect(context, CGRectMake(0, 0, legalWidth, legalHeight));
     CGContextDrawImage(context, CGRectMake(0, legalHeight-origHeight, origWidth, origHeight), 
                        image.CGImage);
-    
-    CGImageAlphaInfo info = CGImageGetAlphaInfo(image.CGImage);
-    BOOL pma = (info == kCGImageAlphaPremultipliedFirst || info == kCGImageAlphaPremultipliedLast);
-    SPTextureFormat textureFormat = SPTextureFormatRGBA;
-        
+
     self = [self initWithData:imageData width:legalWidth height:legalHeight 
-                       format:textureFormat premultipliedAlpha:pma];   
+                       format:SPTextureFormatRGBA premultipliedAlpha:YES];   
     
     CGContextRelease(context);
     free(imageData);    
@@ -136,14 +128,7 @@
     return nil;
     
     // todo: find out how to get width, height and compression type from pvrtc-file --
-    //       this is required to complete this method.
-    
-    // todo: the designated initializer needs an additional parameter, 'format', 
-    //       so that it can make the call to glCompressedTexImage2D.
-    // 
-    // SP_TEXTURE_FORMAT_RGBA_UNSIGNED_BYTE
-    // SP_TEXTURE_FORMAT_PVRTC_RGB_4BPP
-    // etc.
+    //       this is required to complete this method.    
     
     /*
      
