@@ -34,6 +34,7 @@
 @synthesize isEnabled = mEnabled;
 @synthesize upState = mUpState;
 @synthesize downState = mDownState;
+@synthesize textBounds = mTextBounds;
 
 #define MAX_DRAG_DIST 40
 
@@ -50,6 +51,7 @@
         mAlphaWhenDisabled = 0.5f;
         mEnabled = YES;
         mIsDown = NO;
+        mTextBounds = [[SPRectangle alloc] initWithX:0 y:0 width:mUpState.width height:mUpState.height];
         
         [mContents addChild:mBackground];
         [self addChild:mContents];
@@ -138,18 +140,22 @@
 
 - (void)setUpState:(SPTexture*)upState
 {
-    [mUpState release];
-    mUpState = [upState retain];
-    if (!mIsDown) mBackground.texture = upState;
-    mTextField.width = upState.width;
-    mTextField.height = upState.height;
+    if (upState != mUpState)
+    {    
+        [mUpState release];
+        mUpState = [upState retain];
+        if (!mIsDown) mBackground.texture = upState;
+    }
 }
 
 - (void)setDownState:(SPTexture*)downState
 {
-    [mDownState release];
-    mDownState = [downState retain];
-    if (mIsDown) mBackground.texture = downState;
+    if (downState != mDownState)
+    {    
+        [mDownState release];
+        mDownState = [downState retain];
+        if (mIsDown) mBackground.texture = downState;
+    }
 }
 
 #pragma mark -
@@ -158,11 +164,16 @@
 {
     if (!mTextField)
     {
-        mTextField = [[SPTextField alloc] initWithWidth:mUpState.width height:mUpState.height text:@""];
+        mTextField = [[SPTextField alloc] initWithWidth:100 height:100 text:@""];
         mTextField.vAlign = SPVAlignCenter;
         mTextField.hAlign = SPHAlignCenter;
         [mContents addChild:mTextField];        
     }
+
+    mTextField.width = mTextBounds.width;
+    mTextField.height = mTextBounds.height;
+    mTextField.x = mTextBounds.x;
+    mTextField.y = mTextBounds.y;
 }
 
 - (NSString*)text
@@ -175,6 +186,12 @@
 {
     [self createTextField];
     mTextField.text = value;   
+}
+
+- (void)setTextBounds:(SPRectangle *)value
+{
+    mTextBounds = [value copy];
+    [self createTextField];
 }
 
 - (NSString*)fontName
@@ -235,6 +252,7 @@
 - (void)dealloc
 {
     [self removeEventListenersAtObject:self forType:SP_EVENT_TYPE_TOUCH];
+    [mTextBounds release];
     [mUpState release];
     [mDownState release];
     [mBackground release];

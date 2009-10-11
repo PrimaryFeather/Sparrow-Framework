@@ -21,10 +21,11 @@
   @private    
     SPTexture *mUpState;
     SPTexture *mDownState;
-
+    
     SPSprite *mContents;
     SPImage *mBackground;
     SPTextField *mTextField;
+    SPRectangle *mTextBounds;
   
     float mScaleWhenDown;
     float mAlphaWhenDisabled;
@@ -41,6 +42,7 @@
 @property (nonatomic, assign) uint fontColor;
 @property (nonatomic, retain) SPTexture *upState;
 @property (nonatomic, retain) SPTexture *downState;
+@property (nonatomic, copy)   SPRectangle *textBounds;
 
 - (id)initWithUpState:(SPTexture*)upState downState:(SPTexture*)downState; // designated initializer
 - (id)initWithUpState:(SPTexture*)upState text:(NSString*)text;
