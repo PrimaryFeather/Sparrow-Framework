@@ -17,6 +17,8 @@
 
 - (id)initWithTexture:(SPTexture*)texture;
 {
+    if (!texture) [NSException raise:SP_EXC_INVALID_OPERATION format:@"texture cannot be nil!"];
+    
     if (self = [super initWithWidth:texture.width height:texture.height])
     {
         self.texture = texture;
