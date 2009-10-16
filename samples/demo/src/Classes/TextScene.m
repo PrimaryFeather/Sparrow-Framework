@@ -27,18 +27,11 @@
 
 - (void)setupScene
 {
-    int offset = 10;
-    
-    SPTextField *defaultTF = [SPTextField textFieldWithWidth:300 height:60 
-        text:@"TextFields can be created in different flavors."];
-    defaultTF.color = 0xffffff;
-    defaultTF.x = defaultTF.y = offset;    
-    [self addChild:defaultTF];
+    int offset = 10;    
     
     SPTextField *colorTF = [SPTextField textFieldWithWidth:300 height:60 
-        text:@"They can have a border and a color."];
-    colorTF.x = offset;
-    colorTF.y = defaultTF.y + defaultTF.height + offset;
+        text:@"TextFields can have a border and a color."];
+    colorTF.x = colorTF.y = offset;
     colorTF.border = YES;
     colorTF.color = 0xaaaaff;
     [self addChild:colorTF];
@@ -74,6 +67,41 @@
     fontTF.border = YES;
     fontTF.color = 0xffffff;
     [self addChild:fontTF];
+    
+    // Bitmap fonts!
+    
+    // First, you will need to create a bitmap font texture.
+    //
+    // E.g. with this tool: www.angelcode.com/products/bmfont/ or one that uses the same
+    // data format. Export the font data as an XML file, and the texture as a png with white
+    // characters on a transparent background (32 bit).
+    //
+    // Then, you just have to call the following method:    
+    // (the returned font name is the one that is defined in the font XML.)
+    NSString *bmpFontName = [SPTextField registerBitmapFontFromFile:@"branching_mouse.fnt"];
+
+    // That's it! If you use this font now, the textField will be rendered with the bitmap font.
+    SPTextField *bmpFontTF = [SPTextField textFieldWithWidth:300 height:120 
+        text:@"It is very easy to use them with Bitmap fonts, as well!"];
+    bmpFontTF.fontSize = SP_NATIVE_FONT_SIZE;
+    bmpFontTF.fontName = bmpFontName;
+    bmpFontTF.color = 0xffff55;
+    bmpFontTF.hAlign = SPHAlignCenter;
+    bmpFontTF.vAlign = SPVAlignCenter;
+    bmpFontTF.x = offset;
+    bmpFontTF.y = fontTF.y + fontTF.height + offset;
+    [self addChild:bmpFontTF];
+    
+    // A tip: you can add the font-texture to your standard texture atlas, and reference it from
+    // there. That way, you save texture space, and avoid another texture-switch.
+}
+
+- (void)dealloc
+{
+    // when you are done with it, you should unregister your bitmap font. 
+    // (Only if you no longer need it!)
+    [SPTextField unregisterBitmapFont:@"BranchingMouse"];
+    [super dealloc];
 }
 
 @end

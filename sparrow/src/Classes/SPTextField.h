@@ -7,38 +7,47 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SPQuad.h"
+#import "SPDisplayObjectContainer.h"
+#import "SPMakros.h"
 
 @class SPTexture;
+@class SPQuad;
 
 #define SP_DEFAULT_FONT_NAME  @"Helvetica"
 #define SP_DEFAULT_FONT_SIZE  14.0f
 #define SP_DEFAULT_FONT_COLOR SP_BLACK
 
-typedef enum {
+#define SP_NATIVE_FONT_SIZE -1.0f
+
+typedef enum 
+{
     SPHAlignLeft = 0,
     SPHAlignCenter,
     SPHAlignRight
 } SPHAlign;
 
-typedef enum {
+typedef enum 
+{
     SPVAlignTop = 0,
     SPVAlignCenter,
     SPVAlignBottom
 } SPVAlign;
 
-@interface SPTextField : SPQuad 
+@interface SPTextField : SPDisplayObjectContainer
 {
   @private
-    NSString *mText;
-    NSString *mFontName;
     float mFontSize;
+    uint mColor;
+    NSString *mText;
+    NSString *mFontName;    
     SPHAlign mHAlign;
-    SPVAlign mVAlign;    
-    BOOL mBorder;
+    SPVAlign mVAlign;
+    BOOL mBorder;    
+    BOOL mRequiresRedraw;
+    BOOL mIsRenderedText;
     
-    BOOL mRequiresRedraw;    
-    SPTexture *mTexture;
+    SPQuad *mHitArea;
+    SPDisplayObject *mContents;
 }
 
 @property (nonatomic, copy) NSString *text;
@@ -47,8 +56,7 @@ typedef enum {
 @property (nonatomic, assign) SPHAlign hAlign;
 @property (nonatomic, assign) SPVAlign vAlign;
 @property (nonatomic, assign) BOOL border;
-@property (nonatomic, readonly) float textWidth;
-@property (nonatomic, readonly) float textHeight;
+@property (nonatomic, assign) uint color;
 
 // designated initializer
 - (id)initWithWidth:(float)width height:(float)height text:(NSString*)text fontName:(NSString*)name
@@ -58,5 +66,9 @@ typedef enum {
 + (SPTextField*)textFieldWithWidth:(float)width height:(float)height text:(NSString*)text 
                           fontName:(NSString*)name fontSize:(float)size color:(uint)color;
 + (SPTextField*)textFieldWithWidth:(float)width height:(float)height text:(NSString*)text;
+
++ (NSString *)registerBitmapFontFromFile:(NSString*)path texture:(SPTexture *)texture;
++ (NSString *)registerBitmapFontFromFile:(NSString*)path;
++ (void)unregisterBitmapFont:(NSString *)name;
 
 @end

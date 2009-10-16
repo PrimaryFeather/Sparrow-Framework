@@ -13,9 +13,12 @@
 {
   @private
     SPTexture *mBaseTexture;
+    SPRectangle *mClipping;
+    SPRectangle *mRootClipping;
 }
 
 @property (nonatomic, readonly) SPTexture *baseTexture;
+@property (nonatomic, copy) SPRectangle *clipping;
 
 - (id)initWithRegion:(SPRectangle*)region ofTexture:(SPTexture*)texture;
 + (SPSubTexture*)textureWithRegion:(SPRectangle*)region ofTexture:(SPTexture*)texture;

@@ -9,7 +9,7 @@
 #import "SPButton.h"
 #import "SPTouchEvent.h"
 #import "SPTexture.h"
-#import "SPStaticTexture.h"
+#import "SPGLTexture.h"
 #import "SPImage.h"
 #import "SPStage.h"
 #import "SPSprite.h"
@@ -76,7 +76,7 @@
 
 - (id)init
 {
-    SPTexture *texture = [[[SPStaticTexture alloc] init] autorelease];
+    SPTexture *texture = [[[SPGLTexture alloc] init] autorelease];
     return [self initWithUpState:texture];   
 }
 

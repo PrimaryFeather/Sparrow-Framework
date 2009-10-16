@@ -8,21 +8,29 @@
 
 #import <Foundation/Foundation.h>
 
-@class SPRectangle;
+typedef enum 
+{
+    SPTextureFormatRGBA,
+    SPTextureFormatAlpha
+} SPTextureFormat;
 
-// Abstract class! Use SPStaticTexture instead.
+@class SPRectangle;
 
 @interface SPTexture : NSObject
 {
   @protected    
-    SPRectangle *mClipping;
-    BOOL mPremultipliedAlpha;
+    BOOL mPremultipliedAlpha;    
 }
+
+- (void)adjustTextureCoordinates:(const float *)texCoords saveAtTarget:(float *)targetTexCoords 
+                     numVertices:(int)numVertices;
+
++ (SPTexture *)textureWithContentsOfFile:(NSString*)path;
++ (SPTexture *)emptyTexture;
 
 @property (nonatomic, readonly) float width;
 @property (nonatomic, readonly) float height;
 @property (nonatomic, readonly) uint textureID;
 @property (nonatomic, readonly) BOOL hasPremultipliedAlpha;
-@property (nonatomic, retain) SPRectangle *clipping;
 
 @end

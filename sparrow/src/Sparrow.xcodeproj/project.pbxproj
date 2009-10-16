@@ -16,6 +16,10 @@
 		DE20D9CC10713B0C006658C9 /* SPRenderSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = DE20D9CA10713B0C006658C9 /* SPRenderSupport.m */; };
 		DED9B51D10629D9F00989853 /* SPPoolObject.h in Headers */ = {isa = PBXBuildFile; fileRef = DED9B51B10629D9F00989853 /* SPPoolObject.h */; };
 		DED9B51E10629D9F00989853 /* SPPoolObject.m in Sources */ = {isa = PBXBuildFile; fileRef = DED9B51C10629D9F00989853 /* SPPoolObject.m */; };
+		DEE09D7A108364A900ECC896 /* SPBitmapFont.h in Headers */ = {isa = PBXBuildFile; fileRef = DEE09D78108364A900ECC896 /* SPBitmapFont.h */; };
+		DEE09D7B108364A900ECC896 /* SPBitmapFont.m in Sources */ = {isa = PBXBuildFile; fileRef = DEE09D79108364A900ECC896 /* SPBitmapFont.m */; };
+		DEE09D7E108369AE00ECC896 /* SPBitmapChar.h in Headers */ = {isa = PBXBuildFile; fileRef = DEE09D7C108369AE00ECC896 /* SPBitmapChar.h */; };
+		DEE09D7F108369AE00ECC896 /* SPBitmapChar.m in Sources */ = {isa = PBXBuildFile; fileRef = DEE09D7D108369AE00ECC896 /* SPBitmapChar.m */; };
 		DEE0D8AA104B06FE009A7C99 /* SPStage_Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = DE2AD84A104A84F1001AF0A0 /* SPStage_Internal.m */; };
 		DEEA933A101E32E10071DD21 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE9CF1EB0FED3128008A32FF /* CoreGraphics.framework */; };
 		DEEA933B101E32E10071DD21 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -49,7 +53,7 @@
 		DEFE4BDC101B31DF00E22471 /* SPImage.m in Sources */ = {isa = PBXBuildFile; fileRef = DE08535D0FEC21F500DAF53C /* SPImage.m */; };
 		DEFE4BDD101B31DF00E22471 /* SPTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = DED4EFCA0FF9439D0093AD29 /* SPTextField.m */; };
 		DEFE4BDE101B31DF00E22471 /* SPTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = DE0853F90FEC2CFF00DAF53C /* SPTexture.m */; };
-		DEFE4BDF101B31DF00E22471 /* SPStaticTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = DECF84320FF649D50026A4ED /* SPStaticTexture.m */; };
+		DEFE4BDF101B31DF00E22471 /* SPGLTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = DECF84320FF649D50026A4ED /* SPGLTexture.m */; };
 		DEFE4BE0101B31DF00E22471 /* SPSubTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = DECF84BA0FF681BA0026A4ED /* SPSubTexture.m */; };
 		DEFE4BE1101B31DF00E22471 /* SPButton.m in Sources */ = {isa = PBXBuildFile; fileRef = DED85312100BC9DA0014F729 /* SPButton.m */; };
 		DEFE4BE2101B31DF00E22471 /* SPMatrix.m in Sources */ = {isa = PBXBuildFile; fileRef = DE469D260F9386FD00F56E91 /* SPMatrix.m */; };
@@ -125,8 +129,8 @@
 		DEC2B6810F6D51430063AB1D /* SPEventDispatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPEventDispatcher.m; sourceTree = "<group>"; };
 		DECF84260FF619150026A4ED /* SPTextureAtlas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPTextureAtlas.h; sourceTree = "<group>"; };
 		DECF84270FF619150026A4ED /* SPTextureAtlas.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPTextureAtlas.m; sourceTree = "<group>"; };
-		DECF84310FF649D50026A4ED /* SPStaticTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPStaticTexture.h; sourceTree = "<group>"; };
-		DECF84320FF649D50026A4ED /* SPStaticTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPStaticTexture.m; sourceTree = "<group>"; };
+		DECF84310FF649D50026A4ED /* SPGLTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPGLTexture.h; sourceTree = "<group>"; };
+		DECF84320FF649D50026A4ED /* SPGLTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPGLTexture.m; sourceTree = "<group>"; };
 		DECF84B90FF681BA0026A4ED /* SPSubTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPSubTexture.h; sourceTree = "<group>"; };
 		DECF84BA0FF681BA0026A4ED /* SPSubTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPSubTexture.m; sourceTree = "<group>"; };
 		DED2B6F90FA0CF5900083578 /* SPQuadTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPQuadTest.m; sourceTree = "<group>"; };
@@ -148,6 +152,10 @@
 		DEDCD44B0FADFF250022011C /* SPEvent_Internal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPEvent_Internal.m; sourceTree = "<group>"; };
 		DEDCD44E0FADFFA40022011C /* SPDisplayObject_Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPDisplayObject_Internal.h; sourceTree = "<group>"; };
 		DEDCD44F0FADFFA40022011C /* SPDisplayObject_Internal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPDisplayObject_Internal.m; sourceTree = "<group>"; };
+		DEE09D78108364A900ECC896 /* SPBitmapFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPBitmapFont.h; sourceTree = "<group>"; };
+		DEE09D79108364A900ECC896 /* SPBitmapFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPBitmapFont.m; sourceTree = "<group>"; };
+		DEE09D7C108369AE00ECC896 /* SPBitmapChar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPBitmapChar.h; sourceTree = "<group>"; };
+		DEE09D7D108369AE00ECC896 /* SPBitmapChar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPBitmapChar.m; sourceTree = "<group>"; };
 		DEE4449C0FABA7860085D36D /* SPTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPTouch.h; sourceTree = "<group>"; };
 		DEE4449D0FABA7860085D36D /* SPTouch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPTouch.m; sourceTree = "<group>"; };
 		DEE444A80FABABBB0085D36D /* SPTouchEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPTouchEvent.h; sourceTree = "<group>"; };
@@ -195,6 +203,7 @@
 				DEDCD3CE0FADF2100022011C /* System */,
 				DEDCD3C60FADF1870022011C /* Events */,
 				DEDCD3B00FADF1720022011C /* Display */,
+				DEE968F51086553D001D57E9 /* Textures */,
 				DEE202BD0FBDAD2900B8A467 /* Animation */,
 				DE469D310F93870A00F56E91 /* Utils */,
 				DEEA9402101E44F10071DD21 /* Sparrow.h */,
@@ -265,8 +274,6 @@
 				DE469D2A0F9386FD00F56E91 /* SPRectangle.m */,
 				DE68EA150FBB5660004DBC95 /* SPNSExtensions.h */,
 				DE68EA160FBB5660004DBC95 /* SPNSExtensions.m */,
-				DECF84260FF619150026A4ED /* SPTextureAtlas.h */,
-				DECF84270FF619150026A4ED /* SPTextureAtlas.m */,
 				DED9B51B10629D9F00989853 /* SPPoolObject.h */,
 				DED9B51C10629D9F00989853 /* SPPoolObject.m */,
 			);
@@ -319,6 +326,7 @@
 			isa = PBXGroup;
 			children = (
 				DE20D9C810713AD0006658C9 /* Rendering */,
+				DEE09D771083647D00ECC896 /* Text */,
 				DED85A940FB49E90000BAA95 /* Internal */,
 				DE2ED8040F6D52080012B6BA /* SPDisplayObject.h */,
 				DE2ED8050F6D52080012B6BA /* SPDisplayObject.m */,
@@ -332,14 +340,6 @@
 				DE2ED8560F6D54900012B6BA /* SPQuad.m */,
 				DE08535C0FEC21F500DAF53C /* SPImage.h */,
 				DE08535D0FEC21F500DAF53C /* SPImage.m */,
-				DED4EFC90FF9439D0093AD29 /* SPTextField.h */,
-				DED4EFCA0FF9439D0093AD29 /* SPTextField.m */,
-				DE0853F80FEC2CFF00DAF53C /* SPTexture.h */,
-				DE0853F90FEC2CFF00DAF53C /* SPTexture.m */,
-				DECF84310FF649D50026A4ED /* SPStaticTexture.h */,
-				DECF84320FF649D50026A4ED /* SPStaticTexture.m */,
-				DECF84B90FF681BA0026A4ED /* SPSubTexture.h */,
-				DECF84BA0FF681BA0026A4ED /* SPSubTexture.m */,
 				DED85311100BC9DA0014F729 /* SPButton.h */,
 				DED85312100BC9DA0014F729 /* SPButton.m */,
 			);
@@ -373,6 +373,19 @@
 			name = System;
 			sourceTree = "<group>";
 		};
+		DEE09D771083647D00ECC896 /* Text */ = {
+			isa = PBXGroup;
+			children = (
+				DED4EFC90FF9439D0093AD29 /* SPTextField.h */,
+				DED4EFCA0FF9439D0093AD29 /* SPTextField.m */,
+				DEE09D78108364A900ECC896 /* SPBitmapFont.h */,
+				DEE09D79108364A900ECC896 /* SPBitmapFont.m */,
+				DEE09D7C108369AE00ECC896 /* SPBitmapChar.h */,
+				DEE09D7D108369AE00ECC896 /* SPBitmapChar.m */,
+			);
+			name = Text;
+			sourceTree = "<group>";
+		};
 		DEE202BD0FBDAD2900B8A467 /* Animation */ = {
 			isa = PBXGroup;
 			children = (
@@ -389,6 +402,21 @@
 			name = Animation;
 			sourceTree = "<group>";
 		};
+		DEE968F51086553D001D57E9 /* Textures */ = {
+			isa = PBXGroup;
+			children = (
+				DE0853F80FEC2CFF00DAF53C /* SPTexture.h */,
+				DE0853F90FEC2CFF00DAF53C /* SPTexture.m */,
+				DECF84310FF649D50026A4ED /* SPGLTexture.h */,
+				DECF84320FF649D50026A4ED /* SPGLTexture.m */,
+				DECF84B90FF681BA0026A4ED /* SPSubTexture.h */,
+				DECF84BA0FF681BA0026A4ED /* SPSubTexture.m */,
+				DECF84260FF619150026A4ED /* SPTextureAtlas.h */,
+				DECF84270FF619150026A4ED /* SPTextureAtlas.m */,
+			);
+			name = Textures;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -399,6 +427,8 @@
 				DEEA9403101E44F10071DD21 /* Sparrow.h in Headers */,
 				DED9B51D10629D9F00989853 /* SPPoolObject.h in Headers */,
 				DE20D9CB10713B0C006658C9 /* SPRenderSupport.h in Headers */,
+				DEE09D7A108364A900ECC896 /* SPBitmapFont.h in Headers */,
+				DEE09D7E108369AE00ECC896 /* SPBitmapChar.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -514,7 +544,7 @@
 				DEFE4BDC101B31DF00E22471 /* SPImage.m in Sources */,
 				DEFE4BDD101B31DF00E22471 /* SPTextField.m in Sources */,
 				DEFE4BDE101B31DF00E22471 /* SPTexture.m in Sources */,
-				DEFE4BDF101B31DF00E22471 /* SPStaticTexture.m in Sources */,
+				DEFE4BDF101B31DF00E22471 /* SPGLTexture.m in Sources */,
 				DEFE4BE0101B31DF00E22471 /* SPSubTexture.m in Sources */,
 				DEFE4BE1101B31DF00E22471 /* SPButton.m in Sources */,
 				DEFE4BD2101B31DF00E22471 /* SPEvent.m in Sources */,
@@ -531,6 +561,8 @@
 				DEE0D8AA104B06FE009A7C99 /* SPStage_Internal.m in Sources */,
 				DED9B51E10629D9F00989853 /* SPPoolObject.m in Sources */,
 				DE20D9CC10713B0C006658C9 /* SPRenderSupport.m in Sources */,
+				DEE09D7B108364A900ECC896 /* SPBitmapFont.m in Sources */,
+				DEE09D7F108369AE00ECC896 /* SPBitmapChar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,6 +12,15 @@
 
 #import "SPNSExtensions.h"
 
+// --- c functions ---
+
+void onUncaughtException(NSException *exception) 
+{
+	NSLog(@"uncaught exception: %@", exception.description);
+}
+
+// ---
+
 @implementation DemoAppDelegate
 
 @synthesize window;
@@ -20,6 +29,8 @@
 - (void)applicationDidFinishLaunching:(UIApplication *)application 
 {    
     SP_CREATE_POOL(pool);    
+    
+    NSSetUncaughtExceptionHandler(&onUncaughtException); 
     
     Game *game = [[Game alloc] initWithWidth:320 height:480];        
     sparrowView.stage = game;

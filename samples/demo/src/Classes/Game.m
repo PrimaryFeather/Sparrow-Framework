@@ -30,7 +30,7 @@
 {
     if (self = [super initWithWidth:width height:height])
     {
-        SPTexture *sceneButtonTexture = [SPStaticTexture textureWithContentsOfFile:@"button_blue.png"];        
+        SPTexture *sceneButtonTexture = [SPTexture textureWithContentsOfFile:@"button_blue.png"];        
 
         mSceneButtons = [[SPSprite alloc] init];
         mSceneButtons.x = (self.width - sceneButtonTexture.width) / 2.0f;
@@ -72,15 +72,14 @@
         mBenchmarkButton.y = mCustomHitTestButton.y + mCustomHitTestButton.height;
         [mSceneButtons addChild:mBenchmarkButton];
         
-        SPTexture *backButtonTexture = [SPStaticTexture textureWithContentsOfFile:@"button_yellow.png"];
+        SPTexture *backButtonTexture = [SPTexture textureWithContentsOfFile:@"button_yellow.png"];
         mBackButton = [[SPButton alloc] initWithUpState:backButtonTexture text:@"back"];
         mBackButton.isVisible = NO;
         mBackButton.x = mSceneButtons.x;
         mBackButton.y = self.stage.height - mBackButton.height - 20;
         [mBackButton addEventListener:@selector(onBackButtonTriggered:) atObject:self 
                               forType:SP_EVENT_TYPE_TRIGGERED];
-        [self addChild:mBackButton];
-        
+        [self addChild:mBackButton]; 
     }
     return self;
 }

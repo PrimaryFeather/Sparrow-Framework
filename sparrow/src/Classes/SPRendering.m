@@ -142,51 +142,15 @@
 {
     if (self.alpha == 0 || !self.isVisible) return;    
     
-    static float texCoords[8]; 
-    
-    SPRectangle *clipping = mTexture.clipping;    
-    for (int i=0; i<4; ++i)
-    {
-        texCoords[2*i]   = clipping.x + mTexCoords[2*i]   * clipping.width; 
-        texCoords[2*i+1] = clipping.y + mTexCoords[2*i+1] * clipping.height;        
-    }
+    static float texCoords[8];     
+    [mTexture adjustTextureCoordinates:mTexCoords saveAtTarget:texCoords numVertices:4];    
     
     [support bindTexture:mTexture];
     
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
     glTexCoordPointer(2, GL_FLOAT, 0, texCoords);
-   
+    
     [super render:support];    
-    
-    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-}
-
-@end
-
-@implementation SPTextField (Rendering)
-
-- (void)render:(SPRenderSupport *)support;
-{
-    if (self.alpha == 0 || !self.isVisible) return;
-    
-    SPRectangle *clipping = mTexture.clipping;
-    static float texCoords[8]; 
-     
-    texCoords[0] = clipping.x; 
-    texCoords[1] = clipping.y;
-    texCoords[2] = clipping.x + clipping.width; 
-    texCoords[3] = clipping.y;
-    texCoords[4] = clipping.x + clipping.width;
-    texCoords[5] = clipping.y + clipping.height;
-    texCoords[6] = clipping.x; 
-    texCoords[7] = clipping.y + clipping.height;    
-    
-    [support bindTexture:mTexture];
-    
-    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-    glTexCoordPointer(2, GL_FLOAT, 0, texCoords);
-    
-    [super render:support];  
     
     glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }

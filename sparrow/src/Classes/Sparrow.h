@@ -6,7 +6,7 @@
 //  Copyright 2009 Incognitek. All rights reserved.
 //
 
-//#import "SPNSExtensions.h"
+#import "SPNSExtensions.h"
 #import "SPEventDispatcher.h"
 #import "SPDisplayObject.h"
 #import "SPDisplayObjectContainer.h"
@@ -17,7 +17,8 @@
 #import "SPStage.h"
 #import "SPSprite.h"
 #import "SPTexture.h"
-#import "SPStaticTexture.h"
+#import "SPSubTexture.h"
+#import "SPGLTexture.h"
 #import "SPTextureAtlas.h"
 #import "SPEvent.h"
 #import "SPTouchEvent.h"

@@ -1,5 +1,5 @@
 //
-//  SPStaticTexture.h
+//  SPGLTexture.h
 //  Sparrow
 //
 //  Created by Daniel Sperl on 27.06.09.
@@ -11,15 +11,9 @@
 #import "SPTexture.h"
 #import "SPMakros.h"
 
-typedef enum 
-{
-    SPTextureFormatRGBA,
-    SPTextureFormatAlpha
-} SPTextureFormat;
-
 @class SPRectangle;
 
-@interface SPStaticTexture : SPTexture
+@interface SPGLTexture : SPTexture
 {
   @private
     uint mTextureID;
@@ -30,9 +24,8 @@ typedef enum
 
 - (id)initWithData:(const void*)imgData width:(int)width height:(int)height 
             format:(SPTextureFormat)format premultipliedAlpha:(BOOL)pma;
-- (id)initWithContentsOfFile:(NSString*)path;
-+ (SPStaticTexture*)textureWithContentsOfFile:(NSString*)path;
-+ (SPStaticTexture*)textureWithData:(const void*)imgData width:(int)width height:(int)height
+
++ (SPGLTexture*)textureWithData:(const void*)imgData width:(int)width height:(int)height
                              format:(SPTextureFormat)format premultipliedAlpha:(BOOL)pma;
 
 @property (nonatomic, assign) BOOL repeat;

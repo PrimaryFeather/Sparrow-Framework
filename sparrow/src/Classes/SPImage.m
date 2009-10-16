@@ -9,7 +9,7 @@
 #import "SPImage.h"
 #import "SPPoint.h"
 #import "SPTexture.h"
-#import "SPStaticTexture.h"
+#import "SPGLTexture.h"
 
 @implementation SPImage
 
@@ -32,12 +32,12 @@
 
 - (id)initWithContentsOfFile:(NSString*)path
 {
-    return [self initWithTexture:[SPStaticTexture textureWithContentsOfFile:path]];
+    return [self initWithTexture:[SPGLTexture textureWithContentsOfFile:path]];
 }
 
 - (id)initWithWidth:(float)width height:(float)height
 {
-    return [self initWithTexture:[SPStaticTexture textureWithData:NULL width:width height:height
+    return [self initWithTexture:[SPGLTexture textureWithData:NULL width:width height:height
                                   format:SPTextureFormatRGBA premultipliedAlpha:NO]];
 }
 

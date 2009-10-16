@@ -9,7 +9,7 @@
 #import "SPTextureAtlas.h"
 #import "SPMakros.h"
 #import "SPTexture.h"
-#import "SPStaticTexture.h"
+#import "SPGLTexture.h"
 #import "SPSubTexture.h"
 #import "SPRectangle.h"
 
@@ -72,13 +72,7 @@
                                       qualifiedName:(NSString*)qName 
                                          attributes:(NSDictionary*)attributeDict 
 {
-    if ([elementName isEqualToString:@"TextureAtlas"])
-    {
-        // load atlas texture
-        NSString *imagePath = [attributeDict valueForKey:@"imagePath"];        
-        mAtlasTexture = [[SPStaticTexture alloc] initWithContentsOfFile:imagePath];
-    }
-    else if ([elementName isEqualToString:@"SubTexture"])
+    if ([elementName isEqualToString:@"SubTexture"])
     {
         NSString *name = [attributeDict valueForKey:@"name"];
         float x = [[attributeDict valueForKey:@"x"] floatValue];
@@ -88,6 +82,12 @@
         
         [mTextureRegions setObject:[SPRectangle rectangleWithX:x y:y width:width height:height]
                             forKey:name];        
+    }
+    else if ([elementName isEqualToString:@"TextureAtlas"])
+    {
+        // load atlas texture
+        NSString *imagePath = [attributeDict valueForKey:@"imagePath"];        
+        mAtlasTexture = [[SPTexture textureWithContentsOfFile:imagePath] retain];
     }
 }
 
