@@ -7,7 +7,7 @@
 //
 
 #import "SPStage.h"
-#import "SPMakros.h"
+#import "SPMacros.h"
 #import "SPEnterFrameEvent.h"
 #import "SPTouchProcessor.h"
 #import "SPJuggler.h"
@@ -77,7 +77,7 @@ static void dispatchEnterFrameEvent(SPDisplayObject *object, SPEnterFrameEvent *
 
 - (SPDisplayObject*)hitTestPoint:(SPPoint*)localPoint forTouch:(BOOL)isTouch;
 {
-    if (isTouch && (!self.isVisible || !self.isTouchable)) 
+    if (isTouch && (!self.visible || !self.touchable)) 
         return nil;
     
     SPDisplayObject *target = [super hitTestPoint:localPoint forTouch:isTouch];

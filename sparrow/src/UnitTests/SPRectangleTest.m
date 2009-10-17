@@ -9,7 +9,7 @@
 #import <SenTestingKit/SenTestingKit.h>
 #import <UIKit/UIKit.h>
 
-#import "SPMakros.h"
+#import "SPMacros.h"
 #import "SPPoint.h"
 #import "SPRectangle.h"
 

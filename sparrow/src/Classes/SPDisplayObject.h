@@ -39,8 +39,8 @@
 @property (nonatomic, assign) float height;
 @property (nonatomic, assign) float rotationZ;
 @property (nonatomic, assign) float alpha;
-@property (nonatomic, assign) BOOL isVisible;
-@property (nonatomic, assign) BOOL isTouchable;
+@property (nonatomic, assign) BOOL visible;
+@property (nonatomic, assign) BOOL touchable;
 @property (nonatomic, readonly) SPRectangle *bounds;
 @property (nonatomic, readonly) SPDisplayObjectContainer *parent;
 @property (nonatomic, readonly) SPDisplayObject *root;

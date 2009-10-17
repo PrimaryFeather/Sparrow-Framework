@@ -31,7 +31,7 @@
 
 @synthesize scaleWhenDown = mScaleWhenDown;
 @synthesize alphaWhenDisabled = mAlphaWhenDisabled;
-@synthesize isEnabled = mEnabled;
+@synthesize enabled = mEnabled;
 @synthesize upState = mUpState;
 @synthesize downState = mDownState;
 @synthesize textBounds = mTextBounds;
@@ -122,7 +122,7 @@
     mContents.scaleX = mContents.scaleY = 1.0f;
 }
 
-- (void)setIsEnabled:(BOOL)value
+- (void)setEnabled:(BOOL)value
 {
     mEnabled = value;
     if (mEnabled) 

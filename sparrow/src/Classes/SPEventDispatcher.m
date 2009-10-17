@@ -9,7 +9,7 @@
 #import "SPEventDispatcher.h"
 #import "SPDisplayObject.h"
 #import "SPEvent_Internal.h"
-#import "SPMakros.h"
+#import "SPMacros.h"
 #import "SPNSExtensions.h"
 
 @implementation SPEventDispatcher

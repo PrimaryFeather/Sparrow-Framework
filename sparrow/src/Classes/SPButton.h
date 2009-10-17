@@ -35,7 +35,7 @@
 
 @property (nonatomic, assign) float scaleWhenDown;
 @property (nonatomic, assign) float alphaWhenDisabled;
-@property (nonatomic, assign) BOOL  isEnabled;
+@property (nonatomic, assign) BOOL  enabled;
 @property (nonatomic, copy)   NSString *text;
 @property (nonatomic, copy)   NSString *fontName;
 @property (nonatomic, assign) float fontSize;

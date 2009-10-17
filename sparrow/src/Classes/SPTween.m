@@ -9,7 +9,7 @@
 #import "SPTween.h"
 #import "SPTransitions.h"
 #import "SPNSExtensions.h"
-#import "SPMakros.h"
+#import "SPMacros.h"
 #import "SPTweenedProperty.h"
 
 #define TRANS_SUFFIX @"WithDelta:ratio:"

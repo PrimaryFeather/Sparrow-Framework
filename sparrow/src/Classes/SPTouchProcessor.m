@@ -7,7 +7,7 @@
 //
 
 #import "SPTouchProcessor.h"
-#import "SPMakros.h"
+#import "SPMacros.h"
 #import "SPTouchEvent.h"
 #import "SPTouch.h"
 #import "SPTouch_Internal.h"

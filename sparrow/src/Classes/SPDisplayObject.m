@@ -9,7 +9,7 @@
 #import "SPDisplayObject.h"
 #import "SPDisplayObjectContainer.h"
 #import "SPStage.h"
-#import "SPMakros.h"
+#import "SPMacros.h"
 #import "SPTouchEvent.h"
 
 // --- class implementation ------------------------------------------------------------------------
@@ -23,8 +23,8 @@
 @synthesize rotationZ = mRotationZ;
 @synthesize parent = mParent;
 @synthesize alpha = mAlpha;
-@synthesize isVisible = mVisible;
-@synthesize isTouchable = mTouchable;
+@synthesize visible = mVisible;
+@synthesize touchable = mTouchable;
 
 #pragma mark -
 

@@ -1,5 +1,5 @@
 //
-//  SPMakros.h
+//  SPMacros.h
 //  Sparrow
 //
 //  Created by Daniel Sperl on 15.03.09.
@@ -31,7 +31,7 @@
 #define SP_EXC_FILE_NOT_FOUND       @"FileNotFound"
 #define SP_EXC_FILE_INVALID         @"FileInvalid"
 
-// makros
+// macros
 
 #define SP_CREATE_POOL(pool)        NSAutoreleasePool *(pool) = [[NSAutoreleasePool alloc] init];
 #define SP_RELEASE_POOL(pool)       [(pool) release];

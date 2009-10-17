@@ -28,5 +28,5 @@
 #import "SPTween.h"
 #import "SPDelayedInvocation.h"
 #import "SPRectangle.h"
-#import "SPMakros.h"
+#import "SPMacros.h"
 #import "SPView.h"

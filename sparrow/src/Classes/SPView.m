@@ -12,7 +12,7 @@
 #import "SPStage.h"
 #import "SPStage_Internal.h"
 #import "SPView.h"
-#import "SPMakros.h"
+#import "SPMacros.h"
 #import "SPTouch.h"
 #import "SPTouch_Internal.h"
 #import "SPRenderSupport.h"

@@ -9,7 +9,7 @@
 #import "SPDisplayObjectContainer.h"
 #import "SPEnterFrameEvent.h"
 #import "SPDisplayObject_Internal.h"
-#import "SPMakros.h"
+#import "SPMacros.h"
 
 // --- private interface ---------------------------------------------------------------------------
 
@@ -176,7 +176,7 @@
 
 - (SPDisplayObject*)hitTestPoint:(SPPoint*)localPoint forTouch:(BOOL)isTouch;
 {
-    if (isTouch && (!self.isVisible || !self.isTouchable)) 
+    if (isTouch && (!self.visible || !self.touchable)) 
         return nil;
     
     for (int i=self.numChildren-1; i>=0; --i) // front to back!

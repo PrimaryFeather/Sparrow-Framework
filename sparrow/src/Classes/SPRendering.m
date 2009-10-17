@@ -6,7 +6,7 @@
 //  Copyright 2009 Incognitek. All rights reserved.
 //
 
-#import "SPMakros.h"
+#import "SPMacros.h"
 #import "SPDisplayObjectContainer.h"
 #import "SPQuad.h"
 #import "SPStage.h"
@@ -61,7 +61,7 @@
 
 - (void)render:(SPRenderSupport *)support;
 {    
-    if (self.alpha == 0 || !self.isVisible) return;
+    if (self.alpha == 0 || !self.visible) return;
     
     for (SPDisplayObject *child in self)
     {        
@@ -85,7 +85,7 @@
 
 - (void)render:(SPRenderSupport *)support;
 {
-    if (self.alpha == 0 || !self.isVisible) return;
+    if (self.alpha == 0 || !self.visible) return;
     
     // If this method is called from a subclass, it has most probably bound a texture (on purpose).
     // But if this is a 'real' quad, we have to disable any texture.
@@ -140,7 +140,7 @@
 
 - (void)render:(SPRenderSupport *)support;
 {
-    if (self.alpha == 0 || !self.isVisible) return;    
+    if (self.alpha == 0 || !self.visible) return;    
     
     static float texCoords[8];     
     [mTexture adjustTextureCoordinates:mTexCoords saveAtTarget:texCoords numVertices:4];    

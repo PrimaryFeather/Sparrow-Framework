@@ -102,7 +102,7 @@
 		DE2ED8560F6D54900012B6BA /* SPQuad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPQuad.m; sourceTree = "<group>"; };
 		DE2ED8580F6D54AC0012B6BA /* SPStage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPStage.h; sourceTree = "<group>"; };
 		DE2ED8590F6D54AC0012B6BA /* SPStage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPStage.m; sourceTree = "<group>"; };
-		DE469D240F9386FD00F56E91 /* SPMakros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPMakros.h; sourceTree = "<group>"; };
+		DE469D240F9386FD00F56E91 /* SPMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPMacros.h; sourceTree = "<group>"; };
 		DE469D250F9386FD00F56E91 /* SPMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPMatrix.h; sourceTree = "<group>"; };
 		DE469D260F9386FD00F56E91 /* SPMatrix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPMatrix.m; sourceTree = "<group>"; };
 		DE469D270F9386FD00F56E91 /* SPPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPPoint.h; sourceTree = "<group>"; };
@@ -269,7 +269,7 @@
 		DE469D310F93870A00F56E91 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				DE469D240F9386FD00F56E91 /* SPMakros.h */,
+				DE469D240F9386FD00F56E91 /* SPMacros.h */,
 				DE469D250F9386FD00F56E91 /* SPMatrix.h */,
 				DE469D260F9386FD00F56E91 /* SPMatrix.m */,
 				DE469D270F9386FD00F56E91 /* SPPoint.h */,

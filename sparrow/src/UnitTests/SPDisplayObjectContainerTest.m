@@ -10,7 +10,7 @@
 #import <UIKit/UIKit.h>
 
 #import "SPMatrix.h"
-#import "SPMakros.h"
+#import "SPMacros.h"
 #import "SPPoint.h"
 #import "SPSprite.h"
 #import "SPQuad.h"

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "SPTexture.h"
-#import "SPMakros.h"
+#import "SPMacros.h"
 
 @class SPRectangle;
 

@@ -7,7 +7,7 @@
 //
 
 #import "SPPoint.h"
-#import "SPMakros.h"
+#import "SPMacros.h"
 #import <math.h>
 
 // --- class implementation ------------------------------------------------------------------------

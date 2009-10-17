@@ -7,7 +7,7 @@
 //
 
 #import "SPTextureAtlas.h"
-#import "SPMakros.h"
+#import "SPMacros.h"
 #import "SPTexture.h"
 #import "SPGLTexture.h"
 #import "SPSubTexture.h"

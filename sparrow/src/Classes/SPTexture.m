@@ -7,7 +7,7 @@
 //
 
 #import "SPTexture.h"
-#import "SPMakros.h"
+#import "SPMacros.h"
 #import "SPRectangle.h"
 #import "SPGLTexture.h"
 #import "SPSubTexture.h"

@@ -90,7 +90,7 @@ static NSMutableDictionary *bitmapFonts = nil;
     [mContents removeFromParent];
     
     mContents = mIsRenderedText ? [self createRenderedContents] : [self createComposedContents];
-    mContents.isTouchable = NO;    
+    mContents.touchable = NO;    
     
     [self addChild:mContents];
 }

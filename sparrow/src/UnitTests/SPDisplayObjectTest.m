@@ -10,7 +10,7 @@
 #import <UIKit/UIKit.h>
 
 #import "SPMatrix.h"
-#import "SPMakros.h"
+#import "SPMacros.h"
 #import "SPPoint.h"
 #import "SPSprite.h"
 #import "SPQuad.h"
@@ -158,17 +158,17 @@
     STAssertNil([quad hitTestPoint:[SPPoint pointWithX:26 y:11] forTouch:YES], 
                 @"point should be outside");
 
-    quad.isVisible = NO;
+    quad.visible = NO;
     STAssertNil([quad hitTestPoint:[SPPoint pointWithX:15 y:5] forTouch:YES], 
                 @"hitTest should fail, object invisible");
         
-    quad.isVisible = YES;
-    quad.isTouchable = NO;
+    quad.visible = YES;
+    quad.touchable = NO;
     STAssertNil([quad hitTestPoint:[SPPoint pointWithX:15 y:5] forTouch:YES], 
                 @"hitTest should fail, object untouchable");    
 
-    quad.isVisible = NO;
-    quad.isTouchable = NO;
+    quad.visible = NO;
+    quad.touchable = NO;
     STAssertNotNil([quad hitTestPoint:[SPPoint pointWithX:15 y:5] forTouch:NO], 
                 @"hitTest should succeed, this is no touch test");    
     

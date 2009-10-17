@@ -235,7 +235,7 @@
     // create an invisible background (not rendered) so that width and height-properties 
     // of the object appear correct.
     SPQuad *background = [[SPQuad alloc] initWithWidth:width height:height];
-    background.isVisible = NO;
+    background.visible = NO;
     [outerContainer addChild:background];
     [background release];
     

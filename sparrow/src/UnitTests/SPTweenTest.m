@@ -13,7 +13,7 @@
 #import "SPEvent.h"
 #import "SPQuad.h"
 #import "SPTween.h"
-#import "SPMakros.h"
+#import "SPMacros.h"
 
 #define E 0.0001f
 

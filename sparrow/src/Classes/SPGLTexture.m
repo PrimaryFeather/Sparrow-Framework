@@ -7,7 +7,7 @@
 //
 
 #import "SPGLTexture.h"
-#import "SPMakros.h"
+#import "SPMacros.h"
 #import "SPRectangle.h"
 
 #import <OpenGLES/ES1/gl.h>

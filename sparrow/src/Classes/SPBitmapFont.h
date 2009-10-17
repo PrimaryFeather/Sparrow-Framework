@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SPTextField.h"
-#import "SPMakros.h"
+#import "SPMacros.h"
 
 @class SPTexture;
 @class SPDisplayObject;

@@ -8,7 +8,7 @@
 
 #import "SPQuad.h"
 #import "SPRectangle.h"
-#import "SPMakros.h"
+#import "SPMacros.h"
 #import "SPPoint.h"
 
 @implementation SPQuad
