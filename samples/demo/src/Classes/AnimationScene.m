@@ -61,8 +61,7 @@
     // to animate any numeric property of an arbitrary object (not just display objects!), you
     // can create a 'Tween'. One tween object animates one target for a certain time, with
     // a certain transition function.    
-    
-    SPTween *tween = [[SPTween alloc] initWithTarget:mSaturn time:5.0f transition:SP_TRANSITION_EASE_IN];
+    SPTween *tween = [SPTween tweenWithTarget:mSaturn time:5.0f transition:SP_TRANSITION_EASE_IN];
 
     // you can animate any property as long as it's numeric (float, double, int). 
     // it is animated from it's current value to a target value.

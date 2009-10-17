@@ -152,7 +152,7 @@
     
     int lastWhiteSpace = -1;
     float currentX = 0;
-    SPSprite *currentLine = [[SPSprite alloc] init];
+    SPSprite *currentLine = [SPSprite sprite];
     
     for (int i=0; i<text.length; i++)
     {        
@@ -203,7 +203,6 @@
         {
             float nextLineY = currentLine.y + mLineHeight;             
             [lineContainer addChild:currentLine];                        
-            [currentLine release];  
             
             if (nextLineY + mLineHeight <= containerHeight)
             {

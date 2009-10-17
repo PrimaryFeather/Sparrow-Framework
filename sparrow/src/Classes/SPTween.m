@@ -10,6 +10,7 @@
 #import "SPTransitions.h"
 #import "SPNSExtensions.h"
 #import "SPMakros.h"
+#import "SPTweenedProperty.h"
 
 #define TRANS_SUFFIX @"WithDelta:ratio:"
 
@@ -26,10 +27,11 @@
 
 @implementation SPTween
 
+#define UNKNOWN_VALUE FLT_MAX
+
 @synthesize time = mTotalTime;
 @synthesize delay = mDelay;
 @synthesize target = mTarget;
-@synthesize roundToInt = mRoundToInt;
 
 - (id)initWithTarget:(id)target time:(double)time transition:(NSString*)transition
 {
@@ -39,11 +41,7 @@
         mTotalTime = MAX(0.0001, time); // zero is not allowed
         mCurrentTime = 0;
         mDelay = 0;
-        mRoundToInt = NO;
-        mGetters  = [[NSMutableArray alloc] init];
-        mSetters = [[NSMutableArray alloc] init];
-        mStartValues = [[NSMutableArray alloc] init];
-        mEndValues = [[NSMutableArray alloc] init];
+        mProperties = [[NSMutableArray alloc] init];
         self.transition = transition;        
     }
     return self;
@@ -64,16 +62,23 @@
     if (![mTarget respondsToSelector:getter] || ![mTarget respondsToSelector:setter])
         [NSException raise:SP_EXC_INVALID_OPERATION format:@"property not found or readonly: '%@'", property];    
     
+    // query argument type
+    NSMethodSignature *sig = [mTarget methodSignatureForSelector:getter];
+    char numericType = *[sig methodReturnType];    
+    if (numericType != 'f' && numericType != 'i' && numericType != 'd')
+        [NSException raise:SP_EXC_INVALID_OPERATION format:@"property not numeric: '%@'", property];
+        
     // create invocations
-    NSInvocation *getterInv = [NSInvocation invocationWithTarget:mTarget selector:getter];
-    [mGetters addObject:getterInv];
-    
+    NSInvocation *getterInv = [NSInvocation invocationWithTarget:mTarget selector:getter];    
     NSInvocation *setterInv = [NSInvocation invocationWithTarget:mTarget selector:setter];    
-    [mSetters addObject:setterInv];        
     
-    // save placeholder for startValue, endValue
-    [mStartValues addObject:[NSNull null]];
-    [mEndValues addObject:[NSNumber numberWithFloat:value]];
+    // save property information
+    SPTweenedProperty *tweenedProp = [[SPTweenedProperty alloc] 
+        initWithGetter:getterInv setter:setterInv startValue:UNKNOWN_VALUE endValue:value 
+           numericType:numericType];
+    
+    [mProperties addObject:tweenedProp];
+    [tweenedProp release];
 }
 
 - (void)advanceTime:(double)seconds
@@ -84,26 +89,23 @@
     if (mCurrentTime < 0 || previousTime >= mTotalTime) return;
     
     float ratio = mCurrentTime / mTotalTime;    
-    for (int i=0; i<mStartValues.count; ++i)
-    {
-        NSNumber *startValueNumber = [mStartValues objectAtIndex:i];
-        if ((NSNull*) startValueNumber == [NSNull null])
+    for (SPTweenedProperty *prop in mProperties)
+    {        
+        if (prop.startValue == UNKNOWN_VALUE)
         {
             // The tween should use the value of the property at the moment it starts.
             // Since the start can be delayed, we have to read the value here, 
             // not in 'animateProperty:targetValue:'
 
             float startValue = 0.0f;
-            NSInvocation *getterInv = [mGetters objectAtIndex:i];
+            NSInvocation *getterInv = prop.getter;
             [getterInv invoke];
             [getterInv getReturnValue:&startValue];
-            startValueNumber = [NSNumber numberWithFloat:startValue];
-            [mStartValues replaceObjectAtIndex:i withObject:startValueNumber];
+            prop.startValue = startValue;
         }        
         
-        float startValue = [startValueNumber floatValue];
-        float endValue = [[mEndValues objectAtIndex:i] floatValue];
-        float delta = endValue - startValue;
+        float startValue = prop.startValue;
+        float delta = prop.endValue - startValue;
         float transitionValue = 0;
 
         [mTransitionInvocation setArgument:&delta atIndex:2];
@@ -111,11 +113,25 @@
         [mTransitionInvocation invoke];
         [mTransitionInvocation getReturnValue:&transitionValue];        
         
-        float currentValue = startValue + transitionValue;        
-        if (mRoundToInt) currentValue = roundf(currentValue);
-    
-        NSInvocation *setterInv = [mSetters objectAtIndex:i];
-        [setterInv setArgument:&currentValue atIndex:2];
+        NSInvocation *setterInv = prop.setter;        
+
+        char numericType = prop.numericType;
+        if (numericType == 'i')
+        {
+            int currentValue = (int)(startValue + transitionValue);
+            [setterInv setArgument:&currentValue atIndex:2];
+        }
+        else if (numericType == 'd')
+        {
+            double currentValue = (double)(startValue + transitionValue);
+            [setterInv setArgument:&currentValue atIndex:2];            
+        }        
+        else
+        {
+            float currentValue = startValue + transitionValue;
+            [setterInv setArgument:&currentValue atIndex:2];
+        }                
+        
         [setterInv invoke];        
     }
     
@@ -178,17 +194,14 @@
 
 + (SPTween*)tweenWithTarget:(id)target time:(double)time
 {
-    return [[[SPTween alloc] initWithTarget:target time:time]autorelease];
+    return [[[SPTween alloc] initWithTarget:target time:time] autorelease];
 }
 
 - (void)dealloc
 {
     [mTarget release];
     [mTransitionInvocation release];
-    [mGetters release];
-    [mSetters release];
-    [mStartValues release];
-    [mEndValues release];
+    [mProperties release];
     [super dealloc];
 }
 

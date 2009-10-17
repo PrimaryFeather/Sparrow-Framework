@@ -30,8 +30,7 @@
 - (NSMethodSignature*)methodSignatureForSelector:(SEL)aSelector
 {
     NSMethodSignature *sig = [[self class] instanceMethodSignatureForSelector:aSelector];
-    if (sig == nil)
-        sig = [mTarget methodSignatureForSelector:aSelector];
+    if (!sig) sig = [mTarget methodSignatureForSelector:aSelector];
     return sig;
 }
 

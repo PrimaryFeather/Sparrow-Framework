@@ -20,20 +20,15 @@
   @private
     id mTarget;
     NSInvocation *mTransitionInvocation;
-    NSMutableArray *mSetters;
-    NSMutableArray *mGetters;
-    NSMutableArray *mStartValues;
-    NSMutableArray *mEndValues;
+    NSMutableArray *mProperties;
     
     double mTotalTime;
     double mCurrentTime;
     double mDelay;
-    BOOL mRoundToInt;
 }
 
 @property (nonatomic, readonly) id target;
 @property (nonatomic, readonly) NSString *transition;
-@property (nonatomic, assign)   BOOL roundToInt;
 @property (nonatomic, readonly) double time;
 @property (nonatomic, assign)   double delay;
 
@@ -42,7 +37,7 @@
 
 - (void)animateProperty:(NSString*)property targetValue:(float)value;
 
-+ (SPTween*)tweenWithTarget:(id)target time:(double)time transition:(NSString*)transition;
-+ (SPTween*)tweenWithTarget:(id)target time:(double)time;
++ (SPTween *)tweenWithTarget:(id)target time:(double)time transition:(NSString *)transition;
++ (SPTween *)tweenWithTarget:(id)target time:(double)time;
 
 @end
