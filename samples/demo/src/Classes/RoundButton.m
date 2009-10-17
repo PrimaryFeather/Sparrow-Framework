@@ -20,7 +20,7 @@
     
     // when the hit test is done to check if a touch is hitting the object, invisible or
     // untouchable objects must cause the hit test to fail.
-    if (isTouch && (!self.isVisible || !self.isTouchable)) 
+    if (isTouch && (!self.visible || !self.touchable)) 
         return nil; 
    
     // get center of button

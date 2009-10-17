@@ -55,7 +55,7 @@
 
 - (void)onStartButtonPressed:(SPEvent*)event
 {
-    mStartButton.isEnabled = NO;
+    mStartButton.enabled = NO;
     [self resetSaturn];
     
     // to animate any numeric property of an arbitrary object (not just display objects!), you
@@ -83,7 +83,7 @@
 
 - (void)onTweenComplete:(SPEvent*)event
 {    
-    mStartButton.isEnabled = YES;
+    mStartButton.enabled = YES;
     [(SPTween*)event.target removeEventListenersAtObject:self forType:SP_EVENT_TYPE_TWEEN_COMPLETED];
 }
 

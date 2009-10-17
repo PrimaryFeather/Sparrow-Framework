@@ -74,7 +74,7 @@
         
         SPTexture *backButtonTexture = [SPTexture textureWithContentsOfFile:@"button_yellow.png"];
         mBackButton = [[SPButton alloc] initWithUpState:backButtonTexture text:@"back"];
-        mBackButton.isVisible = NO;
+        mBackButton.visible = NO;
         mBackButton.x = mSceneButtons.x;
         mBackButton.y = self.stage.height - mBackButton.height - 20;
         [mBackButton addEventListener:@selector(onBackButtonTriggered:) atObject:self 
@@ -89,8 +89,8 @@
     mCurrentScene = scene;
     [self addChild:scene atIndex:0];
     
-    mSceneButtons.isVisible = NO;
-    mBackButton.isVisible = YES;
+    mSceneButtons.visible = NO;
+    mBackButton.visible = YES;
 }
 
 - (void)onBackButtonTriggered:(SPEvent*)event
@@ -98,8 +98,8 @@
     [mCurrentScene removeFromParent];
     mCurrentScene = nil;
     
-    mBackButton.isVisible = NO;
-    mSceneButtons.isVisible = YES;    
+    mBackButton.visible = NO;
+    mSceneButtons.visible = YES;    
 }
 
 - (void)onAtlasButtonTriggered:(SPEvent*)event

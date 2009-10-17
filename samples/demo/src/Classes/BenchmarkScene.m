@@ -28,7 +28,7 @@
         
         // the container will hold all test objects
         mContainer = [[SPSprite alloc] init];
-        mContainer.isTouchable = NO; // we do not need touch events on the test objects -- thus, 
+        mContainer.touchable = NO; // we do not need touch events on the test objects -- thus, 
                                      // it is more efficient to disable them.
         [self addChild:mContainer atIndex:0];        
         [mContainer release];
@@ -92,7 +92,7 @@
 {
     NSLog(@"starting benchmark");
     
-    mStartButton.isEnabled = NO;
+    mStartButton.enabled = NO;
     mStarted = YES;
     mFailCount = 0;
     mWaitFrames = 3;
@@ -106,7 +106,7 @@
 - (void)benchmarkComplete
 {
     mStarted = NO;
-    mStartButton.isEnabled = YES;
+    mStartButton.enabled = YES;
     [mJuggler removeAllObjects];
     
     NSLog(@"benchmark complete!");
