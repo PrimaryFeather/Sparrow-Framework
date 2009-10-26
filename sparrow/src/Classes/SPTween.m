@@ -12,7 +12,8 @@
 #import "SPMacros.h"
 #import "SPTweenedProperty.h"
 
-#define TRANS_SUFFIX @"WithDelta:ratio:"
+#define TRANS_SUFFIX  @"WithDelta:ratio:"
+#define UNKNOWN_VALUE FLT_MAX
 
 // --- private interface ---------------------------------------------------------------------------
 
@@ -26,8 +27,6 @@
 // --- class implementation ------------------------------------------------------------------------
 
 @implementation SPTween
-
-#define UNKNOWN_VALUE FLT_MAX
 
 @synthesize time = mTotalTime;
 @synthesize delay = mDelay;

@@ -177,6 +177,7 @@
             charImg.y = charInfo.yOffset;
             charImg.color = color;
             [currentLine addChild:charImg];
+            [charImg release]; 
             
             currentX += charInfo.xAdvance;
             
@@ -195,8 +196,6 @@
                 i -= numCharsToRemove;
                 lineFull = YES;                
             }
-                
-            [charImg release]; 
         }
         
         if (lineFull || i == text.length - 1)
@@ -231,7 +230,7 @@
     }
     
     SPSprite *outerContainer = [SPSprite sprite];
-    
+
     // create an invisible background (not rendered) so that width and height-properties 
     // of the object appear correct.
     SPQuad *background = [[SPQuad alloc] initWithWidth:width height:height];
@@ -264,8 +263,8 @@
         [outerContainer addChild:bottomBorder];
         [outerContainer addChild:leftBorder];
         [outerContainer addChild:rightBorder];        
-    }
-     
+    }    
+    
     return outerContainer;
 }
 

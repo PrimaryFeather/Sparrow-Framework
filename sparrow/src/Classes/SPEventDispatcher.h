@@ -15,7 +15,6 @@
     NSMutableDictionary *mEventListeners;
 }
 
-- (id)init;
 - (void)addEventListener:(SEL)listener atObject:(id)object forType:(NSString*)eventType;
 - (void)removeEventListener:(SEL)listener atObject:(id)object forType:(NSString*)eventType;
 - (void)removeEventListenersAtObject:(id)object forType:(NSString*)eventType;

@@ -40,10 +40,12 @@
         point.x = coords[2*i];
         point.y = coords[2*i+1];
         SPPoint *transformedPoint = [transformationMatrix transformPoint:point];
-        minX = MIN(minX, transformedPoint.x);
-        maxX = MAX(maxX, transformedPoint.x);
-        minY = MIN(minY, transformedPoint.y);
-        maxY = MAX(maxY, transformedPoint.y);
+        float tfX = transformedPoint.x; 
+        float tfY = transformedPoint.y;
+        minX = MIN(minX, tfX);
+        maxX = MAX(maxX, tfX);
+        minY = MIN(minY, tfY);
+        maxY = MAX(maxY, tfY);
     }
     [point release];
     return [SPRectangle rectangleWithX:minX y:minY width:maxX-minX height:maxY-minY];    

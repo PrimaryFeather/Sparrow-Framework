@@ -14,21 +14,15 @@
 
 @implementation SPEventDispatcher
 
-- (id)init
-{    
-    if (self = [super init])
-    {        
-        mEventListeners = [[NSMutableDictionary alloc] init];
-    }
-    return self;
-}
-
 #pragma mark -
 
 - (void)addEventListener:(SEL)listener atObject:(id)object forType:(NSString*)eventType
 {
+    if (!mEventListeners)
+        mEventListeners = [[NSMutableDictionary alloc] init];
+    
     NSInvocation *invocation = [NSInvocation invocationWithTarget:object selector:listener];
-    [invocation retainArguments];    
+    if (self != object) [invocation retainArguments];    
     
     // When an event listener is added or removed, a new NSArray object is created, instead of 
     // changing the array. The reason for this is that we can avoid creating a copy of the NSArray 

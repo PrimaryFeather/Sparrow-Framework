@@ -228,9 +228,11 @@
 - (SPMatrix*)transformationMatrix
 {
     SPMatrix *matrix = [[SPMatrix alloc] init];
-    [matrix scaleXBy:mScaleX yBy:mScaleY];
-    [matrix rotateBy:mRotationZ];
-    [matrix translateXBy:mX yBy:mY];
+    
+    if (mScaleX != 0.0f || mScaleY != 0.0f) [matrix scaleXBy:mScaleX yBy:mScaleY];
+    if (mRotationZ != 0.0f)                 [matrix rotateBy:mRotationZ];
+    if (mX != 0.0f || mY != 0.0f)           [matrix translateXBy:mX yBy:mY];
+    
     return [matrix autorelease];
 }
 

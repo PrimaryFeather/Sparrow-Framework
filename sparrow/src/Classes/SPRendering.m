@@ -61,21 +61,31 @@
 
 - (void)render:(SPRenderSupport *)support;
 {    
-    if (self.alpha == 0 || !self.visible) return;
+    float alpha = self.alpha;
     
     for (SPDisplayObject *child in self)
-    {        
-        glPushMatrix();        
-        glTranslatef(child.x, child.y, ZPOS);        
-        glRotatef(SP_R2D(child.rotationZ), 0.0f, 0.0f, 1.0f);
-        glScalef(child.scaleX, child.scaleY, 1.0f);        
-        
-        float originalAlpha = child.alpha;        
-        child.alpha *= self.alpha;
-        [child render:support];
-        child.alpha = originalAlpha;
-        
-        glPopMatrix();        
+    {
+        float childAlpha = child.alpha;
+        if (childAlpha != 0.0f && child.visible)
+        {            
+            float x = child.x;
+            float y = child.y;
+            float rotationZ = child.rotationZ;
+            float scaleX = child.scaleX;
+            float scaleY = child.scaleY;
+            
+            glPushMatrix();
+            
+            if (x != 0.0f || y != 0.0f)           glTranslatef(x, y, ZPOS);
+            if (rotationZ != 0.0f)                glRotatef(SP_R2D(child.rotationZ), 0.0f, 0.0f, 1.0f);
+            if (scaleX != 0.0f || scaleY != 0.0f) glScalef(child.scaleX, child.scaleY, 1.0f);        
+       
+            child.alpha *= alpha;
+            [child render:support];
+            child.alpha = childAlpha;
+            
+            glPopMatrix();        
+        }
     }
 }
 
@@ -85,8 +95,6 @@
 
 - (void)render:(SPRenderSupport *)support;
 {
-    if (self.alpha == 0 || !self.visible) return;
-    
     // If this method is called from a subclass, it has most probably bound a texture (on purpose).
     // But if this is a 'real' quad, we have to disable any texture.
     if (self->isa == [SPQuad class])
@@ -98,8 +106,8 @@
     vertices[2] = mWidth;
     vertices[4] = mWidth;
     vertices[5] = mHeight;
-    vertices[7] = mHeight;        
- 
+    vertices[7] = mHeight;         
+    
     float alpha = self.alpha;
     GLubyte* pos = colors;
     for (int i=0; i<4; ++i) 
@@ -139,9 +147,7 @@
 @implementation SPImage (Rendering)
 
 - (void)render:(SPRenderSupport *)support;
-{
-    if (self.alpha == 0 || !self.visible) return;    
-    
+{    
     static float texCoords[8];     
     [mTexture adjustTextureCoordinates:mTexCoords saveAtTarget:texCoords numVertices:4];    
     

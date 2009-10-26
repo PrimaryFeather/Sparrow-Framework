@@ -12,7 +12,8 @@
 @interface AnimationScene : SPSprite
 {
     SPButton *mStartButton;
-    SPImage *mSaturn;
+    SPButton *mDelayButton;
+    SPImage *mSaturn;    
 }
 
 @end

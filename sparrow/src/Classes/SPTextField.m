@@ -166,7 +166,7 @@ static NSMutableDictionary *bitmapFonts = nil;
     SPBitmapFont *bitmapFont = [bitmapFonts objectForKey:mFontName];
     if (!bitmapFont)     
         [NSException raise:SP_EXC_INVALID_OPERATION 
-                    format:@"bitmap font @% not registered!", mFontName];       
+                    format:@"bitmap font %@ not registered!", mFontName];       
  
     return [bitmapFont createDisplayObjectWithWidth:mHitArea.width height:mHitArea.height
                                                text:mText fontSize:mFontSize color:mColor

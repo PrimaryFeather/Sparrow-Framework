@@ -56,8 +56,6 @@ static void dispatchEnterFrameEvent(SPDisplayObject *object, SPEnterFrameEvent *
 
 - (void)advanceTime:(double)seconds
 {    
-    SP_CREATE_POOL(pool);
-            
     // advance juggler
     [mJuggler advanceTime:seconds];
     
@@ -66,8 +64,6 @@ static void dispatchEnterFrameEvent(SPDisplayObject *object, SPEnterFrameEvent *
         initWithType:SP_EVENT_TYPE_ENTER_FRAME passedTime:seconds];        
     dispatchEnterFrameEvent(self, enterFrameEvent);
     [enterFrameEvent release];
-
-    SP_RELEASE_POOL(pool);
 }
 
 - (void)processTouches:(NSSet*)touches
