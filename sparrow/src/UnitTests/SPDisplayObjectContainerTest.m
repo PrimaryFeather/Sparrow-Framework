@@ -106,11 +106,11 @@
     STAssertTrue(SP_IS_FLOAT_EQUAL(55.0f, sprite.width), @"wrong width: %f", sprite.width);
     STAssertTrue(SP_IS_FLOAT_EQUAL(65.0f, sprite.height), @"wrong height: %f", sprite.height);
     
-    quad1.rotationZ = PI_HALF;
+    quad1.rotation = PI_HALF;
     STAssertTrue(SP_IS_FLOAT_EQUAL(75.0f, sprite.width), @"wrong width: %f", sprite.width);
     STAssertTrue(SP_IS_FLOAT_EQUAL(65.0f, sprite.height), @"wrong height: %f", sprite.height);
     
-    quad1.rotationZ = PI;
+    quad1.rotation = PI;
     STAssertTrue(SP_IS_FLOAT_EQUAL(65.0f, sprite.width), @"wrong width: %f", sprite.width);
     STAssertTrue(SP_IS_FLOAT_EQUAL(85.0f, sprite.height), @"wrong height: %f", sprite.height);
     
@@ -124,7 +124,7 @@
     SPQuad *quad = [[SPQuad alloc] initWithWidth:10 height:20];
     quad.x = -10;
     quad.y = 10;
-    quad.rotationZ = PI_HALF;
+    quad.rotation = PI_HALF;
     
     SPSprite *sprite = [[SPSprite alloc] init];
     [sprite addChild:quad];
@@ -168,7 +168,6 @@
     spriteA11.x = 25;
     spriteA11.y = 50;
     spriteA11.scaleX = spriteA11.scaleY = 0.5;
-    //spriteA11.rotationZ = PI / 4.0f;
     [self addQuadToSprite:spriteA11];
     [spriteA1 addChild:spriteA11];
     [spriteA11 release];
@@ -185,7 +184,6 @@
     spriteA21.x = 50;
     spriteA21.y = 25;
     spriteA21.scaleX = spriteA21.scaleY = 0.5;
-    //spriteA21.rotationZ = -PI/4.0f;
     [self addQuadToSprite:spriteA21];
     [spriteA2 addChild:spriteA21];    
     [spriteA21 release];
@@ -198,8 +196,8 @@
     
     // now rotate as well
     
-    spriteA11.rotationZ = PI/4.0f;
-    spriteA21.rotationZ = -PI/4.0f;
+    spriteA11.rotation = PI/4.0f;
+    spriteA21.rotation = -PI/4.0f;
     
     bounds = [spriteA21 boundsInSpace:spriteA11];
     expectedBounds = [SPRectangle rectangleWithX:0 y:394.974762 width:100 height:100];

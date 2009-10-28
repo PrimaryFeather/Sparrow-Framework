@@ -20,7 +20,7 @@
 @synthesize y = mY;
 @synthesize scaleX = mScaleX;
 @synthesize scaleY = mScaleY;
-@synthesize rotationZ = mRotationZ;
+@synthesize rotation = mRotationZ;
 @synthesize parent = mParent;
 @synthesize alpha = mAlpha;
 @synthesize visible = mVisible;
@@ -199,7 +199,7 @@
     mScaleY = value / (self.height / mScaleY);
 }
 
-- (void)setRotationZ:(float)value
+- (void)setRotation:(float)value
 {
     while (value < 0) value += TWO_PI;
     while (value >= TWO_PI) value -= TWO_PI;

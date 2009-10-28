@@ -64,13 +64,13 @@
     SPSprite *sprite = [[SPSprite alloc] init];
     sprite.x = 50;
     sprite.y = 100;
-    sprite.rotationZ = PI / 4;
+    sprite.rotation = PI / 4;
     sprite.scaleX = 0.5;
     sprite.scaleY = 1.5;
     
     SPMatrix *matrix = [[SPMatrix alloc] init];
     [matrix scaleXBy:sprite.scaleX yBy:sprite.scaleY];
-    [matrix rotateBy:sprite.rotationZ];
+    [matrix rotateBy:sprite.rotation];
     [matrix translateXBy:sprite.x yBy:sprite.y];
     
     STAssertEqualObjects(sprite.transformationMatrix, matrix, @"wrong matrix");
@@ -84,7 +84,7 @@
     SPQuad *quad = [[SPQuad alloc] initWithWidth:10 height:20];
     quad.x = -10;
     quad.y = 10;
-    quad.rotationZ = PI_HALF;
+    quad.rotation = PI_HALF;
     SPRectangle *bounds = quad.bounds;
     
     STAssertTrue(SP_IS_FLOAT_EQUAL(-30, bounds.x), @"wrong bounds.x: %f", bounds.x);

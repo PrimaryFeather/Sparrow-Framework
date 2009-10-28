@@ -131,7 +131,7 @@ static void dispatchEnterFrameEvent(SPDisplayObject *object, SPEnterFrameEvent *
     [NSException raise:SP_EXC_INVALID_OPERATION format:@"cannot scale stage"];
 }
 
-- (void)setRotationZ:(float)value
+- (void)setRotation:(float)value
 {
     [NSException raise:SP_EXC_INVALID_OPERATION format:@"cannot rotate stage"];
 }

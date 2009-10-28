@@ -60,7 +60,7 @@
     mSaturn.x = 10;
     mSaturn.y = 120;
     mSaturn.scaleX = mSaturn.scaleY = 1.0f;
-    mSaturn.rotationZ = 0.0f;
+    mSaturn.rotation = 0.0f;
 }
 
 - (void)onStartButtonPressed:(SPEvent *)event
@@ -80,7 +80,7 @@
     [tween animateProperty:@"y" targetValue:330];
     [tween animateProperty:@"scaleX" targetValue:0.5];
     [tween animateProperty:@"scaleY" targetValue:0.5];
-    [tween animateProperty:@"rotationZ" targetValue:PI_HALF];
+    [tween animateProperty:@"rotation" targetValue:PI_HALF];
     [tween addEventListener:@selector(onTweenComplete:) atObject:self 
                     forType:SP_EVENT_TYPE_TWEEN_COMPLETED];
 

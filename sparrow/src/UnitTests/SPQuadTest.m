@@ -63,7 +63,7 @@
     float height = 40;
     float angle = SP_D2R(45.0f);
     SPQuad *quad = [[SPQuad alloc] initWithWidth:width height:height];
-    quad.rotationZ = angle;
+    quad.rotation = angle;
 
     float expectedWidth = cosf(angle) * (width + height);
     STAssertTrue(SP_IS_FLOAT_EQUAL(expectedWidth, quad.width), @"wrong width: %f", quad.width);

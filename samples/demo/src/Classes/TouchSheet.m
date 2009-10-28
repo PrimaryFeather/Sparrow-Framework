@@ -72,7 +72,7 @@
         SPPoint *vector = [touch1Pos subtractPoint:touch2Pos];
         
         float angleDiff = vector.angle - prevVector.angle;
-        self.rotationZ += angleDiff;   
+        self.rotation += angleDiff;   
         
         float sizeDiff = vector.length / prevVector.length;
         self.scaleX = self.scaleY = MAX(0.5f, self.scaleX * sizeDiff);        

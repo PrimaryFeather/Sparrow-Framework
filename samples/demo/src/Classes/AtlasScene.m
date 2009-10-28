@@ -31,7 +31,7 @@
         SPImage *astronaut = [SPImage imageWithTexture:[atlas textureByName:@"astronaut"]];
         astronaut.x = 190;
         astronaut.y = 200;
-        astronaut.rotationZ = PI/4.0f;
+        astronaut.rotation = PI/4.0f;
         [self addChild:astronaut];
     }
     return self;    

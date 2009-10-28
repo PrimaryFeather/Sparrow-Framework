@@ -85,7 +85,7 @@
     }
     
     for (SPDisplayObject *child in mContainer)    
-        child.rotationZ += 0.05f;    
+        child.rotation += 0.05f;    
 }
 
 - (void)onStartButtonPressed:(SPEvent*)event

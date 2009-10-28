@@ -37,7 +37,7 @@
 @property (nonatomic, assign) float scaleY;
 @property (nonatomic, assign) float width;
 @property (nonatomic, assign) float height;
-@property (nonatomic, assign) float rotationZ;
+@property (nonatomic, assign) float rotation;
 @property (nonatomic, assign) float alpha;
 @property (nonatomic, assign) BOOL visible;
 @property (nonatomic, assign) BOOL touchable;

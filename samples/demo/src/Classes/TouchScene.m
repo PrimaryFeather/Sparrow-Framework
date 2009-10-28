@@ -58,7 +58,7 @@
     TouchSheet *sheet2 = [[TouchSheet alloc] initWithQuad:astronaut];    
     sheet2.x = 190;
     sheet2.y = 270; 
-    sheet2.rotationZ = PI/4.0f;
+    sheet2.rotation = PI/4.0f;
     
     [self addChild:sheet1];
     [self addChild:sheet2];    
