@@ -30,3 +30,4 @@
 #import "SPRectangle.h"
 #import "SPMacros.h"
 #import "SPView.h"
+#import "SPRenderSupport.h"

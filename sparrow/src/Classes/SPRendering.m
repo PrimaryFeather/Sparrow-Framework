@@ -77,7 +77,7 @@
             glPushMatrix();
             
             if (x != 0.0f || y != 0.0f)           glTranslatef(x, y, ZPOS);
-            if (rotation != 0.0f)                glRotatef(SP_R2D(child.rotation), 0.0f, 0.0f, 1.0f);
+            if (rotation != 0.0f)                 glRotatef(SP_R2D(child.rotation), 0.0f, 0.0f, 1.0f);
             if (scaleX != 0.0f || scaleY != 0.0f) glScalef(child.scaleX, child.scaleY, 1.0f);        
        
             child.alpha *= alpha;

@@ -11,13 +11,22 @@
 #import "SPDisplayObject_Internal.h"
 #import "SPMacros.h"
 
-// --- private interface ---------------------------------------------------------------------------
+// --- c functions ---
 
-@interface SPDisplayObjectContainer ()
-
-- (void)dispatchEventOnChildren:(SPEvent*)event;
-
-@end
+static void dispatchEventOnChildren(SPDisplayObject *object, SPEvent *event)
+{
+    // This function is mainly used for ADDED_TO_STAGE- and REMOVED_FROM_STAGE-events.
+    // Those events are dispatched often, yet used very rarely.
+    // Thus we handle them in a C function, so that the overhead that they create is minimal.
+    
+    [object dispatchEvent:event];    
+    if ([object isKindOfClass:[SPDisplayObjectContainer class]])
+    {
+        SPDisplayObjectContainer *container = (SPDisplayObjectContainer *)object;
+        for (SPDisplayObject *child in container)
+            dispatchEventOnChildren(child, event);
+    }
+}
 
 // --- class implementation ------------------------------------------------------------------------
 
@@ -36,10 +45,6 @@
     if (self = [super init]) 
     {
         mChildren = [[NSMutableArray alloc] init];
-        [self addEventListener:@selector(dispatchEventOnChildren:) atObject:self 
-                       forType:SP_EVENT_TYPE_ADDED_TO_STAGE];
-        [self addEventListener:@selector(dispatchEventOnChildren:) atObject:self
-                       forType:SP_EVENT_TYPE_REMOVED_FROM_STAGE];
     }
     
     return self;
@@ -50,7 +55,7 @@
 
 - (void)addChild:(SPDisplayObject *)child
 {
-    [self addChild:child atIndex:self.numChildren];
+    [self addChild:child atIndex:[mChildren count]];
 }
 
 - (void)addChild:(SPDisplayObject *)child atIndex:(int)index
@@ -60,9 +65,16 @@
     [mChildren insertObject:child atIndex:index];    
     child.parent = self;
     
-    [child dispatchEvent:[SPEvent eventWithType:SP_EVENT_TYPE_ADDED]];
+    SPEvent *addedEvent = [[SPEvent alloc] initWithType:SP_EVENT_TYPE_ADDED];    
+    [child dispatchEvent:addedEvent];
+    [addedEvent release];    
+    
     if (self.stage)
-        [child dispatchEvent:[SPEvent eventWithType:SP_EVENT_TYPE_ADDED_TO_STAGE]];
+    {
+        SPEvent *addedToStageEvent = [[SPEvent alloc] initWithType:SP_EVENT_TYPE_ADDED_TO_STAGE];
+        dispatchEventOnChildren(child, addedToStageEvent);
+        [addedToStageEvent release];
+    }
     
     [child release];
 }
@@ -109,15 +121,22 @@
 
 - (void)removeChildAtIndex:(int)index
 {
-    if (index >= 0 && index < self.numChildren)
+    if (index >= 0 && index < [mChildren count])
     {
         SPDisplayObject *child = [[mChildren objectAtIndex:index] retain];
         [mChildren removeObjectAtIndex:index];
         child.parent = nil;        
         
-        [child dispatchEvent:[SPEvent eventWithType:SP_EVENT_TYPE_REMOVED]];
-        if (self.stage) 
-            [child dispatchEvent:[SPEvent eventWithType:SP_EVENT_TYPE_REMOVED_FROM_STAGE]];        
+        SPEvent *remEvent = [[SPEvent alloc] initWithType:SP_EVENT_TYPE_REMOVED];    
+        [child dispatchEvent:remEvent];
+        [remEvent release];    
+        
+        if (self.stage)
+        {
+            SPEvent *remFromStageEvent = [[SPEvent alloc] initWithType:SP_EVENT_TYPE_REMOVED_FROM_STAGE];
+            dispatchEventOnChildren(child, remFromStageEvent);
+            [remFromStageEvent release];
+        }        
         
         [child release];
     }
@@ -133,7 +152,8 @@
 
 - (void)swapChildAtIndex:(int)index1 withChildAtIndex:(int)index2
 {    
-    if (index1 < 0 || index1 >= self.numChildren || index2 < 0 || index2 >= self.numChildren)
+    int numChildren = [mChildren count];    
+    if (index1 < 0 || index1 >= numChildren || index2 < 0 || index2 >= numChildren)
         [NSException raise:SP_EXC_INVALID_OPERATION format:@"invalid child indices"];
     [mChildren exchangeObjectAtIndex:index1 withObjectAtIndex:index2];
 }
@@ -145,15 +165,9 @@
 
 #pragma mark -
 
-- (void)dispatchEventOnChildren:(SPEvent*)event
-{
-    for (SPDisplayObject *child in mChildren)
-        [child dispatchEvent:event];
-}
-
 - (SPRectangle*)boundsInSpace:(SPDisplayObject*)targetCoordinateSpace
 {    
-    int numChildren = self.numChildren;
+    int numChildren = [mChildren count];
 
     if (numChildren == 0) 
         return [SPRectangle rectangleWithX:0 y:0 width:0 height:0];
@@ -179,7 +193,7 @@
     if (isTouch && (!self.visible || !self.touchable)) 
         return nil;
     
-    for (int i=self.numChildren-1; i>=0; --i) // front to back!
+    for (int i=[mChildren count]-1; i>=0; --i) // front to back!
     {
         SPDisplayObject *child = [mChildren objectAtIndex:i];
         SPMatrix *transformationMatrix = [self transformationMatrixToSpace:child];
@@ -196,8 +210,6 @@
 - (void)dealloc 
 {    
     [mChildren release];
-    [self removeEventListenersAtObject:self forType:SP_EVENT_TYPE_ADDED_TO_STAGE];
-    [self removeEventListenersAtObject:self forType:SP_EVENT_TYPE_REMOVED_FROM_STAGE];
     [super dealloc];
 }
 
