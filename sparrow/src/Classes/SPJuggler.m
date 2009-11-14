@@ -63,6 +63,11 @@
     return delayedInvoc;    
 }
 
++ (SPJuggler *)juggler
+{
+    return [[[SPJuggler alloc] init] autorelease];
+}
+
 - (void)dealloc
 {
     [mObjects release];

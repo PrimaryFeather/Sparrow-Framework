@@ -19,7 +19,7 @@
 {
     if (self = [super init])
     {
-        mTotalTime = time;
+        mTotalTime = MAX(0.0001, time); // zero is not allowed
         mCurrentTime = 0;
         mTarget = [target retain];
         mInvocations = [[NSMutableSet alloc] init];

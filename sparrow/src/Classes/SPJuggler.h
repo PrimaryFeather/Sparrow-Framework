@@ -23,4 +23,6 @@
 - (void)removeAllObjects;
 - (id)delayInvocationAtTarget:(id)target byTime:(double)time;
 
++ (SPJuggler *)juggler;
+
 @end
