@@ -91,7 +91,7 @@ static void dispatchEventOnChildren(SPDisplayObject *object, SPEvent *event)
         }
         else
         {
-            if ([currentChild isEqual: child]) return YES;
+            if (currentChild == child) return YES;
         }
     }
     

@@ -18,8 +18,9 @@
 @interface SPTween : SPEventDispatcher <SPAnimatable>
 {
   @private
-    id mTarget;
-    NSInvocation *mTransitionInvocation;
+    id mTarget;    
+    IMP mTransFunc;
+    SEL mTransSelector;
     NSMutableArray *mProperties;
     
     double mTotalTime;

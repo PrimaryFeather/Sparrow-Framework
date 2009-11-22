@@ -7,39 +7,100 @@
 //
 
 #import "SPTweenedProperty.h"
+#import "SPMacros.h"
 
+typedef float  (*FnPtrGetterF) (id, SEL);
+typedef double (*FnPtrGetterD) (id, SEL);
+typedef int    (*FnPtrGetterI) (id, SEL);
 
+typedef void (*FnPtrSetterF) (id, SEL, float);
+typedef void (*FnPtrSetterD) (id, SEL, double);
+typedef void (*FnPtrSetterI) (id, SEL, int);
+ 
 @implementation SPTweenedProperty
 
-@synthesize getter = mGetter; 
-@synthesize setter = mSetter;
 @synthesize startValue = mStartValue;
 @synthesize endValue = mEndValue;
-@synthesize numericType = mNumericType;
 
-- (id)initWithGetter:(NSInvocation *)getter setter:(NSInvocation *)setter 
-          startValue:(float)startValue endValue:(float)endValue numericType:(char)type
+- (id)initWithTarget:(id)target name:(NSString *)name endValue:(float)endValue;
 {
     if (self = [super init])
     {
-        mGetter = [getter retain];
-        mSetter = [setter retain];
-        mStartValue = startValue;
+        mTarget = [target retain];        
         mEndValue = endValue;
-        mNumericType = type;
+        
+        mGetter = NSSelectorFromString(name);
+        mSetter = NSSelectorFromString([NSString stringWithFormat:@"set%@%@:", 
+                                        [[name substringToIndex:1] uppercaseString], 
+                                        [name substringFromIndex:1]]);
+        
+        if (![mTarget respondsToSelector:mGetter] || ![mTarget respondsToSelector:mSetter])
+            [NSException raise:SP_EXC_INVALID_OPERATION format:@"property not found or readonly: '%@'", 
+             name];    
+        
+        // query argument type
+        NSMethodSignature *sig = [mTarget methodSignatureForSelector:mGetter];
+        mNumericType = *[sig methodReturnType];    
+        if (mNumericType != 'f' && mNumericType != 'i' && mNumericType != 'd')
+            [NSException raise:SP_EXC_INVALID_OPERATION format:@"property not numeric: '%@'", name];
+        
+        mGetterFunc = [mTarget methodForSelector:mGetter];
+        mSetterFunc = [mTarget methodForSelector:mSetter];       
     }
     return self;
 }
 
 - (id)init
 {
-    return [self initWithGetter:nil setter:nil startValue:0.0f endValue:0.0f numericType:'f'];
+    return [self initWithTarget:nil name:nil endValue:0.0f];
+}
+
+- (void)setCurrentValue:(float)value
+{
+    if (mNumericType == 'f')
+    {
+        FnPtrSetterF func = (FnPtrSetterF)mSetterFunc;
+        func(mTarget, mSetter, value);
+    }        
+    else if (mNumericType == 'd')
+    {
+        FnPtrSetterD func = (FnPtrSetterD)mSetterFunc;
+        func(mTarget, mSetter, (double)value);
+    }        
+    else
+    {
+        FnPtrSetterI func = (FnPtrSetterI)mSetterFunc;
+        func(mTarget, mSetter, (int)(value+0.5f));
+    }        
+}
+
+- (float)currentValue
+{
+    if (mNumericType == 'f')
+    {
+        FnPtrGetterF func = (FnPtrGetterF)mGetterFunc;
+        return func(mTarget, mGetter);
+    }
+    else if (mNumericType == 'd')
+    {
+        FnPtrGetterD func = (FnPtrGetterD)mGetterFunc;
+        return func(mTarget, mGetter);
+    }
+    else 
+    {
+        FnPtrGetterI func = (FnPtrGetterI)mGetterFunc;
+        return func(mTarget, mGetter);
+    }
+}
+
+- (float)delta
+{
+    return mEndValue - mStartValue;
 }
 
 - (void)dealloc
 {
-    [mGetter release];
-    [mSetter release];
+    [mTarget release];
     [super dealloc];
 }
 

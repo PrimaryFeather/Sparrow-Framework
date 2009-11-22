@@ -12,20 +12,23 @@
 @interface SPTweenedProperty : NSObject
 {
   @private
-    NSInvocation *mSetter;
-    NSInvocation *mGetter;
+    id  mTarget;
+    
+    SEL mGetter;
+    IMP mGetterFunc;    
+    SEL mSetter;    
+    IMP mSetterFunc;
+
     float mStartValue;
     float mEndValue;
     char  mNumericType;
 }
 
-@property (nonatomic, retain) NSInvocation *setter;
-@property (nonatomic, retain) NSInvocation *getter;
 @property (nonatomic, assign) float startValue;
+@property (nonatomic, assign) float currentValue;
 @property (nonatomic, assign) float endValue;
-@property (nonatomic, assign) char numericType;
+@property (nonatomic, readonly) float delta;
 
-- (id)initWithGetter:(NSInvocation *)getter setter:(NSInvocation *)setter 
-          startValue:(float)startValue endValue:(float)endValue numericType:(char)type;
+- (id)initWithTarget:(id)target name:(NSString *)name endValue:(float)endValue;
 
 @end

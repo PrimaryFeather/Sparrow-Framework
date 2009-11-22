@@ -8,23 +8,12 @@
 
 #import "SPTween.h"
 #import "SPTransitions.h"
-#import "SPNSExtensions.h"
-#import "SPMacros.h"
 #import "SPTweenedProperty.h"
+#import "SPMacros.h"
 
 #define TRANS_SUFFIX  @"WithDelta:ratio:"
-#define UNKNOWN_VALUE FLT_MAX
 
-// --- private interface ---------------------------------------------------------------------------
-
-@interface SPTween ()
-
-- (void)setTransition:(NSString*)transition;
-
-@end
-
-
-// --- class implementation ------------------------------------------------------------------------
+typedef float (*FnPtrTransition) (id, SEL, float, float);
 
 @implementation SPTween
 
@@ -40,8 +29,15 @@
         mTotalTime = MAX(0.0001, time); // zero is not allowed
         mCurrentTime = 0;
         mDelay = 0;
-        mProperties = [[NSMutableArray alloc] init];
-        self.transition = transition;        
+        mProperties = [[NSMutableArray alloc] init];        
+        
+        // create function pointer for transition
+        NSString *transMethod = [transition stringByAppendingString:TRANS_SUFFIX];
+        mTransSelector = NSSelectorFromString(transMethod);    
+        if (![SPTransitions respondsToSelector:mTransSelector])
+            [NSException raise:SP_EXC_INVALID_OPERATION 
+                        format:@"transition not found: '%@'", transition];
+        mTransFunc = [SPTransitions methodForSelector:mTransSelector];
     }
     return self;
 }
@@ -53,29 +49,8 @@
 
 - (void)animateProperty:(NSString*)property targetValue:(float)value
 {    
-    SEL getter = NSSelectorFromString(property);
-    SEL setter = NSSelectorFromString([NSString stringWithFormat:@"set%@%@:", 
-                                       [[property substringToIndex:1] uppercaseString], 
-                                       [property substringFromIndex:1]]);
- 
-    if (![mTarget respondsToSelector:getter] || ![mTarget respondsToSelector:setter])
-        [NSException raise:SP_EXC_INVALID_OPERATION format:@"property not found or readonly: '%@'", property];    
-    
-    // query argument type
-    NSMethodSignature *sig = [mTarget methodSignatureForSelector:getter];
-    char numericType = *[sig methodReturnType];    
-    if (numericType != 'f' && numericType != 'i' && numericType != 'd')
-        [NSException raise:SP_EXC_INVALID_OPERATION format:@"property not numeric: '%@'", property];
-        
-    // create invocations
-    NSInvocation *getterInv = [NSInvocation invocationWithTarget:mTarget selector:getter];    
-    NSInvocation *setterInv = [NSInvocation invocationWithTarget:mTarget selector:setter];    
-    
-    // save property information
     SPTweenedProperty *tweenedProp = [[SPTweenedProperty alloc] 
-        initWithGetter:getterInv setter:setterInv startValue:UNKNOWN_VALUE endValue:value 
-           numericType:numericType];
-    
+        initWithTarget:mTarget name:property endValue:value];
     [mProperties addObject:tweenedProp];
     [tweenedProp release];
 }
@@ -86,62 +61,30 @@
     mCurrentTime = MIN(mTotalTime, mCurrentTime + seconds);
 
     if (mCurrentTime < 0 || previousTime >= mTotalTime) return;
-    
-    float ratio = mCurrentTime / mTotalTime;    
-    for (SPTweenedProperty *prop in mProperties)
-    {        
-        if (prop.startValue == UNKNOWN_VALUE)
-        {
-            // The tween should use the value of the property at the moment it starts.
-            // Since the start can be delayed, we have to read the value here, 
-            // not in 'animateProperty:targetValue:'
 
-            float startValue = 0.0f;
-            NSInvocation *getterInv = prop.getter;
-            [getterInv invoke];
-            [getterInv getReturnValue:&startValue];
-            prop.startValue = startValue;
-        }        
-        
-        float startValue = prop.startValue;
-        float delta = prop.endValue - startValue;
-        float transitionValue = 0;
-
-        [mTransitionInvocation setArgument:&delta atIndex:2];
-        [mTransitionInvocation setArgument:&ratio atIndex:3];        
-        [mTransitionInvocation invoke];
-        [mTransitionInvocation getReturnValue:&transitionValue];        
-        
-        NSInvocation *setterInv = prop.setter;        
-
-        char numericType = prop.numericType;
-        if (numericType == 'i')
-        {
-            int currentValue = (int)(startValue + transitionValue);
-            [setterInv setArgument:&currentValue atIndex:2];
-        }
-        else if (numericType == 'd')
-        {
-            double currentValue = (double)(startValue + transitionValue);
-            [setterInv setArgument:&currentValue atIndex:2];            
-        }        
-        else
-        {
-            float currentValue = startValue + transitionValue;
-            [setterInv setArgument:&currentValue atIndex:2];
-        }                
-        
-        [setterInv invoke];        
-    }
-    
-    if (previousTime <= 0 && mCurrentTime > 0 &&
+    if (previousTime <= 0 && mCurrentTime >= 0 &&
         [self hasEventListenerForType:SP_EVENT_TYPE_TWEEN_STARTED])
     {
         SPEvent *event = [[SPEvent alloc] initWithType:SP_EVENT_TYPE_TWEEN_STARTED];        
         [self dispatchEvent:event];
         [event release];        
-    }
+    }   
     
+    float ratio = mCurrentTime / mTotalTime;    
+    FnPtrTransition transFunc = (FnPtrTransition) mTransFunc;
+    Class transClass = [SPTransitions class];
+    
+    for (SPTweenedProperty *prop in mProperties)
+    {        
+        if (previousTime <= 0 && mCurrentTime >= 0) 
+            prop.startValue = prop.currentValue;
+        
+        float startValue = prop.startValue;
+        float delta = prop.delta;
+        float transitionValue = transFunc(transClass, mTransSelector, delta, ratio);        
+        prop.currentValue = startValue + transitionValue;
+    }
+   
     if ([self hasEventListenerForType:SP_EVENT_TYPE_TWEEN_UPDATED])
     {
         SPEvent *event = [[SPEvent alloc] initWithType:SP_EVENT_TYPE_TWEEN_UPDATED];
@@ -155,23 +98,12 @@
         SPEvent *event = [[SPEvent alloc] initWithType:SP_EVENT_TYPE_TWEEN_COMPLETED];
         [self dispatchEvent:event];
         [event release];        
-    }        
-}
-
-- (void)setTransition:(NSString*)transition
-{
-    [mTransitionInvocation release];        
-    NSString *transMethod = [transition stringByAppendingString:TRANS_SUFFIX];
-    SEL transSelector = NSSelectorFromString(transMethod);    
-    if (![SPTransitions respondsToSelector:transSelector])
-        [NSException raise:SP_EXC_INVALID_OPERATION format:@"transition not found: '%@'", transition];
-    mTransitionInvocation = [[NSInvocation invocationWithTarget:[SPTransitions class] 
-                                                      selector:transSelector] retain];
+    }
 }
 
 - (NSString*)transition
 {
-    NSString *selectorName = NSStringFromSelector(mTransitionInvocation.selector);
+    NSString *selectorName = NSStringFromSelector(mTransSelector);
     return [selectorName substringToIndex:selectorName.length - [TRANS_SUFFIX length]];
 }
 
@@ -199,7 +131,6 @@
 - (void)dealloc
 {
     [mTarget release];
-    [mTransitionInvocation release];
     [mProperties release];
     [super dealloc];
 }
