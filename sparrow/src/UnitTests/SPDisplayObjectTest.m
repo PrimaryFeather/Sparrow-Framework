@@ -15,6 +15,7 @@
 #import "SPSprite.h"
 #import "SPQuad.h"
 
+#define E 0.0001f
 
 // -------------------------------------------------------------------------------------------------
 
@@ -99,6 +100,35 @@
     STAssertTrue(SP_IS_FLOAT_EQUAL(20, bounds.height), @"wrong innter bounds.height: %f", bounds.height);
     
     [quad release];
+}
+
+- (void)testZeroSize
+{
+    SPSprite *sprite = [SPSprite sprite];
+    STAssertEqualsWithAccuracy(1.0f, sprite.scaleX, E, @"wrong scaleX value");
+    STAssertEqualsWithAccuracy(1.0f, sprite.scaleY, E, @"wrong scaleY value");
+    
+    // sprite is empty, scaling should thus have no effect!
+    sprite.width = 100;
+    sprite.height = 200;
+    STAssertEqualsWithAccuracy(1.0f, sprite.scaleX, E, @"wrong scaleX value");
+    STAssertEqualsWithAccuracy(1.0f, sprite.scaleY, E, @"wrong scaleY value");
+    STAssertEqualsWithAccuracy(0.0f, sprite.width,  E, @"wrong width");
+    STAssertEqualsWithAccuracy(0.0f, sprite.height, E, @"wrong height");
+    
+    // setting a value to zero should be no problem -- and the original size should be remembered.
+    SPQuad *quad = [SPQuad quadWithWidth:100 height:200];
+    quad.scaleX = 0.0f;
+    quad.scaleY = 0.0f;
+    STAssertEqualsWithAccuracy(0.0f, quad.width,  E, @"wrong width");
+    STAssertEqualsWithAccuracy(0.0f, quad.height, E, @"wrong height");
+
+    quad.scaleX = 1.0f;
+    quad.scaleY = 1.0f;
+    STAssertEqualsWithAccuracy(100.0f, quad.width,  E, @"wrong width");
+    STAssertEqualsWithAccuracy(200.0f, quad.height, E, @"wrong height");
+    STAssertEqualsWithAccuracy(1.0f, quad.scaleX,   E, @"wrong scaleX value");
+    STAssertEqualsWithAccuracy(1.0f, quad.scaleY,   E, @"wrong scaleY value");
 }
 
 - (void)testLocalToGlobal

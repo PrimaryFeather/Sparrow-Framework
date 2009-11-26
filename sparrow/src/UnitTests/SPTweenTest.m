@@ -138,6 +138,23 @@
     STAssertEquals(startPos, quad.y, @"second tween moved to wrong y position");
 }
 
+- (void)testTweenFromZero
+{
+    SPQuad *quad = [SPQuad quadWithWidth:100 height:100];
+    quad.scaleX = 0.0f;
+    SPTween *tween = [SPTween tweenWithTarget:quad time:1.0f];
+    [tween animateProperty:@"scaleX" targetValue:1.0f];
+    
+    [tween advanceTime:0.0f];    
+    STAssertEqualsWithAccuracy(0.0f, quad.width, E, @"wrong x value");
+    
+    [tween advanceTime:0.5f];
+    STAssertEqualsWithAccuracy(50.0f, quad.width, E, @"wrong x value");
+    
+    [tween advanceTime:0.5f];
+    STAssertEqualsWithAccuracy(100.0f, quad.width, E, @"wrong x value");
+}
+
 - (void)makeTweenWithTime:(double)time andAdvanceBy:(double)advanceTime
 {
     SPQuad *quad = [SPQuad quadWithWidth:100 height:100];

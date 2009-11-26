@@ -186,7 +186,9 @@
 
 - (void)setWidth:(float)value
 {
-    mScaleX = value / (self.width / mScaleX);
+    mScaleX = 1.0f;
+    float actualWidth = self.width;
+    if (actualWidth != 0.0f) mScaleX = value / actualWidth;
 }
 
 - (float)height
@@ -196,7 +198,9 @@
 
 - (void)setHeight:(float)value
 {
-    mScaleY = value / (self.height / mScaleY);
+    mScaleY = 1.0f;
+    float actualHeight = self.height;
+    if (actualHeight != 0.0f) mScaleY = value / actualHeight;
 }
 
 - (void)setRotation:(float)value
@@ -229,7 +233,7 @@
 {
     SPMatrix *matrix = [[SPMatrix alloc] init];
     
-    if (mScaleX != 0.0f || mScaleY != 0.0f) [matrix scaleXBy:mScaleX yBy:mScaleY];
+    if (mScaleX != 1.0f || mScaleY != 1.0f) [matrix scaleXBy:mScaleX yBy:mScaleY];
     if (mRotationZ != 0.0f)                 [matrix rotateBy:mRotationZ];
     if (mX != 0.0f || mY != 0.0f)           [matrix translateXBy:mX yBy:mY];
     

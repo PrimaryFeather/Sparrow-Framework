@@ -19,8 +19,8 @@
 {
   @private
     id mTarget;    
-    IMP mTransFunc;
-    SEL mTransSelector;
+    SEL mTransition;
+    IMP mTransitionFunc;
     NSMutableArray *mProperties;
     
     double mTotalTime;
