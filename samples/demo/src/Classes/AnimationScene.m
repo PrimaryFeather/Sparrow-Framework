@@ -82,7 +82,7 @@
     [tween animateProperty:@"scaleY" targetValue:0.5];
     [tween animateProperty:@"rotation" targetValue:PI_HALF];
     [tween addEventListener:@selector(onTweenComplete:) atObject:self 
-                    forType:SP_EVENT_TYPE_TWEEN_COMPLETED];
+                    forType:SP_EVENT_TYPE_TWEEN_COMPLETED retainObject:YES];
 
     // the tween alone is useless -- once in every frame, it has to be advanced, so that the 
     // animation occurs. This is done by the 'Juggler'. It receives the tween and will use it to 

@@ -218,7 +218,8 @@
 - (SPDisplayObject*)root
 {
     SPDisplayObject *currentObject = self;
-    while (currentObject.parent) currentObject = currentObject.parent;
+    while (currentObject.parent) 
+        currentObject = currentObject.parent;
     return currentObject;        
 }
 

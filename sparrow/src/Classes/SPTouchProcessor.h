@@ -17,7 +17,7 @@
     NSMutableSet *mCurrentTouches;
 }
 
-@property (nonatomic, readonly) SPDisplayObjectContainer *root;
+@property (nonatomic, assign) SPDisplayObjectContainer *root;
 
 - (id)initWithRoot:(SPDisplayObjectContainer*)root;
 - (void)processTouches:(NSSet*)touches;

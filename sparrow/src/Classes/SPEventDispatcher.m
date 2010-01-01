@@ -16,13 +16,14 @@
 
 #pragma mark -
 
-- (void)addEventListener:(SEL)listener atObject:(id)object forType:(NSString*)eventType
+- (void)addEventListener:(SEL)listener atObject:(id)object forType:(NSString*)eventType 
+            retainObject:(BOOL)doRetain
 {
     if (!mEventListeners)
         mEventListeners = [[NSMutableDictionary alloc] init];
     
     NSInvocation *invocation = [NSInvocation invocationWithTarget:object selector:listener];
-    if (self != object) [invocation retainArguments];    
+    if (doRetain) [invocation retainArguments];    
     
     // When an event listener is added or removed, a new NSArray object is created, instead of 
     // changing the array. The reason for this is that we can avoid creating a copy of the NSArray 
@@ -41,6 +42,11 @@
         listeners = [listeners arrayByAddingObject:invocation];
         [mEventListeners setObject:listeners forKey:eventType];
     }    
+}
+
+- (void)addEventListener:(SEL)listener atObject:(id)object forType:(NSString*)eventType
+{
+    [self addEventListener:listener atObject:object forType:eventType retainObject:NO];
 }
 
 - (void)removeEventListener:(SEL)listener atObject:(id)object forType:(NSString*)eventType
@@ -83,11 +89,14 @@
     SPEventDispatcher *previousTarget = event.target;
     if (!event.target || event.currentTarget) event.target = self;
     event.currentTarget = self;        
+
+    [self retain]; // the event listener could release 'self', so we have to make sure that it 
+                   // stays valid while we're here.
     
     BOOL stopImmediatPropagation = NO;    
     if (listeners.count != 0)
     {    
-        // we can enumerate directly of the array, since "add"- and "removeEventListener" won't
+        // we can enumerate directly over the array, since "add"- and "removeEventListener" won't
         // change it, but instead always create a new array.
         [listeners retain];
         for (NSInvocation *inv in listeners)
@@ -114,6 +123,7 @@
     }
     
     if (previousTarget) event.target = previousTarget;
+    [self release];
 }
 
 #pragma mark -

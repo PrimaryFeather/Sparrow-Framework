@@ -23,13 +23,18 @@
 @synthesize root = mRoot;
 
 - (id)initWithRoot:(SPDisplayObjectContainer*)root
-{    
+{
     if (self = [super init])
-    {        
-        mRoot = [root retain];
+    {
+        mRoot = root;
         mCurrentTouches = [[NSMutableSet alloc] initWithCapacity:2];
     }
     return self;
+}
+
+- (id)init
+{    
+    return [self initWithRoot:nil];
 }
 
 - (void)processTouches:(NSSet*)touches
@@ -114,7 +119,6 @@
 
 - (void) dealloc
 {
-    [mRoot release];
     [mCurrentTouches release];
     [super dealloc];
 }

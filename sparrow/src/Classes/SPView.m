@@ -25,7 +25,7 @@
 @property (nonatomic, retain) NSTimer *timer;
 @property (nonatomic, retain) id displayLink;
 
-- (id)initialize;
+- (void)initialize;
 - (BOOL)createFramebuffer;
 - (void)destroyFramebuffer;
 - (void)renderStage;
@@ -49,23 +49,29 @@
 
 - (id)initWithCoder:(NSCoder*)coder 
 {
-    if (self = [super initWithCoder:coder]) return [self initialize];
-    else return nil;
+    if (self = [super initWithCoder:coder]) 
+    {
+        [self initialize];
+    }        
+    return self;
 }
 
 - (id)initWithFrame:(CGRect)aRect
 {
-    if (self = [super initWithFrame:aRect]) return [self initialize];
-    else return nil;
+    if (self = [super initWithFrame:aRect]) 
+    {
+        [self initialize];
+    }        
+    return self;
 }
 
-- (id)initialize
+- (void)initialize
 {
     // A system version of 3.1 or greater is required to use CADisplayLink.
     NSString *currSysVer = [[UIDevice currentDevice] systemVersion];
     if ([currSysVer compare:@"3.1" options:NSNumericSearch] != NSOrderedAscending)
         mDisplayLinkSupported = YES;
-
+    
     self.frameRate = 30.0f;
     self.multipleTouchEnabled = YES;
     self.backgroundColor = [UIColor blackColor];
@@ -78,18 +84,17 @@
     eaglLayer.drawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:
         [NSNumber numberWithBool:NO], kEAGLDrawablePropertyRetainedBacking, 
         kEAGLColorFormatRGBA8, kEAGLDrawablePropertyColorFormat, nil];    
-    
+
     mContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1];
     
     if (!mContext || ![EAGLContext setCurrentContext:mContext]) 
     {
+        NSLog(@"Could not create render context");
         [self release];
-        return nil;
+        self = nil;
     }    
     
-    mRenderSupport = [[SPRenderSupport alloc] init];
-    
-    return self;
+    mRenderSupport = [[SPRenderSupport alloc] init];    
 }
 
 #pragma mark -
