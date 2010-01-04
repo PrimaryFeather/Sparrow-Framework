@@ -25,7 +25,7 @@
 @property (nonatomic, retain) NSTimer *timer;
 @property (nonatomic, retain) id displayLink;
 
-- (void)initialize;
+- (void)initOpenGL;
 - (BOOL)createFramebuffer;
 - (void)destroyFramebuffer;
 - (void)renderStage;
@@ -45,37 +45,17 @@
 @synthesize displayLink = mDisplayLink;
 @synthesize frameRate = mFrameRate;
 
-#pragma mark -
-
-- (id)initWithCoder:(NSCoder*)coder 
+- (void)initOpenGL
 {
-    if (self = [super initWithCoder:coder]) 
-    {
-        [self initialize];
-    }        
-    return self;
-}
-
-- (id)initWithFrame:(CGRect)aRect
-{
-    if (self = [super initWithFrame:aRect]) 
-    {
-        [self initialize];
-    }        
-    return self;
-}
-
-- (void)initialize
-{
+    if (mContext) return; // already initialized!
+    
     // A system version of 3.1 or greater is required to use CADisplayLink.
     NSString *currSysVer = [[UIDevice currentDevice] systemVersion];
     if ([currSysVer compare:@"3.1" options:NSNumericSearch] != NSOrderedAscending)
         mDisplayLinkSupported = YES;
     
-    self.frameRate = 30.0f;
-    self.multipleTouchEnabled = YES;
+    self.frameRate = 30.0f;    
     self.backgroundColor = [UIColor blackColor];
-    [[UIApplication sharedApplication] setStatusBarHidden:YES animated:NO];    
     
     // get the layer
     CAEAGLLayer *eaglLayer = (CAEAGLLayer *)self.layer;
@@ -86,15 +66,10 @@
         kEAGLColorFormatRGBA8, kEAGLDrawablePropertyColorFormat, nil];    
 
     mContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1];
-    
-    if (!mContext || ![EAGLContext setCurrentContext:mContext]) 
-    {
-        NSLog(@"Could not create render context");
-        [self release];
-        self = nil;
-    }    
-    
     mRenderSupport = [[SPRenderSupport alloc] init];    
+    
+    if (!mContext || ![EAGLContext setCurrentContext:mContext])     
+        NSLog(@"Could not create render context");    
 }
 
 #pragma mark -
@@ -162,7 +137,6 @@
             self.timer = [NSTimer scheduledTimerWithTimeInterval:(1.0f / mFrameRate) 
                 target:self selector:@selector(renderStage) userInfo:nil repeats:YES];            
         }
-
     }
     else
     {
@@ -209,6 +183,12 @@
 + (Class)layerClass 
 {
     return [CAEAGLLayer class];
+}
+
+- (void)didMoveToSuperview
+{
+    [self initOpenGL];
+    [super didMoveToSuperview];
 }
 
 - (void)layoutSubviews 

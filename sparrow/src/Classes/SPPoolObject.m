@@ -7,7 +7,7 @@
 //
 
 #import "SPPoolObject.h"
-#include <malloc/malloc.h>
+#import <malloc/malloc.h>
 
 #ifndef DISABLE_MEMORY_POOLING
 

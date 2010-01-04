@@ -36,6 +36,7 @@ void onUncaughtException(NSException *exception)
     sparrowView.stage = game;
     sparrowView.isStarted = YES;     
     sparrowView.frameRate = 30;
+    sparrowView.multipleTouchEnabled = YES;
     [window makeKeyAndVisible];
     [game release];    
     

@@ -49,6 +49,8 @@ typedef float (*FnPtrTransition) (id, SEL, float, float);
 
 - (void)animateProperty:(NSString*)property targetValue:(float)value
 {    
+    if (!mTarget) return; // tweening nil just does nothing.
+    
     SPTweenedProperty *tweenedProp = [[SPTweenedProperty alloc] 
         initWithTarget:mTarget name:property endValue:value];
     [mProperties addObject:tweenedProp];
