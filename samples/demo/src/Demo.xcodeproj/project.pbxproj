@@ -38,21 +38,21 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = DEFE4D07101B6B3500E22471 /* Sparrow.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = DEFE4BC2101B317600E22471 /* libSparrow.a */;
+			remoteGlobalIDString = DEFE4BC2101B317600E22471;
 			remoteInfo = Sparrow;
 		};
 		DEF34CB610F1C5D80019136B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DEFE4D07101B6B3500E22471 /* Sparrow.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = DEEA9335101E32A30071DD21 /* UnitTest.octest */;
+			remoteGlobalIDString = DEEA9335101E32A30071DD21;
 			remoteInfo = UnitTests;
 		};
 		DEF34CCA10F1C60B0019136B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DEFE4D07101B6B3500E22471 /* Sparrow.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = DEFE4BC1101B317600E22471 /* Sparrow */;
+			remoteGlobalIDString = DEFE4BC1101B317600E22471;
 			remoteInfo = Sparrow;
 		};
 /* End PBXContainerItemProxy section */

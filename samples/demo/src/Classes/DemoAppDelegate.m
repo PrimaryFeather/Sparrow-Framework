@@ -37,6 +37,7 @@ void onUncaughtException(NSException *exception)
     sparrowView.isStarted = YES;     
     sparrowView.frameRate = 30;
     sparrowView.multipleTouchEnabled = YES;
+    sparrowView.backgroundColor = [UIColor blackColor]; // will be the color of the first frame
     [window makeKeyAndVisible];
     [game release];    
     
