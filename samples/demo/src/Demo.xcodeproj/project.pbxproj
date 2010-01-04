@@ -25,7 +25,7 @@
 		DED6FF371041623A001FF6C8 /* AnimationScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DED6FF361041623A001FF6C8 /* AnimationScene.m */; };
 		DEE191A610891FC900C9AB7B /* branching_mouse.fnt in Resources */ = {isa = PBXBuildFile; fileRef = DEE191A410891FC900C9AB7B /* branching_mouse.fnt */; };
 		DEE191B11089224E00C9AB7B /* branching_mouse.png in Resources */ = {isa = PBXBuildFile; fileRef = DEE191B01089224E00C9AB7B /* branching_mouse.png */; };
-		DEEA9430101E45B80071DD21 /* libSparrow.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DEFE4D46101B6C4A00E22471 /* libSparrow.a */; };
+		DEF34CCC10F1C6180019136B /* libSparrow.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DEF34CB510F1C5D80019136B /* libSparrow.a */; };
 		DEFE4CF0101B684B00E22471 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFE4CEB101B684B00E22471 /* Game.m */; };
 		DEFE4CF1101B684B00E22471 /* TouchScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFE4CED101B684B00E22471 /* TouchScene.m */; };
 		DEFE4CF2101B684B00E22471 /* TouchSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFE4CEF101B684B00E22471 /* TouchSheet.m */; };
@@ -34,26 +34,26 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		DEFDDEE0101BB528002CF60B /* PBXContainerItemProxy */ = {
+		DEF34CB410F1C5D80019136B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DEFE4D07101B6B3500E22471 /* Sparrow.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DEFE4BC2101B317600E22471 /* libSparrow.a */;
+			remoteInfo = Sparrow;
+		};
+		DEF34CB610F1C5D80019136B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DEFE4D07101B6B3500E22471 /* Sparrow.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DEEA9335101E32A30071DD21 /* UnitTest.octest */;
+			remoteInfo = UnitTests;
+		};
+		DEF34CCA10F1C60B0019136B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DEFE4D07101B6B3500E22471 /* Sparrow.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = DEFE4BC1101B317600E22471;
-			remoteInfo = SparrowLib;
-		};
-		DEFE4D45101B6C4A00E22471 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DEFE4D07101B6B3500E22471 /* Sparrow.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 1D6058910D05DD3D006BFB54;
+			remoteGlobalIDString = DEFE4BC1101B317600E22471 /* Sparrow */;
 			remoteInfo = Sparrow;
-		};
-		DEFE4D47101B6C4A00E22471 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DEFE4D07101B6B3500E22471 /* Sparrow.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = DEABCEA10F7ACF6E003B6C9D;
-			remoteInfo = UnitTests;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -92,7 +92,7 @@
 		DEFE4CED101B684B00E22471 /* TouchScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouchScene.m; sourceTree = "<group>"; };
 		DEFE4CEE101B684B00E22471 /* TouchSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchSheet.h; sourceTree = "<group>"; };
 		DEFE4CEF101B684B00E22471 /* TouchSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouchSheet.m; sourceTree = "<group>"; };
-		DEFE4D07101B6B3500E22471 /* Sparrow.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Sparrow.xcodeproj; sourceTree = SPARROW_SRC; };
+		DEFE4D07101B6B3500E22471 /* Sparrow.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Sparrow.xcodeproj; path = ../../../sparrow/src/Sparrow.xcodeproj; sourceTree = "<group>"; };
 		DEFE4D36101B6BD200E22471 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		DEFE4D38101B6BD200E22471 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -102,7 +102,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DEEA9430101E45B80071DD21 /* libSparrow.a in Frameworks */,
+				DEF34CCC10F1C6180019136B /* libSparrow.a in Frameworks */,
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				DEFE4D37101B6BD200E22471 /* OpenGLES.framework in Frameworks */,
@@ -214,11 +214,11 @@
 			name = Helpers;
 			sourceTree = "<group>";
 		};
-		DEFE4D40101B6C4A00E22471 /* Products */ = {
+		DEF34CB010F1C5D80019136B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DEFE4D46101B6C4A00E22471 /* libSparrow.a */,
-				DEFE4D48101B6C4A00E22471 /* UnitTest.octest */,
+				DEF34CB510F1C5D80019136B /* libSparrow.a */,
+				DEF34CB710F1C5D80019136B /* UnitTest.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -237,7 +237,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				DEFDDEE1101BB528002CF60B /* PBXTargetDependency */,
+				DEF34CCB10F1C60B0019136B /* PBXTargetDependency */,
 			);
 			name = Demo;
 			productName = Demo;
@@ -256,7 +256,7 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = DEFE4D40101B6C4A00E22471 /* Products */;
+					ProductGroup = DEF34CB010F1C5D80019136B /* Products */;
 					ProjectRef = DEFE4D07101B6B3500E22471 /* Sparrow.xcodeproj */;
 				},
 			);
@@ -268,18 +268,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		DEFE4D46101B6C4A00E22471 /* libSparrow.a */ = {
+		DEF34CB510F1C5D80019136B /* libSparrow.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libSparrow.a;
-			remoteRef = DEFE4D45101B6C4A00E22471 /* PBXContainerItemProxy */;
+			remoteRef = DEF34CB410F1C5D80019136B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		DEFE4D48101B6C4A00E22471 /* UnitTest.octest */ = {
+		DEF34CB710F1C5D80019136B /* UnitTest.octest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = UnitTest.octest;
-			remoteRef = DEFE4D47101B6C4A00E22471 /* PBXContainerItemProxy */;
+			remoteRef = DEF34CB610F1C5D80019136B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -323,10 +323,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		DEFDDEE1101BB528002CF60B /* PBXTargetDependency */ = {
+		DEF34CCB10F1C60B0019136B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = SparrowLib;
-			targetProxy = DEFDDEE0101BB528002CF60B /* PBXContainerItemProxy */;
+			name = Sparrow;
+			targetProxy = DEF34CCA10F1C60B0019136B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -354,7 +354,7 @@
 				PRODUCT_NAME = Demo;
 				PROVISIONING_PROFILE = "968DB4C9-4164-4600-9C36-387274328BAE";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "968DB4C9-4164-4600-9C36-387274328BAE";
-				USER_HEADER_SEARCH_PATHS = "$(SPARROW_SRC)/**";
+				USER_HEADER_SEARCH_PATHS = "../../../sparrow/src/**";
 			};
 			name = Debug;
 		};
@@ -380,7 +380,7 @@
 				PRODUCT_NAME = Demo;
 				PROVISIONING_PROFILE = "968DB4C9-4164-4600-9C36-387274328BAE";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "968DB4C9-4164-4600-9C36-387274328BAE";
-				USER_HEADER_SEARCH_PATHS = "$(SPARROW_SRC)/**";
+				USER_HEADER_SEARCH_PATHS = "../../../sparrow/src/**";
 			};
 			name = Release;
 		};
