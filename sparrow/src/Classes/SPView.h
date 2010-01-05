@@ -42,8 +42,11 @@ Note that setting the view non-opaque will only work if the EAGL surface has an 
     double mLastTouchTimestamp;
 }
 
-@property (nonatomic, assign) BOOL  isStarted;
+@property (nonatomic, readonly) BOOL isStarted;
 @property (nonatomic, assign) float frameRate;
 @property (nonatomic, retain) SPStage *stage;
+
+- (void)start;
+- (void)stop;
 
 @end

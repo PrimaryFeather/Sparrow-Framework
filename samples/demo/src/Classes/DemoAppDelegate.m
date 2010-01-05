@@ -34,12 +34,12 @@ void onUncaughtException(NSException *exception)
     
     Game *game = [[Game alloc] initWithWidth:320 height:480];        
     sparrowView.stage = game;
-    sparrowView.isStarted = YES;     
-    sparrowView.frameRate = 30;
     sparrowView.multipleTouchEnabled = YES;
     sparrowView.backgroundColor = [UIColor blackColor]; // will be the color of the first frame
+    sparrowView.frameRate = 30;    
+    [sparrowView start];     
     [window makeKeyAndVisible];
-    [game release];    
+    [game release];
     
     SP_RELEASE_POOL(pool);
 }

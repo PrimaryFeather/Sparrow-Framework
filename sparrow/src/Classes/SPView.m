@@ -105,8 +105,8 @@
     
     if (self.isStarted)
     {
-        self.isStarted = NO;
-        self.isStarted = YES;
+        [self stop];
+        [self start];
     }
 }
 
@@ -115,10 +115,10 @@
     return mTimer || mDisplayLink;
 }
 
-- (void)setIsStarted:(BOOL)value
+- (void)start
 {
-    if (self.isStarted == value) return;
-    if (value && mFrameRate > 0.0f)
+    if (self.isStarted) return;
+    if (mFrameRate > 0.0f)
     {
         mLastFrameTimestamp = CACurrentMediaTime();
         
@@ -136,12 +136,13 @@
             self.timer = [NSTimer scheduledTimerWithTimeInterval:(1.0f / mFrameRate) 
                 target:self selector:@selector(renderStage) userInfo:nil repeats:YES];            
         }
-    }
-    else
-    {
-        self.timer = nil;
-        self.displayLink = nil;
     }    
+}
+
+- (void)stop
+{
+    self.timer = nil;
+    self.displayLink = nil;
 }
 
 - (void)setStage:(SPStage*)stage
