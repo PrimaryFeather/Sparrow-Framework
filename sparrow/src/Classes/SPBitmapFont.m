@@ -69,7 +69,7 @@
     
     if (!path) return;
     
-    NSString *fullPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:path];
+    NSString *fullPath = [[NSBundle mainBundle] pathForResource:path ofType:nil];
     NSURL *xmlUrl = [NSURL fileURLWithPath:fullPath];
     NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:xmlUrl];
     xmlParser.delegate = self;

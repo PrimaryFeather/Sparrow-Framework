@@ -54,7 +54,7 @@
 
 + (id)textureWithContentsOfFile:(NSString*)path
 {    
-    NSString *fullPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: path];
+    NSString *fullPath = [[NSBundle mainBundle] pathForResource:path ofType:nil];
     if (![[NSFileManager defaultManager] fileExistsAtPath:fullPath])
         [NSException raise:SP_EXC_FILE_NOT_FOUND format:@"file %@ not found", fullPath];
     
