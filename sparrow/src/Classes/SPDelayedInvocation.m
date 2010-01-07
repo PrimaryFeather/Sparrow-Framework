@@ -17,6 +17,12 @@
 
 - (id)initWithTarget:(id)target delay:(double)time
 {
+    if (!target)
+    {
+        [self release];
+        return nil;
+    }    
+    
     if (self = [super init])
     {
         mTotalTime = MAX(0.0001, time); // zero is not allowed

@@ -43,7 +43,8 @@
  
 - (void)addObject:(id<SPAnimatable>)object
 {
-    [mObjects addObject:object];    
+    if (object)
+        [mObjects addObject:object];    
 }
 
 - (void)removeObject:(id<SPAnimatable>)object
