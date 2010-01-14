@@ -16,15 +16,15 @@
 		DE0F755910641630004F2821 /* BenchmarkScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DE0F755810641630004F2821 /* BenchmarkScene.m */; };
 		DE396AE8104055A100C27DDF /* CustomHitTestScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DE396AE7104055A100C27DDF /* CustomHitTestScene.m */; };
 		DE396AEB104056A500C27DDF /* RoundButton.m in Sources */ = {isa = PBXBuildFile; fileRef = DE396AEA104056A500C27DDF /* RoundButton.m */; };
-		DED0B68F101C8654008D3794 /* atlas.png in Resources */ = {isa = PBXBuildFile; fileRef = DED0B68D101C8654008D3794 /* atlas.png */; };
-		DED0B690101C8654008D3794 /* atlas.xml in Resources */ = {isa = PBXBuildFile; fileRef = DED0B68E101C8654008D3794 /* atlas.xml */; };
-		DED0B707101C8F9B008D3794 /* button_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = DED0B705101C8F9B008D3794 /* button_blue.png */; };
-		DED0B708101C8F9B008D3794 /* button_yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = DED0B706101C8F9B008D3794 /* button_yellow.png */; };
+		DE4A3E8610FFB5DD00FDA492 /* atlas.png in Resources */ = {isa = PBXBuildFile; fileRef = DE4A3E8010FFB5DD00FDA492 /* atlas.png */; };
+		DE4A3E8710FFB5DD00FDA492 /* atlas.xml in Resources */ = {isa = PBXBuildFile; fileRef = DE4A3E8110FFB5DD00FDA492 /* atlas.xml */; };
+		DE4A3E8810FFB5DD00FDA492 /* branching_mouse.fnt in Resources */ = {isa = PBXBuildFile; fileRef = DE4A3E8210FFB5DD00FDA492 /* branching_mouse.fnt */; };
+		DE4A3E8910FFB5DD00FDA492 /* branching_mouse.png in Resources */ = {isa = PBXBuildFile; fileRef = DE4A3E8310FFB5DD00FDA492 /* branching_mouse.png */; };
+		DE4A3E8A10FFB5DD00FDA492 /* button_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = DE4A3E8410FFB5DD00FDA492 /* button_blue.png */; };
+		DE4A3E8B10FFB5DD00FDA492 /* button_yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = DE4A3E8510FFB5DD00FDA492 /* button_yellow.png */; };
 		DED0B719101C90CB008D3794 /* AtlasScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DED0B718101C90CB008D3794 /* AtlasScene.m */; };
 		DED0B7F0101CE0A9008D3794 /* TextScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DED0B7EF101CE0A9008D3794 /* TextScene.m */; };
 		DED6FF371041623A001FF6C8 /* AnimationScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DED6FF361041623A001FF6C8 /* AnimationScene.m */; };
-		DEE191A610891FC900C9AB7B /* branching_mouse.fnt in Resources */ = {isa = PBXBuildFile; fileRef = DEE191A410891FC900C9AB7B /* branching_mouse.fnt */; };
-		DEE191B11089224E00C9AB7B /* branching_mouse.png in Resources */ = {isa = PBXBuildFile; fileRef = DEE191B01089224E00C9AB7B /* branching_mouse.png */; };
 		DEF34CCC10F1C6180019136B /* libSparrow.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DEF34CB510F1C5D80019136B /* libSparrow.a */; };
 		DEFE4CF0101B684B00E22471 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFE4CEB101B684B00E22471 /* Game.m */; };
 		DEFE4CF1101B684B00E22471 /* TouchScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFE4CED101B684B00E22471 /* TouchScene.m */; };
@@ -74,18 +74,18 @@
 		DE396AE7104055A100C27DDF /* CustomHitTestScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomHitTestScene.m; sourceTree = "<group>"; };
 		DE396AE9104056A500C27DDF /* RoundButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoundButton.h; sourceTree = "<group>"; };
 		DE396AEA104056A500C27DDF /* RoundButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoundButton.m; sourceTree = "<group>"; };
-		DED0B68D101C8654008D3794 /* atlas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = atlas.png; path = media/atlas.png; sourceTree = "<group>"; };
-		DED0B68E101C8654008D3794 /* atlas.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = atlas.xml; path = media/atlas.xml; sourceTree = "<group>"; };
-		DED0B705101C8F9B008D3794 /* button_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_blue.png; path = media/button_blue.png; sourceTree = "<group>"; };
-		DED0B706101C8F9B008D3794 /* button_yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_yellow.png; path = media/button_yellow.png; sourceTree = "<group>"; };
+		DE4A3E8010FFB5DD00FDA492 /* atlas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = atlas.png; path = ../media/graphics/atlas.png; sourceTree = SOURCE_ROOT; };
+		DE4A3E8110FFB5DD00FDA492 /* atlas.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = atlas.xml; path = ../media/graphics/atlas.xml; sourceTree = SOURCE_ROOT; };
+		DE4A3E8210FFB5DD00FDA492 /* branching_mouse.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = branching_mouse.fnt; path = ../media/graphics/branching_mouse.fnt; sourceTree = SOURCE_ROOT; };
+		DE4A3E8310FFB5DD00FDA492 /* branching_mouse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = branching_mouse.png; path = ../media/graphics/branching_mouse.png; sourceTree = SOURCE_ROOT; };
+		DE4A3E8410FFB5DD00FDA492 /* button_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_blue.png; path = ../media/graphics/button_blue.png; sourceTree = SOURCE_ROOT; };
+		DE4A3E8510FFB5DD00FDA492 /* button_yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_yellow.png; path = ../media/graphics/button_yellow.png; sourceTree = SOURCE_ROOT; };
 		DED0B717101C90CB008D3794 /* AtlasScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtlasScene.h; sourceTree = "<group>"; };
 		DED0B718101C90CB008D3794 /* AtlasScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtlasScene.m; sourceTree = "<group>"; };
 		DED0B7EE101CE0A9008D3794 /* TextScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextScene.h; sourceTree = "<group>"; };
 		DED0B7EF101CE0A9008D3794 /* TextScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextScene.m; sourceTree = "<group>"; };
 		DED6FF351041623A001FF6C8 /* AnimationScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationScene.h; sourceTree = "<group>"; };
 		DED6FF361041623A001FF6C8 /* AnimationScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationScene.m; sourceTree = "<group>"; };
-		DEE191A410891FC900C9AB7B /* branching_mouse.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = branching_mouse.fnt; path = media/branching_mouse.fnt; sourceTree = "<group>"; };
-		DEE191B01089224E00C9AB7B /* branching_mouse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = branching_mouse.png; path = media/branching_mouse.png; sourceTree = "<group>"; };
 		DEFE4CEA101B684B00E22471 /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
 		DEFE4CEB101B684B00E22471 /* Game.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Game.m; sourceTree = "<group>"; };
 		DEFE4CEC101B684B00E22471 /* TouchScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchScene.h; sourceTree = "<group>"; };
@@ -160,12 +160,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				DEE191B01089224E00C9AB7B /* branching_mouse.png */,
-				DEE191A410891FC900C9AB7B /* branching_mouse.fnt */,
-				DED0B705101C8F9B008D3794 /* button_blue.png */,
-				DED0B706101C8F9B008D3794 /* button_yellow.png */,
-				DED0B68D101C8654008D3794 /* atlas.png */,
-				DED0B68E101C8654008D3794 /* atlas.xml */,
+				DE4A3E6110FFB4C100FDA492 /* graphics */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* Demo-Info.plist */,
 			);
@@ -212,6 +207,19 @@
 				DE396AEA104056A500C27DDF /* RoundButton.m */,
 			);
 			name = Helpers;
+			sourceTree = "<group>";
+		};
+		DE4A3E6110FFB4C100FDA492 /* graphics */ = {
+			isa = PBXGroup;
+			children = (
+				DE4A3E8010FFB5DD00FDA492 /* atlas.png */,
+				DE4A3E8110FFB5DD00FDA492 /* atlas.xml */,
+				DE4A3E8210FFB5DD00FDA492 /* branching_mouse.fnt */,
+				DE4A3E8310FFB5DD00FDA492 /* branching_mouse.png */,
+				DE4A3E8410FFB5DD00FDA492 /* button_blue.png */,
+				DE4A3E8510FFB5DD00FDA492 /* button_yellow.png */,
+			);
+			name = graphics;
 			sourceTree = "<group>";
 		};
 		DEF34CB010F1C5D80019136B /* Products */ = {
@@ -290,12 +298,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
-				DED0B68F101C8654008D3794 /* atlas.png in Resources */,
-				DED0B690101C8654008D3794 /* atlas.xml in Resources */,
-				DED0B707101C8F9B008D3794 /* button_blue.png in Resources */,
-				DED0B708101C8F9B008D3794 /* button_yellow.png in Resources */,
-				DEE191A610891FC900C9AB7B /* branching_mouse.fnt in Resources */,
-				DEE191B11089224E00C9AB7B /* branching_mouse.png in Resources */,
+				DE4A3E8610FFB5DD00FDA492 /* atlas.png in Resources */,
+				DE4A3E8710FFB5DD00FDA492 /* atlas.xml in Resources */,
+				DE4A3E8810FFB5DD00FDA492 /* branching_mouse.fnt in Resources */,
+				DE4A3E8910FFB5DD00FDA492 /* branching_mouse.png in Resources */,
+				DE4A3E8A10FFB5DD00FDA492 /* button_blue.png in Resources */,
+				DE4A3E8B10FFB5DD00FDA492 /* button_yellow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
