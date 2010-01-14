@@ -3,7 +3,10 @@
 //  Sparrow
 //
 //  Created by Daniel Sperl on 13.03.09.
-//  Copyright Incognitek 2009. All rights reserved.
+//  Copyright 2009 Incognitek. All rights reserved.
+//
+//  This program is free software; you can redistribute it and/or modify
+//  it under the terms of the Simplified BSD License.
 //
 
 #import <QuartzCore/QuartzCore.h>
