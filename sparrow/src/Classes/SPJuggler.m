@@ -59,7 +59,22 @@
 {
     [mObjects removeAllObjects];
 }
- 
+
+- (void)removeTweensWithTarget:(id)object
+{
+    SEL targetSel = @selector(target);
+    NSMutableSet *remainingObjects = [[NSMutableSet alloc] init];
+    
+    for (id currentObject in mObjects)
+    {
+        if (![currentObject respondsToSelector:targetSel] || ![[currentObject target] isEqual:object])
+            [remainingObjects addObject:currentObject];     
+    }
+    
+    [mObjects release];
+    mObjects = remainingObjects;
+}
+
 - (id)delayInvocationAtTarget:(id)target byTime:(double)time
 {
     SPDelayedInvocation *delayedInvoc = [SPDelayedInvocation invocationWithTarget:target delay:time];

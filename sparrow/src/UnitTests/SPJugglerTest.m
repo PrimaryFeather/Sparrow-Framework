@@ -57,6 +57,29 @@
     STAssertTrue(mStartedReached, @"juggler ignored modification made in callback");    
 }
 
+- (void)testRemoveTweensWithTarget
+{
+    mJuggler = [SPJuggler juggler];
+    
+    SPQuad *quad1 = [SPQuad quadWithWidth:100 height:100];
+    SPQuad *quad2 = [SPQuad quadWithWidth:200 height:200];
+    
+    SPTween *tween1 = [SPTween tweenWithTarget:quad1 time:1.0];    
+    SPTween *tween2 = [SPTween tweenWithTarget:quad2 time:1.0];
+    
+    [tween1 animateProperty:@"rotation" targetValue:1.0f];
+    [tween2 animateProperty:@"rotation" targetValue:1.0f];
+    
+    [mJuggler addObject:tween1];
+    [mJuggler addObject:tween2];
+    
+    [mJuggler removeTweensWithTarget:quad1];    
+    [mJuggler advanceTime:1.0];
+    
+    STAssertEquals(0.0f, quad1.rotation, @"removed tween was advanced");
+    STAssertEquals(1.0f, quad2.rotation, @"wrong tween was removed");
+}
+
 - (void)onTweenCompleted:(SPEvent*)event
 {
     SPTween *tween = [SPTween tweenWithTarget:mQuad time:1.0f];        

@@ -24,6 +24,7 @@
 - (void)addObject:(id<SPAnimatable>)object;
 - (void)removeObject:(id<SPAnimatable>)object;
 - (void)removeAllObjects;
+- (void)removeTweensWithTarget:(id)object;
 - (id)delayInvocationAtTarget:(id)target byTime:(double)time;
 
 + (SPJuggler *)juggler;
