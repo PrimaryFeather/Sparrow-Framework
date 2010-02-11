@@ -1,0 +1,16 @@
+--- hiero2sparrow.rb ---
+
+This Ruby script converts Bitmap Font files created with the "Hiero"-Tool:
+-> http://slick.cokeandcode.com/
+to an XML format. That's the format Sparrow expects for its Bitmap Fonts.
+
+As an alternative, you can use the Bitmap Font Generator from AngelCode:
+-> http://www.angelcode.com/products/bmfont/
+It can export this xml format directly. However, this tool works only in MS Windows.
+
+Usage: hiero2sparrow.rb input.fnt [output.fnt]
+
+- The output parameter is optional. If omitted, the xml data overwrites the input file.
+
+A tip when you use Hiero: 
+Add at least 1 pixel padding to the "up" and "left" directions!

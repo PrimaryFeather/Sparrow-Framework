@@ -1,0 +1,11 @@
+--- packer2sparrow.rb ---
+
+This Ruby script converts texture atlas files created with the "Packer"-Tool:
+-> http://slick.cokeandcode.com/
+to the XML format that Sparrow expects.
+
+Usage: packer2sparrow input.xml image.png [output.xml]
+
+- The image parameter will be saved in the XML-file, and should be the path to the image on the 
+  iPhone,relative to the atlas XML.
+- The output parameter is optional. If omitted, the xml data overwrites the input file.
