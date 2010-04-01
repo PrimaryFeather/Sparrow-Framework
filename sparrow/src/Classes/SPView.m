@@ -255,6 +255,10 @@
     {
         SP_CREATE_POOL(pool);
         
+        CGSize viewSize = self.bounds.size;
+        float xConversion = mStage.width / viewSize.width;
+        float yConversion = mStage.height / viewSize.height;
+        
         // convert to SPTouches and forward to stage
         NSMutableSet *touches = [NSMutableSet set];        
         double now = CACurrentMediaTime();
@@ -264,10 +268,10 @@
             CGPoint previousLocation = [uiTouch previousLocationInView:self];
             SPTouch *touch = [SPTouch touch];
             touch.timestamp = now; // timestamp of uiTouch not compatible to Sparrow timestamp
-            touch.globalX = location.x;
-            touch.globalY = location.y;
-            touch.previousGlobalX = previousLocation.x;
-            touch.previousGlobalY = previousLocation.y;
+            touch.globalX = location.x * xConversion;
+            touch.globalY = location.y * yConversion;
+            touch.previousGlobalX = previousLocation.x * xConversion;
+            touch.previousGlobalY = previousLocation.y * yConversion;
             touch.tapCount = uiTouch.tapCount;
             touch.phase = (SPTouchPhase) uiTouch.phase;            
             [touches addObject:touch];
