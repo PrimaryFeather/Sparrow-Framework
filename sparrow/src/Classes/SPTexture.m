@@ -50,12 +50,12 @@
     return self;
 }
 
-+ (id)emptyTexture
++ (SPTexture *)emptyTexture
 {
     return [[[SPGLTexture alloc] init] autorelease];
 }
 
-+ (id)textureWithContentsOfFile:(NSString*)path
++ (SPTexture *)textureWithContentsOfFile:(NSString*)path
 {    
     NSString *fullPath = [[NSBundle mainBundle] pathForResource:path ofType:nil];
     if (![[NSFileManager defaultManager] fileExistsAtPath:fullPath])
