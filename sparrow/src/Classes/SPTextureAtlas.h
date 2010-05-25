@@ -13,7 +13,11 @@
 
 @class SPTexture;
 
-@interface SPTextureAtlas : NSObject 
+#ifdef __IPHONE_4_0
+@interface SPTextureAtlas : NSObject <NSXMLParserDelegate>
+#else
+@interface SPTextureAtlas : NSObject
+#endif
 {
   @private
     SPTexture *mAtlasTexture;

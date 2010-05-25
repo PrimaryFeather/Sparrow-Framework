@@ -16,7 +16,11 @@
 @class SPTexture;
 @class SPDisplayObject;
 
-@interface SPBitmapFont : NSObject 
+#ifdef __IPHONE_4_0
+@interface SPBitmapFont : NSObject <NSXMLParserDelegate>
+#else
+@interface SPBitmapFont : NSObject
+#endif
 {
   @private
     SPTexture *mFontTexture;
