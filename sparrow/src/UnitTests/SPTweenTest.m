@@ -9,6 +9,8 @@
 //  it under the terms of the Simplified BSD License.
 //
 
+#ifdef __IPHONE_3_0
+
 #import <SenTestingKit/SenTestingKit.h>
 #import <UIKit/UIKit.h>
 
@@ -189,3 +191,5 @@
 }
 
 @end
+
+#endif

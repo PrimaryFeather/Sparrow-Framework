@@ -20,6 +20,8 @@
 #import "SPStage.h"
 #import "SPRectangle.h"
 
+#ifdef __IPHONE_3_0
+
 // -------------------------------------------------------------------------------------------------
 
 @interface SPDisplayObjectContainerTest : SenTestCase 
@@ -305,3 +307,5 @@
 // STFail(message, ...)
 
 @end
+
+#endif
