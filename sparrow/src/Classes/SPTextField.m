@@ -79,6 +79,11 @@ static NSMutableDictionary *bitmapFonts = nil;
     return [self initWithWidth:width height:height text:@""];
 }
 
+- (id)initWithText:(NSString *)text
+{
+    return [self initWithWidth:128 height:128 text:text];
+}
+
 - (void)onEnterFrame:(SPEnterFrameEvent*)event
 {
     if (mRequiresRedraw)
@@ -283,6 +288,11 @@ static NSMutableDictionary *bitmapFonts = nil;
 + (SPTextField*)textFieldWithWidth:(float)width height:(float)height text:(NSString*)text
 {
     return [[[SPTextField alloc] initWithWidth:width height:height text:text] autorelease];
+}
+
++ (SPTextField*)textFieldWithText:(NSString*)text
+{
+    return [[[SPTextField alloc] initWithText:text] autorelease];
 }
 
 #pragma mark -

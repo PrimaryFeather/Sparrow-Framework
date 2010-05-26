@@ -65,10 +65,12 @@ typedef enum
 - (id)initWithWidth:(float)width height:(float)height text:(NSString*)text fontName:(NSString*)name
            fontSize:(float)size color:(uint)color ;
 - (id)initWithWidth:(float)width height:(float)height text:(NSString*)text;
+- (id)initWithText:(NSString *)text;
 
-+ (SPTextField*)textFieldWithWidth:(float)width height:(float)height text:(NSString*)text 
++ (SPTextField *)textFieldWithWidth:(float)width height:(float)height text:(NSString*)text 
                           fontName:(NSString*)name fontSize:(float)size color:(uint)color;
-+ (SPTextField*)textFieldWithWidth:(float)width height:(float)height text:(NSString*)text;
++ (SPTextField *)textFieldWithWidth:(float)width height:(float)height text:(NSString*)text;
++ (SPTextField *)textFieldWithText:(NSString *)text;
 
 + (NSString *)registerBitmapFontFromFile:(NSString*)path texture:(SPTexture *)texture;
 + (NSString *)registerBitmapFontFromFile:(NSString*)path;
