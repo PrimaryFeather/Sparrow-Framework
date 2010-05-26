@@ -19,7 +19,7 @@
 static void dispatchEventOnChildren(SPDisplayObject *object, SPEvent *event)
 {
     // This function is mainly used for ADDED_TO_STAGE- and REMOVED_FROM_STAGE-events.
-    // Those events are dispatched often, yet used very rarely.
+    // Those events are dispatched often, yet used rather rarely.
     // Thus we handle them in a C function, so that the overhead that they create is minimal.
     
     [object dispatchEvent:event];    
@@ -126,10 +126,8 @@ static void dispatchEventOnChildren(SPDisplayObject *object, SPEvent *event)
 {
     if (index >= 0 && index < [mChildren count])
     {
-        SPDisplayObject *child = [[mChildren objectAtIndex:index] retain];
-        [mChildren removeObjectAtIndex:index];
-        child.parent = nil;        
-        
+        SPDisplayObject *child = [[mChildren objectAtIndex:index] retain];        
+
         SPEvent *remEvent = [[SPEvent alloc] initWithType:SP_EVENT_TYPE_REMOVED];    
         [child dispatchEvent:remEvent];
         [remEvent release];    
@@ -140,6 +138,9 @@ static void dispatchEventOnChildren(SPDisplayObject *object, SPEvent *event)
             dispatchEventOnChildren(child, remFromStageEvent);
             [remFromStageEvent release];
         }        
+        
+        [mChildren removeObjectAtIndex:index];
+        child.parent = nil; 
         
         [child release];
     }

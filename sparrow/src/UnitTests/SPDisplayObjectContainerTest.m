@@ -30,6 +30,7 @@
     int mAddedToStage;
     int mRemoved;
     int mRemovedFromStage;
+    SPSprite *mTestSprite;
 }
 
 - (void)addQuadToSprite:(SPSprite*)sprite;
@@ -44,11 +45,13 @@
 
 - (void) setUp
 {
-    mAdded = mAddedToStage = mRemoved = mRemovedFromStage = 0;
+    mAdded = mAddedToStage = mRemoved = mRemovedFromStage = 0;    
+    mTestSprite = [[SPSprite alloc] init];
 }
 
 - (void) tearDown
 {
+    [mTestSprite release];
 }
 
 #pragma mark -
@@ -295,6 +298,21 @@
 - (void)onRemoved:(SPEvent*)event { mRemoved++; }
 - (void)onAddedToStage:(SPEvent*)event { mAddedToStage++; }
 - (void)onRemovedFromStage:(SPEvent*)event { mRemovedFromStage++; }
+
+- (void)testRemovedFromStage
+{
+    SPStage *stage = [[SPStage alloc] init];
+    [stage addChild:mTestSprite];    
+    [mTestSprite addEventListener:@selector(onTestSpriteRemovedFromStage:) atObject:self
+                          forType:SP_EVENT_TYPE_REMOVED_FROM_STAGE];    
+    [mTestSprite removeFromParent];
+    [mTestSprite removeEventListenersAtObject:self forType:SP_EVENT_TYPE_REMOVED_FROM_STAGE];    
+}
+
+- (void)onTestSpriteRemovedFromStage:(SPEvent *)event
+{
+    STAssertNotNil(mTestSprite.stage, @"stage not accessible in removed from stage event");
+}
 
 // STAssertEquals(value, value, message, ...)
 // STAssertEqualObjects(object, object, message, ...)
