@@ -14,9 +14,9 @@
 #import "SPTweenedProperty.h"
 #import "SPMacros.h"
 
-#define TRANS_SUFFIX  @"WithDelta:ratio:"
+#define TRANS_SUFFIX  @":"
 
-typedef float (*FnPtrTransition) (id, SEL, float, float);
+typedef float (*FnPtrTransition) (id, SEL, float);
 
 @implementation SPTween
 
@@ -86,7 +86,7 @@ typedef float (*FnPtrTransition) (id, SEL, float, float);
         
         float startValue = prop.startValue;
         float delta = prop.delta;
-        float transitionValue = transFunc(transClass, mTransition, delta, ratio);        
+        float transitionValue = delta * transFunc(transClass, mTransition, ratio);        
         prop.currentValue = startValue + transitionValue;
     }
    

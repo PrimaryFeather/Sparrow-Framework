@@ -22,6 +22,11 @@
 {
     if (self = [super init])
     {
+        // define some sample transitions for the animation demo. There are more available!
+        mTransitions = [[NSMutableArray alloc] initWithObjects:
+                        SP_TRANSITION_LINEAR, SP_TRANSITION_EASE_OUT, 
+                        SP_TRANSITION_EASE_IN_OUT, SP_TRANSITION_EASE_OUT_BACK,
+                        SP_TRANSITION_EASE_OUT_BOUNCE, SP_TRANSITION_EASE_OUT_ELASTIC, nil];
         [self setupScene];        
     }
     return self;
@@ -46,19 +51,28 @@
     [mDelayButton addEventListener:@selector(onDelayButtonPressed:) atObject:self
                            forType:SP_EVENT_TYPE_TRIGGERED];
     mDelayButton.x = mStartButton.x;
-    mDelayButton.y = mStartButton.y + 50;    
+    mDelayButton.y = mStartButton.y + 40;    
     [self addChild:mDelayButton];
     
     // the saturn image will be tweened.
     mSaturn = [[SPImage alloc] initWithTexture:[atlas textureByName:@"saturn"]];
     [self resetSaturn];
     [self addChild:mSaturn];
+    
+    mTransitionLabel = [[SPTextField alloc] initWithText:@""];
+    mTransitionLabel.color = 0xffffff;
+    mTransitionLabel.x = 0;
+    mTransitionLabel.y = mDelayButton.y + 40;
+    mTransitionLabel.width = 320;
+    mTransitionLabel.height = 30;
+    mTransitionLabel.alpha = 0.0f; // invisible, will be shown later
+    [self addChild:mTransitionLabel];      
 }
 
 - (void)resetSaturn
 {
-    mSaturn.x = 10;
-    mSaturn.y = 120;
+    mSaturn.x = 20;
+    mSaturn.y = 140;
     mSaturn.scaleX = mSaturn.scaleY = 1.0f;
     mSaturn.rotation = 0.0f;
 }
@@ -68,16 +82,20 @@
     mStartButton.enabled = NO;
     [self resetSaturn];
     
+    // get next transition style from array and enqueue it at the end
+    NSString *transition = [mTransitions objectAtIndex:0];
+    [mTransitions removeObjectAtIndex:0];
+    [mTransitions addObject:transition];
+    
     // to animate any numeric property of an arbitrary object (not just display objects!), you
     // can create a 'Tween'. One tween object animates one target for a certain time, with
     // a certain transition function.    
-    SPTween *tween = [SPTween tweenWithTarget:mSaturn time:5.0f transition:SP_TRANSITION_EASE_IN];
+    SPTween *tween = [SPTween tweenWithTarget:mSaturn time:5.0f transition:transition];
 
     // you can animate any property as long as it's numeric (float, double, int). 
-    // it is animated from it's current value to a target value.
-    
-    [tween animateProperty:@"x" targetValue:310];
-    [tween animateProperty:@"y" targetValue:330];
+    // it is animated from it's current value to a target value.    
+    [tween animateProperty:@"x" targetValue:300];
+    [tween animateProperty:@"y" targetValue:320];
     [tween animateProperty:@"scaleX" targetValue:0.5];
     [tween animateProperty:@"scaleY" targetValue:0.5];
     [tween animateProperty:@"rotation" targetValue:PI_HALF];
@@ -88,9 +106,16 @@
     // animation occurs. This is done by the 'Juggler'. It receives the tween and will use it to 
     // animate the object. 
     // There is a default juggler at the stage, but you can create your own jugglers, as well.
-    // That way, you can group animations into logical parts.
-    
+    // That way, you can group animations into logical parts.    
     [self.stage.juggler addObject:tween];
+    
+    // show which tweening function is used
+    mTransitionLabel.text = transition;
+    mTransitionLabel.alpha = 1.0f;
+    SPTween *hideTween = [SPTween tweenWithTarget:mTransitionLabel time:4.0f 
+                                       transition:SP_TRANSITION_EASE_IN];
+    [hideTween animateProperty:@"alpha" targetValue:0.0f];
+    [self.stage.juggler addObject:hideTween];
 }
 
 - (void)onTweenComplete:(SPEvent*)event
@@ -135,8 +160,10 @@
     [mStartButton removeEventListenersAtObject:self forType:SP_EVENT_TYPE_TRIGGERED];
     [mDelayButton removeEventListenersAtObject:self forType:SP_EVENT_TYPE_TRIGGERED];
     [mStartButton release];
-    [mDelayButton release];
+    [mDelayButton release];    
     [mSaturn release];
+    [mTransitionLabel release];  
+    [mTransitions release];
     [super dealloc];
 }
 

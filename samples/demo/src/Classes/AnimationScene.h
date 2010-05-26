@@ -13,7 +13,9 @@
 {
     SPButton *mStartButton;
     SPButton *mDelayButton;
-    SPImage *mSaturn;    
+    SPImage *mSaturn;
+    SPTextField *mTransitionLabel;
+    NSMutableArray *mTransitions;
 }
 
 @end
