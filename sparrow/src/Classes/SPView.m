@@ -198,7 +198,8 @@
 {
     [EAGLContext setCurrentContext:mContext];
     [self destroyFramebuffer];
-    [self createFramebuffer];    
+    [self createFramebuffer];
+    [self renderStage]; // fill buffer immediately to avoid flickering
 }
 
 - (BOOL)createFramebuffer 
