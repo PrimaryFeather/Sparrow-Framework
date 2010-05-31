@@ -35,19 +35,18 @@
 
 - (id)init
 {    
+    #ifdef DEBUG
     if ([[self class] isEqual:[SPTexture class]]) 
     {
         [NSException raise:SP_EXC_ABSTRACT_CLASS 
                     format:@"Attempting to instantiate abstract class SPTexture. " \
                            @"Use factory methods instead."];
         [self release];
-        self = nil;
-    }    
-    else 
-    {
-        self = [super init];
+        return nil;
     }
-    return self;
+    #endif
+    
+    return [super init];
 }
 
 + (SPTexture *)emptyTexture
@@ -136,22 +135,19 @@
 
 - (float)width
 {
-    [NSException raise:SP_EXC_ABSTRACT_CLASS 
-                format:@"This method needs to be implemented by any subclasses."];
+    [NSException raise:SP_EXC_ABSTRACT_METHOD format:@"Override this method in subclasses."];
     return 0;
 }
 
 - (float)height
 {
-    [NSException raise:SP_EXC_ABSTRACT_CLASS 
-                format:@"This method needs to be implemented by any subclasses."];
+    [NSException raise:SP_EXC_ABSTRACT_METHOD format:@"Override this method in subclasses."];
     return 0;
 }
 
 - (uint)textureID
 {
-    [NSException raise:SP_EXC_ABSTRACT_CLASS 
-                format:@"This method needs to be implemented by any subclasses."];
+    [NSException raise:SP_EXC_ABSTRACT_METHOD format:@"Override this method in subclasses."];
     return 0;    
 }
 

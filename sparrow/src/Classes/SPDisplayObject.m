@@ -33,6 +33,7 @@
 
 - (id)init
 {    
+    #ifdef DEBUG    
     if ([[self class] isEqual:[SPDisplayObject class]]) 
     {
         [NSException raise:SP_EXC_ABSTRACT_CLASS 
@@ -40,6 +41,7 @@
         [self release];
         return nil;
     }    
+    #endif
     
     if (self = [super init])
     {

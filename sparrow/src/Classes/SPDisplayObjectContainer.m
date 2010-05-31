@@ -37,19 +37,20 @@ static void dispatchEventOnChildren(SPDisplayObject *object, SPEvent *event)
 
 - (id)init
 {    
+    #if DEBUG    
     if ([[self class] isEqual:[SPDisplayObjectContainer class]]) 
     { 
         [NSException raise:SP_EXC_ABSTRACT_CLASS 
                     format:@"Attempting to instantiate SPDisplayObjectContainer directly."];
         [self release]; 
         return nil; 
-    }
+    }    
+    #endif
     
     if (self = [super init]) 
     {
         mChildren = [[NSMutableArray alloc] init];
-    }
-    
+    }    
     return self;
 }
 
@@ -63,23 +64,27 @@ static void dispatchEventOnChildren(SPDisplayObject *object, SPEvent *event)
 
 - (void)addChild:(SPDisplayObject *)child atIndex:(int)index
 {
-    [child retain];
-    [child removeFromParent];
-    [mChildren insertObject:child atIndex:index];    
-    child.parent = self;
-    
-    SPEvent *addedEvent = [[SPEvent alloc] initWithType:SP_EVENT_TYPE_ADDED];    
-    [child dispatchEvent:addedEvent];
-    [addedEvent release];    
-    
-    if (self.stage)
+    if (index >= 0 && index <= [mChildren count])
     {
-        SPEvent *addedToStageEvent = [[SPEvent alloc] initWithType:SP_EVENT_TYPE_ADDED_TO_STAGE];
-        dispatchEventOnChildren(child, addedToStageEvent);
-        [addedToStageEvent release];
+        [child retain];
+        [child removeFromParent];
+        [mChildren insertObject:child atIndex:MIN(mChildren.count, index)];    
+        child.parent = self;
+        
+        SPEvent *addedEvent = [[SPEvent alloc] initWithType:SP_EVENT_TYPE_ADDED];    
+        [child dispatchEvent:addedEvent];
+        [addedEvent release];    
+        
+        if (self.stage)
+        {
+            SPEvent *addedToStageEvent = [[SPEvent alloc] initWithType:SP_EVENT_TYPE_ADDED_TO_STAGE];
+            dispatchEventOnChildren(child, addedToStageEvent);
+            [addedToStageEvent release];
+        }
+        
+        [child release];
     }
-    
-    [child release];
+    else [NSException raise:SP_EXC_INDEX_OUT_OF_BOUNDS format:@"Invalid child index"]; 
 }
 
 - (BOOL)containsChild:(SPDisplayObject *)child

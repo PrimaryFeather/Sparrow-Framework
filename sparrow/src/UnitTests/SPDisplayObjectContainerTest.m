@@ -306,12 +306,21 @@
     [mTestSprite addEventListener:@selector(onTestSpriteRemovedFromStage:) atObject:self
                           forType:SP_EVENT_TYPE_REMOVED_FROM_STAGE];    
     [mTestSprite removeFromParent];
-    [mTestSprite removeEventListenersAtObject:self forType:SP_EVENT_TYPE_REMOVED_FROM_STAGE];    
+    [mTestSprite removeEventListenersAtObject:self forType:SP_EVENT_TYPE_REMOVED_FROM_STAGE];        
+    [stage release];
 }
 
 - (void)onTestSpriteRemovedFromStage:(SPEvent *)event
 {
     STAssertNotNil(mTestSprite.stage, @"stage not accessible in removed from stage event");
+}
+
+- (void)testAddExistingChild
+{
+    SPSprite *sprite = [SPSprite sprite];
+    SPQuad *quad = [SPQuad quadWithWidth:100 height:100];
+    [sprite addChild:quad];
+    STAssertNoThrow([sprite addChild:quad], @"Could not add child multiple times");
 }
 
 // STAssertEquals(value, value, message, ...)

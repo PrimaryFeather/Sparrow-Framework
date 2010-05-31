@@ -11,7 +11,7 @@
 //  This program is free software; you can redistribute it and/or modify
 //  it under the terms of the Simplified BSD License.
 
-#define SPARROW_VERSION @"0.7"
+#define SPARROW_VERSION @"0.7.1"
 
 #import "SPNSExtensions.h"
 #import "SPEventDispatcher.h"
@@ -38,3 +38,6 @@
 #import "SPMacros.h"
 #import "SPView.h"
 #import "SPRenderSupport.h"
+#import "SPAudioEngine.h"
+#import "SPSound.h"
+#import "SPSoundChannel.h"
