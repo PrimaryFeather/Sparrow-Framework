@@ -11,9 +11,17 @@
 		DE019C3A1026361200ECB0AC /* SPDelayedInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFB1B94100926260022C117 /* SPDelayedInvocation.m */; };
 		DE019C3B1026363D00ECB0AC /* SPNSExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = DE68EA160FBB5660004DBC95 /* SPNSExtensions.m */; };
 		DE019C3C1026364800ECB0AC /* SPJuggler.m in Sources */ = {isa = PBXBuildFile; fileRef = DE7044270FB61506007F5ECC /* SPJuggler.m */; };
+		DE18FE4511B083B200D01F04 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE18FE4411B083B200D01F04 /* AVFoundation.framework */; };
 		DE1F946B10470CD40084D470 /* SPJugglerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DE1F9446104704440084D470 /* SPJugglerTest.m */; };
 		DE20D9CB10713B0C006658C9 /* SPRenderSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = DE20D9C910713B0C006658C9 /* SPRenderSupport.h */; };
 		DE20D9CC10713B0C006658C9 /* SPRenderSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = DE20D9CA10713B0C006658C9 /* SPRenderSupport.m */; };
+		DED8B48711B0827E00A1766C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
+		DED8B48811B0827E00A1766C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE9CF1EB0FED3128008A32FF /* CoreGraphics.framework */; };
+		DED8B48911B0827E00A1766C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD15070DC6FC5B0079059D /* QuartzCore.framework */; };
+		DED8B48A11B0827E00A1766C /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD14FF0DC6FC520079059D /* OpenGLES.framework */; };
+		DED8B48B11B0827E00A1766C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		DED8B48C11B0827E00A1766C /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEE63A7111AED4FA00D60321 /* OpenAL.framework */; };
+		DED8B48D11B0827E00A1766C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEE63A8511AED51400D60321 /* AudioToolbox.framework */; };
 		DED9B51D10629D9F00989853 /* SPPoolObject.h in Headers */ = {isa = PBXBuildFile; fileRef = DED9B51B10629D9F00989853 /* SPPoolObject.h */; };
 		DED9B51E10629D9F00989853 /* SPPoolObject.m in Sources */ = {isa = PBXBuildFile; fileRef = DED9B51C10629D9F00989853 /* SPPoolObject.m */; };
 		DEE09D7A108364A900ECC896 /* SPBitmapFont.h in Headers */ = {isa = PBXBuildFile; fileRef = DEE09D78108364A900ECC896 /* SPBitmapFont.h */; };
@@ -21,6 +29,12 @@
 		DEE09D7E108369AE00ECC896 /* SPBitmapChar.h in Headers */ = {isa = PBXBuildFile; fileRef = DEE09D7C108369AE00ECC896 /* SPBitmapChar.h */; };
 		DEE09D7F108369AE00ECC896 /* SPBitmapChar.m in Sources */ = {isa = PBXBuildFile; fileRef = DEE09D7D108369AE00ECC896 /* SPBitmapChar.m */; };
 		DEE0D8AA104B06FE009A7C99 /* SPStage_Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = DE2AD84A104A84F1001AF0A0 /* SPStage_Internal.m */; };
+		DEE63A5111AED38100D60321 /* SPAudioEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = DEE63A4B11AED38100D60321 /* SPAudioEngine.h */; };
+		DEE63A5211AED38100D60321 /* SPAudioEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = DEE63A4C11AED38100D60321 /* SPAudioEngine.m */; };
+		DEE63A5311AED38100D60321 /* SPSound.h in Headers */ = {isa = PBXBuildFile; fileRef = DEE63A4D11AED38100D60321 /* SPSound.h */; };
+		DEE63A5411AED38100D60321 /* SPSound.m in Sources */ = {isa = PBXBuildFile; fileRef = DEE63A4E11AED38100D60321 /* SPSound.m */; };
+		DEE63A5511AED38100D60321 /* SPSoundChannel.h in Headers */ = {isa = PBXBuildFile; fileRef = DEE63A4F11AED38100D60321 /* SPSoundChannel.h */; };
+		DEE63A5611AED38100D60321 /* SPSoundChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = DEE63A5011AED38100D60321 /* SPSoundChannel.m */; };
 		DEEA933A101E32E10071DD21 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE9CF1EB0FED3128008A32FF /* CoreGraphics.framework */; };
 		DEEA933B101E32E10071DD21 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		DEEA933C101E32E10071DD21 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD14FF0DC6FC520079059D /* OpenGLES.framework */; };
@@ -40,6 +54,17 @@
 		DEEA9403101E44F10071DD21 /* Sparrow.h in Headers */ = {isa = PBXBuildFile; fileRef = DEEA9402101E44F10071DD21 /* Sparrow.h */; };
 		DEED1739108A50000071438F /* SPTweenedProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = DEED1737108A50000071438F /* SPTweenedProperty.h */; };
 		DEED173A108A50000071438F /* SPTweenedProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = DEED1738108A50000071438F /* SPTweenedProperty.m */; };
+		DEEDE3A111B29908009FD4C8 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEE63A7111AED4FA00D60321 /* OpenAL.framework */; };
+		DEEDE3A211B29908009FD4C8 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE18FE4411B083B200D01F04 /* AVFoundation.framework */; };
+		DEEDE3A311B29909009FD4C8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEE63A8511AED51400D60321 /* AudioToolbox.framework */; };
+		DEF1730E11B0645A00A11DD7 /* SPALSound.h in Headers */ = {isa = PBXBuildFile; fileRef = DEF1730C11B0645A00A11DD7 /* SPALSound.h */; };
+		DEF1730F11B0645A00A11DD7 /* SPALSound.m in Sources */ = {isa = PBXBuildFile; fileRef = DEF1730D11B0645A00A11DD7 /* SPALSound.m */; };
+		DEF1731211B0648B00A11DD7 /* SPALSoundChannel.h in Headers */ = {isa = PBXBuildFile; fileRef = DEF1731011B0648B00A11DD7 /* SPALSoundChannel.h */; };
+		DEF1731311B0648B00A11DD7 /* SPALSoundChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = DEF1731111B0648B00A11DD7 /* SPALSoundChannel.m */; };
+		DEF1735C11B075B000A11DD7 /* SPAVSound.h in Headers */ = {isa = PBXBuildFile; fileRef = DEF1735A11B075B000A11DD7 /* SPAVSound.h */; };
+		DEF1735D11B075B000A11DD7 /* SPAVSound.m in Sources */ = {isa = PBXBuildFile; fileRef = DEF1735B11B075B000A11DD7 /* SPAVSound.m */; };
+		DEF1736011B075BC00A11DD7 /* SPAVSoundChannel.h in Headers */ = {isa = PBXBuildFile; fileRef = DEF1735E11B075BC00A11DD7 /* SPAVSoundChannel.h */; };
+		DEF1736111B075BC00A11DD7 /* SPAVSoundChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = DEF1735F11B075BC00A11DD7 /* SPAVSoundChannel.m */; };
 		DEFE4BCE101B31DF00E22471 /* SPTransitions.m in Sources */ = {isa = PBXBuildFile; fileRef = DED859440FB883EE00D3D7D2 /* SPTransitions.m */; };
 		DEFE4BD1101B31DF00E22471 /* SPView.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC2B67A0F6D4CE90063AB1D /* SPView.m */; };
 		DEFE4BD2101B31DF00E22471 /* SPEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = DEE593D20FA6116B00E3AEFC /* SPEvent.m */; };
@@ -89,6 +114,7 @@
 		DE0853A40FEC286900DAF53C /* SPImageTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPImageTest.m; sourceTree = "<group>"; };
 		DE0853F80FEC2CFF00DAF53C /* SPTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPTexture.h; sourceTree = "<group>"; };
 		DE0853F90FEC2CFF00DAF53C /* SPTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPTexture.m; sourceTree = "<group>"; };
+		DE18FE4411B083B200D01F04 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		DE1F9446104704440084D470 /* SPJugglerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPJugglerTest.m; sourceTree = "<group>"; };
 		DE20D9C910713B0C006658C9 /* SPRenderSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPRenderSupport.h; sourceTree = "<group>"; };
 		DE20D9CA10713B0C006658C9 /* SPRenderSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPRenderSupport.m; sourceTree = "<group>"; };
@@ -165,6 +191,14 @@
 		DEE593D10FA6116B00E3AEFC /* SPEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPEvent.h; sourceTree = "<group>"; };
 		DEE593D20FA6116B00E3AEFC /* SPEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPEvent.m; sourceTree = "<group>"; };
 		DEE594490FA63BA800E3AEFC /* SPEventDispatcherTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPEventDispatcherTest.m; sourceTree = "<group>"; };
+		DEE63A4B11AED38100D60321 /* SPAudioEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPAudioEngine.h; sourceTree = "<group>"; };
+		DEE63A4C11AED38100D60321 /* SPAudioEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPAudioEngine.m; sourceTree = "<group>"; };
+		DEE63A4D11AED38100D60321 /* SPSound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPSound.h; sourceTree = "<group>"; };
+		DEE63A4E11AED38100D60321 /* SPSound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPSound.m; sourceTree = "<group>"; };
+		DEE63A4F11AED38100D60321 /* SPSoundChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPSoundChannel.h; sourceTree = "<group>"; };
+		DEE63A5011AED38100D60321 /* SPSoundChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPSoundChannel.m; sourceTree = "<group>"; };
+		DEE63A7111AED4FA00D60321 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
+		DEE63A8511AED51400D60321 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		DEEA9335101E32A30071DD21 /* UnitTest.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTest.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEEA937F101E3BA20071DD21 /* UnitTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
 		DEEA9402101E44F10071DD21 /* Sparrow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sparrow.h; sourceTree = "<group>"; };
@@ -172,6 +206,14 @@
 		DEED1738108A50000071438F /* SPTweenedProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPTweenedProperty.m; sourceTree = "<group>"; };
 		DEEEB8C80FAA2C300059D72B /* SPEnterFrameEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPEnterFrameEvent.h; sourceTree = "<group>"; };
 		DEEEB8C90FAA2C300059D72B /* SPEnterFrameEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPEnterFrameEvent.m; sourceTree = "<group>"; };
+		DEF1730C11B0645A00A11DD7 /* SPALSound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPALSound.h; sourceTree = "<group>"; };
+		DEF1730D11B0645A00A11DD7 /* SPALSound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPALSound.m; sourceTree = "<group>"; };
+		DEF1731011B0648B00A11DD7 /* SPALSoundChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPALSoundChannel.h; sourceTree = "<group>"; };
+		DEF1731111B0648B00A11DD7 /* SPALSoundChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPALSoundChannel.m; sourceTree = "<group>"; };
+		DEF1735A11B075B000A11DD7 /* SPAVSound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPAVSound.h; sourceTree = "<group>"; };
+		DEF1735B11B075B000A11DD7 /* SPAVSound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPAVSound.m; sourceTree = "<group>"; };
+		DEF1735E11B075BC00A11DD7 /* SPAVSoundChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPAVSoundChannel.h; sourceTree = "<group>"; };
+		DEF1735F11B075BC00A11DD7 /* SPAVSoundChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPAVSoundChannel.m; sourceTree = "<group>"; };
 		DEFB1B93100926260022C117 /* SPDelayedInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPDelayedInvocation.h; sourceTree = "<group>"; };
 		DEFB1B94100926260022C117 /* SPDelayedInvocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPDelayedInvocation.m; sourceTree = "<group>"; };
 		DEFE4BC2101B317600E22471 /* libSparrow.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSparrow.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -188,6 +230,9 @@
 				DEEA933D101E32E10071DD21 /* QuartzCore.framework in Frameworks */,
 				DEEA933E101E32E10071DD21 /* UIKit.framework in Frameworks */,
 				DEEA934E101E33F00071DD21 /* libSparrow.a in Frameworks */,
+				DEEDE3A111B29908009FD4C8 /* OpenAL.framework in Frameworks */,
+				DEEDE3A211B29908009FD4C8 /* AVFoundation.framework in Frameworks */,
+				DEEDE3A311B29909009FD4C8 /* AudioToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,6 +240,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DED8B48711B0827E00A1766C /* Foundation.framework in Frameworks */,
+				DED8B48811B0827E00A1766C /* CoreGraphics.framework in Frameworks */,
+				DED8B48911B0827E00A1766C /* QuartzCore.framework in Frameworks */,
+				DED8B48A11B0827E00A1766C /* OpenGLES.framework in Frameworks */,
+				DED8B48B11B0827E00A1766C /* UIKit.framework in Frameworks */,
+				DED8B48C11B0827E00A1766C /* OpenAL.framework in Frameworks */,
+				DED8B48D11B0827E00A1766C /* AudioToolbox.framework in Frameworks */,
+				DE18FE4511B083B200D01F04 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -204,6 +257,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				DEE63A4A11AED36700D60321 /* Audio */,
 				DEDCD3CE0FADF2100022011C /* System */,
 				DEDCD3C60FADF1870022011C /* Events */,
 				DEDCD3B00FADF1720022011C /* Display */,
@@ -247,11 +301,14 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				DE9CF1EB0FED3128008A32FF /* CoreGraphics.framework */,
 				28FD15070DC6FC5B0079059D /* QuartzCore.framework */,
 				28FD14FF0DC6FC520079059D /* OpenGLES.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
-				1D30AB110D05D00D00671497 /* Foundation.framework */,
+				DEE63A7111AED4FA00D60321 /* OpenAL.framework */,
+				DEE63A8511AED51400D60321 /* AudioToolbox.framework */,
+				DE18FE4411B083B200D01F04 /* AVFoundation.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -407,6 +464,21 @@
 			name = Animation;
 			sourceTree = "<group>";
 		};
+		DEE63A4A11AED36700D60321 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				DEF1731511B064A300A11DD7 /* AVFoundation */,
+				DEF1731411B0649A00A11DD7 /* OpenAL */,
+				DEE63A4B11AED38100D60321 /* SPAudioEngine.h */,
+				DEE63A4C11AED38100D60321 /* SPAudioEngine.m */,
+				DEE63A4D11AED38100D60321 /* SPSound.h */,
+				DEE63A4E11AED38100D60321 /* SPSound.m */,
+				DEE63A4F11AED38100D60321 /* SPSoundChannel.h */,
+				DEE63A5011AED38100D60321 /* SPSoundChannel.m */,
+			);
+			name = Audio;
+			sourceTree = "<group>";
+		};
 		DEE968F51086553D001D57E9 /* Textures */ = {
 			isa = PBXGroup;
 			children = (
@@ -431,6 +503,28 @@
 			name = Internal;
 			sourceTree = "<group>";
 		};
+		DEF1731411B0649A00A11DD7 /* OpenAL */ = {
+			isa = PBXGroup;
+			children = (
+				DEF1730C11B0645A00A11DD7 /* SPALSound.h */,
+				DEF1730D11B0645A00A11DD7 /* SPALSound.m */,
+				DEF1731011B0648B00A11DD7 /* SPALSoundChannel.h */,
+				DEF1731111B0648B00A11DD7 /* SPALSoundChannel.m */,
+			);
+			name = OpenAL;
+			sourceTree = "<group>";
+		};
+		DEF1731511B064A300A11DD7 /* AVFoundation */ = {
+			isa = PBXGroup;
+			children = (
+				DEF1735A11B075B000A11DD7 /* SPAVSound.h */,
+				DEF1735B11B075B000A11DD7 /* SPAVSound.m */,
+				DEF1735E11B075BC00A11DD7 /* SPAVSoundChannel.h */,
+				DEF1735F11B075BC00A11DD7 /* SPAVSoundChannel.m */,
+			);
+			name = AVFoundation;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -444,6 +538,13 @@
 				DEE09D7A108364A900ECC896 /* SPBitmapFont.h in Headers */,
 				DEE09D7E108369AE00ECC896 /* SPBitmapChar.h in Headers */,
 				DEED1739108A50000071438F /* SPTweenedProperty.h in Headers */,
+				DEE63A5111AED38100D60321 /* SPAudioEngine.h in Headers */,
+				DEE63A5311AED38100D60321 /* SPSound.h in Headers */,
+				DEE63A5511AED38100D60321 /* SPSoundChannel.h in Headers */,
+				DEF1730E11B0645A00A11DD7 /* SPALSound.h in Headers */,
+				DEF1731211B0648B00A11DD7 /* SPALSoundChannel.h in Headers */,
+				DEF1735C11B075B000A11DD7 /* SPAVSound.h in Headers */,
+				DEF1736011B075BC00A11DD7 /* SPAVSoundChannel.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -579,6 +680,13 @@
 				DEE09D7B108364A900ECC896 /* SPBitmapFont.m in Sources */,
 				DEE09D7F108369AE00ECC896 /* SPBitmapChar.m in Sources */,
 				DEED173A108A50000071438F /* SPTweenedProperty.m in Sources */,
+				DEE63A5211AED38100D60321 /* SPAudioEngine.m in Sources */,
+				DEE63A5411AED38100D60321 /* SPSound.m in Sources */,
+				DEE63A5611AED38100D60321 /* SPSoundChannel.m in Sources */,
+				DEF1730F11B0645A00A11DD7 /* SPALSound.m in Sources */,
+				DEF1731311B0648B00A11DD7 /* SPALSoundChannel.m in Sources */,
+				DEF1735D11B075B000A11DD7 /* SPAVSound.m in Sources */,
+				DEF1736111B075BC00A11DD7 /* SPAVSoundChannel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -604,7 +712,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos2.2.1;
+				SDKROOT = iphoneos3.0;
 			};
 			name = Debug;
 		};
@@ -617,7 +725,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = iphoneos2.2.1;
+				SDKROOT = iphoneos3.0;
 			};
 			name = Release;
 		};
