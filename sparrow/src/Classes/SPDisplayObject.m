@@ -210,8 +210,9 @@
 
 - (void)setRotation:(float)value
 {
-    while (value < 0) value += TWO_PI;
-    while (value >= TWO_PI) value -= TWO_PI;
+    // clamp between [-180 deg, +180 deg]
+    while (value < -PI) value += TWO_PI;
+    while (value >  PI) value -= TWO_PI;
     mRotationZ = value;
 }
 

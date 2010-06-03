@@ -211,6 +211,30 @@
     [quad release];
 }
 
+- (void)testRotation
+{
+    SPQuad *quad = [SPQuad quadWithWidth:100 height:100];
+    
+    quad.rotation = SP_D2R(400);  
+    STAssertEqualsWithAccuracy(SP_D2R(40.0f), quad.rotation, E, @"wrong angle");    
+    quad.rotation = SP_D2R(220); 
+    STAssertEqualsWithAccuracy(SP_D2R(-140.0f), quad.rotation, E, @"wrong angle");    
+    quad.rotation = SP_D2R(180);  
+    STAssertEqualsWithAccuracy(SP_D2R(180.0f), quad.rotation, E, @"wrong angle");    
+    quad.rotation = SP_D2R(-90); 
+    STAssertEqualsWithAccuracy(SP_D2R(-90.0f), quad.rotation, E, @"wrong angle");    
+    quad.rotation = SP_D2R(-179); 
+    STAssertEqualsWithAccuracy(SP_D2R(-179.0f), quad.rotation, E, @"wrong angle");    
+    quad.rotation = SP_D2R(-180); 
+    STAssertEqualsWithAccuracy(SP_D2R(-180.0f), quad.rotation, E, @"wrong angle");    
+    quad.rotation = SP_D2R(-181); 
+    STAssertEqualsWithAccuracy(SP_D2R(179.0f), quad.rotation, E, @"wrong angle");    
+    quad.rotation = SP_D2R(-300); 
+    STAssertEqualsWithAccuracy(SP_D2R(60.0f), quad.rotation, E, @"wrong angle");    
+    quad.rotation = SP_D2R(-370); 
+    STAssertEqualsWithAccuracy(SP_D2R(-10.0f), quad.rotation, E, @"wrong angle");
+}
+
 @end
 
 #endif
