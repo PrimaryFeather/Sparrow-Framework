@@ -9,6 +9,9 @@
 //  it under the terms of the Simplified BSD License.
 //
 
+#import <Availability.h>
+#ifdef __IPHONE_3_0
+
 #import <SenTestingKit/SenTestingKit.h>
 #import <UIKit/UIKit.h>
 
@@ -19,8 +22,6 @@
 #import "SPQuad.h"
 #import "SPStage.h"
 #import "SPRectangle.h"
-
-#ifdef __IPHONE_3_0
 
 // -------------------------------------------------------------------------------------------------
 
@@ -321,6 +322,22 @@
     SPQuad *quad = [SPQuad quadWithWidth:100 height:100];
     [sprite addChild:quad];
     STAssertNoThrow([sprite addChild:quad], @"Could not add child multiple times");
+}
+
+- (void)testRemoveAllChildren
+{
+    SPSprite *sprite = [SPSprite sprite];
+    
+    STAssertEquals(0, sprite.numChildren, @"wrong number of children");
+    [sprite removeAllChildren];
+    STAssertEquals(0, sprite.numChildren, @"wrong number of children");
+    
+    [sprite addChild:[SPQuad quadWithWidth:100 height:100]];
+    [sprite addChild:[SPQuad quadWithWidth:100 height:100]];    
+
+    STAssertEquals(2, sprite.numChildren, @"wrong number of children");
+    [sprite removeAllChildren];    
+    STAssertEquals(0, sprite.numChildren, @"remove all children did not work");    
 }
 
 // STAssertEquals(value, value, message, ...)

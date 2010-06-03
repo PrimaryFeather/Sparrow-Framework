@@ -27,6 +27,7 @@
 - (int)childIndex:(SPDisplayObject *)child;
 - (void)removeChild:(SPDisplayObject *)child;
 - (void)removeChildAtIndex:(int)index;
+- (void)removeAllChildren;
 - (void)swapChild:(SPDisplayObject*)child1 withChild:(SPDisplayObject*)child2;
 - (void)swapChildAtIndex:(int)index1 withChildAtIndex:(int)index2;
 

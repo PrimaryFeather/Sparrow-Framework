@@ -121,9 +121,7 @@ static void dispatchEventOnChildren(SPDisplayObject *object, SPEvent *event)
 - (void)removeChild:(SPDisplayObject *)child
 {
     int childIndex = [self childIndex:child];
-    if (childIndex == SP_NOT_FOUND)
-        [NSException raise:SP_EXC_NOT_RELATED format:@"Object is not a child of this container"];
-    else 
+    if (childIndex != SP_NOT_FOUND)
         [self removeChildAtIndex:childIndex];
 }
 
@@ -165,6 +163,12 @@ static void dispatchEventOnChildren(SPDisplayObject *object, SPEvent *event)
     if (index1 < 0 || index1 >= numChildren || index2 < 0 || index2 >= numChildren)
         [NSException raise:SP_EXC_INVALID_OPERATION format:@"invalid child indices"];
     [mChildren exchangeObjectAtIndex:index1 withObjectAtIndex:index2];
+}
+
+- (void)removeAllChildren
+{
+    for (int i=mChildren.count-1; i>=0; --i)
+        [self removeChildAtIndex:i];
 }
 
 - (int)numChildren
