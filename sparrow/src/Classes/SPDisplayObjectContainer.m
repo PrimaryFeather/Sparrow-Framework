@@ -223,9 +223,7 @@ static void dispatchEventOnChildren(SPDisplayObject *object, SPEvent *event)
 - (void)dealloc 
 {    
     // 'self' is becoming invalid; thus, we have to remove any references to it.    
-    for (SPDisplayObject *child in mChildren)
-        child.parent = nil;
-    
+    [mChildren makeObjectsPerformSelector:@selector(setParent:) withObject:nil];
     [mChildren release];
     [super dealloc];
 }
