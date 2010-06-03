@@ -59,11 +59,8 @@
     double previousTime = mCurrentTime;    
     mCurrentTime = MIN(mTotalTime, currentTime);
     
-    if (previousTime < mTotalTime && mCurrentTime >= mTotalTime)
-    {
-        for (NSInvocation *inv in mInvocations)                    
-            [inv invokeWithTarget:mTarget];
-    }    
+    if (previousTime < mTotalTime && mCurrentTime >= mTotalTime)    
+        [mInvocations makeObjectsPerformSelector:@selector(invokeWithTarget:) withObject:mTarget];        
 }
 
 - (BOOL)isComplete
