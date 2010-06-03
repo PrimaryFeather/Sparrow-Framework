@@ -29,16 +29,18 @@
         // the container will hold all test objects
         mContainer = [[SPSprite alloc] init];
         mContainer.touchable = NO; // we do not need touch events on the test objects -- thus, 
-                                     // it is more efficient to disable them.
+                                   // it is more efficient to disable them.
         [self addChild:mContainer atIndex:0];        
         [mContainer release];
         
+        SPTexture *buttonTexture = [SPTexture textureWithContentsOfFile:@"button_normal.png"];
+        
         // we create a button that is used to start the benchmark.
-        mStartButton = [[SPButton alloc] initWithUpState:[mAtlas textureByName:@"button_wide"] 
+        mStartButton = [[SPButton alloc] initWithUpState:buttonTexture
                                                     text:@"Start benchmark"];
         [mStartButton addEventListener:@selector(onStartButtonPressed:) atObject:self
                                forType:SP_EVENT_TYPE_TRIGGERED];
-        mStartButton.x = 80;
+        mStartButton.x = 160 - (int)(mStartButton.width / 2);
         mStartButton.y = 20;
         [self addChild:mStartButton];
         [mStartButton release];        
@@ -92,7 +94,7 @@
 {
     NSLog(@"starting benchmark");
     
-    mStartButton.enabled = NO;
+    mStartButton.visible = NO;
     mStarted = YES;
     mFailCount = 0;
     mWaitFrames = 3;
@@ -106,7 +108,7 @@
 - (void)benchmarkComplete
 {
     mStarted = NO;
-    mStartButton.enabled = YES;
+    mStartButton.visible = YES;
     [mJuggler removeAllObjects];
     
     NSLog(@"benchmark complete!");
@@ -118,7 +120,7 @@
     
     mResultText = [SPTextField textFieldWithWidth:250 height:200 text:resultString];
     mResultText.fontSize = 30;
-    mResultText.color = 0xffffff;
+    mResultText.color = 0x0;
     mResultText.x = (320 - mResultText.width) / 2;
     mResultText.y = (480 - mResultText.height) / 2;
     
@@ -140,13 +142,12 @@ float getRandomNumber()
     sprite.x = border + getRandomNumber() * 320 - 2*border;
     sprite.y = border + getRandomNumber() * 480 - 2*border;
     
-    SPImage *moon = [[SPImage alloc] initWithTexture:[mAtlas textureByName:@"moon"]];        
-    moon.scaleX = moon.scaleY = 0.3f;
-    moon.x = -moon.width/2 + 25;
-    moon.y = -moon.height / 2;
+    SPImage *egg = [[SPImage alloc] initWithTexture:[mAtlas textureByName:@"benchmark_object"]];        
+    egg.x = -egg.width/2 + 25;
+    egg.y = -egg.height / 2;
     
-    [sprite addChild:moon];
-    [moon release];
+    [sprite addChild:egg];
+    [egg release];
     
     sprite.alpha = 0.0f;
     SPTween *fadeIn = [[SPTween alloc] initWithTarget:sprite time:0.25];

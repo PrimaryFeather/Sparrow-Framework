@@ -11,8 +11,8 @@
 @interface AnimationScene ()
 
 - (void)setupScene;
-- (void)resetSaturn;
-- (void)colorizeSaturn:(BOOL)colorize;
+- (void)resetEgg;
+- (void)colorizeEgg:(BOOL)colorize;
 
 @end
 
@@ -33,34 +33,33 @@
 }
 
 - (void)setupScene
-{    
-    SPTextureAtlas *atlas = [SPTextureAtlas atlasWithContentsOfFile:@"atlas.xml"];   
+{   
+    SPTexture *buttonTexture = [SPTexture textureWithContentsOfFile:@"button_normal.png"];
     
     // we create a button that is used to start the tween.
-    mStartButton = [[SPButton alloc] initWithUpState:[atlas textureByName:@"button_wide"] 
-                                           text:@"Start animation"];
+    mStartButton = [[SPButton alloc] initWithUpState:buttonTexture text:@"Start animation"];
     [mStartButton addEventListener:@selector(onStartButtonPressed:) atObject:self
                            forType:SP_EVENT_TYPE_TRIGGERED];
-    mStartButton.x = 80;
+    mStartButton.x = 160 - (int)mStartButton.width / 2;
     mStartButton.y = 20;
     [self addChild:mStartButton];
     
-    // this button will show you how to call a method in the future
-    mDelayButton = [[SPButton alloc] initWithUpState:[atlas textureByName:@"button_wide"]
-                                                         text:@"Make delayed call"];
+    // this button will show you how to call a method with a delay
+    mDelayButton = [[SPButton alloc] initWithUpState:buttonTexture text:@"Delayed call"];
     [mDelayButton addEventListener:@selector(onDelayButtonPressed:) atObject:self
                            forType:SP_EVENT_TYPE_TRIGGERED];
     mDelayButton.x = mStartButton.x;
     mDelayButton.y = mStartButton.y + 40;    
     [self addChild:mDelayButton];
     
-    // the saturn image will be tweened.
-    mSaturn = [[SPImage alloc] initWithTexture:[atlas textureByName:@"saturn"]];
-    [self resetSaturn];
-    [self addChild:mSaturn];
+    // the egg image will be tweened.
+    SPTextureAtlas *atlas = [SPTextureAtlas atlasWithContentsOfFile:@"atlas.xml"]; 
+    mEgg = [[SPImage alloc] initWithTexture:[atlas textureByName:@"egg_opened"]];
+    [self resetEgg];
+    [self addChild:mEgg];
     
     mTransitionLabel = [[SPTextField alloc] initWithText:@""];
-    mTransitionLabel.color = 0xffffff;
+    mTransitionLabel.color = 0x0;
     mTransitionLabel.x = 0;
     mTransitionLabel.y = mDelayButton.y + 40;
     mTransitionLabel.width = 320;
@@ -69,18 +68,18 @@
     [self addChild:mTransitionLabel];      
 }
 
-- (void)resetSaturn
+- (void)resetEgg
 {
-    mSaturn.x = 20;
-    mSaturn.y = 140;
-    mSaturn.scaleX = mSaturn.scaleY = 1.0f;
-    mSaturn.rotation = 0.0f;
+    mEgg.x = 20;
+    mEgg.y = 100;
+    mEgg.scaleX = mEgg.scaleY = 1.0f;
+    mEgg.rotation = 0.0f;
 }
 
 - (void)onStartButtonPressed:(SPEvent *)event
 {
     mStartButton.enabled = NO;
-    [self resetSaturn];
+    [self resetEgg];
     
     // get next transition style from array and enqueue it at the end
     NSString *transition = [mTransitions objectAtIndex:0];
@@ -90,12 +89,12 @@
     // to animate any numeric property of an arbitrary object (not just display objects!), you
     // can create a 'Tween'. One tween object animates one target for a certain time, with
     // a certain transition function.    
-    SPTween *tween = [SPTween tweenWithTarget:mSaturn time:5.0f transition:transition];
+    SPTween *tween = [SPTween tweenWithTarget:mEgg time:3.5f transition:transition];
 
     // you can animate any property as long as it's numeric (float, double, int). 
     // it is animated from it's current value to a target value.    
     [tween animateProperty:@"x" targetValue:300];
-    [tween animateProperty:@"y" targetValue:320];
+    [tween animateProperty:@"y" targetValue:360];
     [tween animateProperty:@"scaleX" targetValue:0.5];
     [tween animateProperty:@"scaleY" targetValue:0.5];
     [tween animateProperty:@"rotation" targetValue:PI_HALF];
@@ -112,7 +111,7 @@
     // show which tweening function is used
     mTransitionLabel.text = transition;
     mTransitionLabel.alpha = 1.0f;
-    SPTween *hideTween = [SPTween tweenWithTarget:mTransitionLabel time:4.0f 
+    SPTween *hideTween = [SPTween tweenWithTarget:mTransitionLabel time:3.0f 
                                        transition:SP_TRANSITION_EASE_IN];
     [hideTween animateProperty:@"alpha" targetValue:0.0f];
     [self.stage.juggler addObject:hideTween];
@@ -139,18 +138,18 @@
     //
     // the method [SPJuggler delayInvocationAtTarget:byTime:] returns a proxy object. Call
     // the method you would like to call on this proxy object instead of the real method target.
-    // In this sample, [self colorizeSaturn:] will be called after the specified delay.
+    // In this sample, [self colorizeEgg:] will be called after the specified delay.
     
-    [[self.stage.juggler delayInvocationAtTarget:self byTime:1.0f] colorizeSaturn:YES];
-    [[self.stage.juggler delayInvocationAtTarget:self byTime:2.0f] colorizeSaturn:NO];    
+    [[self.stage.juggler delayInvocationAtTarget:self byTime:1.0f] colorizeEgg:YES];
+    [[self.stage.juggler delayInvocationAtTarget:self byTime:2.0f] colorizeEgg:NO];    
 }
 
-- (void)colorizeSaturn:(BOOL)colorize
+- (void)colorizeEgg:(BOOL)colorize
 {
-    if (colorize) mSaturn.color = 0x00ff00; // 0xrrggbb
+    if (colorize) mEgg.color = 0xff3333; // 0xrrggbb
     else 
     {    
-        mSaturn.color = 0xffffff; // white, the standard color of a quad
+        mEgg.color = 0xffffff; // white, the standard color of a quad
         mDelayButton.enabled = YES;
     }
 }
@@ -161,7 +160,7 @@
     [mDelayButton removeEventListenersAtObject:self forType:SP_EVENT_TYPE_TRIGGERED];
     [mStartButton release];
     [mDelayButton release];    
-    [mSaturn release];
+    [mEgg release];
     [mTransitionLabel release];  
     [mTransitions release];
     [super dealloc];

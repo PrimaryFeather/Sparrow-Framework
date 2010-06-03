@@ -33,7 +33,7 @@
         text:@"TextFields can have a border and a color."];
     colorTF.x = colorTF.y = offset;
     colorTF.border = YES;
-    colorTF.color = 0xaaaaff;
+    colorTF.color = 0x333399;
     [self addChild:colorTF];
     
     SPTextField *leftTF = [SPTextField textFieldWithWidth:145 height:80 
@@ -43,7 +43,7 @@
     leftTF.hAlign = SPHAlignLeft;
     leftTF.vAlign = SPVAlignTop;
     leftTF.border = YES;
-    leftTF.color = 0xffaaaa;
+    leftTF.color = 0x993333;
     [self addChild:leftTF];
     
     SPTextField *rightTF = [SPTextField textFieldWithWidth:145 height:80 
@@ -52,7 +52,7 @@
     rightTF.y = colorTF.y + colorTF.height + offset;
     rightTF.hAlign = SPHAlignRight;
     rightTF.vAlign = SPVAlignBottom;
-    rightTF.color = 0xaaffaa;
+    rightTF.color = 0x228822;
     rightTF.border = YES;
     [self addChild:rightTF];
     
@@ -65,7 +65,7 @@
     fontTF.fontSize = 18;
     fontTF.fontName = @"Georgia-Bold";
     fontTF.border = YES;
-    fontTF.color = 0xffffff;
+    fontTF.color = 0x0;
     [self addChild:fontTF];
     
     // Bitmap fonts!
@@ -85,7 +85,7 @@
         text:@"It is very easy to use them with Bitmap fonts, as well!"];
     bmpFontTF.fontSize = SP_NATIVE_FONT_SIZE; // use the native bitmap font size, no scaling
     bmpFontTF.fontName = bmpFontName;
-    bmpFontTF.color = 0xffff55;
+    bmpFontTF.color = 0x993399;
     bmpFontTF.hAlign = SPHAlignCenter;
     bmpFontTF.vAlign = SPVAlignCenter;
     bmpFontTF.x = offset;

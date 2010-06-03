@@ -13,26 +13,29 @@
 - (id)init
 {
     if (self = [super init])
-    {
+    {        
         SPTextureAtlas *atlas = [SPTextureAtlas atlasWithContentsOfFile:@"atlas.xml"];
         NSLog(@"found %d textures.", atlas.count);
         
-        SPImage *jupiter = [SPImage imageWithTexture:[atlas textureByName:@"jupiter"]];
-        jupiter.scaleX = jupiter.scaleY = 1.4f;
-        jupiter.x = -20;
-        jupiter.y = -20;
-        [self addChild:jupiter];
+        SPImage *image1 = [SPImage imageWithTexture:[atlas textureByName:@"walk_0"]];
+        image1.x = 30;
+        image1.y = 30;
+        [self addChild:image1];
         
-        SPImage *saturn = [SPImage imageWithTexture:[atlas textureByName:@"saturn"]];
-        saturn.x = 60;
-        saturn.y = 130;
-        [self addChild:saturn];
+        SPImage *image2 = [SPImage imageWithTexture:[atlas textureByName:@"walk_1"]];
+        image2.x = 90;
+        image2.y = 110;
+        [self addChild:image2];
         
-        SPImage *astronaut = [SPImage imageWithTexture:[atlas textureByName:@"astronaut"]];
-        astronaut.x = 190;
-        astronaut.y = 200;
-        astronaut.rotation = PI/4.0f;
-        [self addChild:astronaut];
+        SPImage *image3 = [SPImage imageWithTexture:[atlas textureByName:@"walk_2"]];
+        image3.x = 150;
+        image3.y = 190;
+        [self addChild:image3];        
+        
+        SPImage *image4 = [SPImage imageWithTexture:[atlas textureByName:@"walk_3"]];
+        image4.x = 210;
+        image4.y = 270;
+        [self addChild:image4];        
     }
     return self;    
 }

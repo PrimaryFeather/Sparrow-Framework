@@ -13,12 +13,15 @@
 #import "AnimationScene.h"
 #import "CustomHitTestScene.h"
 #import "BenchmarkScene.h"
+#import "MovieScene.h"
+#import "SoundScene.h"
 
 // --- private interface ---------------------------------------------------------------------------
 
 @interface Game ()
 
-- (void)showScene:(SPSprite*)scene;
+- (void)showScene:(SPSprite *)scene;
+- (void)addSceneButton:(SPButton *)button;
 
 @end
 
@@ -30,56 +33,71 @@
 {
     if (self = [super initWithWidth:width height:height])
     {
-        SPTexture *sceneButtonTexture = [SPTexture textureWithContentsOfFile:@"button_blue.png"];        
-
-        mSceneButtons = [[SPSprite alloc] init];
-        mSceneButtons.x = (self.width - sceneButtonTexture.width) / 2.0f;
-        mSceneButtons.y = 20;        
-        [self addChild:mSceneButtons];        
+        mNumButtons = 0;        
+                
+        // add background image 
         
-        mAtlasButton = [SPButton buttonWithUpState:sceneButtonTexture text:@"Texture Atlas"];
-        [mAtlasButton addEventListener:@selector(onAtlasButtonTriggered:) atObject:self 
-                               forType:SP_EVENT_TYPE_TRIGGERED];
-        [mSceneButtons addChild:mAtlasButton];
+        SPImage *background = [SPImage imageWithContentsOfFile:@"Default.png"];
+        [self addChild:background];
         
-        mTouchButton = [SPButton buttonWithUpState:sceneButtonTexture text:@"Multitouch"];
-        [mTouchButton addEventListener:@selector(onTouchButtonTriggered:) atObject:self
-                               forType:SP_EVENT_TYPE_TRIGGERED];
-        mTouchButton.y = mAtlasButton.y + mAtlasButton.height;
-        [mSceneButtons addChild:mTouchButton];
+        // this sprite will contain objects that are only visible in the main menu
+        mMainMenu = [[SPSprite alloc] init];
+        [self addChild:mMainMenu];
         
-        mTextButton = [SPButton buttonWithUpState:sceneButtonTexture text:@"TextFields"];
-        [mTextButton addEventListener:@selector(onTextButtonTriggered:) atObject:self
-                               forType:SP_EVENT_TYPE_TRIGGERED];
-        mTextButton.y = mTouchButton.y + mTouchButton.height;
-        [mSceneButtons addChild:mTextButton];
-
-        mAnimationButton = [SPButton buttonWithUpState:sceneButtonTexture text:@"Animations"];
-        [mAnimationButton addEventListener:@selector(onAnimationButtonTriggered:) atObject:self
-                               forType:SP_EVENT_TYPE_TRIGGERED];
-        mAnimationButton.y = mTextButton.y + mTextButton.height;
-        [mSceneButtons addChild:mAnimationButton];        
+        SPImage *logo = [SPImage imageWithContentsOfFile:@"logo.png"];
+        [mMainMenu addChild:logo];
         
-        mCustomHitTestButton = [SPButton buttonWithUpState:sceneButtonTexture text:@"Custom hit-test"];
-        [mCustomHitTestButton addEventListener:@selector(onCustomHitTestButtonTriggered:)
-                                      atObject:self forType:SP_EVENT_TYPE_TRIGGERED];
-        mCustomHitTestButton.y =  mAnimationButton.y + mAnimationButton.height;
-        [mSceneButtons addChild:mCustomHitTestButton];        
-
-        mBenchmarkButton = [SPButton buttonWithUpState:sceneButtonTexture text:@"Benchmark"];
-        [mBenchmarkButton addEventListener:@selector(onBenchmarkButtonTriggered:) atObject:self
+        SPTexture *sceneButtonTexture = [SPTexture textureWithContentsOfFile:@"button_big.png"];
+        
+        SPButton *atlasButton = [SPButton buttonWithUpState:sceneButtonTexture text:@"Texture Atlas"];
+        [atlasButton addEventListener:@selector(onAtlasButtonTriggered:) atObject:self 
                               forType:SP_EVENT_TYPE_TRIGGERED];
-        mBenchmarkButton.y = mCustomHitTestButton.y + mCustomHitTestButton.height;
-        [mSceneButtons addChild:mBenchmarkButton];
+        [self addSceneButton:atlasButton];
         
-        SPTexture *backButtonTexture = [SPTexture textureWithContentsOfFile:@"button_yellow.png"];
+        SPButton *touchButton = [SPButton buttonWithUpState:sceneButtonTexture text:@"Multitouch"];
+        [touchButton addEventListener:@selector(onTouchButtonTriggered:) atObject:self
+                              forType:SP_EVENT_TYPE_TRIGGERED];        
+        [self addSceneButton:touchButton];
+        
+        SPButton *textButton = [SPButton buttonWithUpState:sceneButtonTexture text:@"TextFields"];
+        [textButton addEventListener:@selector(onTextButtonTriggered:) atObject:self
+                             forType:SP_EVENT_TYPE_TRIGGERED];
+        [self addSceneButton:textButton];
+
+        SPButton *animationButton = [SPButton buttonWithUpState:sceneButtonTexture text:@"Animations"];
+        [animationButton addEventListener:@selector(onAnimationButtonTriggered:) atObject:self
+                                  forType:SP_EVENT_TYPE_TRIGGERED];
+        [self addSceneButton:animationButton];
+        
+        SPButton *hitTestButton = [SPButton buttonWithUpState:sceneButtonTexture text:@"Custom hit-test"];
+        [hitTestButton addEventListener:@selector(onHitTestButtonTriggered:)
+                               atObject:self forType:SP_EVENT_TYPE_TRIGGERED];
+        [self addSceneButton:hitTestButton];
+        
+        SPButton *movieButton = [SPButton buttonWithUpState:sceneButtonTexture text:@"Simple Movie"];
+        [movieButton addEventListener:@selector(onMovieButtonTriggered:)
+                             atObject:self forType:SP_EVENT_TYPE_TRIGGERED];        
+        [self addSceneButton:movieButton];
+        
+        SPButton *soundButton = [SPButton buttonWithUpState:sceneButtonTexture text:@"Sound"];
+        [soundButton addEventListener:@selector(onSoundButtonTriggered:) atObject:self
+                             forType:SP_EVENT_TYPE_TRIGGERED];
+        [self addSceneButton:soundButton];
+        
+        SPButton *benchmarkButton = [SPButton buttonWithUpState:sceneButtonTexture text:@"Benchmark"];
+        [benchmarkButton addEventListener:@selector(onBenchmarkButtonTriggered:) atObject:self
+                                  forType:SP_EVENT_TYPE_TRIGGERED];
+        [self addSceneButton:benchmarkButton];
+        
+        SPTexture *backButtonTexture = [SPTexture textureWithContentsOfFile:@"button_back.png"];
         mBackButton = [[SPButton alloc] initWithUpState:backButtonTexture text:@"back"];
         mBackButton.visible = NO;
-        mBackButton.x = mSceneButtons.x;
-        mBackButton.y = self.stage.height - mBackButton.height - 20;
+        mBackButton.x = (int)(self.stage.width - mBackButton.width) / 2;
+        mBackButton.y = self.stage.height - mBackButton.height + 1;
         [mBackButton addEventListener:@selector(onBackButtonTriggered:) atObject:self 
                               forType:SP_EVENT_TYPE_TRIGGERED];
         [self addChild:mBackButton]; 
+         
     }
     return self;
 }
@@ -87,11 +105,21 @@
 - (void)showScene:(SPSprite*)scene
 {
     mCurrentScene = scene;
-    [self addChild:scene atIndex:0];
-    
-    mSceneButtons.visible = NO;
+    [self addChild:scene];
+
+    mMainMenu.visible = NO;
     mBackButton.visible = YES;
 }
+
+- (void)addSceneButton:(SPButton *)button
+{
+    button.x = mNumButtons % 2 == 0 ? 28 : 167;
+    button.y = 200 + (mNumButtons / 2) * 52;    
+    [mMainMenu addChild:button];
+    mNumButtons++;
+}
+
+#pragma mark -
 
 - (void)onBackButtonTriggered:(SPEvent*)event
 {
@@ -99,7 +127,7 @@
     mCurrentScene = nil;
     
     mBackButton.visible = NO;
-    mSceneButtons.visible = YES;    
+    mMainMenu.visible = YES;    
 }
 
 - (void)onAtlasButtonTriggered:(SPEvent*)event
@@ -130,9 +158,23 @@
     [scene release];
 }
 
-- (void)onCustomHitTestButtonTriggered:(SPEvent*)event
+- (void)onHitTestButtonTriggered:(SPEvent*)event
 {
     SPSprite *scene = [[CustomHitTestScene alloc] init];
+    [self showScene:scene];
+    [scene release];
+}
+
+- (void)onMovieButtonTriggered:(SPEvent *)event
+{
+    SPSprite *scene = [[MovieScene alloc] init];
+    [self showScene:scene];
+    [scene release];
+}
+
+- (void)onSoundButtonTriggered:(SPEvent *)event
+{
+    SPSprite *scene = [[SoundScene alloc] init];
     [self showScene:scene];
     [scene release];
 }
@@ -148,19 +190,9 @@
 
 - (void)dealloc
 {
-    [mAtlasButton removeEventListenersAtObject:self forType:SP_EVENT_TYPE_TRIGGERED];
-    [mTouchButton removeEventListenersAtObject:self forType:SP_EVENT_TYPE_TRIGGERED];
-    [mTextButton  removeEventListenersAtObject:self forType:SP_EVENT_TYPE_TRIGGERED];
-    [mAnimationButton removeEventListenersAtObject:self forType:SP_EVENT_TYPE_TRIGGERED];
-    [mCustomHitTestButton removeEventListenersAtObject:self forType:SP_EVENT_TYPE_TRIGGERED];
-    [mBenchmarkButton removeEventListenersAtObject:self forType:SP_EVENT_TYPE_TRIGGERED];
-    
-    [mSceneButtons release]; // automatically releases all child buttons    
-    [mBackButton release];
-    [mBackButton removeEventListenersAtObject:self forType:SP_EVENT_TYPE_TRIGGERED];
-    
+    [mMainMenu release]; // automatically releases all childs   
+    [mBackButton release];    
     [mCurrentScene release];
-    
     [super dealloc];
 }
 

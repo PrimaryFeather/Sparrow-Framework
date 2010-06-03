@@ -13,16 +13,10 @@
 {
   @private
     SPSprite *mCurrentScene;
-    SPSprite *mSceneButtons;
-    SPButton *mBackButton;    
+    SPSprite *mMainMenu;
+    SPButton *mBackButton;
     
-    SPButton *mAtlasButton;    
-    SPButton *mTouchButton;
-    SPButton *mTextButton;
-    SPButton *mAnimationButton;
-    SPButton *mCustomHitTestButton;
-    SPButton *mBenchmarkButton;
-
+    int mNumButtons;
 }
 
 @end
