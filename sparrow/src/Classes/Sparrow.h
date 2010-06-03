@@ -23,6 +23,7 @@
 #import "SPButton.h"
 #import "SPStage.h"
 #import "SPSprite.h"
+#import "SPSimpleMovie.h"
 #import "SPTexture.h"
 #import "SPSubTexture.h"
 #import "SPGLTexture.h"
