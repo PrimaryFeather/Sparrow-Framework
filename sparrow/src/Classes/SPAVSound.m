@@ -24,6 +24,12 @@
     return self;
 }
 
+- (void)dealloc
+{
+    [mSoundData release];
+    [super dealloc];
+}
+
 - (SPSoundChannel *)createChannel
 {
     return [[[SPAVSoundChannel alloc] initWithSound:self] autorelease];    
@@ -35,12 +41,6 @@
     AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithData:mSoundData error:&error];
     if (error) NSLog(@"Could not create AVAudioPlayer: %@", [error description]);    
     return [player autorelease];	
-}
-
-- (void)dealloc
-{
-    [mSoundData release];
-    [super dealloc];
 }
 
 @end
