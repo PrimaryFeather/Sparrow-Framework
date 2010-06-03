@@ -212,6 +212,10 @@
     // already be garbage -> crash!    
     [mSoundChannel stop];
     
+    // The music channel has no event listener attached, so technically, this call is not 
+    // necessary. But it's a good habit to stop any sound before releasing it (see above.)
+    [mMusicChannel stop];
+    
     [mSoundChannel release];
     [mMusicChannel release];    
     [super dealloc];
