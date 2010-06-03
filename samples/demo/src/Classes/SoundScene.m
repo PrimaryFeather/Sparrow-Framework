@@ -207,6 +207,11 @@
 
 - (void)dealloc
 {
+    // This is really IMPORTANT: either stop the sound or remove the event listener!!!
+    // Otherwise the sound continues to play, and when it completes, the event handler will
+    // already be garbage -> crash!    
+    [mSoundChannel stop];
+    
     [mSoundChannel release];
     [mMusicChannel release];    
     [super dealloc];
