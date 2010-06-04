@@ -23,10 +23,11 @@
         infoText.hAlign = SPHAlignCenter;
         [self addChild:infoText];        
         
+        // all our animation textures are in the atlas
         SPTextureAtlas *atlas = [SPTextureAtlas atlasWithContentsOfFile:@"atlas.xml"];
         
         // add frames to movie
-        mMovie = [[SPSimpleMovie alloc] initWithFrame:[atlas textureByName:@"walk_0"] fps:10];
+        mMovie = [[SPMovieClip alloc] initWithFrame:[atlas textureByName:@"walk_0"] fps:10];
         [mMovie addFrame:[atlas textureByName:@"walk_1"]];
         [mMovie addFrame:[atlas textureByName:@"walk_2"]];
         [mMovie addFrame:[atlas textureByName:@"walk_3"]];
@@ -41,13 +42,13 @@
         [mMovie setSound:[stepSound createChannel] atIndex:6];
         [stepSound release];
        
-        // move it to the center and add it to the stage
+        // move the clip to the center and add it to the stage
         mMovie.x = 160 - (int)mMovie.width / 2;
         mMovie.y = 240 - (int)mMovie.height / 2; 
         [self addChild:mMovie];                
         [mMovie release];        
 
-        // the movie needs to be added to the juggler!
+        // like any animation, the movie needs to be added to the juggler!
         // this is the recommended way to do that.
         [self addEventListener:@selector(onAddedToStage:) atObject:self forType:SP_EVENT_TYPE_ADDED_TO_STAGE];
         [self addEventListener:@selector(onRemovedFromStage:) atObject:self forType:SP_EVENT_TYPE_REMOVED_FROM_STAGE];

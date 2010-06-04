@@ -1,5 +1,5 @@
 //
-//  SPSimpleMovieTest.m
+//  SPMovieClipTest.m
 //  Sparrow
 //
 //  Created by Daniel Sperl on 03.06.10.
@@ -11,20 +11,20 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 
-#import "SPSimpleMovie.h"
+#import "SPMovieClip.h"
 #import "SPTexture.h"
 
 #define E 0.0001f
 
 // -------------------------------------------------------------------------------------------------
 
-@interface SPSimpleMovieTest : SenTestCase 
+@interface SPMovieClipTest : SenTestCase 
 
 @end
 
 // -------------------------------------------------------------------------------------------------
 
-@implementation SPSimpleMovieTest
+@implementation SPMovieClipTest
 
 - (void)testFrameManipulation
 {    
@@ -36,7 +36,7 @@
     SPTexture *frame2 = [SPTexture emptyTexture];
     SPTexture *frame3 = [SPTexture emptyTexture];
     
-    SPSimpleMovie *movie = [SPSimpleMovie movieWithFrame:frame0 fps:4.0f];    
+    SPMovieClip *movie = [SPMovieClip movieWithFrame:frame0 fps:4.0f];    
     
     STAssertEqualsWithAccuracy(frame0.width, movie.width, E, @"wrong size");
     STAssertEqualsWithAccuracy(frame0.height, movie.height, E, @"wrong size");
@@ -113,7 +113,7 @@
     SPTexture *frame2 = [SPTexture emptyTexture];
     SPTexture *frame3 = [SPTexture emptyTexture];
     
-    SPSimpleMovie *movie = [SPSimpleMovie movieWithFrame:frame0 fps:4.0f];
+    SPMovieClip *movie = [SPMovieClip movieWithFrame:frame0 fps:4.0f];
     
     [movie addFrame:frame1];
     [movie addFrame:frame2 withDuration:0.5];

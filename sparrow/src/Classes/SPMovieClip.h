@@ -1,5 +1,5 @@
 //
-//  SPSimpleMovie.h
+//  SPMovieClip.h
 //  Sparrow
 //
 //  Created by Daniel Sperl on 01.05.10.
@@ -13,7 +13,7 @@
 #import "SPImage.h"
 #import "SPSoundChannel.h"
 
-@interface SPSimpleMovie : SPImage <SPAnimatable>
+@interface SPMovieClip : SPImage <SPAnimatable>
 {
     NSMutableArray *mFrames;
     NSMutableArray *mSounds;
@@ -46,7 +46,7 @@
 - (void)play;
 - (void)pause;
 
-+ (SPSimpleMovie *)movieWithFrame:(SPTexture *)texture fps:(float)fps;
++ (SPMovieClip *)movieWithFrame:(SPTexture *)texture fps:(float)fps;
 
 @property (nonatomic, readonly) int numFrames;
 @property (nonatomic, readonly) double duration;

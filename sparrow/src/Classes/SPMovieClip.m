@@ -1,17 +1,17 @@
 //
-//  SPSimpleMovie.m
+//  SPMovieClip.m
 //  Sparrow
 //
 //  Created by Daniel Sperl on 01.05.10.
 //  Copyright 2010 Incognitek. All rights reserved.
 //
 
-#import "SPSimpleMovie.h"
+#import "SPMovieClip.h"
 #import "SPMacros.h"
 
 // --- private interface ---------------------------------------------------------------------------
 
-@interface SPSimpleMovie ()
+@interface SPMovieClip ()
 
 - (void)updateCurrentFrame;
 - (void)playCurrentSound;
@@ -22,7 +22,7 @@
 
 // --- class implementation ------------------------------------------------------------------------
 
-@implementation SPSimpleMovie
+@implementation SPMovieClip
 
 @synthesize loop = mLoop;
 @synthesize isPlaying = mPlaying;
@@ -185,9 +185,9 @@
         [NSException raise:SP_EXC_INDEX_OUT_OF_BOUNDS format:@"invalid frame index"];    
 }
 
-+ (SPSimpleMovie *)movieWithFrame:(SPTexture *)texture fps:(float)fps
++ (SPMovieClip *)movieWithFrame:(SPTexture *)texture fps:(float)fps
 {
-    return [[[SPSimpleMovie alloc] initWithFrame:texture fps:fps] autorelease];
+    return [[[SPMovieClip alloc] initWithFrame:texture fps:fps] autorelease];
 }
 
 #pragma mark SPAnimatable

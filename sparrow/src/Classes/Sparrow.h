@@ -11,7 +11,7 @@
 //  This program is free software; you can redistribute it and/or modify
 //  it under the terms of the Simplified BSD License.
 
-#define SPARROW_VERSION @"0.7.1"
+#define SPARROW_VERSION @"0.8"
 
 #import "SPNSExtensions.h"
 #import "SPEventDispatcher.h"
@@ -23,7 +23,7 @@
 #import "SPButton.h"
 #import "SPStage.h"
 #import "SPSprite.h"
-#import "SPSimpleMovie.h"
+#import "SPMovieClip.h"
 #import "SPTexture.h"
 #import "SPSubTexture.h"
 #import "SPGLTexture.h"

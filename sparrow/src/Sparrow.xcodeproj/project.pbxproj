@@ -15,7 +15,7 @@
 		DE1F946B10470CD40084D470 /* SPJugglerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DE1F9446104704440084D470 /* SPJugglerTest.m */; };
 		DE20D9CB10713B0C006658C9 /* SPRenderSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = DE20D9C910713B0C006658C9 /* SPRenderSupport.h */; };
 		DE20D9CC10713B0C006658C9 /* SPRenderSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = DE20D9CA10713B0C006658C9 /* SPRenderSupport.m */; };
-		DEC54F6511B7765500E439B0 /* SPSimpleMovieTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC54F6211B7765500E439B0 /* SPSimpleMovieTest.m */; };
+		DEC54F6511B7765500E439B0 /* SPMovieClipTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC54F6211B7765500E439B0 /* SPMovieClipTest.m */; };
 		DED8B48711B0827E00A1766C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		DED8B48811B0827E00A1766C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE9CF1EB0FED3128008A32FF /* CoreGraphics.framework */; };
 		DED8B48911B0827E00A1766C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD15070DC6FC5B0079059D /* QuartzCore.framework */; };
@@ -36,8 +36,8 @@
 		DEE63A5411AED38100D60321 /* SPSound.m in Sources */ = {isa = PBXBuildFile; fileRef = DEE63A4E11AED38100D60321 /* SPSound.m */; };
 		DEE63A5511AED38100D60321 /* SPSoundChannel.h in Headers */ = {isa = PBXBuildFile; fileRef = DEE63A4F11AED38100D60321 /* SPSoundChannel.h */; };
 		DEE63A5611AED38100D60321 /* SPSoundChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = DEE63A5011AED38100D60321 /* SPSoundChannel.m */; };
-		DEE94E8211B43DE60000FE20 /* SPSimpleMovie.h in Headers */ = {isa = PBXBuildFile; fileRef = DEE94E8011B43DE60000FE20 /* SPSimpleMovie.h */; };
-		DEE94E8311B43DE60000FE20 /* SPSimpleMovie.m in Sources */ = {isa = PBXBuildFile; fileRef = DEE94E8111B43DE60000FE20 /* SPSimpleMovie.m */; };
+		DEE94E8211B43DE60000FE20 /* SPMovieClip.h in Headers */ = {isa = PBXBuildFile; fileRef = DEE94E8011B43DE60000FE20 /* SPMovieClip.h */; };
+		DEE94E8311B43DE60000FE20 /* SPMovieClip.m in Sources */ = {isa = PBXBuildFile; fileRef = DEE94E8111B43DE60000FE20 /* SPMovieClip.m */; };
 		DEEA933A101E32E10071DD21 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE9CF1EB0FED3128008A32FF /* CoreGraphics.framework */; };
 		DEEA933B101E32E10071DD21 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		DEEA933C101E32E10071DD21 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD14FF0DC6FC520079059D /* OpenGLES.framework */; };
@@ -158,7 +158,7 @@
 		DEC2B67A0F6D4CE90063AB1D /* SPView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPView.m; sourceTree = "<group>"; };
 		DEC2B6800F6D51430063AB1D /* SPEventDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPEventDispatcher.h; sourceTree = "<group>"; };
 		DEC2B6810F6D51430063AB1D /* SPEventDispatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPEventDispatcher.m; sourceTree = "<group>"; };
-		DEC54F6211B7765500E439B0 /* SPSimpleMovieTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPSimpleMovieTest.m; sourceTree = "<group>"; };
+		DEC54F6211B7765500E439B0 /* SPMovieClipTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPMovieClipTest.m; sourceTree = "<group>"; };
 		DECF84260FF619150026A4ED /* SPTextureAtlas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPTextureAtlas.h; sourceTree = "<group>"; };
 		DECF84270FF619150026A4ED /* SPTextureAtlas.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPTextureAtlas.m; sourceTree = "<group>"; };
 		DECF84310FF649D50026A4ED /* SPGLTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPGLTexture.h; sourceTree = "<group>"; };
@@ -203,8 +203,8 @@
 		DEE63A5011AED38100D60321 /* SPSoundChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPSoundChannel.m; sourceTree = "<group>"; };
 		DEE63A7111AED4FA00D60321 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		DEE63A8511AED51400D60321 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		DEE94E8011B43DE60000FE20 /* SPSimpleMovie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPSimpleMovie.h; sourceTree = "<group>"; };
-		DEE94E8111B43DE60000FE20 /* SPSimpleMovie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPSimpleMovie.m; sourceTree = "<group>"; };
+		DEE94E8011B43DE60000FE20 /* SPMovieClip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPMovieClip.h; sourceTree = "<group>"; };
+		DEE94E8111B43DE60000FE20 /* SPMovieClip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPMovieClip.m; sourceTree = "<group>"; };
 		DEEA9335101E32A30071DD21 /* UnitTest.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTest.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEEA937F101E3BA20071DD21 /* UnitTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
 		DEEA9402101E44F10071DD21 /* Sparrow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sparrow.h; sourceTree = "<group>"; };
@@ -361,7 +361,7 @@
 				DE75E8660FBDC57E00C64495 /* SPTweenTest.m */,
 				DE0853A40FEC286900DAF53C /* SPImageTest.m */,
 				DE1F9446104704440084D470 /* SPJugglerTest.m */,
-				DEC54F6211B7765500E439B0 /* SPSimpleMovieTest.m */,
+				DEC54F6211B7765500E439B0 /* SPMovieClipTest.m */,
 			);
 			path = UnitTests;
 			sourceTree = "<group>";
@@ -410,8 +410,8 @@
 				DE08535D0FEC21F500DAF53C /* SPImage.m */,
 				DED85311100BC9DA0014F729 /* SPButton.h */,
 				DED85312100BC9DA0014F729 /* SPButton.m */,
-				DEE94E8011B43DE60000FE20 /* SPSimpleMovie.h */,
-				DEE94E8111B43DE60000FE20 /* SPSimpleMovie.m */,
+				DEE94E8011B43DE60000FE20 /* SPMovieClip.h */,
+				DEE94E8111B43DE60000FE20 /* SPMovieClip.m */,
 			);
 			name = Display;
 			sourceTree = "<group>";
@@ -554,7 +554,7 @@
 				DEF1731211B0648B00A11DD7 /* SPALSoundChannel.h in Headers */,
 				DEF1735C11B075B000A11DD7 /* SPAVSound.h in Headers */,
 				DEF1736011B075BC00A11DD7 /* SPAVSoundChannel.h in Headers */,
-				DEE94E8211B43DE60000FE20 /* SPSimpleMovie.h in Headers */,
+				DEE94E8211B43DE60000FE20 /* SPMovieClip.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -646,7 +646,7 @@
 				DEEA936C101E383D0071DD21 /* SPTweenTest.m in Sources */,
 				DEEA936D101E383D0071DD21 /* SPImageTest.m in Sources */,
 				DE1F946B10470CD40084D470 /* SPJugglerTest.m in Sources */,
-				DEC54F6511B7765500E439B0 /* SPSimpleMovieTest.m in Sources */,
+				DEC54F6511B7765500E439B0 /* SPMovieClipTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -698,7 +698,7 @@
 				DEF1731311B0648B00A11DD7 /* SPALSoundChannel.m in Sources */,
 				DEF1735D11B075B000A11DD7 /* SPAVSound.m in Sources */,
 				DEF1736111B075BC00A11DD7 /* SPAVSoundChannel.m in Sources */,
-				DEE94E8311B43DE60000FE20 /* SPSimpleMovie.m in Sources */,
+				DEE94E8311B43DE60000FE20 /* SPMovieClip.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

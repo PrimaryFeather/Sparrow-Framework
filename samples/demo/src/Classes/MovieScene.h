@@ -11,7 +11,7 @@
 
 @interface MovieScene : SPSprite 
 {
-    SPSimpleMovie *mMovie;
+    SPMovieClip *mMovie;
 }
 
 @end
