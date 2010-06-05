@@ -24,6 +24,8 @@
     [window makeKeyAndVisible];
     [game release];    
     
+    [SPAudioEngine start];
+    
     SP_RELEASE_POOL(pool);
 }
 
@@ -46,6 +48,7 @@
 
 - (void)dealloc 
 {
+    [SPAudioEngine stop];
     [window release];
     [super dealloc];
 }
