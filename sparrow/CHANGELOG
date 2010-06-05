@@ -2,5 +2,38 @@
 Sparrow: Changelog
 ----------------------------------------------------------------------------------------------------
 
+version 0.8 - 2010-06-05
+
+- added audio classes
+- added SPMovieClip class
+- added new transition functions:
+  - easeInBack / easeOutBack / easeInOutBack / easeOutInBack
+  - easeInElastic / easeOutElastic / easeInOutElastic / easeOutInElastic
+  - easeInBounce / easeOutBounce / easeInOutBounce / easeOutInBounce
+- added 'removeTweensWithTarget:'-method to juggler
+- added 'removeAllChildren'-method to SPDisplayObjectContainer
+- added new text-only constructor to SPTextField
+- added NSXMLParserDelegate protocol statement for iPhone SDK 4+
+- added packer2sparrow utility
+- added hiero2sparrow utility
+- changed transition function signature (removed delta)
+- changed rotation handling: angles now clamped from -180 to +180 degrees.
+  this should make most rotation tweens more intuitive.
+- changed license text to allow easy AppStore distribution
+- changed scaffold project to support audio
+- changed demo project
+  - new design
+  - new scene: sound 
+  - new scene: movie
+- fixed touch issues when view size != stage size
+- fixed exception that occurred when the same object was added to a container twice
+- fixed flickering at application start
+- fixed method signatures in SPTexture.m
+- 'removeChild'-method in SPDisplayObjectContainer no longer throws an exception when the 
+  object is not a child, but now silently ignores the failure.
+- the stage property is now accessible in the REMOVED_FROM_STAGE event
+- disabled unit test execution in iPhone SDK < 3 (unit tests are only supported by iPhone SDK 3+)
+
 version 0.7 - 2010-01-14
+
 - first public version 

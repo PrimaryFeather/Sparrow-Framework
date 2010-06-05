@@ -41,7 +41,7 @@ void onUncaughtException(NSException *exception)
     [window makeKeyAndVisible];
     [game release];
     
-    [SPAudioEngine start:SPAudioSessionCategory_SoloAmbientSound];
+    [SPAudioEngine start];
     
     SP_RELEASE_POOL(pool);
 }
