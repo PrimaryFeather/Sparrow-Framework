@@ -8,10 +8,8 @@
 //  This program is free software; you can redistribute it and/or modify
 //  it under the terms of the Simplified BSD License.
 //
-//  This program is free software; you can redistribute it and/or modify
-//  it under the terms of the Simplified BSD License.
 
-#define SPARROW_VERSION @"0.8"
+#define SPARROW_VERSION @"0.9.dev"
 
 #import "SPNSExtensions.h"
 #import "SPEventDispatcher.h"

@@ -34,6 +34,9 @@
 
 - (SPRectangle*)boundsInSpace:(SPDisplayObject*)targetCoordinateSpace
 {
+    if (targetCoordinateSpace == self) // optimization
+        return [SPRectangle rectangleWithX:0 y:0 width:mWidth height:mHeight];            
+    
     SPMatrix *transformationMatrix = [self transformationMatrixToSpace:targetCoordinateSpace];
     SPPoint *point = [[SPPoint alloc] init];    
     float coords[] = { 0.0f, 0.0f, mWidth, 0.0f, mWidth, mHeight, 0.0f, mHeight };

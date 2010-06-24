@@ -112,7 +112,7 @@
     [mJuggler removeAllObjects];
     
     NSLog(@"benchmark complete!");
-    NSLog(@"fps: %d", self.stage.frameRate);
+    NSLog(@"fps: %.1f", self.stage.frameRate);
     NSLog(@"number of objects: %d", mContainer.numChildren);
     
     NSString *resultString = [NSString stringWithFormat:@"Result:\n%d objects\nwith %.1f fps", 

@@ -23,6 +23,7 @@
 #define SP_BLACK 0x000000
 
 #define SP_NOT_FOUND -1
+#define SP_MAX_DISPLAY_TREE_DEPTH 16
 
 // exceptions
 
