@@ -250,6 +250,11 @@
     [self processTouchEvent:event];
 }
 
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self processTouchEvent:event];
+}
+
 - (void)processTouchEvent:(UIEvent*)event
 {
     if (self.isStarted && mLastTouchTimestamp != event.timestamp)
