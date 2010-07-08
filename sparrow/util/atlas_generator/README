@@ -25,5 +25,19 @@ To allow the script to execute, we need to tell OS X that it can be executed:
 
 4) That's it!
 
+----------------------------------------------------------------------------------------------------
+Using the Atlas Generator
+----------------------------------------------------------------------------------------------------
+
 Now you can use the atlas generator. To find out how it works, have a look at the help screen.
-  ./generate_atlas.rb --help
+
+./generate_atlas.rb --help
+
+Here is simple usage example:
+
+./generate_atlas.rb input/*.png output/atlas.xml
+
+Some options:
+
+./generate_atlas.rb --scale 0.5 --padding 2 --sharpen --maxsize 2048x2048 *.png atlas.xml
+
