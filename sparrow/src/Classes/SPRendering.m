@@ -27,7 +27,7 @@
 @implementation SPStage (Rendering)
 
 - (void)render:(SPRenderSupport *)support;
-{    
+{
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
     
@@ -40,12 +40,16 @@
     
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();    
-    glOrthof(-mWidth/2.0f, mWidth/2.0f, -mHeight/2.0f, mHeight/2.0f, -1.0f, 1.0f);        
+    
+    glOrthof(-mWidth/2.0f, mWidth/2.0f, -mHeight/2.0f, mHeight/2.0f, -1.0f, 1.0f);
+    
+    // use glFrustum instead of glOrtho for experiments in a perspective 3D space
+    // glFrustumf(-mWidth/2.0, mWidth/2.0f, -mHeight/2.0f, mHeight/2.0f, 250.0f, 1000.0f);
     
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();    
-    glScalef(1.0f, -1.0f, 1.0f);
-    glTranslatef(-mWidth/2.0f, -mHeight/2.0f, 0.0f);
+    glScalef(1.0f, -1.0f, 1.0f);    
+    glTranslatef(-mWidth/2.0f, -mHeight/2.0f, -ZPOS);
     
     [super render:support];
     
@@ -79,7 +83,7 @@
             
             glPushMatrix();
             
-            if (x != 0.0f || y != 0.0f)           glTranslatef(x, y, ZPOS);
+            if (x != 0.0f || y != 0.0f)           glTranslatef(x, y, 0);
             if (rotation != 0.0f)                 glRotatef(SP_R2D(child.rotation), 0.0f, 0.0f, 1.0f);
             if (scaleX != 0.0f || scaleY != 0.0f) glScalef(child.scaleX, child.scaleY, 1.0f);        
        
