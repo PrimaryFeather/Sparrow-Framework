@@ -109,7 +109,7 @@ option_parser = OptionParser.new do |opts|
     options.padding = distance
   end
  
-  opts.on('-r', '--sharpen', 'Sharpen images (default: no)') do
+  opts.on('-r', '--sharpen', 'Sharpen images') do
     options.sharpen = true
   end
   
@@ -208,9 +208,7 @@ image_nodes.each do |node|
                                 "{" + node.image.image_filename + "}"
 end
 
-if (options.sharpen)
-  atlas_image.append_to_operators 'sharpen', 1
-end
+atlas_image.append_to_operators('sharpen', 1) if (options.sharpen)
 
 target_path = File.dirname(target_file)
 File.makedirs target_path
