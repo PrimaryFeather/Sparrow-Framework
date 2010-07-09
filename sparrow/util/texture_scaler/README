@@ -1,0 +1,35 @@
+----------------------------------------------------------------------------------------------------
+The Sparrow Texture Scaler
+----------------------------------------------------------------------------------------------------
+
+Use this Ruby script to prepare your images for iPhone 4's Retina display.
+
+Create your graphics for the high resolution display. As recommended by Apple, append the suffix
+"@2x" to the images filenames, e.g.: texture@2x.png
+
+Now use this script to scale them down to the low resolution display, removing the suffix, and
+sharpening them (optionally).
+
+----------------------------------------------------------------------------------------------------
+Installation
+----------------------------------------------------------------------------------------------------
+
+This script has the same requirements as the atlas generator. Look in the atlas generator's 
+README file for instructions.
+
+----------------------------------------------------------------------------------------------------
+Usage
+----------------------------------------------------------------------------------------------------
+
+To find out how the script works, have a look at the help screen.
+
+./scale_textures.rb --help
+
+Here is simple usage example:
+
+./scale_textures.rb input/*@2x.png output/
+
+Automatic sharpening:
+
+./scale_textures.rb --sharpen input/*@2x.png output/
+
