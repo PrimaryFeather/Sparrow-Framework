@@ -230,12 +230,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DEEA934E101E33F00071DD21 /* libSparrow.a in Frameworks */,
 				DEEA933A101E32E10071DD21 /* CoreGraphics.framework in Frameworks */,
 				DEEA933B101E32E10071DD21 /* Foundation.framework in Frameworks */,
 				DEEA933C101E32E10071DD21 /* OpenGLES.framework in Frameworks */,
 				DEEA933D101E32E10071DD21 /* QuartzCore.framework in Frameworks */,
 				DEEA933E101E32E10071DD21 /* UIKit.framework in Frameworks */,
-				DEEA934E101E33F00071DD21 /* libSparrow.a in Frameworks */,
 				DEEDE3A111B29908009FD4C8 /* OpenAL.framework in Frameworks */,
 				DEEDE3A211B29908009FD4C8 /* AVFoundation.framework in Frameworks */,
 				DEEDE3A311B29909009FD4C8 /* AudioToolbox.framework in Frameworks */,
@@ -724,7 +724,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos3.2;
+				SDKROOT = iphoneos4.0;
 			};
 			name = Debug;
 		};
@@ -737,7 +737,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphoneos4.0;
 			};
 			name = Release;
 		};
@@ -760,6 +760,7 @@
 					"-framework",
 					UIKit,
 					"-ObjC",
+					"-all_load",
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = UnitTest;
@@ -785,6 +786,7 @@
 					"-framework",
 					UIKit,
 					"-ObjC",
+					"-all_load",
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = UnitTest;
