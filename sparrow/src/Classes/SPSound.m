@@ -21,11 +21,21 @@
 
 @implementation SPSound
 
+- (id)init
+{
+    if ([self isMemberOfClass:[SPSound class]])
+    {
+        [self release];
+        [NSException raise:SP_EXC_ABSTRACT_CLASS 
+                    format:@"Attempting to initialize abstract class SPSound."];        
+        return nil;
+    } 
+    
+    return [super init];
+}
+
 - (id)initWithContentsOfFile:(NSString *)path
 {
-    if (![[self class] isEqual:[SPSound class]]) 
-        return [super init];
-    
     // SPSound is a class factory! We'll return a subclass, thus we don't need 'self' anymore.
     [self release];
     

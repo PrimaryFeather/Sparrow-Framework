@@ -16,6 +16,12 @@
 
 @synthesize duration = mDuration;
 
+- (id)init
+{
+    [self release];
+    return nil;
+}
+
 - (id)initWithContentsOfFile:(NSString *)path duration:(double)duration
 {
     if (self = [super init])

@@ -34,6 +34,12 @@
     return self;
 }
 
+- (id)init
+{
+    [self release];
+    return nil;
+}
+
 - (void)dealloc
 {
     [mTexture release];    

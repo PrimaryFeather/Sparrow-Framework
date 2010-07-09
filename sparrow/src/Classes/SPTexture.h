@@ -25,6 +25,7 @@ typedef enum
     BOOL mPremultipliedAlpha;    
 }
 
+- (id)initWithContentsOfFile:(NSString *)path;
 - (void)adjustTextureCoordinates:(const float *)texCoords saveAtTarget:(float *)targetTexCoords 
                      numVertices:(int)numVertices;
 

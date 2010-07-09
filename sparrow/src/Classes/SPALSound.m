@@ -21,6 +21,12 @@
 @synthesize duration = mDuration;
 @synthesize bufferID = mBufferID;
 
+- (id)init
+{
+    [self release];
+    return nil;
+}
+
 - (id)initWithData:(void *)data size:(int)size channels:(int)channels frequency:(int)frequency
           duration:(double)duration
 {

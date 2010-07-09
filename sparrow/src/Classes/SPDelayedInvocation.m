@@ -36,6 +36,12 @@
     return self;
 }
 
+- (id)init
+{
+    [self release];
+    return nil;
+}
+
 - (NSMethodSignature*)methodSignatureForSelector:(SEL)aSelector
 {
     NSMethodSignature *sig = [[self class] instanceMethodSignatureForSelector:aSelector];

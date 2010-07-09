@@ -16,15 +16,13 @@
 
 - (id)init
 {
-    #ifdef DEBUG
-    if ([[self class] isEqual:[SPSoundChannel class]]) 
+    if ([self isMemberOfClass:[SPSoundChannel class]]) 
     {
-        [NSException raise:SP_EXC_ABSTRACT_CLASS 
-                    format:@"Attempting to instantiate abstract class SPSoundChannel."];
         [self release];
+        [NSException raise:SP_EXC_ABSTRACT_CLASS 
+                    format:@"Attempting to initialize abstract class SPSoundChannel."];        
         return nil;
-    } 
-    #endif
+    }
     
     return [super init];
 }

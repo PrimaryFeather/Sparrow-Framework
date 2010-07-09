@@ -17,6 +17,13 @@
 
 @implementation SPTransitions
 
+- (id)init
+{
+    [self release];
+    [NSException raise:NSGenericException format:@"Static class - do not initialize!"];        
+    return nil;
+}
+
 + (float)linear:(float)ratio
 {
     return ratio;

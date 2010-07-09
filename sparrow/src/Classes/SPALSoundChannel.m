@@ -34,6 +34,12 @@
 @synthesize volume = mVolume;
 @synthesize loop = mLoop;
 
+- (id)init
+{
+    [self release];
+    return nil;
+}
+
 - (id)initWithSound:(SPALSound *)sound
 {
     if (self = [super init])

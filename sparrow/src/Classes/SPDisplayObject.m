@@ -34,11 +34,11 @@
 - (id)init
 {    
     #ifdef DEBUG    
-    if ([[self class] isEqual:[SPDisplayObject class]]) 
+    if ([self isMemberOfClass:[SPDisplayObject class]]) 
     {
-        [NSException raise:SP_EXC_ABSTRACT_CLASS 
-                    format:@"Attempting to instantiate abstract class SPDisplayObject."];
         [self release];
+        [NSException raise:SP_EXC_ABSTRACT_CLASS 
+                    format:@"Attempting to initialize abstract class SPDisplayObject."];        
         return nil;
     }    
     #endif

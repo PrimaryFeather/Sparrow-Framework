@@ -15,6 +15,12 @@
 
 @implementation SPAVSoundChannel
 
+- (id)init
+{
+    [self release];
+    return nil;
+}
+
 - (id)initWithSound:(SPAVSound *)sound
 {
     if (self = [super init])

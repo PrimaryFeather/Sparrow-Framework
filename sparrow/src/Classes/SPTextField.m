@@ -84,6 +84,11 @@ static NSMutableDictionary *bitmapFonts = nil;
     return [self initWithWidth:128 height:128 text:text];
 }
 
+- (id)init
+{
+    return [self initWithText:@""];
+}
+
 - (void)onEnterFrame:(SPEnterFrameEvent*)event
 {
     if (mRequiresRedraw)
