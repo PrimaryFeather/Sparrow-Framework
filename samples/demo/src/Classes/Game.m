@@ -190,7 +190,7 @@
 
 - (void)dealloc
 {
-    [mMainMenu release]; // automatically releases all childs   
+    [mMainMenu release]; // automatically releases all children   
     [mBackButton release];    
     [mCurrentScene release];
     [super dealloc];
