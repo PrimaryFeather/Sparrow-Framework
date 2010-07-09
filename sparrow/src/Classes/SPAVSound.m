@@ -26,7 +26,8 @@
 {
     if (self = [super init])
     {
-        NSString *fullPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:path];
+        NSString *fullPath = [path isAbsolutePath] ? 
+            path : [[NSBundle mainBundle] pathForResource:path ofType:nil];
         mSoundData = [[NSData alloc] initWithContentsOfMappedFile:fullPath];
         mDuration = duration;
     }

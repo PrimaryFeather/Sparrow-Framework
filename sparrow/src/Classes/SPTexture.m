@@ -48,15 +48,20 @@
 
 - (id)initWithContentsOfFile:(NSString *)path
 {
-    NSString *fullPath = [[NSBundle mainBundle] pathForResource:path ofType:nil];
+    NSString *fullPath = [path isAbsolutePath] ? 
+        path : [[NSBundle mainBundle] pathForResource:path ofType:nil];
+
     if (![[NSFileManager defaultManager] fileExistsAtPath:fullPath])
+    {
+        [self release];
         [NSException raise:SP_EXC_FILE_NOT_FOUND format:@"file %@ not found", fullPath];
+    }        
     
     NSString *imgType = [[path pathExtension] lowercaseString];
     if ([imgType isEqualToString:@"pvrtc"])
         return [self initWithContentsOfPvrtcFile:fullPath];            
     else
-        return [self initWithContentsOfImage:[UIImage imageNamed:path]];        
+        return [self initWithContentsOfImage:[UIImage imageWithContentsOfFile:fullPath]];        
 }
 
 - (id)initWithContentsOfImage:(UIImage *)image

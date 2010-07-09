@@ -35,7 +35,7 @@
 
 - (id)initWithContentsOfFile:(NSString*)path
 {
-    return [self initWithTexture:[SPGLTexture textureWithContentsOfFile:path]];
+    return [self initWithTexture:[SPTexture textureWithContentsOfFile:path]];
 }
 
 - (id)initWithWidth:(float)width height:(float)height
