@@ -1,35 +1,46 @@
 ----------------------------------------------------------------------------------------------------
-Preparing the Atlas Generator
+The Sparrow Atlas Generator
 ----------------------------------------------------------------------------------------------------
 
-1) Precondition: "ImageMagick"
+The atlas generator is a Ruby script that arranges several images in one big atlas-texture. 
+Using a textures atlas is important for the performance of your game, and it's very easy
+to use it in Sparrow.
+
+----------------------------------------------------------------------------------------------------
+Installation
+----------------------------------------------------------------------------------------------------
+
+1) Requirement: "ImageMagick"
 
 First, you need the command line tool "ImageMagick" (http://www.imagemagick.org).
 The recommended way to install it is via the packaging system "MacPorts" (http://www.macports.org/)
 
 After installing MacPorts, open a terminal and type:
+
   sudo port install ImageMagick
 
 Now, go for a coffee, this will take a while ;-)
 
-2) Precondition: "QuickMagick"
+2) Requirement: "QuickMagick"
 
 Now, we need a ruby gem that is used to work with ImageMagick. It is called "QuickMagick", and 
 is installed the following way:
+
   sudo gem install quick_magick
 
 3) Make the script executable:
 
 To allow the script to execute, we need to tell OS X that it can be executed:
+
   chmod u+x generate_atlas.rb
 
 4) That's it!
 
 ----------------------------------------------------------------------------------------------------
-Using the Atlas Generator
+Usage
 ----------------------------------------------------------------------------------------------------
 
-Now you can use the atlas generator. To find out how it works, have a look at the help screen.
+To find out how the script works, have a look at the help screen.
 
 ./generate_atlas.rb --help
 
