@@ -23,12 +23,12 @@ and that you can easily step into Sparrow source code, I case you want to do so.
 This has to be done only once:
 
 1. Set up a shared build output directory that will be shared by all Xcode projects.
-   * In the Xcode preferences, tab: "Building", set "Place Build Projects in" to 
+   * In the Xcode preferences, tab: "Building", set "Place Build Products in" to 
     "Customized location" and specify a common build directory (anywhere you want).
    * Set "Place Intermediate Build Files in" to "With build products."
 2. Add a "Source Tree" variable that Xcode can use to dynamically find Sparrow.
    * In the Xcode preferences, tab: "Source Trees", create a new Source Tree variable.
-   * For Sparrow, create SPARROW_SRC and let it point to /some_valid_path/sparrow/sparrow/src/
+   * For Sparrow, create SPARROW_SRC and let it point to /some_valid_path/sparrow/src/
 
 Creating your new project:
 
