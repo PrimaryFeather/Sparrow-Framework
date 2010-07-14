@@ -35,8 +35,8 @@ class TextureNode
   
   def insert_image(image, scale, padding)
     if @image.nil?
-      img_width = image.width * scale.to_f + padding
-      img_height = image.height * scale.to_f + padding
+      img_width = (image.width * scale.to_f + padding).to_i
+      img_height = (image.height * scale.to_f + padding).to_i
       if (img_width <= @rect.width and img_height <= @rect.height)
         @image = image
         @children = []
@@ -204,7 +204,8 @@ atlas_image = Image::solid(current_width, current_height, :transparent)
 
 image_nodes.each do |node|
   atlas_image.draw_image :over, node.rect.x, node.rect.y, 
-                                node.image.width * options.scale, node.image.height * options.scale, 
+                                (node.image.width * options.scale).to_i, 
+                                (node.image.height * options.scale).to_i, 
                                 "{" + node.image.image_filename + "}"
 end
 
