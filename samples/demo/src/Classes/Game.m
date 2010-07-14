@@ -49,6 +49,8 @@
         
         SPTexture *sceneButtonTexture = [SPTexture textureWithContentsOfFile:@"button_big.png"];
         
+        // add scene buttons
+        
         SPButton *atlasButton = [SPButton buttonWithUpState:sceneButtonTexture text:@"Texture Atlas"];
         [atlasButton addEventListener:@selector(onAtlasButtonTriggered:) atObject:self 
                               forType:SP_EVENT_TYPE_TRIGGERED];
@@ -89,6 +91,22 @@
                                   forType:SP_EVENT_TYPE_TRIGGERED];
         [self addSceneButton:benchmarkButton];
         
+        // add button that allows switching between resolutions (iPhone 4)
+        
+        UIScreen *screen = [UIScreen mainScreen];
+        if ([screen respondsToSelector:@selector(scale)] && [screen scale] != 1.0f)
+        {
+            SPTexture *screenButtonTexture = [SPTexture textureWithContentsOfFile:@"resolution.png"];
+            SPButton *screenButton = [SPButton buttonWithUpState:screenButtonTexture];
+            screenButton.x = self.width/2 - screenButton.width/2;
+            screenButton.y = self.height - screenButton.height - 5;
+            [screenButton addEventListener:@selector(onScreenButtonTriggered:)
+                                      atObject:self forType:SP_EVENT_TYPE_TRIGGERED];
+            [self addChild:screenButton];
+        }
+        
+        // add back-button (becomes visible when a scene is entered)
+        
         SPTexture *backButtonTexture = [SPTexture textureWithContentsOfFile:@"button_back.png"];
         mBackButton = [[SPButton alloc] initWithUpState:backButtonTexture text:@"back"];
         mBackButton.visible = NO;
@@ -96,13 +114,12 @@
         mBackButton.y = self.stage.height - mBackButton.height + 1;
         [mBackButton addEventListener:@selector(onBackButtonTriggered:) atObject:self 
                               forType:SP_EVENT_TYPE_TRIGGERED];
-        [self addChild:mBackButton]; 
-         
+        [self addChild:mBackButton];
     }
     return self;
 }
 
-- (void)showScene:(SPSprite*)scene
+- (void)showScene:(SPSprite *)scene
 {
     mCurrentScene = scene;
     [self addChild:scene];
@@ -121,7 +138,7 @@
 
 #pragma mark -
 
-- (void)onBackButtonTriggered:(SPEvent*)event
+- (void)onBackButtonTriggered:(SPEvent *)event
 {
     [mCurrentScene removeFromParent];
     mCurrentScene = nil;
@@ -130,35 +147,35 @@
     mMainMenu.visible = YES;    
 }
 
-- (void)onAtlasButtonTriggered:(SPEvent*)event
+- (void)onAtlasButtonTriggered:(SPEvent *)event
 {
     SPSprite *scene = [[AtlasScene alloc] init];
     [self showScene:scene];
     [scene release];    
 }
 
-- (void)onTouchButtonTriggered:(SPEvent*)event
+- (void)onTouchButtonTriggered:(SPEvent *)event
 {
     SPSprite *scene = [[TouchScene alloc] init];
     [self showScene:scene];
     [scene release];
 }
 
-- (void)onTextButtonTriggered:(SPEvent*)event
+- (void)onTextButtonTriggered:(SPEvent *)event
 {
     SPSprite *scene = [[TextScene alloc] init];
     [self showScene:scene];
     [scene release];
 }
 
-- (void)onAnimationButtonTriggered:(SPEvent*)event
+- (void)onAnimationButtonTriggered:(SPEvent *)event
 {
     SPSprite *scene = [[AnimationScene alloc] init];
     [self showScene:scene];
     [scene release];
 }
 
-- (void)onHitTestButtonTriggered:(SPEvent*)event
+- (void)onHitTestButtonTriggered:(SPEvent *)event
 {
     SPSprite *scene = [[CustomHitTestScene alloc] init];
     [self showScene:scene];
@@ -179,11 +196,16 @@
     [scene release];
 }
 
-- (void)onBenchmarkButtonTriggered:(SPEvent*)event
+- (void)onBenchmarkButtonTriggered:(SPEvent *)event
 {
     SPSprite *scene = [[BenchmarkScene alloc] init];
     [self showScene:scene];
     [scene release];    
+}
+
+- (void)onScreenButtonTriggered:(SPEvent *)event
+{
+    [SPStage setSupportHighResolutions:![SPStage supportHighResolutions]];
 }
 
 #pragma mark -

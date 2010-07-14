@@ -10,11 +10,15 @@
 //
 
 #import "SPStage_Internal.h"
+#import <UIKit/UIKit.h>
 
 @implementation SPStage (Internal)
 
 - (void)setNativeView:(id)nativeView
 {
+    if ([nativeView respondsToSelector:@selector(contentScaleFactor)])
+        [nativeView setContentScaleFactor:[SPStage contentScaleFactor]];    
+    
     mNativeView = nativeView;
 }
 

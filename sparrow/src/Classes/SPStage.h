@@ -19,7 +19,7 @@
 {
   @private
     float mWidth;
-    float mHeight;     
+    float mHeight;
  
     // helpers
     SPTouchProcessor *mTouchProcessor;
@@ -33,8 +33,12 @@
 @property (nonatomic, readonly) id nativeView;
 
 - (id)initWithWidth:(float)width height:(float)height;
+
 - (void)advanceTime:(double)seconds;
 - (void)processTouches:(NSSet*)touches;
 
-@end
++ (void)setSupportHighResolutions:(BOOL)support;
++ (BOOL)supportHighResolutions;
++ (float)contentScaleFactor;
 
+@end

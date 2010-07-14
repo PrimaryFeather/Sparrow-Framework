@@ -14,6 +14,8 @@
 #import "SPRectangle.h"
 #import "SPGLTexture.h"
 #import "SPSubTexture.h"
+#import "SPNSExtensions.h"
+#import "SPStage.h"
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
@@ -31,8 +33,6 @@
 
 @implementation SPTexture
 
-@synthesize hasPremultipliedAlpha = mPremultipliedAlpha;
-
 - (id)init
 {    
     if ([self isMemberOfClass:[SPTexture class]]) 
@@ -48,14 +48,16 @@
 
 - (id)initWithContentsOfFile:(NSString *)path
 {
+    float contentScaleFactor = [SPStage contentScaleFactor];
+    
     NSString *fullPath = [path isAbsolutePath] ? 
-        path : [[NSBundle mainBundle] pathForResource:path ofType:nil];
+        path : [[NSBundle mainBundle] pathForResource:path withScaleFactor:contentScaleFactor];
 
     if (![[NSFileManager defaultManager] fileExistsAtPath:fullPath])
     {
         [self release];
         [NSException raise:SP_EXC_FILE_NOT_FOUND format:@"file %@ not found", fullPath];
-    }        
+    }
     
     NSString *imgType = [[path pathExtension] lowercaseString];
     if ([imgType isEqualToString:@"pvrtc"])
@@ -89,6 +91,9 @@
     SPGLTexture *glTexture = [[SPGLTexture alloc] initWithData:imageData 
         width:legalWidth height:legalHeight format:SPTextureFormatRGBA premultipliedAlpha:YES];    
     
+    if ([image respondsToSelector:@selector(scale)])
+        glTexture.scale = [image scale];
+    
     CGContextRelease(context);
     free(imageData);    
     
@@ -98,7 +103,8 @@
     }        
     else 
     {
-        SPRectangle *region = [SPRectangle rectangleWithX:0 y:0 width:width height:height];
+        float scale = glTexture.scale;
+        SPRectangle *region = [SPRectangle rectangleWithX:0 y:0 width:width/scale height:height/scale];
         SPSubTexture *subTexture = [[SPSubTexture alloc] initWithRegion:region ofTexture:glTexture];
         [glTexture release];
         return subTexture;
@@ -144,6 +150,18 @@
 {
     [NSException raise:SP_EXC_ABSTRACT_METHOD format:@"Override this method in subclasses."];
     return 0;    
+}
+
+- (BOOL)hasPremultipliedAlpha
+{
+    [NSException raise:SP_EXC_ABSTRACT_METHOD format:@"Override this method in subclasses."];
+    return NO;
+}
+
+- (float)scale
+{
+    [NSException raise:SP_EXC_ABSTRACT_METHOD format:@"Override this method in subclasses."];
+    return 1.0f;
 }
 
 @end

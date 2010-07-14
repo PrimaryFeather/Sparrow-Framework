@@ -20,10 +20,6 @@ typedef enum
 @class SPRectangle;
 
 @interface SPTexture : NSObject
-{
-  @protected    
-    BOOL mPremultipliedAlpha;    
-}
 
 - (id)initWithContentsOfFile:(NSString *)path;
 - (void)adjustTextureCoordinates:(const float *)texCoords saveAtTarget:(float *)targetTexCoords 
@@ -36,5 +32,6 @@ typedef enum
 @property (nonatomic, readonly) float height;
 @property (nonatomic, readonly) uint textureID;
 @property (nonatomic, readonly) BOOL hasPremultipliedAlpha;
+@property (nonatomic, readonly) float scale;
 
 @end

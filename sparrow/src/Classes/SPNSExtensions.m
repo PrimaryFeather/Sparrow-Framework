@@ -23,3 +23,28 @@
 }
 
 @end
+
+@implementation NSString (SPNSExtensions)
+
+- (NSString *)stringByAppendingSuffixToFilename:(NSString *)suffix
+{
+    return [[self stringByDeletingPathExtension] stringByAppendingFormat:@"%@.%@", 
+                                                 suffix, [self pathExtension]];
+}
+
+@end
+
+@implementation NSBundle (SPNSExtensions)
+
+- (NSString *)pathForResource:(NSString *)name withScaleFactor:(float)factor
+{
+    if (factor != 1.0f)
+    {
+        NSString *suffix = [NSString stringWithFormat:@"@%@x", [NSNumber numberWithFloat:factor]];
+        NSString *path = [self pathForResource:[name stringByAppendingSuffixToFilename:suffix] ofType:nil];
+        if (path) return path;        
+    }    
+    return [self pathForResource:name ofType:nil];    
+}
+
+@end

@@ -22,8 +22,7 @@
     if (self = [super init])
     {
         mBaseTexture = [texture retain];
-        mPremultipliedAlpha = texture.hasPremultipliedAlpha;
-
+        
         // convert region to clipping rectangle (which has values between 0 and 1)        
         self.clipping = [SPRectangle rectangleWithX:region.x/texture.width
                                                   y:region.y/texture.height
@@ -35,9 +34,8 @@
 
 - (id)init
 {
-    SPTexture *texture = [SPTexture emptyTexture];
-    SPRectangle *region = [SPRectangle rectangleWithX:0 y:0 width:texture.width height:texture.height];
-    return [self initWithRegion:region ofTexture:texture];
+    [self release];
+    return nil;
 }
 
 - (void)setClipping:(SPRectangle *)clipping
@@ -92,6 +90,16 @@
 - (uint)textureID
 {
     return mBaseTexture.textureID;
+}
+
+- (BOOL)hasPremultipliedAlpha
+{
+    return mBaseTexture.hasPremultipliedAlpha;
+}
+
+- (float)scale
+{
+    return mBaseTexture.scale;
 }
 
 + (SPSubTexture*)textureWithRegion:(SPRectangle*)region ofTexture:(SPTexture*)texture

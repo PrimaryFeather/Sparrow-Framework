@@ -27,21 +27,19 @@
         SPTextureAtlas *atlas = [SPTextureAtlas atlasWithContentsOfFile:@"atlas.xml"];
         
         // add frames to movie
-        mMovie = [[SPMovieClip alloc] initWithFrame:[atlas textureByName:@"walk_0"] fps:10];
-        [mMovie addFrame:[atlas textureByName:@"walk_1"]];
-        [mMovie addFrame:[atlas textureByName:@"walk_2"]];
-        [mMovie addFrame:[atlas textureByName:@"walk_3"]];
-        [mMovie addFrame:[atlas textureByName:@"walk_4"]];
-        [mMovie addFrame:[atlas textureByName:@"walk_5"]];
-        [mMovie addFrame:[atlas textureByName:@"walk_6"]];
-        [mMovie addFrame:[atlas textureByName:@"walk_7"]];          
+        mMovie = [[SPMovieClip alloc] initWithFrame:[atlas textureByName:@"walk_0"] fps:12];
+        for (int i=1; i<=11; ++i)
+        {
+            NSString *frame = [NSString stringWithFormat:@"walk_%d", i];
+            [mMovie addFrame:[atlas textureByName:frame]];
+        }
         
         // add sounds
         SPSound *stepSound = [[SPSound alloc] initWithContentsOfFile:@"step.caf"];        
-        [mMovie setSound:[stepSound createChannel] atIndex:2];
-        [mMovie setSound:[stepSound createChannel] atIndex:6];
+        [mMovie setSound:[stepSound createChannel] atIndex:1];
+        [mMovie setSound:[stepSound createChannel] atIndex:7];
         [stepSound release];
-       
+        
         // move the clip to the center and add it to the stage
         mMovie.x = 160 - (int)mMovie.width / 2;
         mMovie.y = 240 - (int)mMovie.height / 2; 

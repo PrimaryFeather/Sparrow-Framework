@@ -32,7 +32,10 @@ void onUncaughtException(NSException *exception)
     
     NSSetUncaughtExceptionHandler(&onUncaughtException); 
     
-    Game *game = [[Game alloc] initWithWidth:320 height:480];            
+    // the demo contains high resolution graphics for the retina display
+    [SPStage setSupportHighResolutions:YES];
+    
+    Game *game = [[Game alloc] initWithWidth:320 height:480];
     sparrowView.stage = game;
     sparrowView.multipleTouchEnabled = YES;
     sparrowView.frameRate = 30;    

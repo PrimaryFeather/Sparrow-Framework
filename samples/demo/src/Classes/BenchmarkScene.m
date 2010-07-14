@@ -76,10 +76,10 @@
             {
                 ++mFailCount;                
                 
-                if (mFailCount > targetFPS / 3.0f)
+                if (mFailCount > 10)
                     mWaitFrames = 15; // slow down creation process to be more exact               
-                if (mFailCount == targetFPS)
-                    [self benchmarkComplete]; // target fps not reached for one complete second
+                if (mFailCount == 14)
+                    [self benchmarkComplete]; // target fps not reached for a while
             }
 
             mElapsed = mFrameCount = 0;
@@ -103,6 +103,7 @@
     mResultText = nil;
     
     mFrameCount = 0;
+    [self addTestObject];
 }
 
 - (void)benchmarkComplete
@@ -115,7 +116,7 @@
     NSLog(@"fps: %.1f", self.stage.frameRate);
     NSLog(@"number of objects: %d", mContainer.numChildren);
     
-    NSString *resultString = [NSString stringWithFormat:@"Result:\n%d objects\nwith %.1f fps", 
+    NSString *resultString = [NSString stringWithFormat:@"Result:\n%d objects\nwith %.0f fps", 
                               mContainer.numChildren, self.stage.frameRate]; 
     
     mResultText = [SPTextField textFieldWithWidth:250 height:200 text:resultString];

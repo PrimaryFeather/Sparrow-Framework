@@ -11,6 +11,7 @@
 		DE019C3A1026361200ECB0AC /* SPDelayedInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFB1B94100926260022C117 /* SPDelayedInvocation.m */; };
 		DE019C3B1026363D00ECB0AC /* SPNSExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = DE68EA160FBB5660004DBC95 /* SPNSExtensions.m */; };
 		DE019C3C1026364800ECB0AC /* SPJuggler.m in Sources */ = {isa = PBXBuildFile; fileRef = DE7044270FB61506007F5ECC /* SPJuggler.m */; };
+		DE05748911E915A900F3A8A4 /* SPNSExtensionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DE05748611E915A900F3A8A4 /* SPNSExtensionsTest.m */; };
 		DE18FE4511B083B200D01F04 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE18FE4411B083B200D01F04 /* AVFoundation.framework */; };
 		DE1F946B10470CD40084D470 /* SPJugglerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DE1F9446104704440084D470 /* SPJugglerTest.m */; };
 		DE20D9CB10713B0C006658C9 /* SPRenderSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = DE20D9C910713B0C006658C9 /* SPRenderSupport.h */; };
@@ -112,6 +113,7 @@
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		28FD14FF0DC6FC520079059D /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		28FD15070DC6FC5B0079059D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		DE05748611E915A900F3A8A4 /* SPNSExtensionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPNSExtensionsTest.m; sourceTree = "<group>"; };
 		DE08535C0FEC21F500DAF53C /* SPImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPImage.h; sourceTree = "<group>"; };
 		DE08535D0FEC21F500DAF53C /* SPImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPImage.m; sourceTree = "<group>"; };
 		DE0853A40FEC286900DAF53C /* SPImageTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPImageTest.m; sourceTree = "<group>"; };
@@ -362,6 +364,7 @@
 				DE0853A40FEC286900DAF53C /* SPImageTest.m */,
 				DE1F9446104704440084D470 /* SPJugglerTest.m */,
 				DEC54F6211B7765500E439B0 /* SPMovieClipTest.m */,
+				DE05748611E915A900F3A8A4 /* SPNSExtensionsTest.m */,
 			);
 			path = UnitTests;
 			sourceTree = "<group>";
@@ -647,6 +650,7 @@
 				DEEA936D101E383D0071DD21 /* SPImageTest.m in Sources */,
 				DE1F946B10470CD40084D470 /* SPJugglerTest.m in Sources */,
 				DEC54F6511B7765500E439B0 /* SPMovieClipTest.m in Sources */,
+				DE05748911E915A900F3A8A4 /* SPNSExtensionsTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -736,6 +740,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PREBINDING = NO;
 				SDKROOT = iphoneos4.0;
 			};
@@ -810,7 +815,7 @@
 				PREBINDING = NO;
 				PRODUCT_NAME = Sparrow;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8F2B7F7C-97B8-4A99-B7EE-104D609292F6";
-				SDKROOT = iphoneos3.2;
+				SDKROOT = iphoneos4.0;
 			};
 			name = Debug;
 		};
@@ -829,7 +834,7 @@
 				PREBINDING = NO;
 				PRODUCT_NAME = Sparrow;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphoneos4.0;
 				ZERO_LINK = NO;
 			};
 			name = Release;

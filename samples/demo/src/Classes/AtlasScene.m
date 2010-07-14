@@ -27,12 +27,12 @@
         image2.y = 110;
         [self addChild:image2];
         
-        SPImage *image3 = [SPImage imageWithTexture:[atlas textureByName:@"walk_2"]];
+        SPImage *image3 = [SPImage imageWithTexture:[atlas textureByName:@"walk_3"]];
         image3.x = 150;
         image3.y = 190;
         [self addChild:image3];        
         
-        SPImage *image4 = [SPImage imageWithTexture:[atlas textureByName:@"walk_3"]];
+        SPImage *image4 = [SPImage imageWithTexture:[atlas textureByName:@"walk_5"]];
         image4.x = 210;
         image4.y = 270;
         [self addChild:image4];        

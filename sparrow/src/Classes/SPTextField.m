@@ -17,6 +17,7 @@
 #import "SPEnterFrameEvent.h"
 #import "SPQuad.h"
 #import "SPBitmapFont.h"
+#import "SPStage.h"
 
 #import <UIKit/UIKit.h>
 
@@ -109,9 +110,10 @@ static NSMutableDictionary *bitmapFonts = nil;
 }
 
 - (SPDisplayObject *)createRenderedContents
-{    
-    float width = mHitArea.width;
-    float height = mHitArea.height;
+{
+    float scale = [SPStage contentScaleFactor];
+    float width = mHitArea.width * scale;
+    float height = mHitArea.height * scale;
     
     int legalWidth  = 2;   while (legalWidth  < width)  legalWidth  *= 2;
     int legalHeight = 2;   while (legalHeight < height) legalHeight *= 2;
@@ -119,6 +121,7 @@ static NSMutableDictionary *bitmapFonts = nil;
     // SP_NATIVE_FONT_SIZE is for bitmap fonts only; if somebody uses it for a rendered font,
     // we default to a standard font size.
     float fontSize = mFontSize == SP_NATIVE_FONT_SIZE ? SP_DEFAULT_FONT_SIZE : mFontSize;
+    fontSize *= scale;
     
     CGSize textSize = [mText sizeWithFont:[UIFont fontWithName:mFontName size:fontSize] 
                         constrainedToSize:CGSizeMake(width, height) 
@@ -158,7 +161,7 @@ static NSMutableDictionary *bitmapFonts = nil;
     
     UIGraphicsPopContext();
     
-    SPTexture* texture = [[SPGLTexture alloc] initWithData:imageData 
+    SPGLTexture* texture = [[SPGLTexture alloc] initWithData:imageData 
         width:legalWidth height:legalHeight format:SPTextureFormatAlpha premultipliedAlpha:NO];
     SPTexture *subTexture = [[SPSubTexture alloc] initWithRegion:
         [SPRectangle rectangleWithX:0 y:0 width:width height:height] ofTexture:texture];    
@@ -166,6 +169,7 @@ static NSMutableDictionary *bitmapFonts = nil;
     CGContextRelease(context);
     free(imageData);
     
+    texture.scale = scale;
     SPImage *image = [[SPImage alloc] initWithTexture:subTexture];
     image.color = mColor;
     [texture release];

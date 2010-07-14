@@ -15,6 +15,8 @@
 #import "SPTouchProcessor.h"
 #import "SPJuggler.h"
 
+#import <UIKit/UIKit.h>
+
 @implementation SPStage
 
 // --- c functions ---
@@ -33,6 +35,11 @@ static void dispatchEnterFrameEvent(SPDisplayObject *object, SPEnterFrameEvent *
     }    
 }
 
+// --- static members ---
+
+static BOOL supportHighResolutions = NO;
+static NSMutableSet *stages = NULL;
+
 // -------------------
 
 @synthesize width = mWidth;
@@ -44,6 +51,9 @@ static void dispatchEnterFrameEvent(SPDisplayObject *object, SPEnterFrameEvent *
 {    
     if (self = [super init])
     {
+        if (!stages) stages = [[NSMutableSet alloc] init];
+        [stages addObject:self];
+        
         mWidth = width;
         mHeight = height;
         mTouchProcessor = [[SPTouchProcessor alloc] initWithRoot:self];
@@ -58,7 +68,7 @@ static void dispatchEnterFrameEvent(SPDisplayObject *object, SPEnterFrameEvent *
 }
 
 - (void)advanceTime:(double)seconds
-{    
+{
     // advance juggler
     [mJuggler advanceTime:seconds];
     
@@ -151,14 +161,47 @@ static void dispatchEnterFrameEvent(SPDisplayObject *object, SPEnterFrameEvent *
 
 #pragma mark -
 
++ (void)setSupportHighResolutions:(BOOL)support
+{
+    supportHighResolutions = support;
+
+    for (SPStage *stage in stages)
+    {
+        if ([stage.nativeView respondsToSelector:@selector(contentScaleFactor)])
+        {
+            [stage.nativeView setContentScaleFactor:[SPStage contentScaleFactor]];
+            [stage.nativeView layoutSubviews];
+        }            
+    }
+}
+
++ (BOOL)supportHighResolutions
+{
+    return supportHighResolutions;
+}
+
++ (float)contentScaleFactor
+{
+    if (supportHighResolutions && [[UIScreen mainScreen] respondsToSelector:@selector(scale)]) 
+        return [[UIScreen mainScreen] scale];
+    else
+        return 1.0f;
+}
+
+#pragma mark -
+
 - (void)dealloc 
 {    
     [SPPoint purgePool];
     [SPRectangle purgePool];
-    [SPMatrix purgePool];    
+    [SPMatrix purgePool];
     
     [mTouchProcessor release];
     [mJuggler release];
+    
+    [stages removeObject:self];
+    if (stages.count == 0) { [stages release]; stages = NULL; }
+    
     [super dealloc];
 }
 

@@ -22,15 +22,18 @@
     uint mTextureID;
     float mWidth;
     float mHeight;
+    float mScale;
     BOOL mRepeat;
+    BOOL mPremultipliedAlpha;    
 }
 
 - (id)initWithData:(const void*)imgData width:(int)width height:(int)height 
             format:(SPTextureFormat)format premultipliedAlpha:(BOOL)pma;
 
 + (SPGLTexture*)textureWithData:(const void*)imgData width:(int)width height:(int)height
-                             format:(SPTextureFormat)format premultipliedAlpha:(BOOL)pma;
+                         format:(SPTextureFormat)format premultipliedAlpha:(BOOL)pma;
 
 @property (nonatomic, assign) BOOL repeat;
+@property (nonatomic, assign) float scale;
 
 @end

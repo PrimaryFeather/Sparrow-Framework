@@ -20,6 +20,8 @@
 
 @synthesize textureID = mTextureID;
 @synthesize repeat = mRepeat;
+@synthesize hasPremultipliedAlpha = mPremultipliedAlpha;
+@synthesize scale = mScale;
 
 - (id)initWithData:(const void*)imgData width:(int)width height:(int)height
             format:(SPTextureFormat)format premultipliedAlpha:(BOOL)pma
@@ -30,6 +32,7 @@
         mHeight = height;
         mRepeat = NO;
         mPremultipliedAlpha = pma;
+        mScale = 1.0f;
         
         if (imgData)
         {
@@ -68,12 +71,12 @@
 
 - (float)width
 {
-    return mWidth;
+    return mWidth / mScale;
 }
 
 - (float)height
 {
-    return mHeight;
+    return mHeight / mScale;
 }
 
 - (void)setRepeat:(BOOL)value

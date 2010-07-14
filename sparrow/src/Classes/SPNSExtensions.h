@@ -13,7 +13,18 @@
 
 @interface NSInvocation (SPNSExtensions)
 
-+ (NSInvocation*)invocationWithTarget:(id)target selector:(SEL)selector;
++ (NSInvocation *)invocationWithTarget:(id)target selector:(SEL)selector;
 
 @end
 
+@interface NSString (SPNSExtensions)
+
+- (NSString *)stringByAppendingSuffixToFilename:(NSString *)suffix;
+
+@end
+
+@interface NSBundle (SPNSExtensions)
+
+- (NSString *)pathForResource:(NSString *)name withScaleFactor:(float)factor;
+
+@end

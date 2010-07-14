@@ -15,6 +15,8 @@
 #import "SPGLTexture.h"
 #import "SPSubTexture.h"
 #import "SPRectangle.h"
+#import "SPNSExtensions.h"
+#import "SPStage.h"
 
 // --- private interface ---------------------------------------------------------------------------
 
@@ -54,7 +56,8 @@
     
     if (!path) return;
     
-    NSString *fullPath = [[NSBundle mainBundle] pathForResource:path ofType:nil];
+    float scale = [SPStage contentScaleFactor];
+    NSString *fullPath = [[NSBundle mainBundle] pathForResource:path withScaleFactor:scale];
     NSURL *xmlUrl = [NSURL fileURLWithPath:fullPath];
     NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:xmlUrl];
     xmlParser.delegate = self;    
@@ -77,11 +80,13 @@
 {
     if ([elementName isEqualToString:@"SubTexture"])
     {
+        float scale = mAtlasTexture.scale;
+        
         NSString *name = [attributeDict valueForKey:@"name"];
-        float x = [[attributeDict valueForKey:@"x"] floatValue];
-        float y = [[attributeDict valueForKey:@"y"] floatValue];
-        float width = [[attributeDict valueForKey:@"width"] floatValue];
-        float height = [[attributeDict valueForKey:@"height"] floatValue];        
+        float x = [[attributeDict valueForKey:@"x"] floatValue] / scale;
+        float y = [[attributeDict valueForKey:@"y"] floatValue] / scale;
+        float width = [[attributeDict valueForKey:@"width"] floatValue] / scale;
+        float height = [[attributeDict valueForKey:@"height"] floatValue] / scale;
         
         [mTextureRegions setObject:[SPRectangle rectangleWithX:x y:y width:width height:height]
                             forKey:name];        
@@ -90,7 +95,7 @@
     {
         // load atlas texture
         NSString *imagePath = [attributeDict valueForKey:@"imagePath"];        
-        mAtlasTexture = [[SPTexture textureWithContentsOfFile:imagePath] retain];
+        mAtlasTexture = [[SPTexture alloc] initWithContentsOfFile:imagePath];
     }
 }
 

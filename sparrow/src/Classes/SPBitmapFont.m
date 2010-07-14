@@ -18,6 +18,8 @@
 #import "SPSprite.h"
 #import "SPImage.h"
 #import "SPTextField.h"
+#import "SPStage.h"
+#import "SPNSExtensions.h"
 
 #define CHAR_SPACE   32
 #define CHAR_TAB      9
@@ -39,7 +41,7 @@
 @synthesize lineHeight = mLineHeight;
 @synthesize size = mSize;
 
-- (id)initWithContentsOfFile:(NSString*)path texture:(SPTexture *)texture
+- (id)initWithContentsOfFile:(NSString *)path texture:(SPTexture *)texture
 {
     if (self = [super init])
     {
@@ -72,7 +74,8 @@
     
     if (!path) return;
     
-    NSString *fullPath = [[NSBundle mainBundle] pathForResource:path ofType:nil];
+    float scale = [SPStage contentScaleFactor];
+    NSString *fullPath = [[NSBundle mainBundle] pathForResource:path withScaleFactor:scale];
     NSURL *xmlUrl = [NSURL fileURLWithPath:fullPath];
     NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:xmlUrl];
     xmlParser.delegate = self;
@@ -80,7 +83,7 @@
     
     SP_RELEASE_POOL(pool);
     
-    if (!success)    
+    if (!success)
         [NSException raise:SP_EXC_FILE_INVALID 
                     format:@"could not parse bitmap font xml %@. Error code: %d, domain: %@", 
                            path, xmlParser.parserError.code, xmlParser.parserError.domain];
@@ -92,22 +95,23 @@
   namespaceURI:(NSString*)namespaceURI 
  qualifiedName:(NSString*)qName 
     attributes:(NSDictionary*)attributeDict 
-{    
+{
     if ([elementName isEqualToString:@"char"])
     {
         int charID = [[attributeDict valueForKey:@"id"] intValue];        
+        float scale = mFontTexture.scale;
         
         SPRectangle *region = [[SPRectangle alloc] init];
-        region.x = [[attributeDict valueForKey:@"x"] floatValue];
-        region.y = [[attributeDict valueForKey:@"y"] floatValue];
-        region.width = [[attributeDict valueForKey:@"width"] floatValue];
-        region.height = [[attributeDict valueForKey:@"height"] floatValue];
+        region.x = [[attributeDict valueForKey:@"x"] floatValue] / scale;
+        region.y = [[attributeDict valueForKey:@"y"] floatValue] / scale;
+        region.width = [[attributeDict valueForKey:@"width"] floatValue] / scale;
+        region.height = [[attributeDict valueForKey:@"height"] floatValue] / scale;
         SPSubTexture *texture = [[SPSubTexture alloc] initWithRegion:region ofTexture:mFontTexture];
         [region release];
         
-        float xOffset = [[attributeDict valueForKey:@"xoffset"] floatValue];
-        float yOffset = [[attributeDict valueForKey:@"yoffset"] floatValue];
-        float xAdvance = [[attributeDict valueForKey:@"xadvance"] floatValue];
+        float xOffset = [[attributeDict valueForKey:@"xoffset"] floatValue] / scale;
+        float yOffset = [[attributeDict valueForKey:@"yoffset"] floatValue] / scale;
+        float xAdvance = [[attributeDict valueForKey:@"xadvance"] floatValue] / scale;
         
         SPBitmapChar *bmpChar = [[SPBitmapChar alloc] initWithID:charID texture:texture
                                                          xOffset:xOffset yOffset:yOffset 
@@ -135,7 +139,11 @@
         if (!mFontTexture)
         {
             NSString *filename = [attributeDict valueForKey:@"file"];
-            mFontTexture = [[SPTexture textureWithContentsOfFile:filename] retain];            
+            mFontTexture = [[SPTexture alloc] initWithContentsOfFile:filename]; 
+            
+            // update sizes, now that we know the scale setting
+            mSize /= mFontTexture.scale;
+            mLineHeight /= mFontTexture.scale;            
         }
     }
 }
