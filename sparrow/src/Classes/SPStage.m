@@ -38,7 +38,7 @@ static void dispatchEnterFrameEvent(SPDisplayObject *object, SPEnterFrameEvent *
 // --- static members ---
 
 static BOOL supportHighResolutions = NO;
-static NSMutableSet *stages = NULL;
+static NSMutableArray *stages = NULL;
 
 // -------------------
 
@@ -51,7 +51,9 @@ static NSMutableSet *stages = NULL;
 {    
     if (self = [super init])
     {
-        if (!stages) stages = [[NSMutableSet alloc] init];
+        // Save existing stages to have access to them in "SPStage setSupportHighResolutions:".
+        // We use a CFArray to avoid that 'self' is retained -> that would cause a memory leak!
+        if (!stages) stages = (NSMutableArray *)CFArrayCreateMutable(NULL, 0, NULL);
         [stages addObject:self];
         
         mWidth = width;
@@ -200,7 +202,7 @@ static NSMutableSet *stages = NULL;
     [mJuggler release];
     
     [stages removeObject:self];
-    if (stages.count == 0) { [stages release]; stages = NULL; }
+    if (stages.count == 0) { [stages release]; stages = NULL; }    
     
     [super dealloc];
 }
