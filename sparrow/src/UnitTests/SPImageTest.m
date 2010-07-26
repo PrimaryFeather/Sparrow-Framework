@@ -33,8 +33,8 @@
     SPImage *image = [[SPImage alloc] init];
     STAssertEqualObjects([SPPoint pointWithX:0 y:0], [image texCoordsOfVertex:0], @"wrong tex coords!");
     STAssertEqualObjects([SPPoint pointWithX:1 y:0], [image texCoordsOfVertex:1], @"wrong tex coords!");    
-    STAssertEqualObjects([SPPoint pointWithX:1 y:1], [image texCoordsOfVertex:2], @"wrong tex coords!");    
-    STAssertEqualObjects([SPPoint pointWithX:0 y:1], [image texCoordsOfVertex:3], @"wrong tex coords!");
+    STAssertEqualObjects([SPPoint pointWithX:0 y:1], [image texCoordsOfVertex:2], @"wrong tex coords!");    
+    STAssertEqualObjects([SPPoint pointWithX:1 y:1], [image texCoordsOfVertex:3], @"wrong tex coords!");
     [image release];    
 }
 

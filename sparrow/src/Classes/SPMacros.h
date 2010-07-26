@@ -45,7 +45,7 @@
 
 #define SP_COLOR_PART_RED(color)    (((color) >> 16) & 0xff)
 #define SP_COLOR_PART_GREEN(color)  (((color) >>  8) & 0xff)
-#define SP_COLOR_PART_BLUE(color)   ((color) & 0xff)
+#define SP_COLOR_PART_BLUE(color)   ( (color)        & 0xff)
 
 #define SP_COLOR(r, g, b)			(((r) << 16) | ((g) << 8) | (b))
 

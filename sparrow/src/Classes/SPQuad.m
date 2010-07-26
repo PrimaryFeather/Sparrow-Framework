@@ -20,8 +20,11 @@
 {
     if (self = [super init])
     {
-        mWidth = width;
-        mHeight = height;
+        mVertexCoords[2] = width; 
+        mVertexCoords[5] = height; 
+        mVertexCoords[6] = width;
+        mVertexCoords[7] = height;
+        
         self.color = SP_WHITE;
     }
     return self;    
@@ -35,16 +38,16 @@
 - (SPRectangle*)boundsInSpace:(SPDisplayObject*)targetCoordinateSpace
 {
     if (targetCoordinateSpace == self) // optimization
-        return [SPRectangle rectangleWithX:0 y:0 width:mWidth height:mHeight];            
+        return [SPRectangle rectangleWithX:0 y:0 width:mVertexCoords[6] height:mVertexCoords[7]];
     
     SPMatrix *transformationMatrix = [self transformationMatrixToSpace:targetCoordinateSpace];
-    SPPoint *point = [[SPPoint alloc] init];    
-    float coords[] = { 0.0f, 0.0f, mWidth, 0.0f, mWidth, mHeight, 0.0f, mHeight };
+    SPPoint *point = [[SPPoint alloc] init];
+    
     float minX = FLT_MAX, maxX = -FLT_MAX, minY = FLT_MAX, maxY = -FLT_MAX;
     for (int i=0; i<4; ++i)
     {
-        point.x = coords[2*i];
-        point.y = coords[2*i+1];
+        point.x = mVertexCoords[2*i];
+        point.y = mVertexCoords[2*i+1];
         SPPoint *transformedPoint = [transformationMatrix transformPoint:point];
         float tfX = transformedPoint.x; 
         float tfY = transformedPoint.y;
@@ -59,14 +62,18 @@
 
 - (void)setColor:(uint)color ofVertex:(int)vertexID
 {
-    vertexID = MAX(0, MIN(3, vertexID));
+    if (vertexID < 0 || vertexID > 3)
+        [NSException raise:SP_EXC_INDEX_OUT_OF_BOUNDS format:@"invalid vertex id"];
+    
     mVertexColors[vertexID] = color;
 }
 
 - (uint)colorOfVertex:(int)vertexID
 {
-    vertexID = MAX(0, MIN(3, vertexID));
-    return mVertexColors[vertexID];
+    if (vertexID < 0 || vertexID > 3)
+        [NSException raise:SP_EXC_INDEX_OUT_OF_BOUNDS format:@"invalid vertex id"];
+    
+    return mVertexColors[vertexID];    
 }
 
 - (void)setColor:(uint)color

@@ -20,6 +20,7 @@
 #import "SPTextField.h"
 #import "SPStage.h"
 #import "SPNSExtensions.h"
+#import "SPCompiledSprite.h"
 
 #define CHAR_SPACE   32
 #define CHAR_TAB      9
@@ -240,7 +241,7 @@
         }
     }
     
-    SPSprite *outerContainer = [SPSprite sprite];
+    SPSprite *outerContainer = [SPCompiledSprite sprite];
 
     // create an invisible background (not rendered) so that width and height-properties 
     // of the object appear correct.

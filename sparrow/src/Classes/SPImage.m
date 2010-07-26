@@ -27,8 +27,8 @@
         self.texture = texture;
         mTexCoords[0] = 0.0f; mTexCoords[1] = 0.0f;
         mTexCoords[2] = 1.0f; mTexCoords[3] = 0.0f;
-        mTexCoords[4] = 1.0f; mTexCoords[5] = 1.0f;
-        mTexCoords[6] = 0.0f; mTexCoords[7] = 1.0f;
+        mTexCoords[4] = 0.0f; mTexCoords[5] = 1.0f;
+        mTexCoords[6] = 1.0f; mTexCoords[7] = 1.0f;
     }
     return self;
 }
@@ -46,12 +46,18 @@
 
 - (void)setTexCoords:(SPPoint*)coords ofVertex:(int)vertexID
 {
+    if (vertexID < 0 || vertexID > 3)
+        [NSException raise:SP_EXC_INDEX_OUT_OF_BOUNDS format:@"invalid vertex id"];
+    
     mTexCoords[2*vertexID  ] = coords.x;
-    mTexCoords[2*vertexID+1] = coords.y;
+    mTexCoords[2*vertexID+1] = coords.y;    
 }
 
 - (SPPoint*)texCoordsOfVertex:(int)vertexID
 {
+    if (vertexID < 0 || vertexID > 3)
+        [NSException raise:SP_EXC_INDEX_OUT_OF_BOUNDS format:@"invalid vertex id"];
+    
     return [SPPoint pointWithX:mTexCoords[vertexID*2] y:mTexCoords[vertexID*2+1]];
 }
 

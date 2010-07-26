@@ -32,6 +32,8 @@ void onUncaughtException(NSException *exception)
     
     NSSetUncaughtExceptionHandler(&onUncaughtException); 
     
+    [SPAudioEngine start];
+    
     // the demo contains high resolution graphics for the retina display
     [SPStage setSupportHighResolutions:YES];
     
@@ -43,8 +45,6 @@ void onUncaughtException(NSException *exception)
     [sparrowView start];     
     [window makeKeyAndVisible];
     [game release];
-    
-    [SPAudioEngine start];
     
     SP_RELEASE_POOL(pool);
 }

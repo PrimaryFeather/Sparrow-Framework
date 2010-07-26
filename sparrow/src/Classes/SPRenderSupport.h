@@ -21,6 +21,9 @@
 }
 
 - (void)bindTexture:(SPTexture *)texture;
+- (uint)convertColor:(uint)color alpha:(float)alpha;
+
++ (uint)convertColor:(uint)color alpha:(float)alpha premultiplyAlpha:(BOOL)pma;
 
 @property (nonatomic, readonly) BOOL usingPremultipliedAlpha;
 

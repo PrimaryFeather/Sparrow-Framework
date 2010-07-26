@@ -14,11 +14,8 @@
 
 @interface SPQuad : SPDisplayObject 
 {
-  @protected
-    float mWidth;
-    float mHeight;
-    
-  @private  
+  @private
+    float mVertexCoords[8];
     uint mVertexColors[4];
 }
 
