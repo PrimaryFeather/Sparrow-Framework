@@ -396,7 +396,7 @@
     if (!mCurrentColors) 
         mCurrentColors = malloc(mColorData.length * sizeof(uint));        
     
-    uint *origColors = (uint *)mColorData.bytes;
+    const uint *origColors = (const uint *)mColorData.bytes;
     uint *newColors = mCurrentColors;
     float alpha = self.alpha;
     
