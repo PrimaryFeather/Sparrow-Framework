@@ -184,10 +184,16 @@ static NSMutableArray *stages = NULL;
 
 + (float)contentScaleFactor
 {
-    if (supportHighResolutions && [[UIScreen mainScreen] respondsToSelector:@selector(scale)]) 
-        return [[UIScreen mainScreen] scale];
+    if (supportHighResolutions &&
+        [UIScreen instancesRespondToSelector:@selector(scale)] &&
+        [UIImage  instancesRespondToSelector:@selector(scale)])
+    {
+        return [[UIScreen mainScreen] scale];        
+    }
     else
+    {
         return 1.0f;
+    }        
 }
 
 #pragma mark -

@@ -94,7 +94,8 @@
         // add button that allows switching between resolutions (iPhone 4)
         
         UIScreen *screen = [UIScreen mainScreen];
-        if ([screen respondsToSelector:@selector(scale)] && [screen scale] != 1.0f)
+        if ([screen respondsToSelector:@selector(scale)] && [screen scale] != 1.0f &&
+            [UIImage instancesRespondToSelector:@selector(scale)])
         {
             SPTexture *screenButtonTexture = [SPTexture textureWithContentsOfFile:@"resolution.png"];
             SPButton *screenButton = [SPButton buttonWithUpState:screenButtonTexture];
