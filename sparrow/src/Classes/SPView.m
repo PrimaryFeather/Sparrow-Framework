@@ -67,11 +67,12 @@
         [NSNumber numberWithBool:NO], kEAGLDrawablePropertyRetainedBacking, 
         kEAGLColorFormatRGBA8, kEAGLDrawablePropertyColorFormat, nil];    
 
-    mContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1];
-    mRenderSupport = [[SPRenderSupport alloc] init];    
+    mContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1];    
     
     if (!mContext || ![EAGLContext setCurrentContext:mContext])     
-        NSLog(@"Could not create render context");    
+        NSLog(@"Could not create render context");
+    
+    mRenderSupport = [[SPRenderSupport alloc] init];
 }
 
 #pragma mark -
