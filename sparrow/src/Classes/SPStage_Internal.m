@@ -16,7 +16,7 @@
 
 - (void)setNativeView:(id)nativeView
 {
-    if ([nativeView respondsToSelector:@selector(contentScaleFactor)])
+    if ([nativeView respondsToSelector:@selector(setContentScaleFactor:)])
         [nativeView setContentScaleFactor:[SPStage contentScaleFactor]];    
     
     mNativeView = nativeView;
