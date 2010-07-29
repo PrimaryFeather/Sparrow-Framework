@@ -16,13 +16,16 @@
 #import "SPImage.h"
 #import "SPSoundChannel.h"
 
+#define SP_EVENT_TYPE_MOVIE_COMPLETED @"movieCompleted"
+
 @interface SPMovieClip : SPImage <SPAnimatable>
 {
+  @private
     NSMutableArray *mFrames;
     NSMutableArray *mSounds;
     NSMutableArray *mFrameDurations;
     
-    double mDefaultDuration;
+    double mDefaultFrameDuration;
     double mTotalDuration;
     double mElapsedTime;
     BOOL mLoop;
