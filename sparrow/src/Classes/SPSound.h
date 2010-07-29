@@ -15,6 +15,7 @@
 
 @interface SPSound : NSObject 
 {
+  @private
     NSMutableSet *mPlayingChannels;
 }
 
