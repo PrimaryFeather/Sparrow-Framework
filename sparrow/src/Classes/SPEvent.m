@@ -10,6 +10,7 @@
 //
 
 #import "SPEvent.h"
+#import "SPEvent_Internal.h"
 
 @implementation SPEvent
 
@@ -58,14 +59,46 @@
     return [[[SPEvent alloc] initWithType:type] autorelease];
 }
 
-#pragma mark -
-
 - (void)dealloc
 {
     [mType release];
     [mTarget release];
     [mCurrentTarget release];
     [super dealloc];
+}
+
+@end
+
+// -------------------------------------------------------------------------------------------------
+
+@implementation SPEvent (Internal)
+
+- (BOOL)stopsImmediatePropagation
+{ 
+    return mStopsImmediatePropagation;
+}
+
+- (BOOL)stopsPropagation
+{ 
+    return mStopsPropagation;
+}
+
+- (void)setTarget:(SPEventDispatcher*)target
+{
+    if (target != mTarget)
+    {
+        [mTarget release];
+        mTarget = [target retain];
+    }        
+}
+
+- (void)setCurrentTarget:(SPEventDispatcher*)currentTarget
+{
+    if (currentTarget != mCurrentTarget)
+    {
+        [mCurrentTarget release];
+        mCurrentTarget = [currentTarget retain];
+    }
 }
 
 @end

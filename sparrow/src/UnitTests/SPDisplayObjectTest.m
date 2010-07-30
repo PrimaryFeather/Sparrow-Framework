@@ -35,16 +35,6 @@
 
 @implementation SPDisplayObjectTest
 
-- (void) setUp
-{
-}
-
-- (void) tearDown
-{
-}
-
-#pragma mark -
-
 - (void)testRoot
 {
     SPSprite *root = [[SPSprite alloc] init];    

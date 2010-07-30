@@ -118,8 +118,6 @@
     SP_RELEASE_POOL(pool);
 }
 
-#pragma mark -
-
 - (void) dealloc
 {
     [mCurrentTouches release];

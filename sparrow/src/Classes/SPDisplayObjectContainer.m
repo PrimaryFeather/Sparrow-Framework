@@ -14,23 +14,6 @@
 #import "SPDisplayObject_Internal.h"
 #import "SPMacros.h"
 
-// --- c functions ---
-
-static void dispatchEventOnChildren(SPDisplayObject *object, SPEvent *event)
-{
-    // This function is mainly used for ADDED_TO_STAGE- and REMOVED_FROM_STAGE-events.
-    // Those events are dispatched often, yet used rather rarely.
-    // Thus we handle them in a C function, so that the overhead that they create is minimal.
-    
-    [object dispatchEvent:event];    
-    if ([object isKindOfClass:[SPDisplayObjectContainer class]])
-    {
-        SPDisplayObjectContainer *container = (SPDisplayObjectContainer *)object;
-        for (SPDisplayObject *child in container)
-            dispatchEventOnChildren(child, event);
-    }
-}
-
 // --- class implementation ------------------------------------------------------------------------
 
 @implementation SPDisplayObjectContainer
@@ -54,9 +37,6 @@ static void dispatchEventOnChildren(SPDisplayObject *object, SPEvent *event)
     return self;
 }
 
-
-#pragma mark -
-
 - (void)addChild:(SPDisplayObject *)child
 {
     [self addChild:child atIndex:[mChildren count]];
@@ -78,7 +58,7 @@ static void dispatchEventOnChildren(SPDisplayObject *object, SPEvent *event)
         if (self.stage)
         {
             SPEvent *addedToStageEvent = [[SPEvent alloc] initWithType:SP_EVENT_TYPE_ADDED_TO_STAGE];
-            dispatchEventOnChildren(child, addedToStageEvent);
+            [child dispatchEventOnChildren:addedToStageEvent];
             [addedToStageEvent release];
         }
         
@@ -138,7 +118,7 @@ static void dispatchEventOnChildren(SPDisplayObject *object, SPEvent *event)
         if (self.stage)
         {
             SPEvent *remFromStageEvent = [[SPEvent alloc] initWithType:SP_EVENT_TYPE_REMOVED_FROM_STAGE];
-            dispatchEventOnChildren(child, remFromStageEvent);
+            [child dispatchEventOnChildren:remFromStageEvent];
             [remFromStageEvent release];
         }        
         
@@ -175,8 +155,6 @@ static void dispatchEventOnChildren(SPDisplayObject *object, SPEvent *event)
 {
     return [mChildren count];
 }
-
-#pragma mark -
 
 - (SPRectangle*)boundsInSpace:(SPDisplayObject*)targetCoordinateSpace
 {    
@@ -218,7 +196,11 @@ static void dispatchEventOnChildren(SPDisplayObject *object, SPEvent *event)
     return nil;
 }
 
-#pragma mark -
+- (void)dispatchEventOnChildren:(SPEvent *)event
+{
+    [self dispatchEvent:event];
+    [mChildren makeObjectsPerformSelector:@selector(dispatchEventOnChildren:) withObject:event];
+}
 
 - (void)dealloc 
 {    

@@ -10,6 +10,7 @@
 //
 
 #import "SPTouch.h"
+#import "SPTouch_Internal.h"
 #import "SPDisplayObject.h"
 #import "SPPoint.h"
 
@@ -50,3 +51,59 @@
 }
 
 @end
+
+// -------------------------------------------------------------------------------------------------
+
+@implementation SPTouch (Internal)
+
+- (void)setTimestamp:(double)timestamp
+{
+    mTimestamp = timestamp;
+}
+
+- (void)setGlobalX:(float)x
+{
+    mGlobalX = x;
+}
+
+- (void)setGlobalY:(float)y
+{
+    mGlobalY = y;
+}
+
+- (void)setPreviousGlobalX:(float)x
+{
+    mPreviousGlobalX = x;
+}
+
+- (void)setPreviousGlobalY:(float)y
+{
+    mPreviousGlobalY = y;
+}
+
+- (void)setTapCount:(int)tapCount
+{
+    mTapCount = tapCount;
+}
+
+- (void)setPhase:(SPTouchPhase)phase
+{
+    mPhase = phase;
+}
+
+- (void)setTarget:(SPDisplayObject*)target
+{
+    if (target != mTarget)
+    {    
+        [mTarget release];
+        mTarget = [target retain];
+    }
+}
+
++ (SPTouch*)touch
+{
+    return [[[SPTouch alloc] init] autorelease];
+}
+
+@end
+

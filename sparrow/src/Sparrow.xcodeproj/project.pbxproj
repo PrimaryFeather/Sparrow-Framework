@@ -14,9 +14,7 @@
 		DE05748911E915A900F3A8A4 /* SPNSExtensionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DE05748611E915A900F3A8A4 /* SPNSExtensionsTest.m */; };
 		DE18FE4511B083B200D01F04 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE18FE4411B083B200D01F04 /* AVFoundation.framework */; };
 		DE1F946B10470CD40084D470 /* SPJugglerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DE1F9446104704440084D470 /* SPJugglerTest.m */; };
-		DE20D9CB10713B0C006658C9 /* SPRenderSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = DE20D9C910713B0C006658C9 /* SPRenderSupport.h */; };
 		DE20D9CC10713B0C006658C9 /* SPRenderSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = DE20D9CA10713B0C006658C9 /* SPRenderSupport.m */; };
-		DE2CC36111EF75B600439B43 /* SPCompiledSprite.h in Headers */ = {isa = PBXBuildFile; fileRef = DE2CC35F11EF75B600439B43 /* SPCompiledSprite.h */; };
 		DE5286BC11F77C6A00F916E8 /* SPDelayedInvocationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DE5286BA11F77C6200F916E8 /* SPDelayedInvocationTest.m */; };
 		DEC54F6511B7765500E439B0 /* SPMovieClipTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC54F6211B7765500E439B0 /* SPMovieClipTest.m */; };
 		DED8B48711B0827E00A1766C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -26,21 +24,13 @@
 		DED8B48B11B0827E00A1766C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		DED8B48C11B0827E00A1766C /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEE63A7111AED4FA00D60321 /* OpenAL.framework */; };
 		DED8B48D11B0827E00A1766C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEE63A8511AED51400D60321 /* AudioToolbox.framework */; };
-		DED9B51D10629D9F00989853 /* SPPoolObject.h in Headers */ = {isa = PBXBuildFile; fileRef = DED9B51B10629D9F00989853 /* SPPoolObject.h */; };
 		DED9B51E10629D9F00989853 /* SPPoolObject.m in Sources */ = {isa = PBXBuildFile; fileRef = DED9B51C10629D9F00989853 /* SPPoolObject.m */; };
-		DEE09D7A108364A900ECC896 /* SPBitmapFont.h in Headers */ = {isa = PBXBuildFile; fileRef = DEE09D78108364A900ECC896 /* SPBitmapFont.h */; };
 		DEE09D7B108364A900ECC896 /* SPBitmapFont.m in Sources */ = {isa = PBXBuildFile; fileRef = DEE09D79108364A900ECC896 /* SPBitmapFont.m */; };
-		DEE09D7E108369AE00ECC896 /* SPBitmapChar.h in Headers */ = {isa = PBXBuildFile; fileRef = DEE09D7C108369AE00ECC896 /* SPBitmapChar.h */; };
 		DEE09D7F108369AE00ECC896 /* SPBitmapChar.m in Sources */ = {isa = PBXBuildFile; fileRef = DEE09D7D108369AE00ECC896 /* SPBitmapChar.m */; };
-		DEE0D8AA104B06FE009A7C99 /* SPStage_Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = DE2AD84A104A84F1001AF0A0 /* SPStage_Internal.m */; };
-		DEE63A5111AED38100D60321 /* SPAudioEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = DEE63A4B11AED38100D60321 /* SPAudioEngine.h */; };
 		DEE63A5211AED38100D60321 /* SPAudioEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = DEE63A4C11AED38100D60321 /* SPAudioEngine.m */; };
-		DEE63A5311AED38100D60321 /* SPSound.h in Headers */ = {isa = PBXBuildFile; fileRef = DEE63A4D11AED38100D60321 /* SPSound.h */; };
 		DEE63A5411AED38100D60321 /* SPSound.m in Sources */ = {isa = PBXBuildFile; fileRef = DEE63A4E11AED38100D60321 /* SPSound.m */; };
-		DEE63A5511AED38100D60321 /* SPSoundChannel.h in Headers */ = {isa = PBXBuildFile; fileRef = DEE63A4F11AED38100D60321 /* SPSoundChannel.h */; };
 		DEE63A5611AED38100D60321 /* SPSoundChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = DEE63A5011AED38100D60321 /* SPSoundChannel.m */; };
 		DEE6516B11F9DF200065207E /* SPCompiledSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = DE2CC36011EF75B600439B43 /* SPCompiledSprite.m */; };
-		DEE94E8211B43DE60000FE20 /* SPMovieClip.h in Headers */ = {isa = PBXBuildFile; fileRef = DEE94E8011B43DE60000FE20 /* SPMovieClip.h */; };
 		DEE94E8311B43DE60000FE20 /* SPMovieClip.m in Sources */ = {isa = PBXBuildFile; fileRef = DEE94E8111B43DE60000FE20 /* SPMovieClip.m */; };
 		DEEA933A101E32E10071DD21 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE9CF1EB0FED3128008A32FF /* CoreGraphics.framework */; };
 		DEEA933B101E32E10071DD21 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -58,19 +48,13 @@
 		DEEA936B101E383D0071DD21 /* SPEventDispatcherTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DEE594490FA63BA800E3AEFC /* SPEventDispatcherTest.m */; };
 		DEEA936C101E383D0071DD21 /* SPTweenTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DE75E8660FBDC57E00C64495 /* SPTweenTest.m */; };
 		DEEA936D101E383D0071DD21 /* SPImageTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DE0853A40FEC286900DAF53C /* SPImageTest.m */; };
-		DEEA9403101E44F10071DD21 /* Sparrow.h in Headers */ = {isa = PBXBuildFile; fileRef = DEEA9402101E44F10071DD21 /* Sparrow.h */; };
-		DEED1739108A50000071438F /* SPTweenedProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = DEED1737108A50000071438F /* SPTweenedProperty.h */; };
 		DEED173A108A50000071438F /* SPTweenedProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = DEED1738108A50000071438F /* SPTweenedProperty.m */; };
 		DEEDE3A111B29908009FD4C8 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEE63A7111AED4FA00D60321 /* OpenAL.framework */; };
 		DEEDE3A211B29908009FD4C8 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE18FE4411B083B200D01F04 /* AVFoundation.framework */; };
 		DEEDE3A311B29909009FD4C8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEE63A8511AED51400D60321 /* AudioToolbox.framework */; };
-		DEF1730E11B0645A00A11DD7 /* SPALSound.h in Headers */ = {isa = PBXBuildFile; fileRef = DEF1730C11B0645A00A11DD7 /* SPALSound.h */; };
 		DEF1730F11B0645A00A11DD7 /* SPALSound.m in Sources */ = {isa = PBXBuildFile; fileRef = DEF1730D11B0645A00A11DD7 /* SPALSound.m */; };
-		DEF1731211B0648B00A11DD7 /* SPALSoundChannel.h in Headers */ = {isa = PBXBuildFile; fileRef = DEF1731011B0648B00A11DD7 /* SPALSoundChannel.h */; };
 		DEF1731311B0648B00A11DD7 /* SPALSoundChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = DEF1731111B0648B00A11DD7 /* SPALSoundChannel.m */; };
-		DEF1735C11B075B000A11DD7 /* SPAVSound.h in Headers */ = {isa = PBXBuildFile; fileRef = DEF1735A11B075B000A11DD7 /* SPAVSound.h */; };
 		DEF1735D11B075B000A11DD7 /* SPAVSound.m in Sources */ = {isa = PBXBuildFile; fileRef = DEF1735B11B075B000A11DD7 /* SPAVSound.m */; };
-		DEF1736011B075BC00A11DD7 /* SPAVSoundChannel.h in Headers */ = {isa = PBXBuildFile; fileRef = DEF1735E11B075BC00A11DD7 /* SPAVSoundChannel.h */; };
 		DEF1736111B075BC00A11DD7 /* SPAVSoundChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = DEF1735F11B075BC00A11DD7 /* SPAVSoundChannel.m */; };
 		DEFE4BCE101B31DF00E22471 /* SPTransitions.m in Sources */ = {isa = PBXBuildFile; fileRef = DED859440FB883EE00D3D7D2 /* SPTransitions.m */; };
 		DEFE4BD1101B31DF00E22471 /* SPView.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC2B67A0F6D4CE90063AB1D /* SPView.m */; };
@@ -96,9 +80,6 @@
 		DEFE4BE6101B31DF00E22471 /* SPTextureAtlas.m in Sources */ = {isa = PBXBuildFile; fileRef = DECF84270FF619150026A4ED /* SPTextureAtlas.m */; };
 		DEFE4C38101B5FB100E22471 /* SPRendering.m in Sources */ = {isa = PBXBuildFile; fileRef = DE9CF1BC0FED2678008A32FF /* SPRendering.m */; };
 		DEFE4C3A101B5FB100E22471 /* SPTouchProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = DEDCD3AD0FADEE280022011C /* SPTouchProcessor.m */; };
-		DEFE4C3C101B5FB100E22471 /* SPDisplayObject_Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = DEDCD44F0FADFFA40022011C /* SPDisplayObject_Internal.m */; };
-		DEFE4C3E101B5FB900E22471 /* SPTouch_Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = DEDCD3D00FADF52B0022011C /* SPTouch_Internal.m */; };
-		DEFE4C40101B5FB900E22471 /* SPEvent_Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = DEDCD44B0FADFF250022011C /* SPEvent_Internal.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -127,7 +108,6 @@
 		DE20D9C910713B0C006658C9 /* SPRenderSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPRenderSupport.h; sourceTree = "<group>"; };
 		DE20D9CA10713B0C006658C9 /* SPRenderSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPRenderSupport.m; sourceTree = "<group>"; };
 		DE2AD849104A84F1001AF0A0 /* SPStage_Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPStage_Internal.h; sourceTree = "<group>"; };
-		DE2AD84A104A84F1001AF0A0 /* SPStage_Internal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPStage_Internal.m; sourceTree = "<group>"; };
 		DE2CC35F11EF75B600439B43 /* SPCompiledSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPCompiledSprite.h; sourceTree = "<group>"; };
 		DE2CC36011EF75B600439B43 /* SPCompiledSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPCompiledSprite.m; sourceTree = "<group>"; };
 		DE2ED8040F6D52080012B6BA /* SPDisplayObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPDisplayObject.h; sourceTree = "<group>"; };
@@ -187,11 +167,8 @@
 		DEDCD3AC0FADEE280022011C /* SPTouchProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPTouchProcessor.h; sourceTree = "<group>"; };
 		DEDCD3AD0FADEE280022011C /* SPTouchProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPTouchProcessor.m; sourceTree = "<group>"; };
 		DEDCD3CF0FADF52B0022011C /* SPTouch_Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPTouch_Internal.h; sourceTree = "<group>"; };
-		DEDCD3D00FADF52B0022011C /* SPTouch_Internal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPTouch_Internal.m; sourceTree = "<group>"; };
 		DEDCD44A0FADFF250022011C /* SPEvent_Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPEvent_Internal.h; sourceTree = "<group>"; };
-		DEDCD44B0FADFF250022011C /* SPEvent_Internal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPEvent_Internal.m; sourceTree = "<group>"; };
 		DEDCD44E0FADFFA40022011C /* SPDisplayObject_Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPDisplayObject_Internal.h; sourceTree = "<group>"; };
-		DEDCD44F0FADFFA40022011C /* SPDisplayObject_Internal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPDisplayObject_Internal.m; sourceTree = "<group>"; };
 		DEE09D78108364A900ECC896 /* SPBitmapFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPBitmapFont.h; sourceTree = "<group>"; };
 		DEE09D79108364A900ECC896 /* SPBitmapFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPBitmapFont.m; sourceTree = "<group>"; };
 		DEE09D7C108369AE00ECC896 /* SPBitmapChar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPBitmapChar.h; sourceTree = "<group>"; };
@@ -380,9 +357,7 @@
 			isa = PBXGroup;
 			children = (
 				DEDCD3CF0FADF52B0022011C /* SPTouch_Internal.h */,
-				DEDCD3D00FADF52B0022011C /* SPTouch_Internal.m */,
 				DEDCD44A0FADFF250022011C /* SPEvent_Internal.h */,
-				DEDCD44B0FADFF250022011C /* SPEvent_Internal.m */,
 			);
 			name = Internal;
 			sourceTree = "<group>";
@@ -395,9 +370,7 @@
 				DE2CC35F11EF75B600439B43 /* SPCompiledSprite.h */,
 				DE2CC36011EF75B600439B43 /* SPCompiledSprite.m */,
 				DEDCD44E0FADFFA40022011C /* SPDisplayObject_Internal.h */,
-				DEDCD44F0FADFFA40022011C /* SPDisplayObject_Internal.m */,
 				DE2AD849104A84F1001AF0A0 /* SPStage_Internal.h */,
-				DE2AD84A104A84F1001AF0A0 /* SPStage_Internal.m */,
 			);
 			name = Internal;
 			sourceTree = "<group>";
@@ -553,21 +526,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DEEA9403101E44F10071DD21 /* Sparrow.h in Headers */,
-				DED9B51D10629D9F00989853 /* SPPoolObject.h in Headers */,
-				DE20D9CB10713B0C006658C9 /* SPRenderSupport.h in Headers */,
-				DEE09D7A108364A900ECC896 /* SPBitmapFont.h in Headers */,
-				DEE09D7E108369AE00ECC896 /* SPBitmapChar.h in Headers */,
-				DEED1739108A50000071438F /* SPTweenedProperty.h in Headers */,
-				DEE63A5111AED38100D60321 /* SPAudioEngine.h in Headers */,
-				DEE63A5311AED38100D60321 /* SPSound.h in Headers */,
-				DEE63A5511AED38100D60321 /* SPSoundChannel.h in Headers */,
-				DEF1730E11B0645A00A11DD7 /* SPALSound.h in Headers */,
-				DEF1731211B0648B00A11DD7 /* SPALSoundChannel.h in Headers */,
-				DEF1735C11B075B000A11DD7 /* SPAVSound.h in Headers */,
-				DEF1736011B075BC00A11DD7 /* SPAVSoundChannel.h in Headers */,
-				DEE94E8211B43DE60000FE20 /* SPMovieClip.h in Headers */,
-				DE2CC36111EF75B600439B43 /* SPCompiledSprite.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -670,11 +628,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				DEFE4BE6101B31DF00E22471 /* SPTextureAtlas.m in Sources */,
-				DEFE4C3E101B5FB900E22471 /* SPTouch_Internal.m in Sources */,
-				DEFE4C40101B5FB900E22471 /* SPEvent_Internal.m in Sources */,
 				DEFE4C38101B5FB100E22471 /* SPRendering.m in Sources */,
 				DEFE4C3A101B5FB100E22471 /* SPTouchProcessor.m in Sources */,
-				DEFE4C3C101B5FB100E22471 /* SPDisplayObject_Internal.m in Sources */,
 				DEFE4BE2101B31DF00E22471 /* SPMatrix.m in Sources */,
 				DEFE4BE3101B31DF00E22471 /* SPPoint.m in Sources */,
 				DEFE4BE4101B31DF00E22471 /* SPRectangle.m in Sources */,
@@ -700,7 +655,6 @@
 				DE019C3A1026361200ECB0AC /* SPDelayedInvocation.m in Sources */,
 				DE019C3B1026363D00ECB0AC /* SPNSExtensions.m in Sources */,
 				DE019C3C1026364800ECB0AC /* SPJuggler.m in Sources */,
-				DEE0D8AA104B06FE009A7C99 /* SPStage_Internal.m in Sources */,
 				DED9B51E10629D9F00989853 /* SPPoolObject.m in Sources */,
 				DE20D9CC10713B0C006658C9 /* SPRenderSupport.m in Sources */,
 				DEE09D7B108364A900ECC896 /* SPBitmapFont.m in Sources */,

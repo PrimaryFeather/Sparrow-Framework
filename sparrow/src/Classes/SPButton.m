@@ -83,8 +83,6 @@
     return [self initWithUpState:texture];   
 }
 
-#pragma mark -
-
 - (void)onTouch:(SPTouchEvent*)touchEvent
 {    
     if (!mEnabled) return;    
@@ -139,8 +137,6 @@
     }    
 }
 
-#pragma mark -
-
 - (void)setUpState:(SPTexture*)upState
 {
     if (upState != mUpState)
@@ -160,8 +156,6 @@
         if (mIsDown) mBackground.texture = downState;
     }
 }
-
-#pragma mark -
 
 - (void)createTextField
 {
@@ -232,8 +226,6 @@
     [self createTextField];
     mTextField.color = value;
 }
- 
-#pragma mark -
 
 + (SPButton*)buttonWithUpState:(SPTexture*)upState downState:(SPTexture*)downState
 {
@@ -249,8 +241,6 @@
 {
     return [[[SPButton alloc] initWithUpState:upState] autorelease];
 }
-
-#pragma mark -
 
 - (void)dealloc
 {

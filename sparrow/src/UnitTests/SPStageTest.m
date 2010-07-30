@@ -31,16 +31,6 @@
 
 @implementation SPStageTest
 
-- (void) setUp
-{
-}
-
-- (void) tearDown
-{
-}
-
-#pragma mark -
-
 - (void)testForbiddenProperties
 {
     SPStage *stage = [[SPStage alloc] init];

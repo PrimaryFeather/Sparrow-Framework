@@ -70,7 +70,7 @@
 {    
     float alpha = self.alpha;
     
-    for (SPDisplayObject *child in self)
+    for (SPDisplayObject *child in mChildren)
     {
         float childAlpha = child.alpha;
         if (childAlpha != 0.0f && child.visible)

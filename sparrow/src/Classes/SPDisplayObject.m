@@ -10,6 +10,7 @@
 //
 
 #import "SPDisplayObject.h"
+#import "SPDisplayObject_Internal.h"
 #import "SPDisplayObjectContainer.h"
 #import "SPStage.h"
 #import "SPMacros.h"
@@ -28,8 +29,6 @@
 @synthesize alpha = mAlpha;
 @synthesize visible = mVisible;
 @synthesize touchable = mTouchable;
-
-#pragma mark -
 
 - (id)init
 {    
@@ -54,16 +53,10 @@
     return self;
 }
 
-
-#pragma mark -
-
 - (void)render:(SPRenderSupport*)support
 {
     // override in subclass
 }
-
-
-#pragma mark -
 
 - (void)removeFromParent
 {
@@ -228,8 +221,6 @@
     
     [super dispatchEvent:event];
 }
-    
-#pragma mark -
 
 - (float)width
 {
@@ -292,6 +283,23 @@
     if (mX != 0.0f || mY != 0.0f)           [matrix translateXBy:mX yBy:mY];
     
     return [matrix autorelease];
+}
+
+@end
+
+// -------------------------------------------------------------------------------------------------
+
+@implementation SPDisplayObject (Internal)
+
+- (void)setParent:(SPDisplayObjectContainer*)parent 
+{ 
+    // only assigned, not retained -- otherwise, we would create a circular reference.
+    mParent = parent; 
+}
+
+- (void)dispatchEventOnChildren:(SPEvent *)event
+{
+    [self dispatchEvent:event];
 }
 
 @end

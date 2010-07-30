@@ -43,8 +43,6 @@
     return [self initWithX:0.0f y:0.0f];
 }
 
-#pragma mark -
-
 - (float)length
 {
     return sqrtf(SQ(mX) + SQ(mY));
@@ -92,8 +90,6 @@
 {
     return [NSString stringWithFormat:@"(x=%f, y=%f)", mX, mY];
 }
-
-#pragma mark -
 
 + (float)distanceFromPoint:(SPPoint*)p1 toPoint:(SPPoint*)p2
 {

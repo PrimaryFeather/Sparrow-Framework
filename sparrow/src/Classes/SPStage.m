@@ -10,6 +10,8 @@
 //
 
 #import "SPStage.h"
+#import "SPStage_Internal.h"
+#import "SPDisplayObject_Internal.h"
 #import "SPMacros.h"
 #import "SPEnterFrameEvent.h"
 #import "SPTouchProcessor.h"
@@ -18,22 +20,6 @@
 #import <UIKit/UIKit.h>
 
 @implementation SPStage
-
-// --- c functions ---
-
-static void dispatchEnterFrameEvent(SPDisplayObject *object, SPEnterFrameEvent *event)
-{
-    // EnterFrameEvents are dispatched in every frame, and they traverse the entire display tree --
-    // thus, it pays off handling them in their own c function.
-    
-    [object dispatchEvent:event];    
-    if ([object isKindOfClass:[SPDisplayObjectContainer class]])
-    {
-        SPDisplayObjectContainer *container = (SPDisplayObjectContainer *)object;
-        for (SPDisplayObject *child in container)        
-            dispatchEnterFrameEvent(child, event);
-    }    
-}
 
 // --- static members ---
 
@@ -77,7 +63,7 @@ static NSMutableArray *stages = NULL;
     // dispatch EnterFrameEvent
     SPEnterFrameEvent *enterFrameEvent = [[SPEnterFrameEvent alloc] 
         initWithType:SP_EVENT_TYPE_ENTER_FRAME passedTime:seconds];        
-    dispatchEnterFrameEvent(self, enterFrameEvent);
+    [self dispatchEventOnChildren:enterFrameEvent];
     [enterFrameEvent release];
 }
 
@@ -103,8 +89,6 @@ static NSMutableArray *stages = NULL;
     }
     return target;
 }
-
-#pragma mark -
 
 - (float)width
 {
@@ -161,8 +145,6 @@ static NSMutableArray *stages = NULL;
     return [mNativeView frameRate];
 }
 
-#pragma mark -
-
 + (void)setSupportHighResolutions:(BOOL)support
 {
     supportHighResolutions = support;
@@ -196,8 +178,6 @@ static NSMutableArray *stages = NULL;
     }        
 }
 
-#pragma mark -
-
 - (void)dealloc 
 {    
     [SPPoint purgePool];
@@ -215,3 +195,16 @@ static NSMutableArray *stages = NULL;
 
 @end
 
+// -------------------------------------------------------------------------------------------------
+
+@implementation SPStage (Internal)
+
+- (void)setNativeView:(id)nativeView
+{
+    if ([nativeView respondsToSelector:@selector(setContentScaleFactor:)])
+        [nativeView setContentScaleFactor:[SPStage contentScaleFactor]];    
+    
+    mNativeView = nativeView;
+}
+
+@end

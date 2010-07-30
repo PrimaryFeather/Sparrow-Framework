@@ -29,16 +29,6 @@
 
 @implementation SPRectangleTest
 
-- (void) setUp
-{
-}
-
-- (void) tearDown
-{
-}
-
-#pragma mark -
-
 - (void)testInit
 {
     SPRectangle *rect = [[SPRectangle alloc] initWithX:10 y:20 width:30 height:40];

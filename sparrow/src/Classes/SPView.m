@@ -75,8 +75,6 @@
     mRenderSupport = [[SPRenderSupport alloc] init];
 }
 
-#pragma mark -
-
 - (void)setTimer:(NSTimer *)newTimer 
 {    
     if (mTimer != newTimer)
@@ -181,8 +179,6 @@
     
     SP_RELEASE_POOL(pool);
 }
- 
-#pragma mark -
 
 + (Class)layerClass 
 {
@@ -232,9 +228,6 @@
     glDeleteRenderbuffersOES(1, &mRenderbuffer);
     mRenderbuffer = 0;    
 }
-
-
-#pragma mark -
 
 - (void) touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event 
 {   
@@ -289,8 +282,6 @@
         SP_RELEASE_POOL(pool);
     }    
 }
-
-#pragma mark -
 
 - (void)dealloc 
 {    

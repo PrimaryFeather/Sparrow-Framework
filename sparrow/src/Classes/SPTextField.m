@@ -190,8 +190,6 @@ static NSMutableDictionary *bitmapFonts = nil;
                                              hAlign:mHAlign vAlign:mVAlign border:mBorder];    
 }
 
-#pragma mark -
-
 - (float)width
 {    
     return [mHitArea boundsInSpace:self.parent].width;
@@ -304,8 +302,6 @@ static NSMutableDictionary *bitmapFonts = nil;
     return [[[SPTextField alloc] initWithText:text] autorelease];
 }
 
-#pragma mark -
-
 + (NSString *)registerBitmapFontFromFile:(NSString*)path texture:(SPTexture *)texture
 {
     if (!bitmapFonts) bitmapFonts = [[NSMutableDictionary alloc] init];
@@ -333,8 +329,6 @@ static NSMutableDictionary *bitmapFonts = nil;
         bitmapFonts = nil;
     }
 }
-
-#pragma mark -
 
 - (void)dealloc
 {

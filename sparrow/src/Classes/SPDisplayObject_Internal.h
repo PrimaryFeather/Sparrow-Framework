@@ -15,5 +15,6 @@
 @interface SPDisplayObject (Internal)
 
 - (void)setParent:(SPDisplayObjectContainer*)parent;
+- (void)dispatchEventOnChildren:(SPEvent *)event;
 
 @end

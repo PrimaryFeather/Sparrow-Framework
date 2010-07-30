@@ -63,8 +63,6 @@
     [super dealloc];
 }
 
-#pragma mark -
-
 - (int)addFrame:(SPTexture *)texture
 {
     return [self addFrame:texture withDuration:mDefaultFrameDuration];
@@ -140,8 +138,6 @@
     return [[mFrameDurations objectAtIndex:frameID] doubleValue];
 }
 
-#pragma mark -
-
 - (int)numFrames
 {        
     return mFrames.count;
@@ -156,8 +152,6 @@
 {
     mPlaying = NO;
 }
-
-#pragma mark -
 
 - (void)updateCurrentFrame
 {

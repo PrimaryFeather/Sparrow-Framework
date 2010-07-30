@@ -55,8 +55,6 @@
     [mTestSprite release];
 }
 
-#pragma mark -
-
 - (void)testChildParentHandling
 {
     SPSprite *parent = [[SPSprite alloc] init];
