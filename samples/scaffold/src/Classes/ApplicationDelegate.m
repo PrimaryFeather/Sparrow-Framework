@@ -18,13 +18,14 @@
 {    
     SP_CREATE_POOL(pool);    
     
+    [SPAudioEngine start];
+    [SPStage setSupportHighResolutions:YES];
+    
     Game *game = [[Game alloc] initWithWidth:320 height:480];        
     sparrowView.stage = game;
     [sparrowView start];
     [window makeKeyAndVisible];
     [game release];    
-    
-    [SPAudioEngine start];
     
     SP_RELEASE_POOL(pool);
 }

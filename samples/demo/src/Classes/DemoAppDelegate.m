@@ -30,12 +30,10 @@ void onUncaughtException(NSException *exception)
 {    
     SP_CREATE_POOL(pool);    
     
-    NSSetUncaughtExceptionHandler(&onUncaughtException); 
+    NSSetUncaughtExceptionHandler(&onUncaughtException);     
     
     [SPAudioEngine start];
-    
-    // the demo contains high resolution graphics for the retina display
-    [SPStage setSupportHighResolutions:YES];
+    [SPStage setSupportHighResolutions:YES]; // use the provided hd textures on suitable hardware
     
     Game *game = [[Game alloc] initWithWidth:320 height:480];
     sparrowView.stage = game;
