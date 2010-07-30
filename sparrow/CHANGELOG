@@ -2,6 +2,34 @@
 Sparrow: Changelog
 ----------------------------------------------------------------------------------------------------
 
+version 0.9 - 2010-07-30
+
+- !!! interface change !!! 
+  The IDs of vertices in SPQuad and SPImage have changed. ("colorOfVertex:", "texCoordsOfVertex:")
+  Before: 0 = top left, 1 = top right, 2 = bottom right, 3 = bottom left
+  AFTER:  0 = top left, 1 = top right, 2 = bottom left,  3 = bottom right
+- greatly improved rendering speed of SPTextField when used with bitmap fonts 
+- greatly improved performance of touch event analysis
+- added Sparrow atlas generator (sparrow/util/atlas_generator)
+- added Sparrow texture resizer (sparrow/util/texture_scaler)
+- added support for high resolution screens (aka iPhone4's retina display)
+- added support for high resolution textures ("texture@2x.png")
+- added support for high resolution texture atlases ("atlas@2x.xml")
+- added support for high resolution bitmap fonts ("font@2x.xml")
+- added support for loading textures that are not inside the application bundle
+- added support for loading sounds that are not inside the application bundle
+- changed base SDK to iOS 4.0
+- added new event: SP_EVENT_TYPE_MOVIE_COMPLETED in SPMovieClip class
+- added experimental feature: SPCompiledSprite
+- added some missing "@private" declarations
+- fixed memory access violation when object was destroyed within an enter frame event listener
+- fixed bug that alpha values were only used when a texture was active
+- fixed bug that SPDelayedInvocation (aka SPJuggler::delayInvocationAtTarget) did not retain
+  its arguments 
+- fixed bug that cancelled touch events would inhibit further user input
+- code cleanup (especially concerning designated initializers)
+- Special thanks to: Mike, Baike, Paolo, Jule and Alex_H for bug reports, suggestions and feedback!
+
 version 0.8 - 2010-06-05
 
 - added audio classes
