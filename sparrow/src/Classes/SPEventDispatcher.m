@@ -17,8 +17,6 @@
 
 @implementation SPEventDispatcher
 
-#pragma mark -
-
 - (void)addEventListener:(SEL)listener atObject:(id)object forType:(NSString*)eventType 
             retainObject:(BOOL)doRetain
 {
@@ -126,10 +124,12 @@
     }
     
     if (previousTarget) event.target = previousTarget;
-    [self release];
+    
+    // we use autorelease instead of release to avoid having to make additional "retain"-calls
+    // in calling methods (like "dispatchEventsOnChildren"). Those methods might be called very
+    // often, so we save some time by avoiding that.
+    [self autorelease];
 }
-
-#pragma mark -
 
 - (void)dealloc
 {
