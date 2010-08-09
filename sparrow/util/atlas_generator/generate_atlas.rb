@@ -48,10 +48,10 @@ class TextureNode
           @children << TextureNode.new(@rect.x + img_width, @rect.y,
                                        @rect.width - img_width, @rect.height)
         else
-          @children << TextureNode.new(@rect.x, @rect.y + img_height,
-                                       @rect.width, @rect.height - img_height)
           @children << TextureNode.new(@rect.x + img_width, @rect.y,
                                        @rect.width - img_width, img_height)
+          @children << TextureNode.new(@rect.x, @rect.y + img_height,
+                                       @rect.width, @rect.height - img_height)
         end
         return self
       else
