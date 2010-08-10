@@ -89,7 +89,8 @@ images.each do |image|
   fullpath = File.join(target_path, basename + options.append_suffix + extname)
   
   image.resize "#{options.scale * 100}%"
-  image.append_to_operators('sharpen', 1) if (options.sharpen)
+  image.append_to_operators 'filter', 'Box' if (options.scale == 0.5 || options.scale == 0.25)  
+  image.append_to_operators 'sharpen', 1    if (options.sharpen)
   image.save fullpath
   puts "Saved #{fullpath}"
 end
