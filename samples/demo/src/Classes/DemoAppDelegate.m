@@ -49,12 +49,12 @@ void onUncaughtException(NSException *exception)
 
 - (void)applicationWillResignActive:(UIApplication *)application 
 {    
-    sparrowView.frameRate = 5;
+    [sparrowView stop];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application 
 {
-	sparrowView.frameRate = 30;
+	[sparrowView start];
 }
 
 - (void)dealloc 
