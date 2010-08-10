@@ -202,6 +202,10 @@ vputs "Drawing atlas ..."
 
 atlas_image = Image::solid(current_width, current_height, :transparent)
 
+# Use box filter for downscaling by whole number (creates sharper output)
+atlas_image.append_to_operators 'filter', 'Box' if (options.scale == 0.5 || options.scale == 0.25)
+
+# Draw all images into atlas
 image_nodes.each do |node|
   atlas_image.draw_image :over, node.rect.x, node.rect.y, 
                                 (node.image.width * options.scale).to_i, 
@@ -209,8 +213,10 @@ image_nodes.each do |node|
                                 "{" + node.image.image_filename + "}"
 end
 
-atlas_image.append_to_operators('sharpen', 1) if (options.sharpen)
+# Apply sharpening filter if requested
+atlas_image.append_to_operators 'sharpen', 1 if (options.sharpen)
 
+# Save output to correct path
 target_path = File.dirname(target_file)
 File.makedirs target_path
 atlas_name  = File.basename(target_file, File.extname(target_file))
