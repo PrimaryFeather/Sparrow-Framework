@@ -11,12 +11,22 @@
 		DE019C3A1026361200ECB0AC /* SPDelayedInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFB1B94100926260022C117 /* SPDelayedInvocation.m */; };
 		DE019C3B1026363D00ECB0AC /* SPNSExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = DE68EA160FBB5660004DBC95 /* SPNSExtensions.m */; };
 		DE019C3C1026364800ECB0AC /* SPJuggler.m in Sources */ = {isa = PBXBuildFile; fileRef = DE7044270FB61506007F5ECC /* SPJuggler.m */; };
-		DE05748911E915A900F3A8A4 /* SPNSExtensionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DE05748611E915A900F3A8A4 /* SPNSExtensionsTest.m */; };
+		DE14412E12421EA600FFA95A /* SPNSExtensionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DE05748611E915A900F3A8A4 /* SPNSExtensionsTest.m */; };
+		DE14413612421F4700FFA95A /* SPImageTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DE0853A40FEC286900DAF53C /* SPImageTest.m */; };
+		DE14413712421F4800FFA95A /* SPDisplayObjectTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DE469D6E0F938FAB00F56E91 /* SPDisplayObjectTest.m */; };
+		DE14413812421F4800FFA95A /* SPMovieClipTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC54F6211B7765500E439B0 /* SPMovieClipTest.m */; };
+		DE14413912421F4900FFA95A /* SPRectangleTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DED67F7C0FA359F00050E779 /* SPRectangleTest.m */; };
+		DE14413A12421F4900FFA95A /* SPDisplayObjectContainerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DEB21CF80F93C9780080D5C2 /* SPDisplayObjectContainerTest.m */; };
+		DE14413B12421F4A00FFA95A /* SPEventDispatcherTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DEE594490FA63BA800E3AEFC /* SPEventDispatcherTest.m */; };
+		DE14413C12421F4B00FFA95A /* SPDelayedInvocationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DE5286BA11F77C6200F916E8 /* SPDelayedInvocationTest.m */; };
+		DE14413D12421F4B00FFA95A /* SPMatrixTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DE8F1E2D0F7C1F3A0085E9E4 /* SPMatrixTest.m */; };
+		DE14413E12421F4B00FFA95A /* SPPointTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DEABCF5B0F7AE187003B6C9D /* SPPointTest.m */; };
+		DE14413F12421F4C00FFA95A /* SPQuadTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DED2B6F90FA0CF5900083578 /* SPQuadTest.m */; };
+		DE14414012421F4C00FFA95A /* SPJugglerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DE1F9446104704440084D470 /* SPJugglerTest.m */; };
+		DE14414112421F4D00FFA95A /* SPTweenTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DE75E8660FBDC57E00C64495 /* SPTweenTest.m */; };
+		DE14414212421F4E00FFA95A /* SPStageTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DED67F330FA3514C0050E779 /* SPStageTest.m */; };
 		DE18FE4511B083B200D01F04 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE18FE4411B083B200D01F04 /* AVFoundation.framework */; };
-		DE1F946B10470CD40084D470 /* SPJugglerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DE1F9446104704440084D470 /* SPJugglerTest.m */; };
 		DE20D9CC10713B0C006658C9 /* SPRenderSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = DE20D9CA10713B0C006658C9 /* SPRenderSupport.m */; };
-		DE5286BC11F77C6A00F916E8 /* SPDelayedInvocationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DE5286BA11F77C6200F916E8 /* SPDelayedInvocationTest.m */; };
-		DEC54F6511B7765500E439B0 /* SPMovieClipTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC54F6211B7765500E439B0 /* SPMovieClipTest.m */; };
 		DED8B48711B0827E00A1766C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		DED8B48811B0827E00A1766C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE9CF1EB0FED3128008A32FF /* CoreGraphics.framework */; };
 		DED8B48911B0827E00A1766C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD15070DC6FC5B0079059D /* QuartzCore.framework */; };
@@ -38,16 +48,6 @@
 		DEEA933D101E32E10071DD21 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD15070DC6FC5B0079059D /* QuartzCore.framework */; };
 		DEEA933E101E32E10071DD21 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		DEEA934E101E33F00071DD21 /* libSparrow.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DEFE4BC2101B317600E22471 /* libSparrow.a */; };
-		DEEA9364101E383D0071DD21 /* SPPointTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DEABCF5B0F7AE187003B6C9D /* SPPointTest.m */; };
-		DEEA9365101E383D0071DD21 /* SPMatrixTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DE8F1E2D0F7C1F3A0085E9E4 /* SPMatrixTest.m */; };
-		DEEA9366101E383D0071DD21 /* SPDisplayObjectTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DE469D6E0F938FAB00F56E91 /* SPDisplayObjectTest.m */; };
-		DEEA9367101E383D0071DD21 /* SPDisplayObjectContainerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DEB21CF80F93C9780080D5C2 /* SPDisplayObjectContainerTest.m */; };
-		DEEA9368101E383D0071DD21 /* SPQuadTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DED2B6F90FA0CF5900083578 /* SPQuadTest.m */; };
-		DEEA9369101E383D0071DD21 /* SPStageTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DED67F330FA3514C0050E779 /* SPStageTest.m */; };
-		DEEA936A101E383D0071DD21 /* SPRectangleTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DED67F7C0FA359F00050E779 /* SPRectangleTest.m */; };
-		DEEA936B101E383D0071DD21 /* SPEventDispatcherTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DEE594490FA63BA800E3AEFC /* SPEventDispatcherTest.m */; };
-		DEEA936C101E383D0071DD21 /* SPTweenTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DE75E8660FBDC57E00C64495 /* SPTweenTest.m */; };
-		DEEA936D101E383D0071DD21 /* SPImageTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DE0853A40FEC286900DAF53C /* SPImageTest.m */; };
 		DEED173A108A50000071438F /* SPTweenedProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = DEED1738108A50000071438F /* SPTweenedProperty.m */; };
 		DEEDE3A111B29908009FD4C8 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEE63A7111AED4FA00D60321 /* OpenAL.framework */; };
 		DEEDE3A211B29908009FD4C8 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE18FE4411B083B200D01F04 /* AVFoundation.framework */; };
@@ -574,7 +574,14 @@
 			isa = PBXProject;
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Sparrow" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -606,20 +613,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DEEA9364101E383D0071DD21 /* SPPointTest.m in Sources */,
-				DEEA9365101E383D0071DD21 /* SPMatrixTest.m in Sources */,
-				DEEA9366101E383D0071DD21 /* SPDisplayObjectTest.m in Sources */,
-				DEEA9367101E383D0071DD21 /* SPDisplayObjectContainerTest.m in Sources */,
-				DEEA9368101E383D0071DD21 /* SPQuadTest.m in Sources */,
-				DEEA9369101E383D0071DD21 /* SPStageTest.m in Sources */,
-				DEEA936A101E383D0071DD21 /* SPRectangleTest.m in Sources */,
-				DEEA936B101E383D0071DD21 /* SPEventDispatcherTest.m in Sources */,
-				DEEA936C101E383D0071DD21 /* SPTweenTest.m in Sources */,
-				DEEA936D101E383D0071DD21 /* SPImageTest.m in Sources */,
-				DE1F946B10470CD40084D470 /* SPJugglerTest.m in Sources */,
-				DEC54F6511B7765500E439B0 /* SPMovieClipTest.m in Sources */,
-				DE05748911E915A900F3A8A4 /* SPNSExtensionsTest.m in Sources */,
-				DE5286BC11F77C6A00F916E8 /* SPDelayedInvocationTest.m in Sources */,
+				DE14412E12421EA600FFA95A /* SPNSExtensionsTest.m in Sources */,
+				DE14413612421F4700FFA95A /* SPImageTest.m in Sources */,
+				DE14413712421F4800FFA95A /* SPDisplayObjectTest.m in Sources */,
+				DE14413812421F4800FFA95A /* SPMovieClipTest.m in Sources */,
+				DE14413912421F4900FFA95A /* SPRectangleTest.m in Sources */,
+				DE14413A12421F4900FFA95A /* SPDisplayObjectContainerTest.m in Sources */,
+				DE14413B12421F4A00FFA95A /* SPEventDispatcherTest.m in Sources */,
+				DE14413C12421F4B00FFA95A /* SPDelayedInvocationTest.m in Sources */,
+				DE14413D12421F4B00FFA95A /* SPMatrixTest.m in Sources */,
+				DE14413E12421F4B00FFA95A /* SPPointTest.m in Sources */,
+				DE14413F12421F4C00FFA95A /* SPQuadTest.m in Sources */,
+				DE14414012421F4C00FFA95A /* SPJugglerTest.m in Sources */,
+				DE14414112421F4D00FFA95A /* SPTweenTest.m in Sources */,
+				DE14414212421F4E00FFA95A /* SPStageTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -695,7 +702,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos4.0;
+				SDKROOT = iphoneos4.1;
 			};
 			name = Debug;
 		};
@@ -710,7 +717,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = NO;
 				PREBINDING = NO;
-				SDKROOT = iphoneos4.0;
+				SDKROOT = iphoneos4.1;
 			};
 			name = Release;
 		};
@@ -783,7 +790,6 @@
 				PREBINDING = NO;
 				PRODUCT_NAME = Sparrow;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8F2B7F7C-97B8-4A99-B7EE-104D609292F6";
-				SDKROOT = iphoneos4.0;
 			};
 			name = Debug;
 		};
@@ -802,7 +808,6 @@
 				PREBINDING = NO;
 				PRODUCT_NAME = Sparrow;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos4.0;
 				ZERO_LINK = NO;
 			};
 			name = Release;

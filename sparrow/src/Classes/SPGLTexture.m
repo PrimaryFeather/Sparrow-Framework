@@ -23,37 +23,85 @@
 @synthesize hasPremultipliedAlpha = mPremultipliedAlpha;
 @synthesize scale = mScale;
 
-- (id)initWithData:(const void*)imgData width:(int)width height:(int)height
-            format:(SPTextureFormat)format premultipliedAlpha:(BOOL)pma
-{
+- (id)initWithData:(const void*)imgData properties:(SPTextureProperties)properties
+{    
     if (self = [super init])
     {        
-        mWidth = width;
-        mHeight = height;
+        mWidth = properties.width;
+        mHeight = properties.height;
         mRepeat = NO;
-        mPremultipliedAlpha = pma;
+        mPremultipliedAlpha = properties.premultipliedAlpha;
         mScale = 1.0f;
         
         if (imgData)
         {
-            GLenum glTexFormat;            
-            if (format == SPTextureFormatRGBA) glTexFormat = GL_RGBA;            
-            else                               glTexFormat = GL_ALPHA;
+            GLenum glTexFormat;                        
+            int bitsPerPixel;
+            
+            switch (properties.format)
+            {
+                default:
+                case SPTextureFormatRGBA:
+                    bitsPerPixel = 8;
+                    glTexFormat = GL_RGBA;
+                    break;
+                case SPTextureFormatAlpha:
+                    bitsPerPixel = 8;
+                    glTexFormat = GL_ALPHA;
+                    break;
+                case SPTextureFormatPvrtcRGBA2:
+                    bitsPerPixel = 2;
+                    glTexFormat = GL_COMPRESSED_RGBA_PVRTC_2BPPV1_IMG;
+                    break;
+                case SPTextureFormatPvrtcRGB2:
+                    bitsPerPixel = 2;
+                    glTexFormat = GL_COMPRESSED_RGB_PVRTC_2BPPV1_IMG;
+                    break;
+                case SPTextureFormatPvrtcRGBA4:
+                    bitsPerPixel = 4;
+                    glTexFormat = GL_COMPRESSED_RGBA_PVRTC_4BPPV1_IMG;
+                    break;
+                case SPTextureFormatPvrtcRGB4:
+                    bitsPerPixel = 4;
+                    glTexFormat = GL_COMPRESSED_RGB_PVRTC_4BPPV1_IMG;
+                    break;                    
+            }
             
             glGenTextures(1, &mTextureID);
-            glBindTexture(GL_TEXTURE_2D, mTextureID);    
+            glBindTexture(GL_TEXTURE_2D, mTextureID);
             
-            glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE);
-            glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
-            glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);   
+            glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); 
             glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, mRepeat ? GL_REPEAT : GL_CLAMP_TO_EDGE); 
             glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, mRepeat ? GL_REPEAT : GL_CLAMP_TO_EDGE); 
            
-            glTexImage2D(GL_TEXTURE_2D, 0, glTexFormat, width, height, 0, glTexFormat, 
-                         GL_UNSIGNED_BYTE, imgData);
+            if (bitsPerPixel == 8) // uncompressed image
+            {
+                glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
+                glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE);
+                glTexImage2D(GL_TEXTURE_2D, 0, glTexFormat, mWidth, mHeight, 0, glTexFormat, 
+                             GL_UNSIGNED_BYTE, imgData);
+            }                
+            else // compressed image
+            {
+                glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, properties.numMipmaps == 0 ?
+                                GL_LINEAR : GL_LINEAR_MIPMAP_NEAREST);
+                
+                int levelWidth = mWidth;
+                int levelHeight = mHeight;
+                unsigned char *levelImgData = (unsigned char *)imgData;
+                
+                for (int level=0; level<=properties.numMipmaps; ++level)
+                {                    
+                    int size = MAX(32, levelWidth * levelHeight * bitsPerPixel / 8);
+                    glCompressedTexImage2D(GL_TEXTURE_2D, level, glTexFormat, 
+                                           levelWidth, levelHeight, 0, size, levelImgData);
+                    levelImgData += size;
+                    levelWidth  /= 2; 
+                    levelHeight /= 2;
+                }
+            }
             
-            glBindTexture(GL_TEXTURE_2D, 0);
-            
+            glBindTexture(GL_TEXTURE_2D, 0);            
         }
         else
         {
@@ -65,8 +113,7 @@
 
 - (id)init
 {
-    return [self initWithData:NULL width:32 height:32 
-                       format:SPTextureFormatRGBA premultipliedAlpha:NO];
+    return [self initWithData:NULL properties:(SPTextureProperties){ .width = 32, .height = 32 }];
 }
 
 - (float)width
@@ -88,11 +135,9 @@
     glBindTexture(GL_TEXTURE_2D, 0);  
 }
 
-+ (SPGLTexture*)textureWithData:(const void*)imgData width:(int)width height:(int)height
-                             format:(SPTextureFormat)format premultipliedAlpha:(BOOL)pma
++ (SPGLTexture*)textureWithData:(const void *)imgData properties:(SPTextureProperties)properties
 {
-    return [[[SPGLTexture alloc] initWithData:imgData width:width height:height 
-                                           format:format premultipliedAlpha:pma] autorelease];
+    return [[[SPGLTexture alloc] initWithData:imgData properties:properties] autorelease];
 }
 
 - (void)dealloc

@@ -40,8 +40,8 @@
 
 - (id)initWithWidth:(float)width height:(float)height
 {
-    return [self initWithTexture:[SPGLTexture textureWithData:NULL width:width height:height
-                                  format:SPTextureFormatRGBA premultipliedAlpha:NO]];
+    SPTextureProperties properties = { .width = width, .height = height };
+    return [self initWithTexture:[SPGLTexture textureWithData:NULL properties:properties]];
 }
 
 - (void)setTexCoords:(SPPoint*)coords ofVertex:(int)vertexID

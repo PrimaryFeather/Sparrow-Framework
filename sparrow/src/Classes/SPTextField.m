@@ -161,8 +161,14 @@ static NSMutableDictionary *bitmapFonts = nil;
     
     UIGraphicsPopContext();
     
-    SPGLTexture* texture = [[SPGLTexture alloc] initWithData:imageData 
-        width:legalWidth height:legalHeight format:SPTextureFormatAlpha premultipliedAlpha:NO];
+    SPTextureProperties properties = {
+        .format = SPTextureFormatAlpha,
+        .width = legalWidth,
+        .height = legalHeight,
+        .premultipliedAlpha = NO
+    };
+    
+    SPGLTexture* texture  = [[SPGLTexture alloc] initWithData:imageData properties:properties];
     SPTexture *subTexture = [[SPSubTexture alloc] initWithRegion:
         [SPRectangle rectangleWithX:0 y:0 width:width height:height] ofTexture:texture];    
     

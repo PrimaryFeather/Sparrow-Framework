@@ -11,12 +11,6 @@
 
 #import <Foundation/Foundation.h>
 
-typedef enum 
-{
-    SPTextureFormatRGBA,
-    SPTextureFormatAlpha
-} SPTextureFormat;
-
 @class SPRectangle;
 
 @interface SPTexture : NSObject

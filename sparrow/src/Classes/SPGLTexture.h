@@ -16,6 +16,25 @@
 
 @class SPRectangle;
 
+typedef enum 
+{
+    SPTextureFormatRGBA,
+    SPTextureFormatAlpha,
+    SPTextureFormatPvrtcRGB2,
+    SPTextureFormatPvrtcRGBA2,
+    SPTextureFormatPvrtcRGB4,
+    SPTextureFormatPvrtcRGBA4    
+} SPTextureFormat;
+
+typedef struct
+{
+    SPTextureFormat format;
+    int width;
+    int height;
+    int numMipmaps;
+    BOOL premultipliedAlpha;
+} SPTextureProperties;
+
 @interface SPGLTexture : SPTexture
 {
   @private
@@ -27,11 +46,9 @@
     BOOL mPremultipliedAlpha;    
 }
 
-- (id)initWithData:(const void*)imgData width:(int)width height:(int)height 
-            format:(SPTextureFormat)format premultipliedAlpha:(BOOL)pma;
+- (id)initWithData:(const void *)imgData properties:(SPTextureProperties)properties;
 
-+ (SPGLTexture*)textureWithData:(const void*)imgData width:(int)width height:(int)height
-                         format:(SPTextureFormat)format premultipliedAlpha:(BOOL)pma;
++ (SPGLTexture*)textureWithData:(const void *)imgData properties:(SPTextureProperties)properties;
 
 @property (nonatomic, assign) BOOL repeat;
 @property (nonatomic, assign) float scale;
