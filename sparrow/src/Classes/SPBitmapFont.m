@@ -202,6 +202,9 @@
                 for (int i=0; i<numCharsToRemove; ++i)
                     [currentLine removeChildAtIndex:removeIndex];
                 
+                if (currentLine.numChildren == 0)
+                    break;
+                
                 SPDisplayObject *lastChar = [currentLine childAtIndex:currentLine.numChildren-1];
                 currentX = lastChar.x + lastChar.width;
                 
@@ -242,14 +245,6 @@
     }
     
     SPSprite *outerContainer = [SPCompiledSprite sprite];
-
-    // create an invisible background (not rendered) so that width and height-properties 
-    // of the object appear correct.
-    SPQuad *background = [[SPQuad alloc] initWithWidth:width height:height];
-    background.visible = NO;
-    [outerContainer addChild:background];
-    [background release];
-    
     [outerContainer addChild:lineContainer];    
     
     if (vAlign != SPVAlignTop)

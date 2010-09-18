@@ -50,6 +50,7 @@ typedef enum
     BOOL mIsRenderedText;
     
     SPQuad *mHitArea;
+    SPQuad *mTextArea;
     SPDisplayObject *mContents;
 }
 
@@ -60,10 +61,11 @@ typedef enum
 @property (nonatomic, assign) SPVAlign vAlign;
 @property (nonatomic, assign) BOOL border;
 @property (nonatomic, assign) uint color;
+@property (nonatomic, readonly) SPRectangle *textBounds;
 
 // designated initializer
 - (id)initWithWidth:(float)width height:(float)height text:(NSString*)text fontName:(NSString*)name
-           fontSize:(float)size color:(uint)color ;
+           fontSize:(float)size color:(uint)color;
 - (id)initWithWidth:(float)width height:(float)height text:(NSString*)text;
 - (id)initWithText:(NSString *)text;
 
