@@ -172,6 +172,7 @@
     [mStage advanceTime:timePassed];
     mLastFrameTimestamp = now;
         
+    [mRenderSupport bindTexture:nil]; // old textures could have become invalid
     [mStage render:mRenderSupport];
     
     glBindRenderbufferOES(GL_RENDERBUFFER_OES, mRenderbuffer);
