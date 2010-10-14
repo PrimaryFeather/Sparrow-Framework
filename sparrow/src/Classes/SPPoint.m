@@ -93,7 +93,14 @@
 
 + (float)distanceFromPoint:(SPPoint*)p1 toPoint:(SPPoint*)p2
 {
-    return sqrtf(SQ(p2.x - p1.x) + SQ(p2.y - p1.y));
+    return sqrtf(SQ(p2->mX - p1->mX) + SQ(p2->mY - p1->mY));
+}
+
++ (SPPoint *)interpolateFromPoint:(SPPoint *)p1 toPoint:(SPPoint *)p2 ratio:(float)ratio
+{
+    float invRatio = 1.0f - ratio;
+    return [SPPoint pointWithX:invRatio * p1->mX + ratio * p2->mX
+                             y:invRatio * p1->mY + ratio * p2->mY];
 }
 
 + (SPPoint *)pointWithPolarLength:(float)length angle:(float)angle

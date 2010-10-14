@@ -30,11 +30,13 @@
 - (id)init;
 - (BOOL)isEqual:(id)other;
 
-- (SPPoint*)addPoint:(SPPoint*)point;
-- (SPPoint*)subtractPoint:(SPPoint*)point;
-- (SPPoint*)normalize;
+- (SPPoint *)addPoint:(SPPoint *)point;
+- (SPPoint *)subtractPoint:(SPPoint *)point;
+- (SPPoint *)normalize;
 
-+ (float)distanceFromPoint:(SPPoint*)p1 toPoint:(SPPoint*)p2;
++ (float)distanceFromPoint:(SPPoint *)p1 toPoint:(SPPoint *)p2;
++ (SPPoint *)interpolateFromPoint:(SPPoint *)p1 toPoint:(SPPoint *)p2 ratio:(float)ratio;
+
 + (SPPoint *)pointWithPolarLength:(float)length angle:(float)angle;
 + (SPPoint *)pointWithX:(float)x y:(float)y;
 + (SPPoint *)point;
