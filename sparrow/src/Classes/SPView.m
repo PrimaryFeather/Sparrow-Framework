@@ -143,6 +143,8 @@
 
 - (void)stop
 {
+    [self renderStage]; // draw last-moment changes
+    
     self.timer = nil;
     self.displayLink = nil;
 }
