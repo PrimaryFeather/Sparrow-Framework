@@ -241,7 +241,8 @@
     SPQuad *quad = [[SPQuad alloc] initWithWidth:100 height:100];
     quad.alpha = 0.2f;
     [sprite addChild:quad];
-    return [quad release];
+    [quad release];
+    return;
 }
 
 - (void)testDisplayListEvents

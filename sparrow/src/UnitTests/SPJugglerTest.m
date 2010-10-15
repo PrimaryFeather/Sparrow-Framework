@@ -58,6 +58,12 @@
     
     [mJuggler advanceTime:0.4]; // 1.6 (start of new tween)
     STAssertTrue(mStartedReached, @"juggler ignored modification made in callback");    
+    
+    [mJuggler release];
+    [mQuad release];
+    
+    mJuggler = nil;
+    mQuad = nil;
 }
 
 - (void)testRemoveTweensWithTarget
@@ -81,6 +87,8 @@
     
     STAssertEquals(0.0f, quad1.rotation, @"removed tween was advanced");
     STAssertEquals(1.0f, quad2.rotation, @"wrong tween was removed");
+    
+    mJuggler = nil;
 }
 
 - (void)onTweenCompleted:(SPEvent*)event
@@ -94,13 +102,6 @@
 - (void)onTweenStarted:(SPEvent*)event
 {
     mStartedReached = YES;
-}
-
-- (void)dealloc
-{
-    [mJuggler release];
-    [mQuad release];
-    [super dealloc];
 }
 
 @end

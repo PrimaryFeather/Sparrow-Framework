@@ -59,6 +59,7 @@
     SPPoint *point = [[SPPoint alloc] initWithX:3 y:4];
     STAssertEquals(3.0f, point.x, @"wrong x value");
     STAssertEquals(4.0f, point.y, @"wrong y value");
+    [point release];
 }
 
 - (void)testLength
