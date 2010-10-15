@@ -229,9 +229,13 @@
 
 - (void)setWidth:(float)value
 {
+    // this method calls 'self.scaleX' instead of changing mScaleX directly.
+    // that way, subclasses reacting on size changes need to override only the scaleX method.
+    
     mScaleX = 1.0f;
     float actualWidth = self.width;
-    if (actualWidth != 0.0f) mScaleX = value / actualWidth;
+    if (actualWidth != 0.0f) self.scaleX = value / actualWidth;
+    else                     self.scaleX = 1.0f;
 }
 
 - (float)height
@@ -243,7 +247,8 @@
 {
     mScaleY = 1.0f;
     float actualHeight = self.height;
-    if (actualHeight != 0.0f) mScaleY = value / actualHeight;
+    if (actualHeight != 0.0f) self.scaleY = value / actualHeight;
+    else                      self.scaleY = 1.0f;
 }
 
 - (void)setRotation:(float)value
