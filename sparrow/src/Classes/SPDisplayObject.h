@@ -32,6 +32,7 @@
     
     SPDisplayObjectContainer *mParent;    
     double mLastTouchTimestamp;
+    NSString *mName;
 }
 
 @property (nonatomic, assign) float x;
@@ -49,6 +50,7 @@
 @property (nonatomic, readonly) SPDisplayObject *root;
 @property (nonatomic, readonly) SPStage *stage;
 @property (nonatomic, readonly) SPMatrix *transformationMatrix;
+@property (nonatomic, copy) NSString *name;
 
 - (void)render:(SPRenderSupport*)support;
 - (void)removeFromParent;

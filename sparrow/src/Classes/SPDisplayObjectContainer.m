@@ -91,6 +91,14 @@
     return [mChildren objectAtIndex:index];
 }
 
+- (SPDisplayObject *)childByName:(NSString *)name
+{
+    for (SPDisplayObject *currentChild in mChildren)
+        if ([currentChild.name isEqualToString:name]) return currentChild;
+    
+    return nil;
+}
+
 - (int)childIndex:(SPDisplayObject *)child
 {
     int index = [mChildren indexOfObject:child];

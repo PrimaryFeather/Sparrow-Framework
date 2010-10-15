@@ -242,6 +242,15 @@
     STAssertEqualsWithAccuracy(SP_D2R(-10.0f), quad.rotation, E, @"wrong angle");
 }
 
+- (void)testName
+{
+    SPSprite *sprite = [SPSprite sprite];
+    STAssertNil(sprite.name, @"name not nil after initialization");
+    
+    sprite.name = @"hugo";
+    STAssertEqualObjects(@"hugo", sprite.name, @"wrong name");
+}
+
 @end
 
 #endif

@@ -29,6 +29,7 @@
 @synthesize alpha = mAlpha;
 @synthesize visible = mVisible;
 @synthesize touchable = mTouchable;
+@synthesize name = mName;
 
 - (id)init
 {    
@@ -51,6 +52,12 @@
         mTouchable = YES;
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [mName release];
+    [super dealloc];
 }
 
 - (void)render:(SPRenderSupport*)support

@@ -24,6 +24,7 @@
 - (void)addChild:(SPDisplayObject *)child atIndex:(int)index;
 - (BOOL)containsChild:(SPDisplayObject *)child;
 - (SPDisplayObject *)childAtIndex:(int)index;
+- (SPDisplayObject *)childByName:(NSString *)name;
 - (int)childIndex:(SPDisplayObject *)child;
 - (void)removeChild:(SPDisplayObject *)child;
 - (void)removeChildAtIndex:(int)index;
