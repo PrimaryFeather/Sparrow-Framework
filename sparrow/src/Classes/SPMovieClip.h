@@ -34,6 +34,7 @@
 }
 
 - (id)initWithFrame:(SPTexture *)texture fps:(float)fps;
+- (id)initWithFrames:(NSArray *)textures fps:(float)fps;
 
 - (int)addFrame:(SPTexture *)texture;
 - (int)addFrame:(SPTexture *)texture withDuration:(double)duration;

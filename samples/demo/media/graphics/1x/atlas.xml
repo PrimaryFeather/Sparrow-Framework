@@ -1,17 +1,17 @@
 <TextureAtlas imagePath='atlas.png'>
   <SubTexture name='egg_opened' x='0' y='0' height='180.5' width='128.0'/>
   <SubTexture name='egg_closed' x='129' y='0' height='151.0' width='151.0'/>
-  <SubTexture name='walk_11' x='0' y='181' height='150.5' width='87.0'/>
-  <SubTexture name='walk_0' x='0' y='332' height='150.5' width='87.0'/>
-  <SubTexture name='walk_1' x='129' y='152' height='150.5' width='87.0'/>
+  <SubTexture name='walk_03' x='0' y='181' height='150.5' width='87.0'/>
+  <SubTexture name='walk_00' x='0' y='332' height='150.5' width='87.0'/>
+  <SubTexture name='walk_01' x='281' y='0' height='150.5' width='87.0'/>
+  <SubTexture name='walk_02' x='369' y='0' height='150.5' width='87.0'/>
+  <SubTexture name='walk_11' x='129' y='152' height='150.5' width='87.0'/>
   <SubTexture name='walk_10' x='129' y='303' height='150.5' width='87.0'/>
-  <SubTexture name='walk_9' x='217' y='152' height='150.5' width='87.0'/>
-  <SubTexture name='walk_8' x='217' y='303' height='150.5' width='87.0'/>
-  <SubTexture name='walk_3' x='305' y='303' height='150.5' width='87.0'/>
-  <SubTexture name='walk_4' x='393' y='303' height='150.5' width='87.0'/>
-  <SubTexture name='walk_5' x='305' y='152' height='150.5' width='87.0'/>
-  <SubTexture name='walk_6' x='393' y='152' height='150.5' width='87.0'/>
-  <SubTexture name='walk_7' x='281' y='0' height='150.5' width='87.0'/>
-  <SubTexture name='walk_2' x='369' y='0' height='150.5' width='87.0'/>
-  <SubTexture name='benchmark_object' x='129' y='454' height='51.0' width='51.0'/>
+  <SubTexture name='walk_05' x='217' y='152' height='150.5' width='87.0'/>
+  <SubTexture name='walk_06' x='305' y='152' height='150.5' width='87.0'/>
+  <SubTexture name='walk_07' x='393' y='152' height='150.5' width='87.0'/>
+  <SubTexture name='walk_08' x='217' y='303' height='150.5' width='87.0'/>
+  <SubTexture name='walk_09' x='305' y='303' height='150.5' width='87.0'/>
+  <SubTexture name='walk_04' x='393' y='303' height='150.5' width='87.0'/>
+  <SubTexture name='benchmark_object' x='457' y='0' height='51.0' width='51.0'/>
 </TextureAtlas>

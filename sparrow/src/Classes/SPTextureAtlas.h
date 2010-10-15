@@ -26,9 +26,10 @@
 
 @property (nonatomic, readonly) int count;
 
-- (id)initWithContentsOfFile:(NSString*)path;
-- (SPTexture*)textureByName:(NSString*)name;
+- (id)initWithContentsOfFile:(NSString *)path;
+- (SPTexture *)textureByName:(NSString *)name;
+- (NSArray *)texturesStartingWith:(NSString *)name;
 
-+ (SPTextureAtlas*)atlasWithContentsOfFile:(NSString*)path;
++ (SPTextureAtlas *)atlasWithContentsOfFile:(NSString *)path;
 
 @end

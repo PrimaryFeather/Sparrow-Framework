@@ -111,6 +111,25 @@
     return [SPSubTexture textureWithRegion:region ofTexture:mAtlasTexture];    
 }
 
+- (NSArray *)texturesStartingWith:(NSString *)name
+{
+    NSMutableArray *textureNames = [[NSMutableArray alloc] init];
+    
+    for (NSString *textureName in mTextureRegions)
+        if ([textureName rangeOfString:name].location == 0)
+            [textureNames addObject:textureName];
+    
+    // note: when switching to iOS 4, 'localizedStandardCompare:' would be preferable    
+    [textureNames sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    
+    NSMutableArray *textures = [NSMutableArray arrayWithCapacity:textureNames.count];
+    for (NSString *textureName in textureNames)
+        [textures addObject:[self textureByName:textureName]];
+    
+    [textureNames release];
+    return textures;
+}
+
 + (SPTextureAtlas*)atlasWithContentsOfFile:(NSString*)path
 {
     return [[[SPTextureAtlas alloc] initWithContentsOfFile:path] autorelease];
