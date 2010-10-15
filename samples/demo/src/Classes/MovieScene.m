@@ -27,7 +27,8 @@
         SPTextureAtlas *atlas = [SPTextureAtlas atlasWithContentsOfFile:@"atlas.xml"];
         
         // add frames to movie
-        mMovie = [[SPMovieClip alloc] initWithFrames:[atlas texturesStartingWith:@"walk_"] fps:12];
+        NSArray *frames = [atlas texturesStartingWith:@"walk_"];
+        mMovie = [[SPMovieClip alloc] initWithFrames:frames fps:12];
         
         // add sounds
         SPSound *stepSound = [[SPSound alloc] initWithContentsOfFile:@"step.caf"];        
