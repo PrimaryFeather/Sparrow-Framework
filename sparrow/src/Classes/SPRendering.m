@@ -100,19 +100,16 @@
 
 @implementation SPQuad (Rendering)
 
-- (void)render:(SPRenderSupport *)support;
+- (void)render:(SPRenderSupport *)support
 {
-    // If this method is called from a subclass, it has most probably bound a texture (on purpose).
-    // But if this is a 'real' quad, we have to disable any texture.
-    if (self->isa == [SPQuad class])
-        [support bindTexture:nil];
+    [support bindTexture:nil];
     
     static uint colors[4];
     float alpha = self.alpha;
     
     for (int i=0; i<4; ++i)
         colors[i] = [support convertColor:mVertexColors[i] alpha:alpha];
-
+    
     glEnableClientState(GL_VERTEX_ARRAY);
     glEnableClientState(GL_COLOR_ARRAY);    
     
@@ -123,9 +120,6 @@
     
     glDisableClientState(GL_VERTEX_ARRAY);
     glDisableClientState(GL_COLOR_ARRAY);
-    
-    // Rendering was tested with vertex buffers, too -- but for simple quads like these, the
-    // overhead seems to outweigh the benefit. The "glDrawArrays"-approach is faster here.
 }
 
 @end
@@ -135,16 +129,31 @@
 - (void)render:(SPRenderSupport *)support;
 {    
     static float texCoords[8];     
+    static uint colors[4];
+    float alpha = self.alpha;
+    
+    for (int i=0; i<4; ++i)
+        colors[i] = [support convertColor:mVertexColors[i] alpha:alpha];
+
     [mTexture adjustTextureCoordinates:mTexCoords saveAtTarget:texCoords numVertices:4];    
-       
-    [support bindTexture:mTexture];
+    [support bindTexture:mTexture];        
     
-    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-    glTexCoordPointer(2, GL_FLOAT, 0, texCoords);
+    glEnableClientState(GL_TEXTURE_COORD_ARRAY);    
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glEnableClientState(GL_COLOR_ARRAY);    
     
-    [super render:support];    
+    glTexCoordPointer(2, GL_FLOAT, 0, texCoords);   
+    glVertexPointer(2, GL_FLOAT, 0, mVertexCoords);
+    glColorPointer(4, GL_UNSIGNED_BYTE, 0, colors);
+    
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
     
     glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+    glDisableClientState(GL_VERTEX_ARRAY);
+    glDisableClientState(GL_COLOR_ARRAY);    
+    
+    // Rendering was tested with vertex buffers, too -- but for simple quads and images like these, 
+    // the overhead seems to outweigh the benefit. The "glDrawArrays"-approach is faster here.
 }
  
 @end
