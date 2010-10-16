@@ -11,33 +11,43 @@
 
 @implementation ApplicationDelegate
 
-@synthesize window;
-@synthesize sparrowView;
+- (id)init
+{
+    if (self = [super init])
+    {
+        mWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        mSparrowView = [[SPView alloc] initWithFrame:mWindow.bounds]; 
+    }
+    return self;
+}
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application 
 {    
     SP_CREATE_POOL(pool);    
     
-    [SPAudioEngine start];
     [SPStage setSupportHighResolutions:YES];
+    [SPAudioEngine start];
+  
+    Game *game = [[Game alloc] init];        
+    mSparrowView.stage = game;
+    [game release];
     
-    Game *game = [[Game alloc] initWithWidth:320 height:480];        
-    sparrowView.stage = game;
-    [sparrowView start];
-    [window makeKeyAndVisible];
-    [game release];    
+    [mWindow addSubview:mSparrowView];
+    [mWindow makeKeyAndVisible];
+    
+    [mSparrowView start];
     
     SP_RELEASE_POOL(pool);
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application 
 {    
-    [sparrowView stop];
+    [mSparrowView stop];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application 
 {
-	[sparrowView start];
+	[mSparrowView start];
 }
 
 - (void)applicationDidReceiveMemoryWarning:(UIApplication *)application
@@ -50,7 +60,8 @@
 - (void)dealloc 
 {
     [SPAudioEngine stop];
-    [window release];
+    [mSparrowView release];
+    [mWindow release];    
     [super dealloc];
 }
 

@@ -63,7 +63,8 @@ static void dispatchEnterFrameEvent(SPDisplayObject *object, SPEnterFrameEvent *
 
 - (id)init
 {
-    return [self initWithWidth:320 height:480];
+    CGSize screenSize = [UIScreen mainScreen].bounds.size;
+    return [self initWithWidth:screenSize.width height:screenSize.height];
 }
 
 - (void)advanceTime:(double)seconds

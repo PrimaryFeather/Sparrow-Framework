@@ -319,8 +319,8 @@
 		DE4A3E6110FFB4C100FDA492 /* graphics */ = {
 			isa = PBXGroup;
 			children = (
-				25C23A6311EC632400A25DF7 /* 2x */,
 				25C23A5411EC631500A25DF7 /* 1x */,
+				25C23A6311EC632400A25DF7 /* 2x */,
 			);
 			name = graphics;
 			sourceTree = "<group>";
@@ -374,7 +374,14 @@
 			isa = PBXProject;
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Demo" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
 			projectReferences = (
@@ -532,7 +539,7 @@
 					"-all_load",
 				);
 				PREBINDING = NO;
-				SDKROOT = iphoneos4.0;
+				SDKROOT = iphoneos4.1;
 				USER_HEADER_SEARCH_PATHS = "../../../sparrow/src/**";
 			};
 			name = Debug;
@@ -552,7 +559,7 @@
 					"-all_load",
 				);
 				PREBINDING = NO;
-				SDKROOT = iphoneos4.0;
+				SDKROOT = iphoneos4.1;
 				USER_HEADER_SEARCH_PATHS = "../../../sparrow/src/**";
 			};
 			name = Release;

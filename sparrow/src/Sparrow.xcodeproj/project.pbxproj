@@ -367,8 +367,6 @@
 			children = (
 				DEDCD3AC0FADEE280022011C /* SPTouchProcessor.h */,
 				DEDCD3AD0FADEE280022011C /* SPTouchProcessor.m */,
-				DE2CC35F11EF75B600439B43 /* SPCompiledSprite.h */,
-				DE2CC36011EF75B600439B43 /* SPCompiledSprite.m */,
 				DEDCD44E0FADFFA40022011C /* SPDisplayObject_Internal.h */,
 				DE2AD849104A84F1001AF0A0 /* SPStage_Internal.h */,
 			);
@@ -397,6 +395,8 @@
 				DED85312100BC9DA0014F729 /* SPButton.m */,
 				DEE94E8011B43DE60000FE20 /* SPMovieClip.h */,
 				DEE94E8111B43DE60000FE20 /* SPMovieClip.m */,
+				DE2CC35F11EF75B600439B43 /* SPCompiledSprite.h */,
+				DE2CC36011EF75B600439B43 /* SPCompiledSprite.m */,
 			);
 			name = Display;
 			sourceTree = "<group>";
