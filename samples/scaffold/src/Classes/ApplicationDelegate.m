@@ -17,6 +17,7 @@
     {
         mWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
         mSparrowView = [[SPView alloc] initWithFrame:mWindow.bounds]; 
+        [mWindow addSubview:mSparrowView];
     }
     return self;
 }
@@ -27,14 +28,12 @@
     
     [SPStage setSupportHighResolutions:YES];
     [SPAudioEngine start];
-  
+    
     Game *game = [[Game alloc] init];        
     mSparrowView.stage = game;
     [game release];
     
-    [mWindow addSubview:mSparrowView];
     [mWindow makeKeyAndVisible];
-    
     [mSparrowView start];
     
     SP_RELEASE_POOL(pool);
