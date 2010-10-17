@@ -101,11 +101,11 @@
 @implementation SPQuad (Rendering)
 
 - (void)render:(SPRenderSupport *)support
-{
-    [support bindTexture:nil];
-    
+{    
     static uint colors[4];
     float alpha = self.alpha;
+    
+    [support bindTexture:nil];
     
     for (int i=0; i<4; ++i)
         colors[i] = [support convertColor:mVertexColors[i] alpha:alpha];
@@ -132,17 +132,17 @@
     static uint colors[4];
     float alpha = self.alpha;
     
+    [support bindTexture:mTexture];  
+    [mTexture adjustTextureCoordinates:mTexCoords saveAtTarget:texCoords numVertices:4];          
+    
     for (int i=0; i<4; ++i)
-        colors[i] = [support convertColor:mVertexColors[i] alpha:alpha];
-
-    [mTexture adjustTextureCoordinates:mTexCoords saveAtTarget:texCoords numVertices:4];    
-    [support bindTexture:mTexture];        
+        colors[i] = [support convertColor:mVertexColors[i] alpha:alpha];    
     
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);    
     glEnableClientState(GL_VERTEX_ARRAY);
     glEnableClientState(GL_COLOR_ARRAY);    
     
-    glTexCoordPointer(2, GL_FLOAT, 0, texCoords);   
+    glTexCoordPointer(2, GL_FLOAT, 0, texCoords);
     glVertexPointer(2, GL_FLOAT, 0, mVertexCoords);
     glColorPointer(4, GL_UNSIGNED_BYTE, 0, colors);
     
