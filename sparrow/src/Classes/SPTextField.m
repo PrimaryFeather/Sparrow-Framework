@@ -113,45 +113,14 @@ static NSMutableDictionary *bitmapFonts = nil;
 
 - (SPDisplayObject *)createRenderedContents
 {
-    UILineBreakMode lbm = UILineBreakModeTailTruncation;
-    float scale = [SPStage contentScaleFactor];
-    float width = mHitArea.width * scale;
-    float height = mHitArea.height * scale;
-    
-    int legalWidth  = 2;   while (legalWidth  < width)  legalWidth  *= 2;
-    int legalHeight = 2;   while (legalHeight < height) legalHeight *= 2;
-
-    // SP_NATIVE_FONT_SIZE is for bitmap fonts only; if somebody uses it for a rendered font,
-    // we default to a standard font size.
+    float width = mHitArea.width;
+    float height = mHitArea.height;    
     float fontSize = mFontSize == SP_NATIVE_FONT_SIZE ? SP_DEFAULT_FONT_SIZE : mFontSize;
-    fontSize *= scale;
     
+    UILineBreakMode lbm = UILineBreakModeTailTruncation;
     CGSize textSize = [mText sizeWithFont:[UIFont fontWithName:mFontName size:fontSize] 
                         constrainedToSize:CGSizeMake(width, height) lineBreakMode:lbm];
     
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
-    void *imageData = malloc(legalWidth * legalHeight);
-    CGContextRef context = CGBitmapContextCreate(imageData, legalWidth, legalHeight,
-                                                 8, legalWidth, colorSpace, kCGImageAlphaNone);
-    CGColorSpaceRelease(colorSpace);
-    CGContextClearRect(context, CGRectMake(0, 0, legalWidth, legalHeight));
-    
-    // NSString draws in UIKit referential -> that's upside-down compared to CGBitmapContext!
-    // thus, we flip it.
-    CGContextTranslateCTM(context, 0.0f, legalHeight);
-	CGContextScaleCTM(context, 1.0f, -1.0f); 
-    
-    UIGraphicsPushContext(context);    
-    
-    if (mBorder)
-    {
-        CGContextSetGrayStrokeColor(context, 1.0f, 1.0f);
-        CGContextSetLineWidth(context, 1.0f);
-        CGContextStrokeRect(context, CGRectMake(0.5f, 0.5f, width-1, height-1));
-    }
-        
-    CGContextSetGrayFillColor(context, 1.0f, 1.0f);
-
     float xOffset = 0;
     if (mHAlign == SPHAlignCenter)      xOffset = (width - textSize.width) / 2.0f;
     else if (mHAlign == SPHAlignRight)  xOffset =  width - textSize.width;
@@ -160,36 +129,35 @@ static NSMutableDictionary *bitmapFonts = nil;
     if (mVAlign == SPVAlignCenter)      yOffset = (height - textSize.height) / 2.0f;
     else if (mVAlign == SPVAlignBottom) yOffset =  height - textSize.height;
     
-    mTextArea.x = xOffset; mTextArea.y = yOffset;
-    mTextArea.width = textSize.width; mTextArea.height = textSize.height;
+    mTextArea.x = xOffset; 
+    mTextArea.y = yOffset;
+    mTextArea.width = textSize.width; 
+    mTextArea.height = textSize.height;
     
-    [mText drawInRect:CGRectMake(0, yOffset, width, height)
-             withFont:[UIFont fontWithName:mFontName size:fontSize] 
-        lineBreakMode:lbm alignment:mHAlign];
+    SPTexture *texture = [[SPTexture alloc] initWithWidth:width height:height
+                                                    scale:[SPStage contentScaleFactor]
+                                               colorSpace:SPColorSpaceAlpha
+                                                     draw:^(CGContextRef context)
+    {
+        if (mBorder)
+        {
+            CGContextSetGrayStrokeColor(context, 1.0f, 1.0f);
+            CGContextSetLineWidth(context, 1.0f);
+            CGContextStrokeRect(context, CGRectMake(0.5f, 0.5f, width-1, height-1));
+        }
+        
+        CGContextSetGrayFillColor(context, 1.0f, 1.0f);        
+        
+        [mText drawInRect:CGRectMake(0, yOffset, width, height)
+                 withFont:[UIFont fontWithName:mFontName size:fontSize] 
+            lineBreakMode:lbm alignment:mHAlign];
+    }];
     
-    UIGraphicsPopContext();
-    
-    SPTextureProperties properties = {
-        .format = SPTextureFormatAlpha,
-        .width = legalWidth,
-        .height = legalHeight,
-        .premultipliedAlpha = NO
-    };
-    
-    SPGLTexture* texture  = [[SPGLTexture alloc] initWithData:imageData properties:properties];
-    SPTexture *subTexture = [[SPSubTexture alloc] initWithRegion:
-        [SPRectangle rectangleWithX:0 y:0 width:width height:height] ofTexture:texture];    
-    
-    CGContextRelease(context);
-    free(imageData);
-    
-    texture.scale = scale;
-    SPImage *image = [[SPImage alloc] initWithTexture:subTexture];
+    SPImage *image = [SPImage imageWithTexture:texture];
     image.color = mColor;
     [texture release];
-    [subTexture release];
-
-    return [image autorelease];
+    
+    return image;
 }
 
 - (SPDisplayObject *)createComposedContents

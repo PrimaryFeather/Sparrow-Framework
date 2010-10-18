@@ -18,7 +18,6 @@
 #import "SPStage.h"
 
 #import <UIKit/UIKit.h>
-#import <QuartzCore/QuartzCore.h>
 
 // --- PVRTC structs & enums -----------------------------------------------------------------------
 
@@ -99,40 +98,72 @@ enum PVRPixelType
         return [self initWithContentsOfImage:[UIImage imageWithContentsOfFile:fullPath]];        
 }
 
-- (id)initWithContentsOfImage:(UIImage *)image
-{  
+- (id)initWithWidth:(int)width height:(int)height draw:(SPTextureDrawingBlock)drawingBlock
+{
+    return [self initWithWidth:width height:height scale:[SPStage contentScaleFactor]
+                    colorSpace:SPColorSpaceRGBA draw:drawingBlock];
+}
+
+- (id)initWithWidth:(int)width height:(int)height scale:(float)scale 
+         colorSpace:(SPColorSpace)colorSpace draw:(SPTextureDrawingBlock)drawingBlock
+{
     [self release]; // class factory - we'll return a subclass!
     
-    float width  = CGImageGetWidth(image.CGImage);
-    float height = CGImageGetHeight(image.CGImage);    
+    width *= scale;
+    height *= scale;
     
     // only textures with sides that are powers of 2 are allowed by OpenGL ES.
-    // thus, we find the next legal size and draw the texture into a valid image.    
+    // thus, we find the next legal size    
     int legalWidth  = 2;   while (legalWidth  < width)  legalWidth *= 2;
     int legalHeight = 2;   while (legalHeight < height) legalHeight *=2;
     
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    void *imageData = malloc(legalWidth * legalHeight * 4);
-    CGContextRef context = CGBitmapContextCreate(imageData, legalWidth, legalHeight,
-                                                 8, 4 * legalWidth, colorSpace, 
-                                                 kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
-    CGColorSpaceRelease(colorSpace);
+    SPTextureFormat textureFormat;
+    CGColorSpaceRef cgColorSpace;
+    CGBitmapInfo bitmapInfo;
+    BOOL premultipliedAlpha;
+    int bytesPerPixel;
+    
+    if (colorSpace == SPColorSpaceRGBA)
+    {
+        textureFormat = SPTextureFormatRGBA;
+        cgColorSpace = CGColorSpaceCreateDeviceRGB();
+        bitmapInfo = kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big;
+        premultipliedAlpha = YES;
+        bytesPerPixel = 4;
+    }
+    else
+    {
+        textureFormat = SPTextureFormatAlpha;
+        cgColorSpace = CGColorSpaceCreateDeviceGray();
+        bitmapInfo = kCGImageAlphaNone;
+        premultipliedAlpha = NO;
+        bytesPerPixel = 1;
+    }
+     
+    void *imageData = malloc(legalWidth * legalHeight * bytesPerPixel);
+    CGContextRef context = CGBitmapContextCreate(imageData, legalWidth, legalHeight, 8, 
+                                                 bytesPerPixel * legalWidth, cgColorSpace, 
+                                                 bitmapInfo);
+    CGColorSpaceRelease(cgColorSpace);
     CGContextClearRect(context, CGRectMake(0, 0, legalWidth, legalHeight));
-    CGContextDrawImage(context, CGRectMake(0, legalHeight-height, width, height), 
-                       image.CGImage);
+    
+    // UIKit referential is upside down - we flip it and apply the scale factor
+    CGContextTranslateCTM(context, 0.0f, legalHeight);
+	CGContextScaleCTM(context, scale, -scale);
+   
+    UIGraphicsPushContext(context);
+    drawingBlock(context);
+    UIGraphicsPopContext();
     
     SPTextureProperties properties = {    
-        .format = SPTextureFormatRGBA,
+        .format = textureFormat,
         .width = legalWidth,
         .height = legalHeight,
-        .numMipmaps = 0,
-        .premultipliedAlpha = YES
+        .premultipliedAlpha = premultipliedAlpha
     };
     
     SPGLTexture *glTexture = [[SPGLTexture alloc] initWithData:imageData properties:properties];    
-    
-    if ([image respondsToSelector:@selector(scale)])
-        glTexture.scale = [image scale];
+    glTexture.scale = scale;
     
     CGContextRelease(context);
     free(imageData);    
@@ -142,13 +173,23 @@ enum PVRPixelType
         return glTexture;
     }        
     else 
-    {
-        float scale = glTexture.scale;
+    {        
         SPRectangle *region = [SPRectangle rectangleWithX:0 y:0 width:width/scale height:height/scale];
         SPSubTexture *subTexture = [[SPSubTexture alloc] initWithRegion:region ofTexture:glTexture];
         [glTexture release];
         return subTexture;
     }
+}
+
+- (id)initWithContentsOfImage:(UIImage *)image
+{  
+    float scale = [image respondsToSelector:@selector(scale)] ? [image scale] : 1.0f;
+    
+    return [self initWithWidth:image.size.width height:image.size.height
+                         scale:scale colorSpace:SPColorSpaceRGBA draw:^(CGContextRef context)
+            {
+                [image drawAtPoint:CGPointMake(0, 0)];
+            }];
 }
 
 - (id)initWithContentsOfPvrtcFile:(NSString*)path

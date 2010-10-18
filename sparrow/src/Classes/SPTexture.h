@@ -10,12 +10,25 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <QuartzCore/QuartzCore.h>
 
 @class SPRectangle;
+
+typedef enum 
+{
+    SPColorSpaceRGBA,
+    SPColorSpaceAlpha
+} SPColorSpace;
+
+typedef void (^SPTextureDrawingBlock)(CGContextRef context);
 
 @interface SPTexture : NSObject
 
 - (id)initWithContentsOfFile:(NSString *)path;
+- (id)initWithWidth:(int)width height:(int)height draw:(SPTextureDrawingBlock)drawingBlock;
+- (id)initWithWidth:(int)width height:(int)height scale:(float)scale 
+         colorSpace:(SPColorSpace)colorSpace draw:(SPTextureDrawingBlock)drawingBlock;
+
 - (void)adjustTextureCoordinates:(const float *)texCoords saveAtTarget:(float *)targetTexCoords 
                      numVertices:(int)numVertices;
 
