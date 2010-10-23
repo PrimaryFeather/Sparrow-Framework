@@ -2,13 +2,13 @@
 Sparrow: Tips for building an app
 ----------------------------------------------------------------------------------------------------
 
---- A First look at Sparrow ---
+--- A First look at Sparrow ------------------------------------------------------------------------
 
 In the folder 'samples/demo', you will find an Xcode project that shows the most basic Sparrow
 features and how to use them. Just open the project in Xcode, compile and run - everything should
 work out of the box.
 
---- Creating a new Xcode project that uses Sparrow ---
+--- Creating a new Xcode project that uses Sparrow -------------------------------------------------
 
 In the folder 'samples/scaffold', you will find an Xcode project that contains a bare-bone Sparrow
 application. We recommend that you use this project as a starting point for your game. Please follow
@@ -39,3 +39,8 @@ Creating your new project:
 4. In Xcodes menu, click on "Project" -> "Rename ..."
 5. Enter the name of your game.
 6. That's it! Now you can start to develop your game with Sparrow. 
+
+Selecting target hardware: iPhone / iPod Touch / iPad
+
+1. Enter the project Settings, tab: "Build"
+2. Select the target of your choice for the setting "Targeted Device Family"

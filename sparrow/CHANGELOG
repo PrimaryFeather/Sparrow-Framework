@@ -2,6 +2,26 @@
 Sparrow: Changelog
 ----------------------------------------------------------------------------------------------------
 
+version 1.0 - 2010-10-24
+
+- added support for PVRTC-textures
+- added new init method to SPTexture to allow simple use of Core Graphics drawings
+- added new init method to SPMovieClip that uses an NSArray containing the frames
+- added method 'childByName:' to SPDisplayObjectContainer
+- added method 'texturesStartingWith:' to SPTextureAtlas
+- added method 'scaleBy:' to SPPoint
+- added method 'interpolateFromPoint:toPoint:ratio:' to SPPoint
+- added property 'textBounds' to SPTextField
+- added property 'name' to SPDisplayObject
+- added workaround for unit test problem in Xcode 3.2.4
+- updated SPCompiledSprite-class to be public
+- updated texture utilities for sharper output
+- updated scaffold so that it is easier to create an iPad application
+- fixed bug that classes inheriting directly from SPQuad were not rendered
+- fixed that last-moment changes were not displayed when pausing stage
+- fixed bug that could lead to a white flash when textures were released
+- Special thanks to numerous forum members for bug reports, suggestions and feedback!
+
 version 0.9 - 2010-07-30
 
 - !!! interface change !!! 

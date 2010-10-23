@@ -2,14 +2,14 @@
 Sparrow: an Open Source Framework for iPhone game development 
 ----------------------------------------------------------------------------------------------------
 
---- What is Sparrow? ---
+--- What is Sparrow? -------------------------------------------------------------------------------
  
 Sparrow is a pure Objective C library targeted on making game development as easy and hassle-free
 as possible. Sparrow makes it possible to write fast OpenGL applications without having to touch
 OpenGL or pure C (but easily allowing to do so, for those who wish). It uses a tried and tested
 API that is easy to use and hard to misuse.
  
---- Who is Sparrow for? ---
+--- Who is Sparrow for? ----------------------------------------------------------------------------
  
 Obviously Sparrow is for iPhone developers, especially those involved in game development. You
 will need to have a basic understanding of Objective C – but there’s no way around that on the
@@ -20,7 +20,7 @@ Sparrow since it uses lots of similar concepts and naming schemes. That said, ev
 designed to be as intuitive as possible, so any Java™ or .Net™ developer will get the hang of it
 quickly as well.
 
---- How to start? ---
+--- How to start? ----------------------------------------------------------------------------------
 
 * Read through the file 'BUILDING' for a quick start with Sparrow.
 * Visit --> http://www.sparrow-framework.org <--
