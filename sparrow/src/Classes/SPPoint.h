@@ -32,6 +32,7 @@
 
 - (SPPoint *)addPoint:(SPPoint *)point;
 - (SPPoint *)subtractPoint:(SPPoint *)point;
+- (SPPoint *)scaleBy:(float)scalar;
 - (SPPoint *)normalize;
 
 + (float)distanceFromPoint:(SPPoint *)p1 toPoint:(SPPoint *)p2;

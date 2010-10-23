@@ -107,6 +107,22 @@
     STAssertTrue(SP_IS_FLOAT_EQUAL(2.0f, result.y), @"wrong y value");
 }
 
+- (void)testScale
+{
+    SPPoint *point = [SPPoint pointWithX:0.0f y:0.0f];
+    point = [point scaleBy:100.0f];
+    STAssertEqualsWithAccuracy(point.x, 0.0f, E, @"wrong x value");
+    STAssertEqualsWithAccuracy(point.y, 0.0f, E, @"wrong y value");
+    
+    point = [SPPoint pointWithX:1.0f y:2.0f];
+    float origLength = point.length;
+    point = [point scaleBy:2.0f];
+    float scaledLength = point.length;
+    STAssertEqualsWithAccuracy(point.x, 2.0f, E, @"wrong x value");
+    STAssertEqualsWithAccuracy(point.y, 4.0f, E, @"wrong y value");
+    STAssertEqualsWithAccuracy(origLength * 2.0f, scaledLength, E, @"wrong length");
+}
+
 - (void)testNormalize
 {
     SPPoint *result = [mP1 normalize];

@@ -65,6 +65,12 @@
     return [result autorelease];
 }
 
+- (SPPoint *)scaleBy:(float)scalar
+{
+    SPPoint *result = [[SPPoint alloc] initWithX:mX * scalar y:mY * scalar];
+    return [result autorelease];
+}
+
 - (SPPoint*)normalize
 {
     if (mX == 0 && mY == 0)
