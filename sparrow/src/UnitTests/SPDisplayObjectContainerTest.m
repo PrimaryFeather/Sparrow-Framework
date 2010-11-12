@@ -22,6 +22,7 @@
 #import "SPQuad.h"
 #import "SPStage.h"
 #import "SPRectangle.h"
+#import "SPDisplayObject_Internal.h"
 
 // -------------------------------------------------------------------------------------------------
 
@@ -31,6 +32,7 @@
     int mAddedToStage;
     int mRemoved;
     int mRemovedFromStage;
+    int mEventCount;
     SPSprite *mTestSprite;
 }
 
@@ -46,7 +48,7 @@
 
 - (void) setUp
 {
-    mAdded = mAddedToStage = mRemoved = mRemovedFromStage = 0;    
+    mAdded = mAddedToStage = mRemoved = mRemovedFromStage = mEventCount = 0;    
     mTestSprite = [[SPSprite alloc] init];
 }
 
@@ -356,6 +358,47 @@
     STAssertEqualObjects(child1, [parent childByName:@"CHILD"], @"wrong child returned");
     STAssertEqualObjects(child3, [parent childByName:@"child"], @"wrong child returned");
     STAssertNil([parent childByName:@"ChIlD"], @"return child on wrong name");
+}
+
+- (void)testDispatchEventOnChildren
+{
+    SPSprite *parent = [SPSprite sprite];
+
+    SPSprite *child1 = [[SPSprite alloc] init];
+    SPSprite *child2 = [[SPSprite alloc] init];
+    SPSprite *child3 = [[SPSprite alloc] init];
+    
+    [parent addChild:child1];
+    [parent addChild:child2];
+    [parent addChild:child3];
+    
+    child1.name = @"trigger";
+    [child1 addEventListener:@selector(onChildEvent:) atObject:self forType:@"dunno"];
+    [child2 addEventListener:@selector(onChildEvent:) atObject:self forType:@"dunno"];
+    [child3 addEventListener:@selector(onChildEvent:) atObject:self forType:@"dunno"];
+    
+    [child1 release];
+    [child2 release];
+    [child3 release];
+    
+    SPEvent *event = [SPEvent eventWithType:@"dunno"];
+    [parent dispatchEventOnChildren:event];
+    
+    // event should have dispatched to all 3 children, even if the event listener
+    // removes the children from their parent when it reaches child1. Furthermore, it should
+    // not crash.
+    
+    STAssertEquals(3, mEventCount, @"not all children received events!");
+}
+
+- (void)onChildEvent:(SPEvent *)event
+{
+    SPDisplayObject *target = (SPDisplayObject *)event.target;
+    
+    if ([target.name isEqualToString:@"trigger"])
+        [target.parent removeAllChildren];
+    
+    ++mEventCount;
 }
 
 // STAssertEquals(value, value, message, ...)

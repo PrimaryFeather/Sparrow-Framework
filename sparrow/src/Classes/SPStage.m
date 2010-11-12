@@ -19,23 +19,12 @@
 
 #import <UIKit/UIKit.h>
 
-// --- static members, c functions -----------------------------------------------------------------
+// --- static members ------------------------------------------------------------------------------
 
 static BOOL supportHighResolutions = NO;
 static NSMutableArray *stages = NULL;
 
-static void dispatchEnterFrameEvent(SPDisplayObject *object, SPEnterFrameEvent *event)
-{
-    // EnterFrameEvents are dispatched in every frame and they traverse the entire display tree --
-    // thus, it pays off handling them in their own c function.
-
-    [object dispatchEvent:event];    
-    if ([object isKindOfClass:[SPDisplayObjectContainer class]])
-        for (SPDisplayObject *child in (SPDisplayObjectContainer *)object)        
-            dispatchEnterFrameEvent(child, event);
-}
-
-// -------------------------------------------------------------------------------------------------
+// --- class implementation ------------------------------------------------------------------------
 
 @implementation SPStage
 
@@ -68,14 +57,14 @@ static void dispatchEnterFrameEvent(SPDisplayObject *object, SPEnterFrameEvent *
 }
 
 - (void)advanceTime:(double)seconds
-{
+{    
     // advance juggler
     [mJuggler advanceTime:seconds];
     
     // dispatch EnterFrameEvent
     SPEnterFrameEvent *enterFrameEvent = [[SPEnterFrameEvent alloc] 
-        initWithType:SP_EVENT_TYPE_ENTER_FRAME passedTime:seconds];        
-    dispatchEnterFrameEvent(self, enterFrameEvent);
+        initWithType:SP_EVENT_TYPE_ENTER_FRAME passedTime:seconds];
+    [self dispatchEventOnChildren:enterFrameEvent];
     [enterFrameEvent release];
 }
 

@@ -14,6 +14,22 @@
 #import "SPDisplayObject_Internal.h"
 #import "SPMacros.h"
 
+// --- C functions ---------------------------------------------------------------------------------
+
+static void getChildEventListeners(SPDisplayObject *object, NSString *eventType, 
+                                   NSMutableArray *listeners)
+{
+    // some events (ENTER_FRAME, ADDED_TO_STAGE, etc.) are dispatched very often and traverse
+    // the entire display tree -- thus, it pays off handling them in their own c function.
+    
+    if ([object hasEventListenerForType:eventType])
+        [listeners addObject:object];
+    
+    if ([object isKindOfClass:[SPDisplayObjectContainer class]])
+        for (SPDisplayObject *child in (SPDisplayObjectContainer *)object)        
+            getChildEventListeners(child, eventType, listeners);
+}
+
 // --- class implementation ------------------------------------------------------------------------
 
 @implementation SPDisplayObjectContainer
@@ -48,7 +64,7 @@
     {
         [child retain];
         [child removeFromParent];
-        [mChildren insertObject:child atIndex:MIN(mChildren.count, index)];    
+        [mChildren insertObject:child atIndex:MIN(mChildren.count, index)];
         child.parent = self;
         
         SPEvent *addedEvent = [[SPEvent alloc] initWithType:SP_EVENT_TYPE_ADDED];    
@@ -206,8 +222,13 @@
 
 - (void)dispatchEventOnChildren:(SPEvent *)event
 {
-    [self dispatchEvent:event];
-    [mChildren makeObjectsPerformSelector:@selector(dispatchEventOnChildren:) withObject:event];
+    // the event listeners might modify the display tree, which could make the loop crash. 
+    // thus, we collect them in a list and iterate over that list instead.
+    
+    NSMutableArray *listeners = [[NSMutableArray alloc] init];
+    getChildEventListeners(self, event.type, listeners);        
+    [listeners makeObjectsPerformSelector:@selector(dispatchEvent:) withObject:event];
+    [listeners release];
 }
 
 - (void)dealloc 

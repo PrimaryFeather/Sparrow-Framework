@@ -9,7 +9,7 @@
 //  it under the terms of the Simplified BSD License.
 //
 
-#define SPARROW_VERSION @"1.0"
+#define SPARROW_VERSION @"1.0.1"
 
 #import "SPNSExtensions.h"
 #import "SPEventDispatcher.h"
