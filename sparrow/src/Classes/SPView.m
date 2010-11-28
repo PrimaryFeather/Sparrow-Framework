@@ -248,7 +248,8 @@
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
-{
+{    
+    mLastTouchTimestamp -= 0.0001f; // cancelled touch events have an old timestamp -> workaround
     [self processTouchEvent:event];
 }
 
