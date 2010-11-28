@@ -34,6 +34,9 @@ void onUncaughtException(NSException *exception)
     
     [SPAudioEngine start];
     [SPStage setSupportHighResolutions:YES]; // use the provided hd textures on suitable hardware
+    
+    if ([[UIDevice currentDevice].model rangeOfString:@"iPad"].location == 0)
+        [SPStage setContentScaleFactor:2.0f];
 
     Game *game = [[Game alloc] init];
     sparrowView.stage = game;

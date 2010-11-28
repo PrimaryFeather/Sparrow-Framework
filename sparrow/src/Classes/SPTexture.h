@@ -25,8 +25,8 @@ typedef void (^SPTextureDrawingBlock)(CGContextRef context);
 @interface SPTexture : NSObject
 
 - (id)initWithContentsOfFile:(NSString *)path;
-- (id)initWithWidth:(int)width height:(int)height draw:(SPTextureDrawingBlock)drawingBlock;
-- (id)initWithWidth:(int)width height:(int)height scale:(float)scale 
+- (id)initWithWidth:(float)width height:(float)height draw:(SPTextureDrawingBlock)drawingBlock;
+- (id)initWithWidth:(float)width height:(float)height scale:(float)scale 
          colorSpace:(SPColorSpace)colorSpace draw:(SPTextureDrawingBlock)drawingBlock;
 
 - (void)adjustTextureCoordinates:(const float *)texCoords saveAtTarget:(float *)targetTexCoords 

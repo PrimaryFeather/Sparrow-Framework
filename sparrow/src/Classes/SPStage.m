@@ -22,6 +22,7 @@
 // --- static members ------------------------------------------------------------------------------
 
 static BOOL supportHighResolutions = NO;
+static float contentScaleFactor = -1;
 static NSMutableArray *stages = NULL;
 
 // --- class implementation ------------------------------------------------------------------------
@@ -146,39 +147,6 @@ static NSMutableArray *stages = NULL;
     return [mNativeView frameRate];
 }
 
-+ (void)setSupportHighResolutions:(BOOL)support
-{
-    supportHighResolutions = support;
-
-    for (SPStage *stage in stages)
-    {
-        if ([stage.nativeView respondsToSelector:@selector(contentScaleFactor)])
-        {
-            [stage.nativeView setContentScaleFactor:[SPStage contentScaleFactor]];
-            [stage.nativeView layoutSubviews];
-        }            
-    }
-}
-
-+ (BOOL)supportHighResolutions
-{
-    return supportHighResolutions;
-}
-
-+ (float)contentScaleFactor
-{
-    if (supportHighResolutions &&
-        [UIScreen instancesRespondToSelector:@selector(scale)] &&
-        [UIImage  instancesRespondToSelector:@selector(scale)])
-    {
-        return [[UIScreen mainScreen] scale];        
-    }
-    else
-    {
-        return 1.0f;
-    }        
-}
-
 - (void)dealloc 
 {    
     [SPPoint purgePool];
@@ -192,6 +160,61 @@ static NSMutableArray *stages = NULL;
     if (stages.count == 0) { [stages release]; stages = NULL; }    
     
     [super dealloc];
+}
+
+@end
+
+// -------------------------------------------------------------------------------------------------
+
+@implementation SPStage (HDSupport)
+
++ (void)updateNativeViews
+{
+    for (SPStage *stage in stages)
+    {
+        if ([stage.nativeView respondsToSelector:@selector(contentScaleFactor)])
+        {
+            [stage.nativeView setContentScaleFactor:[SPStage contentScaleFactor]];
+            [stage.nativeView layoutSubviews];
+        }
+    }
+}
+
++ (void)setSupportHighResolutions:(BOOL)value
+{
+    if (value != supportHighResolutions)
+    {
+        supportHighResolutions = value;
+        [SPStage updateNativeViews];
+    }
+}
+
++ (BOOL)supportHighResolutions
+{
+    return supportHighResolutions;
+}
+
++ (void)setContentScaleFactor:(float)value
+{
+    if (value != contentScaleFactor)
+    {
+        contentScaleFactor = value;
+        [SPStage updateNativeViews];
+    }    
+}
+
++ (float)contentScaleFactor
+{
+    if (supportHighResolutions &&
+        [UIScreen instancesRespondToSelector:@selector(scale)] &&
+        [UIImage  instancesRespondToSelector:@selector(scale)])
+    {
+        return contentScaleFactor == -1 ? [[UIScreen mainScreen] scale] : contentScaleFactor;
+    }
+    else
+    {
+        return 1.0f;
+    }        
 }
 
 @end

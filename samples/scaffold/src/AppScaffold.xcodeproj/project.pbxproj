@@ -291,14 +291,13 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
 				);
 				PREBINDING = NO;
-				SDKROOT = iphoneos4.1;
-				TARGETED_DEVICE_FAMILY = 1;
+				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "${SPARROW_SRC}/**";
 			};
 			name = Debug;
@@ -318,7 +317,7 @@
 					"-all_load",
 				);
 				PREBINDING = NO;
-				SDKROOT = iphoneos4.0;
+				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "${SPARROW_SRC}/**";
 			};
 			name = Release;

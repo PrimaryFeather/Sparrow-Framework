@@ -37,8 +37,14 @@
 - (void)advanceTime:(double)seconds;
 - (void)processTouches:(NSSet*)touches;
 
-+ (void)setSupportHighResolutions:(BOOL)support;
+@end
+
+
+@interface SPStage (HDSupport)
+
++ (void)setSupportHighResolutions:(BOOL)value;
 + (BOOL)supportHighResolutions;
++ (void)setContentScaleFactor:(float)value;
 + (float)contentScaleFactor;
 
 @end

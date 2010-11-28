@@ -88,7 +88,7 @@ enum PVRPixelType
     if (![[NSFileManager defaultManager] fileExistsAtPath:fullPath])
     {
         [self release];
-        [NSException raise:SP_EXC_FILE_NOT_FOUND format:@"file %@ not found", fullPath];
+        [NSException raise:SP_EXC_FILE_NOT_FOUND format:@"file '%@' not found", path];
     }
     
     NSString *imgType = [[path pathExtension] lowercaseString];
@@ -98,13 +98,13 @@ enum PVRPixelType
         return [self initWithContentsOfImage:[UIImage imageWithContentsOfFile:fullPath]];        
 }
 
-- (id)initWithWidth:(int)width height:(int)height draw:(SPTextureDrawingBlock)drawingBlock
+- (id)initWithWidth:(float)width height:(float)height draw:(SPTextureDrawingBlock)drawingBlock
 {
     return [self initWithWidth:width height:height scale:[SPStage contentScaleFactor]
                     colorSpace:SPColorSpaceRGBA draw:drawingBlock];
 }
 
-- (id)initWithWidth:(int)width height:(int)height scale:(float)scale 
+- (id)initWithWidth:(float)width height:(float)height scale:(float)scale 
          colorSpace:(SPColorSpace)colorSpace draw:(SPTextureDrawingBlock)drawingBlock
 {
     [self release]; // class factory - we'll return a subclass!

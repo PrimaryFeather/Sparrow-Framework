@@ -31,6 +31,8 @@
     
     Game *game = [[Game alloc] init];        
     mSparrowView.stage = game;
+    mSparrowView.multipleTouchEnabled = NO;
+    mSparrowView.frameRate = 30.0f;
     [game release];
     
     [mWindow makeKeyAndVisible];
