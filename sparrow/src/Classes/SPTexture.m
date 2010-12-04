@@ -56,7 +56,7 @@ enum PVRPixelType
 
 @interface SPTexture ()
 
-- (id)initWithContentsOfPvrtcFile:(NSString *)path;
+- (id)initWithContentsOfPvrFile:(NSString *)path;
 - (id)initWithContentsOfImage:(UIImage *)image;
 
 @end
@@ -93,7 +93,7 @@ enum PVRPixelType
     
     NSString *imgType = [[path pathExtension] lowercaseString];
     if ([imgType rangeOfString:@"pvr"].location == 0)
-        return [self initWithContentsOfPvrtcFile:fullPath];            
+        return [self initWithContentsOfPvrFile:fullPath];            
     else
         return [self initWithContentsOfImage:[UIImage imageWithContentsOfFile:fullPath]];        
 }
@@ -192,7 +192,7 @@ enum PVRPixelType
             }];
 }
 
-- (id)initWithContentsOfPvrtcFile:(NSString*)path
+- (id)initWithContentsOfPvrFile:(NSString*)path
 {
     [self release]; // class factory - we'll return a subclass!
 
@@ -209,6 +209,15 @@ enum PVRPixelType
     
     switch (header->pfFlags & 0xff)
     {
+        case OGL_RGB_565:
+            properties.format = SPTextureFormat565;
+            break;
+        case OGL_RGBA_5551:
+            properties.format = SPTextureFormat5551;
+            break;
+        case OGL_RGBA_4444:
+            properties.format = SPTextureFormat4444;
+            break;            
         case OGL_PVRTC2:
             properties.format = hasAlpha ? SPTextureFormatPvrtcRGBA2 : SPTextureFormatPvrtcRGB2;
             break;
