@@ -35,6 +35,7 @@ typedef struct
     int width;
     int height;
     int numMipmaps;
+    BOOL generateMipmaps;
     BOOL premultipliedAlpha;
 } SPTextureProperties;
 

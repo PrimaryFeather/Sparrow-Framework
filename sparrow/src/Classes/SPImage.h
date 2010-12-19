@@ -17,7 +17,7 @@
 
 @interface SPImage : SPQuad 
 {
-  @private
+  @protected
     SPTexture *mTexture;
     float mTexCoords[8];
 }

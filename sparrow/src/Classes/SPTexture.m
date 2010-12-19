@@ -108,14 +108,10 @@ enum PVRPixelType
          colorSpace:(SPColorSpace)colorSpace draw:(SPTextureDrawingBlock)drawingBlock
 {
     [self release]; // class factory - we'll return a subclass!
-    
-    width *= scale;
-    height *= scale;
-    
-    // only textures with sides that are powers of 2 are allowed by OpenGL ES.
-    // thus, we find the next legal size    
-    int legalWidth  = 2;   while (legalWidth  < width)  legalWidth *= 2;
-    int legalHeight = 2;   while (legalHeight < height) legalHeight *=2;
+
+    // only textures with sides that are powers of 2 are allowed by OpenGL ES. 
+    int legalWidth  = getNextPowerOfTwo(width  * scale);
+    int legalHeight = getNextPowerOfTwo(height * scale);
     
     SPTextureFormat textureFormat;
     CGColorSpaceRef cgColorSpace;
@@ -125,40 +121,43 @@ enum PVRPixelType
     
     if (colorSpace == SPColorSpaceRGBA)
     {
+        bytesPerPixel = 4;
         textureFormat = SPTextureFormatRGBA;
         cgColorSpace = CGColorSpaceCreateDeviceRGB();
-        bitmapInfo = kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big;
+        bitmapInfo = kCGBitmapByteOrder32Big | kCGImageAlphaPremultipliedLast;
         premultipliedAlpha = YES;
-        bytesPerPixel = 4;
     }
     else
     {
+        bytesPerPixel = 1;
         textureFormat = SPTextureFormatAlpha;
         cgColorSpace = CGColorSpaceCreateDeviceGray();
         bitmapInfo = kCGImageAlphaNone;
         premultipliedAlpha = NO;
-        bytesPerPixel = 1;
     }
-     
-    void *imageData = malloc(legalWidth * legalHeight * bytesPerPixel);
+    
+    void *imageData = calloc(legalWidth * legalHeight * bytesPerPixel, 1);
     CGContextRef context = CGBitmapContextCreate(imageData, legalWidth, legalHeight, 8, 
                                                  bytesPerPixel * legalWidth, cgColorSpace, 
                                                  bitmapInfo);
     CGColorSpaceRelease(cgColorSpace);
-    CGContextClearRect(context, CGRectMake(0, 0, legalWidth, legalHeight));
     
     // UIKit referential is upside down - we flip it and apply the scale factor
     CGContextTranslateCTM(context, 0.0f, legalHeight);
 	CGContextScaleCTM(context, scale, -scale);
    
-    UIGraphicsPushContext(context);
-    drawingBlock(context);
-    UIGraphicsPopContext();
+    if (drawingBlock)
+    {
+        UIGraphicsPushContext(context);
+        drawingBlock(context);
+        UIGraphicsPopContext();        
+    }
     
     SPTextureProperties properties = {    
         .format = textureFormat,
         .width = legalWidth,
         .height = legalHeight,
+        .generateMipmaps = YES,
         .premultipliedAlpha = premultipliedAlpha
     };
     
@@ -168,17 +167,10 @@ enum PVRPixelType
     CGContextRelease(context);
     free(imageData);    
     
-    if (legalWidth == width && legalHeight == height)
-    {
-        return glTexture;
-    }        
-    else 
-    {        
-        SPRectangle *region = [SPRectangle rectangleWithX:0 y:0 width:width/scale height:height/scale];
-        SPSubTexture *subTexture = [[SPSubTexture alloc] initWithRegion:region ofTexture:glTexture];
-        [glTexture release];
-        return subTexture;
-    }
+    SPRectangle *region = [SPRectangle rectangleWithX:0 y:0 width:width height:height];
+    SPTexture *subTexture = [[SPTexture alloc] initWithRegion:region ofTexture:glTexture];
+    [glTexture release];
+    return subTexture;
 }
 
 - (id)initWithContentsOfImage:(UIImage *)image
@@ -240,6 +232,21 @@ enum PVRPixelType
         glTexture.scale = 2.0f;
     
     return glTexture;
+}
+
+- (id)initWithRegion:(SPRectangle*)region ofTexture:(SPTexture*)texture
+{
+    [self release]; // class factory - we'll return a subclass!
+    
+    if (region.x == 0.0f && region.y == 0.0f && 
+        region.width == texture.width && region.height == texture.height)
+    {
+        return [texture retain];
+    }
+    else
+    {
+        return [[SPSubTexture alloc] initWithRegion:region ofTexture:texture];
+    }
 }
 
 + (SPTexture *)emptyTexture

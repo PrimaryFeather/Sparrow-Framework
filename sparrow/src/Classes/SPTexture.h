@@ -24,10 +24,12 @@ typedef void (^SPTextureDrawingBlock)(CGContextRef context);
 
 @interface SPTexture : NSObject
 
-- (id)initWithContentsOfFile:(NSString *)path;
 - (id)initWithWidth:(float)width height:(float)height draw:(SPTextureDrawingBlock)drawingBlock;
 - (id)initWithWidth:(float)width height:(float)height scale:(float)scale 
          colorSpace:(SPColorSpace)colorSpace draw:(SPTextureDrawingBlock)drawingBlock;
+
+- (id)initWithContentsOfFile:(NSString *)path;
+- (id)initWithRegion:(SPRectangle*)region ofTexture:(SPTexture*)texture;
 
 - (void)adjustTextureCoordinates:(const float *)texCoords saveAtTarget:(float *)targetTexCoords 
                      numVertices:(int)numVertices;

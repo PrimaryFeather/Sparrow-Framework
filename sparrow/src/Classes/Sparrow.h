@@ -24,6 +24,7 @@
 #import "SPMovieClip.h"
 #import "SPTexture.h"
 #import "SPSubTexture.h"
+#import "SPRenderTexture.h"
 #import "SPGLTexture.h"
 #import "SPTextureAtlas.h"
 #import "SPEvent.h"
