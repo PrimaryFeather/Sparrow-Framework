@@ -146,8 +146,8 @@
     // 3.: Now move up from target until we reach the common parent
     SPMatrix *targetMatrix = [[SPMatrix alloc] init];
     currentObject = targetCoordinateSpace;
-    while (currentObject != commonParent)
-    {        
+    while (currentObject && currentObject != commonParent)
+    {
         [targetMatrix concatMatrix:currentObject.transformationMatrix];
         currentObject = currentObject->mParent;
     }    

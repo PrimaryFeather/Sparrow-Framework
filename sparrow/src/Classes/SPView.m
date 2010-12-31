@@ -164,15 +164,15 @@
 {    
     SP_CREATE_POOL(pool);
     
-    [EAGLContext setCurrentContext:mContext];
-    
-    glBindFramebufferOES(GL_FRAMEBUFFER_OES, mFramebuffer);
-    glViewport(0, 0, mWidth, mHeight);
-    
     double now = CACurrentMediaTime();
     double timePassed = now - mLastFrameTimestamp;
     [mStage advanceTime:timePassed];
     mLastFrameTimestamp = now;
+    
+    [EAGLContext setCurrentContext:mContext];
+    
+    glBindFramebufferOES(GL_FRAMEBUFFER_OES, mFramebuffer);
+    glViewport(0, 0, mWidth, mHeight);
         
     [mRenderSupport bindTexture:nil]; // old textures could have become invalid
     [mStage render:mRenderSupport];

@@ -38,17 +38,16 @@
     BOOL newPMA = texture.hasPremultipliedAlpha;
     
     if (newTextureID != mBoundTextureID)
-    {
-        mBoundTextureID = newTextureID;
-        glBindTexture(GL_TEXTURE_2D, mBoundTextureID);        
-    }        
+        glBindTexture(GL_TEXTURE_2D, newTextureID);        
     
-    if (newPMA != mPremultipliedAlpha)
+    if (newPMA != mPremultipliedAlpha || !mBoundTextureID)
     {
-        mPremultipliedAlpha = newPMA;
         if (newPMA) glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         else        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    }    
+    }
+    
+    mBoundTextureID = newTextureID;
+    mPremultipliedAlpha = newPMA;
 }
 
 - (uint)convertColor:(uint)color alpha:(float)alpha
