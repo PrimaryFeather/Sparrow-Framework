@@ -11,13 +11,11 @@
 #import "SPMacros.h"
 #import "SPStage.h"
 
-typedef void (^Block)();
-
 @interface SPRenderTexture ()
 
 - (void)createFramebuffer;
 - (void)destroyFramebuffer;
-- (void)renderToFramebuffer:(Block)block;
+- (void)renderToFramebuffer:(SPDrawingBlock)block;
 
 @end
 
@@ -48,7 +46,7 @@ typedef void (^Block)();
         mRenderSupport = [[SPRenderSupport alloc] init];
         
         [self createFramebuffer];        
-        [self clearWithColor:argb];
+        [self clearWithColor:argb alpha:SP_COLOR_PART_ALPHA(argb)];
     }
     return self;
 }
@@ -99,63 +97,68 @@ typedef void (^Block)();
     mFramebuffer = 0;
 }
 
-- (void)renderToFramebuffer:(Block)block
+- (void)renderToFramebuffer:(SPDrawingBlock)block
 {
     if (!block) return;
     
-    // remember standard frame buffer
-    int stdFramebuffer;
-    glGetIntegerv(GL_FRAMEBUFFER_BINDING_OES, &stdFramebuffer);
+    // the block may call a draw-method again, so we're making sure that the frame buffer switching
+    // happens only in the outermost block.
     
-    // switch to the texture's framebuffer for rendering
-	glBindFramebufferOES(GL_FRAMEBUFFER_OES, mFramebuffer);
+    int stdFramebuffer = -1;
     
+    if (!mFramebufferIsActive)
+    {
+        mFramebufferIsActive = YES;
+        
+        // remember standard frame buffer        
+        glGetIntegerv(GL_FRAMEBUFFER_BINDING_OES, &stdFramebuffer);
+        
+        // switch to the texture's framebuffer for rendering
+        glBindFramebufferOES(GL_FRAMEBUFFER_OES, mFramebuffer);
+        
+        // prepare viewport and OpenGL matrices
+        glViewport(0, 0, mTexture.width * mTexture.scale, mTexture.height * mTexture.scale);
+        [SPRenderSupport setupOrthographicRenderingWithLeft:0 right:mTexture.width
+                                                     bottom:0 top:mTexture.height];
+        
+        // reset texture binding
+        [mRenderSupport bindTexture:nil];
+    }    
+   
     block();
     
-    // return to standard frame buffer
-    glBindFramebufferOES(GL_FRAMEBUFFER_OES, stdFramebuffer);
+    if (stdFramebuffer != -1)
+    {
+        mFramebufferIsActive = NO;
+        
+        // return to standard frame buffer
+        glBindFramebufferOES(GL_FRAMEBUFFER_OES, stdFramebuffer);
+    }
 }
 
-- (void)draw:(SPDisplayObject *)object
+- (void)drawObject:(SPDisplayObject *)object
 {
     [self renderToFramebuffer:^
      {
-         // set up OpenGL rendering
-         glEnable(GL_TEXTURE_2D);
-         glEnable(GL_BLEND);    
+         glPushMatrix();
          
-         glMatrixMode(GL_PROJECTION);
-         glLoadIdentity(); 
-         glViewport(0, 0, mTexture.width * mTexture.scale, mTexture.height * mTexture.scale);
-         glOrthof(0.0f, mTexture.width, 0.0f, mTexture.height, -1.0f, 1.0f);
-         
-         glMatrixMode(GL_MODELVIEW);	
-         glLoadIdentity();
-         
-         glTranslatef(object.x, object.y, 0.0f);
-         glRotatef(SP_R2D(object.rotation), 0.0f, 0.0f, 1.0f);
-         glScalef(object.scaleX, object.scaleY, 1.0f);
-         
-         // draw the object!
-         [mRenderSupport bindTexture:nil];
+         [SPRenderSupport transformMatrixForObject:object];         
          [object render:mRenderSupport];
          
-         glDisable(GL_TEXTURE_2D);
-         glDisable(GL_BLEND);         
-     }];    
+         glPopMatrix();
+     }];
 }
 
-- (void)clearWithColor:(uint)argb
+- (void)drawBundled:(SPDrawingBlock)block
+{
+    [self renderToFramebuffer:block];
+}
+
+- (void)clearWithColor:(uint)color alpha:(float)alpha
 {
     [self renderToFramebuffer:^
      {
-         float alpha = SP_COLOR_PART_ALPHA(argb);
-         float red = SP_COLOR_PART_RED(argb);
-         float green = SP_COLOR_PART_GREEN(argb);
-         float blue = SP_COLOR_PART_BLUE(argb);
-         
-         glClearColor(red, green, blue, alpha);
-         glClear(GL_COLOR_BUFFER_BIT);         
+         [SPRenderSupport clearWithColor:color alpha:alpha];
      }];
 }
 
@@ -193,6 +196,11 @@ typedef void (^Block)();
 + (SPRenderTexture *)textureWithWidth:(float)width height:(float)height
 {
     return [[[SPRenderTexture alloc] initWithWidth:width height:height] autorelease];    
+}
+
++ (SPRenderTexture *)textureWithWidth:(float)width height:(float)height fillColor:(uint)argb
+{
+    return [[[SPRenderTexture alloc] initWithWidth:width height:height fillColor:argb] autorelease];
 }
 
 @end

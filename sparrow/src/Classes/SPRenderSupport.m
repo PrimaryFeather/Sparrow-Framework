@@ -10,6 +10,7 @@
 //
 
 #import "SPRenderSupport.h"
+#import "SPDisplayObject.h"
 #import "SPTexture.h"
 #import "SPMacros.h"
 
@@ -71,6 +72,54 @@
                (GLubyte)SP_COLOR_PART_BLUE(color) << 16 |
                (GLubyte)(alpha * 255) << 24;
     }
+}
+
++ (void)clearWithColor:(uint)color alpha:(float)alpha;
+{
+    float red = SP_COLOR_PART_RED(color);
+    float green = SP_COLOR_PART_GREEN(color);
+    float blue = SP_COLOR_PART_BLUE(color);
+    
+    glClearColor(red, green, blue, alpha);
+    glClear(GL_COLOR_BUFFER_BIT);  
+}
+
++ (void)transformMatrixForObject:(SPDisplayObject *)object
+{
+    float x = object.x;
+    float y = object.y;
+    float rotation = object.rotation;
+    float scaleX = object.scaleX;
+    float scaleY = object.scaleY;
+    
+    if (x != 0.0f || y != 0.0f)           glTranslatef(x, y, 0);
+    if (rotation != 0.0f)                 glRotatef(SP_R2D(rotation), 0.0f, 0.0f, 1.0f);
+    if (scaleX != 0.0f || scaleY != 0.0f) glScalef(scaleX, scaleY, 1.0f); 
+}
+
++ (void)setupOrthographicRenderingWithLeft:(float)left right:(float)right 
+                                    bottom:(float)bottom top:(float)top
+{
+    glDisable(GL_CULL_FACE);
+    glDisable(GL_LIGHTING);
+    glDisable(GL_DEPTH_TEST);
+    
+    glEnable(GL_TEXTURE_2D);
+    glEnable(GL_BLEND);
+    
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrthof(left, right, bottom, top, -1.0f, 1.0f);
+    
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();  
+}
+
++ (uint)checkForOpenGLError
+{
+    GLenum error = glGetError();
+    if (error != 0) NSLog(@"Warning: There was an OpenGL error: #%d", error);
+    return error;
 }
 
 @end

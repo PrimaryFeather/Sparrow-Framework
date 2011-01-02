@@ -22,43 +22,17 @@
 #import <OpenGLES/ES1/gl.h>
 #import <OpenGLES/ES1/glext.h>
 
-#define ZPOS 0
-
 @implementation SPStage (Rendering)
 
 - (void)render:(SPRenderSupport *)support;
 {
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
-    
-    glDisable(GL_CULL_FACE);
-    glDisable(GL_LIGHTING);
-    glDisable(GL_DEPTH_TEST);
-    
-    glEnable(GL_TEXTURE_2D);
-    glEnable(GL_BLEND);
-    
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();    
-    
-    glOrthof(-mWidth/2.0f, mWidth/2.0f, -mHeight/2.0f, mHeight/2.0f, -1.0f, 1.0f);
-    
-    // use glFrustum instead of glOrtho for experiments in a perspective 3D space
-    // glFrustumf(-mWidth/2.0, mWidth/2.0f, -mHeight/2.0f, mHeight/2.0f, 250.0f, 1000.0f);
-    
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();    
-    glScalef(1.0f, -1.0f, 1.0f);    
-    glTranslatef(-mWidth/2.0f, -mHeight/2.0f, -ZPOS);
+    [SPRenderSupport clearWithColor:0x0 alpha:1.0f];
+    [SPRenderSupport setupOrthographicRenderingWithLeft:0 right:mWidth bottom:mHeight top:0];    
     
     [super render:support];
     
-    glDisable(GL_BLEND);
-    glDisable(GL_TEXTURE_2D);
-    
     #if DEBUG
-    GLenum error = glGetError();
-    if (error != 0) NSLog(@"Warning: There was an OpenGL error: #%d", error);
+    [SPRenderSupport checkForOpenGLError];
     #endif
 }
 
@@ -75,18 +49,10 @@
         float childAlpha = child.alpha;
         if (childAlpha != 0.0f && child.visible)
         {            
-            float x = child.x;
-            float y = child.y;
-            float rotation = child.rotation;
-            float scaleX = child.scaleX;
-            float scaleY = child.scaleY;
-            
             glPushMatrix();
             
-            if (x != 0.0f || y != 0.0f)           glTranslatef(x, y, 0);
-            if (rotation != 0.0f)                 glRotatef(SP_R2D(rotation), 0.0f, 0.0f, 1.0f);
-            if (scaleX != 0.0f || scaleY != 0.0f) glScalef(scaleX, scaleY, 1.0f);        
-       
+            [SPRenderSupport transformMatrixForObject:child];
+            
             child.alpha *= alpha;
             [child render:support];
             child.alpha = childAlpha;

@@ -12,6 +12,7 @@
 #import <Foundation/Foundation.h>
 
 @class SPTexture;
+@class SPDisplayObject;
 
 @interface SPRenderSupport : NSObject 
 {
@@ -24,6 +25,11 @@
 - (uint)convertColor:(uint)color alpha:(float)alpha;
 
 + (uint)convertColor:(uint)color alpha:(float)alpha premultiplyAlpha:(BOOL)pma;
++ (void)clearWithColor:(uint)color alpha:(float)alpha;
++ (void)transformMatrixForObject:(SPDisplayObject *)object;
++ (void)setupOrthographicRenderingWithLeft:(float)left right:(float)right 
+                                    bottom:(float)bottom top:(float)top;
++ (uint)checkForOpenGLError;
 
 @property (nonatomic, readonly) BOOL usingPremultipliedAlpha;
 

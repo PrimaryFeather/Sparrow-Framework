@@ -413,26 +413,11 @@
         {
             uint origColor = *origColors;
             float vertexAlpha = (origColor >> 24) / 255.0f * alpha;
-            
-            if (pma)
-            {
-                *newColors = (GLubyte)(SP_COLOR_PART_RED(origColor) * vertexAlpha) |
-                             (GLubyte)(SP_COLOR_PART_GREEN(origColor) * vertexAlpha) << 8 |
-                             (GLubyte)(SP_COLOR_PART_BLUE(origColor) * vertexAlpha) << 16 |
-                             (GLubyte)(vertexAlpha * 255) << 24;
-            }
-            else
-            {
-                *newColors = (GLubyte)SP_COLOR_PART_RED(origColor) |
-                             (GLubyte)SP_COLOR_PART_GREEN(origColor) << 8 |
-                             (GLubyte)SP_COLOR_PART_BLUE(origColor) << 16 |
-                             (GLubyte)(vertexAlpha * 255) << 24;   
-            }
-
+            *newColors = [SPRenderSupport convertColor:origColor alpha:vertexAlpha premultiplyAlpha:pma];
             ++origColors;
             ++newColors;
-        }        
-    } 
+        }
+    }
     
     // update buffer
     glBindBuffer(GL_ARRAY_BUFFER, mColorBuffer);

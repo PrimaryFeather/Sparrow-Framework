@@ -15,21 +15,26 @@
 #import "SPTexture.h"
 #import "SPRenderSupport.h"
 
+typedef void (^SPDrawingBlock)();
+
 @interface SPRenderTexture : SPTexture 
 {
   @private
     GLuint mFramebuffer;
+    BOOL   mFramebufferIsActive;
     SPTexture *mTexture;
-    SPRenderSupport *mRenderSupport;
+    SPRenderSupport *mRenderSupport;    
 }
 
 - (id)initWithWidth:(float)width height:(float)height;
 - (id)initWithWidth:(float)width height:(float)height fillColor:(uint)argb;
 - (id)initWithWidth:(float)width height:(float)height fillColor:(uint)argb scale:(float)scale;
 
-- (void)draw:(SPDisplayObject *)object;
-- (void)clearWithColor:(uint)argb;
+- (void)drawObject:(SPDisplayObject *)object;
+- (void)drawBundled:(SPDrawingBlock)block;
+- (void)clearWithColor:(uint)color alpha:(float)alpha;
 
 + (SPRenderTexture *)textureWithWidth:(float)width height:(float)height;
++ (SPRenderTexture *)textureWithWidth:(float)width height:(float)height fillColor:(uint)argb;
 
 @end
