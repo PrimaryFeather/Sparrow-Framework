@@ -161,7 +161,10 @@
 }
 
 - (void)renderStage
-{    
+{
+    if (mFramebuffer == 0 || mRenderbuffer == 0) 
+        return; // buffers not yet initialized
+    
     SP_CREATE_POOL(pool);
     
     double now = CACurrentMediaTime();
