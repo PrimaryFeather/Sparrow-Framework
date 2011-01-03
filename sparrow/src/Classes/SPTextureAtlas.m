@@ -12,6 +12,7 @@
 #import "SPTextureAtlas.h"
 #import "SPMacros.h"
 #import "SPTexture.h"
+#import "SPSubTexture.h"
 #import "SPGLTexture.h"
 #import "SPRectangle.h"
 #import "SPNSExtensions.h"
@@ -112,7 +113,7 @@
 {
     SPRectangle *region = [mTextureRegions objectForKey:name];
     if (!region) return nil;    
-    return [SPTexture textureWithRegion:region ofTexture:mAtlasTexture];    
+    return [SPSubTexture textureWithRegion:region ofTexture:mAtlasTexture];    
 }
 
 - (NSArray *)texturesStartingWith:(NSString *)name
