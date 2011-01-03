@@ -17,8 +17,6 @@
 #import "SPNSExtensions.h"
 #import "SPStage.h"
 
-#import <UIKit/UIKit.h>
-
 // --- PVRTC structs & enums -----------------------------------------------------------------------
 
 typedef struct
@@ -57,7 +55,6 @@ enum PVRPixelType
 @interface SPTexture ()
 
 - (id)initWithContentsOfPvrFile:(NSString *)path;
-- (id)initWithContentsOfImage:(UIImage *)image;
 
 @end
 

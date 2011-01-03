@@ -10,6 +10,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
 @class SPRectangle;
@@ -29,6 +30,7 @@ typedef void (^SPTextureDrawingBlock)(CGContextRef context);
          colorSpace:(SPColorSpace)colorSpace draw:(SPTextureDrawingBlock)drawingBlock;
 
 - (id)initWithContentsOfFile:(NSString *)path;
+- (id)initWithContentsOfImage:(UIImage *)image;
 - (id)initWithRegion:(SPRectangle*)region ofTexture:(SPTexture*)texture;
 
 - (void)adjustTextureCoordinates:(const float *)texCoords saveAtTarget:(float *)targetTexCoords 
