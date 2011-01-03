@@ -18,20 +18,23 @@
 @synthesize xOffset = mXOffset;
 @synthesize yOffset = mYOffset;
 @synthesize xAdvance = mXAdvance;
-@synthesize texture = mTexture;
 
 - (id)initWithID:(int)charID texture:(SPTexture *)texture
          xOffset:(float)xOffset yOffset:(float)yOffset xAdvance:(float)xAdvance;
 {
-    if (self = [super init])
+    if (self = [super initWithTexture:texture])
     {
         mCharID = charID;
-        mTexture = [texture retain];
         mXOffset = xOffset;
         mYOffset = yOffset;
         mXAdvance = xAdvance;
     }
     return self;
+}
+
+- (id)initWithTexture:(SPTexture *)texture
+{
+    return [self initWithID:0 texture:texture xOffset:0 yOffset:0 xAdvance:texture.width];
 }
 
 - (id)init
@@ -40,10 +43,13 @@
     return nil;
 }
 
-- (void)dealloc
+#pragma mark NSCopying
+
+- (id)copyWithZone:(NSZone*)zone;
 {
-    [mTexture release];    
-    [super dealloc];
+    return [[[self class] allocWithZone:zone] initWithID:mCharID texture:self.texture 
+                                                 xOffset:mXOffset yOffset:mYOffset 
+                                                xAdvance:mXAdvance];
 }
 
 @end

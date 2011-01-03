@@ -10,24 +10,21 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SPImage.h"
 
-@class SPTexture;
-
-@interface SPBitmapChar : NSObject 
+@interface SPBitmapChar : SPImage <NSCopying> 
 {
   @private
     int mCharID;
     float mXOffset;
     float mYOffset;
-    float mXAdvance;
-    SPTexture *mTexture;
+    float mXAdvance;    
 }
 
 @property (nonatomic, readonly) int charID;
 @property (nonatomic, readonly) float xOffset;
 @property (nonatomic, readonly) float yOffset;
 @property (nonatomic, readonly) float xAdvance;
-@property (nonatomic, readonly) SPTexture *texture;
 
 - (id)initWithID:(int)charID texture:(SPTexture *)texture
          xOffset:(float)xOffset yOffset:(float)yOffset xAdvance:(float)xAdvance;

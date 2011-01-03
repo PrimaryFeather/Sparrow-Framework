@@ -18,6 +18,7 @@
 #import "SPQuad.h"
 #import "SPImage.h"
 #import "SPTextField.h"
+#import "SPBitmapFont.h"
 #import "SPButton.h"
 #import "SPStage.h"
 #import "SPSprite.h"

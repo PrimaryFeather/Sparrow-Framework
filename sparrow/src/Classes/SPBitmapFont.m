@@ -114,13 +114,13 @@
         float yOffset = [[attributeDict valueForKey:@"yoffset"] floatValue] / scale;
         float xAdvance = [[attributeDict valueForKey:@"xadvance"] floatValue] / scale;
         
-        SPBitmapChar *bmpChar = [[SPBitmapChar alloc] initWithID:charID texture:texture
-                                                         xOffset:xOffset yOffset:yOffset 
-                                                        xAdvance:xAdvance];
+        SPBitmapChar *bitmapChar = [[SPBitmapChar alloc] initWithID:charID texture:texture
+                                                            xOffset:xOffset yOffset:yOffset 
+                                                           xAdvance:xAdvance];
         [texture release];
         
-        [mChars setObject:bmpChar forKey:[NSNumber numberWithInt:charID]];
-        [bmpChar release];
+        [mChars setObject:bitmapChar forKey:[NSNumber numberWithInt:charID]];
+        [bitmapChar release];
     }
     else if ([elementName isEqualToString:@"info"])
     {
@@ -147,6 +147,12 @@
             mLineHeight /= mFontTexture.scale;            
         }
     }
+}
+
+- (SPBitmapChar *)charByID:(int)charID
+{
+    SPBitmapChar *bitmapChar = (SPBitmapChar *)[mChars objectForKey:[NSNumber numberWithInt:charID]];
+    return [[bitmapChar copy] autorelease];
 }
 
 - (SPDisplayObject *)createDisplayObjectWithWidth:(float)width height:(float)height
@@ -180,18 +186,15 @@
             if (charID == CHAR_SPACE || charID == CHAR_TAB)        
                 lastWhiteSpace = i;        
             
-            SPBitmapChar *charInfo = (SPBitmapChar *)[mChars objectForKey:[NSNumber numberWithInt:charID]];        
-            if (!charInfo)
-                charInfo = (SPBitmapChar *)[mChars objectForKey:[NSNumber numberWithInt:CHAR_SPACE]];
+            SPBitmapChar *bitmapChar = [self charByID:charID];
+            if (!bitmapChar) bitmapChar = [self charByID:CHAR_SPACE];
             
-            SPImage *charImg = [[SPImage alloc] initWithTexture:charInfo.texture];        
-            charImg.x = currentX + charInfo.xOffset;
-            charImg.y = charInfo.yOffset;
-            charImg.color = color;
-            [currentLine addChild:charImg];
-            [charImg release]; 
+            bitmapChar.x = currentX + bitmapChar.xOffset;
+            bitmapChar.y = bitmapChar.yOffset;
+            bitmapChar.color = color;
+            [currentLine addChild:bitmapChar];
             
-            currentX += charInfo.xAdvance;
+            currentX += bitmapChar.xAdvance;
             
             if (currentX > containerWidth)        
             {

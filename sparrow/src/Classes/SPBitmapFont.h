@@ -10,6 +10,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SPBitmapChar.h"
 #import "SPTextField.h"
 #import "SPMacros.h"
 
@@ -37,6 +38,7 @@
 - (id)initWithContentsOfFile:(NSString *)path texture:(SPTexture *)texture;
 - (id)initWithContentsOfFile:(NSString *)path;
 
+- (SPBitmapChar *)charByID:(int)charID;
 - (SPDisplayObject *)createDisplayObjectWithWidth:(float)width height:(float)height
                                              text:(NSString *)text fontSize:(float)size color:(uint)color 
                                            hAlign:(SPHAlign)hAlign vAlign:(SPVAlign)vAlign
