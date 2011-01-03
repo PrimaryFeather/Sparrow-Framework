@@ -24,13 +24,13 @@
 
 @interface SPView ()
 
-@property (nonatomic, retain) EAGLContext *context;
 @property (nonatomic, retain) NSTimer *timer;
 @property (nonatomic, retain) id displayLink;
 
-- (void)initOpenGL;
-- (BOOL)createFramebuffer;
+- (void)setup;
+- (void)createFramebuffer;
 - (void)destroyFramebuffer;
+
 - (void)renderStage;
 - (void)processTouchEvent:(UIEvent*)event;
 
@@ -43,12 +43,29 @@
 #define REFRESH_RATE 60
 
 @synthesize stage = mStage;
-@synthesize context = mContext;
 @synthesize timer = mTimer;
 @synthesize displayLink = mDisplayLink;
 @synthesize frameRate = mFrameRate;
 
-- (void)initOpenGL
+- (id)initWithFrame:(CGRect)frame 
+{    
+    if ([super initWithFrame:frame]) 
+    {
+        [self setup];
+    }
+    return self;
+}
+
+- (id)initWithCoder:(NSCoder *)decoder 
+{
+    if ([super initWithCoder:decoder]) 
+    {
+        [self setup];
+    }
+    return self;
+}
+
+- (void)setup
 {
     if (mContext) return; // already initialized!
     
@@ -69,10 +86,68 @@
 
     mContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1];    
     
-    if (!mContext || ![EAGLContext setCurrentContext:mContext])     
-        NSLog(@"Could not create render context");
+    if (!mContext || ![EAGLContext setCurrentContext:mContext])        
+        NSLog(@"Could not create render context");    
     
     mRenderSupport = [[SPRenderSupport alloc] init];
+}
+
+- (void)layoutSubviews 
+{
+    [self destroyFramebuffer]; // reset framebuffer (scale factor could have changed)
+    [self createFramebuffer];
+    [self renderStage];        // fill buffer immediately to avoid flickering
+}
+
+- (void)createFramebuffer 
+{    
+    glGenFramebuffersOES(1, &mFramebuffer);
+    glGenRenderbuffersOES(1, &mRenderbuffer);
+    
+    glBindFramebufferOES(GL_FRAMEBUFFER_OES, mFramebuffer);
+    glBindRenderbufferOES(GL_RENDERBUFFER_OES, mRenderbuffer);
+    [mContext renderbufferStorage:GL_RENDERBUFFER_OES fromDrawable:(CAEAGLLayer*)self.layer];
+    glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_RENDERBUFFER_OES, mRenderbuffer);
+    
+    glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_WIDTH_OES, &mWidth);
+    glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_HEIGHT_OES, &mHeight);
+    
+    if(glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES) != GL_FRAMEBUFFER_COMPLETE_OES) 
+        NSLog(@"failed to create framebuffer: %x", glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES));
+}
+
+- (void)destroyFramebuffer 
+{
+    glDeleteFramebuffersOES(1, &mFramebuffer);
+    mFramebuffer = 0;
+    glDeleteRenderbuffersOES(1, &mRenderbuffer);
+    mRenderbuffer = 0;    
+}
+
+- (void)renderStage
+{
+    if (mFramebuffer == 0 || mRenderbuffer == 0) 
+        return; // buffers not yet initialized
+    
+    SP_CREATE_POOL(pool);
+    
+    double now = CACurrentMediaTime();
+    double timePassed = now - mLastFrameTimestamp;
+    [mStage advanceTime:timePassed];
+    mLastFrameTimestamp = now;
+    
+    [EAGLContext setCurrentContext:mContext];
+    
+    glBindFramebufferOES(GL_FRAMEBUFFER_OES, mFramebuffer);
+    glViewport(0, 0, mWidth, mHeight);
+    
+    [mRenderSupport bindTexture:nil]; // old textures could have become invalid
+    [mStage render:mRenderSupport];
+    
+    glBindRenderbufferOES(GL_RENDERBUFFER_OES, mRenderbuffer);
+    [mContext presentRenderbuffer:GL_RENDERBUFFER_OES];
+    
+    SP_RELEASE_POOL(pool);
 }
 
 - (void)setTimer:(NSTimer *)newTimer 
@@ -160,79 +235,9 @@
     }
 }
 
-- (void)renderStage
-{
-    if (mFramebuffer == 0 || mRenderbuffer == 0) 
-        return; // buffers not yet initialized
-    
-    SP_CREATE_POOL(pool);
-    
-    double now = CACurrentMediaTime();
-    double timePassed = now - mLastFrameTimestamp;
-    [mStage advanceTime:timePassed];
-    mLastFrameTimestamp = now;
-    
-    [EAGLContext setCurrentContext:mContext];
-    
-    glBindFramebufferOES(GL_FRAMEBUFFER_OES, mFramebuffer);
-    glViewport(0, 0, mWidth, mHeight);
-        
-    [mRenderSupport bindTexture:nil]; // old textures could have become invalid
-    [mStage render:mRenderSupport];
-    
-    glBindRenderbufferOES(GL_RENDERBUFFER_OES, mRenderbuffer);
-    [mContext presentRenderbuffer:GL_RENDERBUFFER_OES];
-    
-    SP_RELEASE_POOL(pool);
-}
-
 + (Class)layerClass 
 {
     return [CAEAGLLayer class];
-}
-
-- (void)didMoveToSuperview
-{
-    [self initOpenGL];
-    [super didMoveToSuperview];
-}
-
-- (void)layoutSubviews 
-{
-    [EAGLContext setCurrentContext:mContext];
-    [self destroyFramebuffer];
-    [self createFramebuffer];
-    [self renderStage]; // fill buffer immediately to avoid flickering
-}
-
-- (BOOL)createFramebuffer 
-{    
-    glGenFramebuffersOES(1, &mFramebuffer);
-    glGenRenderbuffersOES(1, &mRenderbuffer);
-    
-    glBindFramebufferOES(GL_FRAMEBUFFER_OES, mFramebuffer);
-    glBindRenderbufferOES(GL_RENDERBUFFER_OES, mRenderbuffer);
-    [mContext renderbufferStorage:GL_RENDERBUFFER_OES fromDrawable:(CAEAGLLayer*)self.layer];
-    glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_RENDERBUFFER_OES, mRenderbuffer);
-    
-    glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_WIDTH_OES, &mWidth);
-    glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_HEIGHT_OES, &mHeight);
-    
-    if(glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES) != GL_FRAMEBUFFER_COMPLETE_OES) 
-    {
-        NSLog(@"failed to make complete framebuffer object %x", glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES));
-        return NO;
-    }
-    
-    return YES;
-}
-
-- (void)destroyFramebuffer 
-{
-    glDeleteFramebuffersOES(1, &mFramebuffer);
-    mFramebuffer = 0;
-    glDeleteRenderbuffersOES(1, &mRenderbuffer);
-    mRenderbuffer = 0;    
 }
 
 - (void) touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event 
@@ -292,13 +297,16 @@
 
 - (void)dealloc 
 {    
-    self.timer = nil; // invalidates timer    
-    self.displayLink = nil; // invalidates displayLink
+    if ([EAGLContext currentContext] == mContext) 
+        [EAGLContext setCurrentContext:nil];
     
-    if ([EAGLContext currentContext] == mContext) [EAGLContext setCurrentContext:nil];
+    [mContext release];
+    [mStage release];   
     [mRenderSupport release];
-    [mContext release];  
-    [mStage release];
+    [self destroyFramebuffer];
+    
+    self.timer = nil;       // invalidates timer    
+    self.displayLink = nil; // invalidates displayLink        
     
     [super dealloc];
 }
