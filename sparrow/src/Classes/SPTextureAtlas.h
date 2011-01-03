@@ -12,6 +12,7 @@
 #import <Foundation/Foundation.h>
 
 @class SPTexture;
+@class SPRectangle;
 
 #ifdef __IPHONE_4_0
 @interface SPTextureAtlas : NSObject <NSXMLParserDelegate>
@@ -26,9 +27,15 @@
 
 @property (nonatomic, readonly) int count;
 
+- (id)initWithContentsOfFile:(NSString *)path texture:(SPTexture *)texture; // designated initializer
 - (id)initWithContentsOfFile:(NSString *)path;
+- (id)initWithTexture:(SPTexture *)texture;
+
 - (SPTexture *)textureByName:(NSString *)name;
 - (NSArray *)texturesStartingWith:(NSString *)name;
+
+- (void)addName:(NSString *)name forRegion:(SPRectangle *)region;
+- (void)removeName:(NSString *)name;
 
 + (SPTextureAtlas *)atlasWithContentsOfFile:(NSString *)path;
 
