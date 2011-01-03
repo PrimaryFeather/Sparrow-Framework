@@ -35,6 +35,8 @@ typedef void (^SPTextureDrawingBlock)(CGContextRef context);
                      numVertices:(int)numVertices;
 
 + (SPTexture *)textureWithContentsOfFile:(NSString*)path;
++ (SPTexture *)textureWithRegion:(SPRectangle *)region ofTexture:(SPTexture *)texture;
++ (SPTexture *)textureWithWidth:(float)width height:(float)height draw:(SPTextureDrawingBlock)drawingBlock;
 + (SPTexture *)emptyTexture;
 
 @property (nonatomic, readonly) float width;

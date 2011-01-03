@@ -259,6 +259,16 @@ enum PVRPixelType
     return [[[SPTexture alloc] initWithContentsOfFile:path] autorelease];
 }
 
++ (SPTexture *)textureWithRegion:(SPRectangle *)region ofTexture:(SPTexture *)texture
+{
+    return [[[SPTexture alloc] initWithRegion:region ofTexture:texture] autorelease];
+}
+
++ (SPTexture *)textureWithWidth:(float)width height:(float)height draw:(SPTextureDrawingBlock)drawingBlock
+{
+    return [[[SPTexture alloc] initWithWidth:width height:height draw:drawingBlock] autorelease];
+}
+
 - (void)adjustTextureCoordinates:(const float *)texCoords saveAtTarget:(float *)targetTexCoords 
                      numVertices:(int)numVertices
 {
