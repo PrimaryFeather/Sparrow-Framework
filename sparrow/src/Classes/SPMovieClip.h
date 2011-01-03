@@ -33,7 +33,7 @@
     int mCurrentFrame;
 }
 
-- (id)initWithFrame:(SPTexture *)texture fps:(float)fps;
+- (id)initWithFrame:(SPTexture *)texture fps:(float)fps; // designated initializer
 - (id)initWithFrames:(NSArray *)textures fps:(float)fps;
 
 - (int)addFrame:(SPTexture *)texture;
@@ -54,11 +54,13 @@
 - (void)pause;
 
 + (SPMovieClip *)movieWithFrame:(SPTexture *)texture fps:(float)fps;
++ (SPMovieClip *)movieWithFrames:(NSArray *)textures fps:(float)fps;
 
 @property (nonatomic, readonly) int numFrames;
 @property (nonatomic, readonly) double duration;
 @property (nonatomic, readonly) BOOL isPlaying;
 @property (nonatomic, assign)   BOOL loop;
 @property (nonatomic, assign)   int currentFrame;
+@property (nonatomic, assign)   float fps;
 
 @end
