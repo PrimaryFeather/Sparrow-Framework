@@ -154,10 +154,13 @@
 
 - (void)setFps:(float)fps
 {
-	mDefaultFrameDuration = (fps == 0.0f ? INT_MAX : 1.0 / fps);
+    float newFrameDuration = (fps == 0.0f ? INT_MAX : 1.0 / fps);
+	float acceleration = newFrameDuration / mDefaultFrameDuration;
+    mElapsedTime *= acceleration;
+    mDefaultFrameDuration = newFrameDuration;
     
 	for (int i=0; i<self.numFrames; ++i)
-		[self setDuration:mDefaultFrameDuration atIndex:i];
+		[self setDuration:[self durationAtIndex:i] * acceleration atIndex:i];
 }
 
 - (float)fps
