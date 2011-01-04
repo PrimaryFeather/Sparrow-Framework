@@ -5,6 +5,9 @@
 //  Created by Daniel Sperl on 10.07.10.
 //  Copyright 2010 Incognitek. All rights reserved.
 //
+//  This program is free software; you can redistribute it and/or modify
+//  it under the terms of the Simplified BSD License.
+//
 
 #import <Availability.h>
 #ifdef __IPHONE_3_0
