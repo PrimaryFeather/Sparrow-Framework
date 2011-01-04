@@ -9,7 +9,8 @@
 //  it under the terms of the Simplified BSD License.
 //
 
-#include <math.h>
+#import <Foundation/Foundation.h>
+#import <math.h>
 
 // constants
 
@@ -52,11 +53,4 @@
 
 #define SP_IS_FLOAT_EQUAL(f1, f2)   (fabsf((f1)-(f2)) < SP_FLOAT_EPSILON)
 
-// inline functions
 
-static inline int getNextPowerOfTwo(int number)
-{
-    int result = 1; 
-    while (result < number) result *= 2;
-    return result;
-}
