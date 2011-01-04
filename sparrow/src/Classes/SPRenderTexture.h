@@ -31,7 +31,7 @@ typedef void (^SPDrawingBlock)();
 - (id)initWithWidth:(float)width height:(float)height fillColor:(uint)argb scale:(float)scale;
 
 - (void)drawObject:(SPDisplayObject *)object;
-- (void)drawBundled:(SPDrawingBlock)block;
+- (void)bundleDrawCalls:(SPDrawingBlock)block;
 - (void)clearWithColor:(uint)color alpha:(float)alpha;
 
 + (SPRenderTexture *)textureWithWidth:(float)width height:(float)height;
