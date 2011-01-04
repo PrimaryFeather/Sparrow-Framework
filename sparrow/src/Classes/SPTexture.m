@@ -11,6 +11,7 @@
 
 #import "SPTexture.h"
 #import "SPMacros.h"
+#import "SPUtils.h"
 #import "SPRectangle.h"
 #import "SPGLTexture.h"
 #import "SPSubTexture.h"
@@ -107,8 +108,8 @@ enum PVRPixelType
     [self release]; // class factory - we'll return a subclass!
 
     // only textures with sides that are powers of 2 are allowed by OpenGL ES. 
-    int legalWidth  = getNextPowerOfTwo(width  * scale);
-    int legalHeight = getNextPowerOfTwo(height * scale);
+    int legalWidth  = [SPUtils nextPowerOfTwo:width  * scale];
+    int legalHeight = [SPUtils nextPowerOfTwo:height * scale];
     
     SPTextureFormat textureFormat;
     CGColorSpaceRef cgColorSpace;

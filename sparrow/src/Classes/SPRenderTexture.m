@@ -9,6 +9,7 @@
 #import "SPRenderTexture.h"
 #import "SPGLTexture.h"
 #import "SPMacros.h"
+#import "SPUtils.h"
 #import "SPStage.h"
 
 @interface SPRenderTexture ()
@@ -25,8 +26,8 @@
 {
     if (self = [super init])
     {
-        int legalWidth  = getNextPowerOfTwo(width  * scale);
-        int legalHeight = getNextPowerOfTwo(height * scale);
+        int legalWidth  = [SPUtils nextPowerOfTwo:width  * scale];
+        int legalHeight = [SPUtils nextPowerOfTwo:height * scale];
         
         SPTextureProperties properties = {    
             .format = SPTextureFormatRGBA,
