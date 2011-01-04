@@ -150,7 +150,7 @@
      }];
 }
 
-- (void)drawBundled:(SPDrawingBlock)block
+- (void)bundleDrawCalls:(SPDrawingBlock)block
 {
     [self renderToFramebuffer:block];
 }
