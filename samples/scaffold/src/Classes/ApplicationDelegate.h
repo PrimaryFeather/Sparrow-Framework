@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Sparrow.h" 
 
 @interface ApplicationDelegate : NSObject <UIApplicationDelegate> 
 {
