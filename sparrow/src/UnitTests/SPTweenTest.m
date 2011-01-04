@@ -161,6 +161,64 @@
     STAssertEqualsWithAccuracy(100.0f, quad.width, E, @"wrong x value");
 }
 
+- (void)testTweenWithRepeatingLoop
+{
+    float startX = 100.0f;    
+    float deltaX = 50.0f;
+    float totalTime = 2.0f;
+    
+    SPQuad *quad = [SPQuad quadWithWidth:100 height:100];
+    quad.x = startX;
+    
+    SPTween *tween = [SPTween tweenWithTarget:quad time:totalTime transition:SP_TRANSITION_LINEAR];
+    [tween animateProperty:@"x" targetValue:startX + deltaX];
+    tween.loop = SPLoopTypeRepeat;
+    
+    [tween advanceTime:0.0];
+    STAssertEqualsWithAccuracy(startX, quad.x, E, @"wrong x value");
+    
+    [tween advanceTime:totalTime / 2.0];
+    STAssertEqualsWithAccuracy(startX + 0.5f * deltaX, quad.x, E, @"wrong x value");
+    
+    [tween advanceTime:totalTime / 2.0];
+    STAssertEqualsWithAccuracy(startX, quad.x, E, @"wrong x value");
+    
+    [tween advanceTime:totalTime / 2.0];
+    STAssertEqualsWithAccuracy(startX + 0.5f * deltaX, quad.x, E, @"wrong x value");
+    
+    [tween advanceTime:totalTime / 2.0];
+    STAssertEqualsWithAccuracy(startX, quad.x, E, @"wrong x value");
+}
+
+- (void)testTweenWithReversingLoop
+{
+    float startX = 100.0f;    
+    float deltaX = 50.0f;
+    float totalTime = 2.0f;
+    
+    SPQuad *quad = [SPQuad quadWithWidth:100 height:100];
+    quad.x = startX;
+    
+    SPTween *tween = [SPTween tweenWithTarget:quad time:totalTime transition:SP_TRANSITION_LINEAR];
+    [tween animateProperty:@"x" targetValue:startX + deltaX];
+    tween.loop = SPLoopTypeReverse;
+    
+    [tween advanceTime:0.0];
+    STAssertEqualsWithAccuracy(startX, quad.x, E, @"wrong x value");
+    
+    [tween advanceTime:totalTime / 2.0];
+    STAssertEqualsWithAccuracy(startX + 0.5f * deltaX, quad.x, E, @"wrong x value");
+    
+    [tween advanceTime:totalTime / 2.0];
+    STAssertEqualsWithAccuracy(startX + deltaX, quad.x, E, @"wrong x value");
+    
+    [tween advanceTime:totalTime / 2.0];
+    STAssertEqualsWithAccuracy(startX + 0.5f * deltaX, quad.x, E, @"wrong x value");
+    
+    [tween advanceTime:totalTime / 2.0];
+    STAssertEqualsWithAccuracy(startX, quad.x, E, @"wrong x value");
+}
+
 - (void)makeTweenWithTime:(double)time andAdvanceBy:(double)advanceTime
 {
     SPQuad *quad = [SPQuad quadWithWidth:100 height:100];

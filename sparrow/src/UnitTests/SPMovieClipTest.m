@@ -113,7 +113,7 @@
     SPTexture *frame2 = [SPTexture emptyTexture];
     SPTexture *frame3 = [SPTexture emptyTexture];
     
-    SPMovieClip *movie = [SPMovieClip movieWithFrame:frame0 fps:4.0f];
+    SPMovieClip *movie = [SPMovieClip movieWithFrame:frame0 fps:fps];
     
     [movie addFrame:frame1];
     [movie addFrame:frame2 withDuration:0.5];
@@ -141,6 +141,31 @@
     STAssertEquals(0, movie.currentFrame, @"wrong current frame");
     [movie advanceTime:frameDuration * 1.1];
     STAssertEquals(1, movie.currentFrame, @"wrong current frame");
+}
+
+- (void)testChangeFps
+{
+    NSArray *frames = [NSArray arrayWithObjects:[SPTexture emptyTexture], [SPTexture emptyTexture],
+                       [SPTexture emptyTexture], nil];
+        
+    SPMovieClip *movie = [SPMovieClip movieWithFrames:frames fps:4.0f];    
+    STAssertEquals(4.0f, movie.fps, @"wrong fps");
+    
+    movie.fps = 3.0f;
+    STAssertEquals(3.0f, movie.fps, @"wrong fps");    
+    STAssertEqualsWithAccuracy(1.0 / 3.0, [movie durationAtIndex:0], E, @"wrong frame duration");
+    STAssertEqualsWithAccuracy(1.0 / 3.0, [movie durationAtIndex:1], E, @"wrong frame duration");
+    STAssertEqualsWithAccuracy(1.0 / 3.0, [movie durationAtIndex:2], E, @"wrong frame duration");
+    
+    [movie setDuration:1.0 atIndex:1];
+    STAssertEqualsWithAccuracy(1.0, [movie durationAtIndex:1], E, @"wrong frame duration");
+    
+    movie.fps = 6.0f;
+    STAssertEqualsWithAccuracy(0.5,       [movie durationAtIndex:1], E, @"wrong frame duration");
+    STAssertEqualsWithAccuracy(1.0 / 6.0, [movie durationAtIndex:0], E, @"wrong frame duration");
+    
+    movie.fps = 0.0f;
+    STAssertEqualsWithAccuracy(0.0f, movie.fps, E, @"wrong fps");
 }
 
 @end
