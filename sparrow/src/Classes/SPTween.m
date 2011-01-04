@@ -23,6 +23,7 @@ typedef float (*FnPtrTransition) (id, SEL, float);
 @synthesize time = mTotalTime;
 @synthesize delay = mDelay;
 @synthesize target = mTarget;
+@synthesize loop = mLoop;
 
 - (id)initWithTarget:(id)target time:(double)time transition:(NSString*)transition
 {
@@ -33,6 +34,8 @@ typedef float (*FnPtrTransition) (id, SEL, float);
         mCurrentTime = 0;
         mDelay = 0;
         mProperties = [[NSMutableArray alloc] init];        
+        mLoop = SPLoopTypeNone;
+        mInvertTransition = NO;
         
         // create function pointer for transition
         NSString *transMethod = [transition stringByAppendingString:TRANS_SUFFIX];
@@ -62,6 +65,8 @@ typedef float (*FnPtrTransition) (id, SEL, float);
 
 - (void)advanceTime:(double)seconds
 {
+    if (seconds == 0.0) return; // nothing to do
+    
     double previousTime = mCurrentTime;    
     mCurrentTime = MIN(mTotalTime, mCurrentTime + seconds);
 
@@ -75,7 +80,7 @@ typedef float (*FnPtrTransition) (id, SEL, float);
         [event release];        
     }   
     
-    float ratio = mCurrentTime / mTotalTime;    
+    float ratio = mCurrentTime / mTotalTime;
     FnPtrTransition transFunc = (FnPtrTransition) mTransitionFunc;
     Class transClass = [SPTransitions class];
     
@@ -83,11 +88,12 @@ typedef float (*FnPtrTransition) (id, SEL, float);
     {        
         if (previousTime <= 0 && mCurrentTime >= 0) 
             prop.startValue = prop.currentValue;
+
+        float transitionValue = mInvertTransition ? 
+            1.0f - transFunc(transClass, mTransition, 1.0f - ratio) :
+            transFunc(transClass, mTransition, ratio);        
         
-        float startValue = prop.startValue;
-        float delta = prop.delta;
-        float transitionValue = delta * transFunc(transClass, mTransition, ratio);        
-        prop.currentValue = startValue + transitionValue;
+        prop.currentValue = prop.startValue + prop.delta * transitionValue;
     }
    
     if ([self hasEventListenerForType:SP_EVENT_TYPE_TWEEN_UPDATED])
@@ -97,12 +103,32 @@ typedef float (*FnPtrTransition) (id, SEL, float);
         [event release];
     }
     
-    if (previousTime < mTotalTime && mCurrentTime >= mTotalTime &&
-        [self hasEventListenerForType:SP_EVENT_TYPE_TWEEN_COMPLETED])
+    if (previousTime < mTotalTime && mCurrentTime >= mTotalTime)
     {
-        SPEvent *event = [[SPEvent alloc] initWithType:SP_EVENT_TYPE_TWEEN_COMPLETED];
-        [self dispatchEvent:event];
-        [event release];        
+		if (mLoop == SPLoopTypeRepeat)
+		{
+			for (SPTweenedProperty *prop in mProperties)
+				prop.currentValue = prop.startValue;
+
+			mCurrentTime = 0;
+		}
+		else if (mLoop == SPLoopTypeReverse)
+		{
+			for (SPTweenedProperty *prop in mProperties)
+            {
+                prop.currentValue = prop.endValue; // since tweens not necessarily end with endValue
+                prop.endValue = prop.startValue;
+                mInvertTransition = !mInvertTransition;
+            }
+
+			mCurrentTime = 0;
+		}        
+        else if ([self hasEventListenerForType:SP_EVENT_TYPE_TWEEN_COMPLETED])
+        {
+            SPEvent *event = [[SPEvent alloc] initWithType:SP_EVENT_TYPE_TWEEN_COMPLETED];
+            [self dispatchEvent:event];
+            [event release];
+        }
     }
 }
 
@@ -114,7 +140,7 @@ typedef float (*FnPtrTransition) (id, SEL, float);
 
 - (BOOL)isComplete
 {
-    return mCurrentTime >= mTotalTime;
+    return mCurrentTime >= mTotalTime && mLoop == SPLoopTypeNone;
 }
 
 - (void)setDelay:(double)delay

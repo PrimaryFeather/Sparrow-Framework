@@ -14,8 +14,15 @@
 #import "SPAnimatable.h"
 #import "SPTransitions.h"
 
-#define SP_EVENT_TYPE_TWEEN_STARTED @"tweenStarted"
-#define SP_EVENT_TYPE_TWEEN_UPDATED @"tweenUpdated"
+typedef enum 
+{
+    SPLoopTypeNone,
+    SPLoopTypeRepeat,
+    SPLoopTypeReverse
+} SPLoopType;
+
+#define SP_EVENT_TYPE_TWEEN_STARTED   @"tweenStarted"
+#define SP_EVENT_TYPE_TWEEN_UPDATED   @"tweenUpdated"
 #define SP_EVENT_TYPE_TWEEN_COMPLETED @"tweenCompleted"
 
 @interface SPTween : SPEventDispatcher <SPAnimatable>
@@ -23,18 +30,22 @@
   @private
     id mTarget;    
     SEL mTransition;
-    IMP mTransitionFunc;
+    IMP mTransitionFunc;    
     NSMutableArray *mProperties;
     
     double mTotalTime;
     double mCurrentTime;
     double mDelay;
+    
+    SPLoopType mLoop;
+    BOOL mInvertTransition;
 }
 
 @property (nonatomic, readonly) id target;
 @property (nonatomic, readonly) NSString *transition;
 @property (nonatomic, readonly) double time;
 @property (nonatomic, assign)   double delay;
+@property (nonatomic, assign)   SPLoopType loop;
 
 - (id)initWithTarget:(id)target time:(double)time transition:(NSString*)transition;
 - (id)initWithTarget:(id)target time:(double)time;

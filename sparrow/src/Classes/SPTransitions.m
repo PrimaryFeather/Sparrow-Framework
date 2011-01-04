@@ -14,6 +14,7 @@
 
 #import "SPTransitions.h"
 #import "SPMacros.h"
+#import "SPUtils.h"
 
 @implementation SPTransitions
 
@@ -27,6 +28,11 @@
 + (float)linear:(float)ratio
 {
     return ratio;
+}
+
++ (float)randomize:(float)ratio
+{
+    return [SPUtils randomFloat];
 }
 
 + (float)easeIn:(float)ratio
