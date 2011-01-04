@@ -37,6 +37,7 @@
 #import "SPDelayedInvocation.h"
 #import "SPRectangle.h"
 #import "SPMacros.h"
+#import "SPUtils.h"
 #import "SPView.h"
 #import "SPRenderSupport.h"
 #import "SPAudioEngine.h"

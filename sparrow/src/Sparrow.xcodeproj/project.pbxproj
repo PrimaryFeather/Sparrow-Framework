@@ -29,6 +29,9 @@
 		DE14414212421F4E00FFA95A /* SPStageTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DED67F330FA3514C0050E779 /* SPStageTest.m */; };
 		DE18FE4511B083B200D01F04 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE18FE4411B083B200D01F04 /* AVFoundation.framework */; };
 		DE20D9CC10713B0C006658C9 /* SPRenderSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = DE20D9CA10713B0C006658C9 /* SPRenderSupport.m */; };
+		DE33072512D2EBCD009CC5E7 /* SPUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = DE33072312D2EBCD009CC5E7 /* SPUtils.h */; };
+		DE33072612D2EBCD009CC5E7 /* SPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = DE33072412D2EBCD009CC5E7 /* SPUtils.m */; };
+		DE33072B12D2ED1A009CC5E7 /* SPUtilsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DE33072812D2ECB1009CC5E7 /* SPUtilsTest.m */; };
 		DED8B48711B0827E00A1766C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		DED8B48811B0827E00A1766C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE9CF1EB0FED3128008A32FF /* CoreGraphics.framework */; };
 		DED8B48911B0827E00A1766C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD15070DC6FC5B0079059D /* QuartzCore.framework */; };
@@ -122,6 +125,9 @@
 		DE2ED8560F6D54900012B6BA /* SPQuad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPQuad.m; sourceTree = "<group>"; };
 		DE2ED8580F6D54AC0012B6BA /* SPStage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPStage.h; sourceTree = "<group>"; };
 		DE2ED8590F6D54AC0012B6BA /* SPStage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPStage.m; sourceTree = "<group>"; };
+		DE33072312D2EBCD009CC5E7 /* SPUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPUtils.h; sourceTree = "<group>"; };
+		DE33072412D2EBCD009CC5E7 /* SPUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPUtils.m; sourceTree = "<group>"; };
+		DE33072812D2ECB1009CC5E7 /* SPUtilsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPUtilsTest.m; sourceTree = "<group>"; };
 		DE469D240F9386FD00F56E91 /* SPMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPMacros.h; sourceTree = "<group>"; };
 		DE469D250F9386FD00F56E91 /* SPMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPMatrix.h; sourceTree = "<group>"; };
 		DE469D260F9386FD00F56E91 /* SPMatrix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPMatrix.m; sourceTree = "<group>"; };
@@ -332,6 +338,8 @@
 				DE68EA160FBB5660004DBC95 /* SPNSExtensions.m */,
 				DED9B51B10629D9F00989853 /* SPPoolObject.h */,
 				DED9B51C10629D9F00989853 /* SPPoolObject.m */,
+				DE33072312D2EBCD009CC5E7 /* SPUtils.h */,
+				DE33072412D2EBCD009CC5E7 /* SPUtils.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -353,6 +361,7 @@
 				DE1F9446104704440084D470 /* SPJugglerTest.m */,
 				DEC54F6211B7765500E439B0 /* SPMovieClipTest.m */,
 				DE05748611E915A900F3A8A4 /* SPNSExtensionsTest.m */,
+				DE33072812D2ECB1009CC5E7 /* SPUtilsTest.m */,
 			);
 			path = UnitTests;
 			sourceTree = "<group>";
@@ -533,6 +542,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE13D18B12AADBF6000C77E6 /* SPRenderTexture.h in Headers */,
+				DE33072512D2EBCD009CC5E7 /* SPUtils.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -634,6 +644,7 @@
 				DE14414012421F4C00FFA95A /* SPJugglerTest.m in Sources */,
 				DE14414112421F4D00FFA95A /* SPTweenTest.m in Sources */,
 				DE14414212421F4E00FFA95A /* SPStageTest.m in Sources */,
+				DE33072B12D2ED1A009CC5E7 /* SPUtilsTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -684,6 +695,7 @@
 				DEE94E8311B43DE60000FE20 /* SPMovieClip.m in Sources */,
 				DEE6516B11F9DF200065207E /* SPCompiledSprite.m in Sources */,
 				DE13D18C12AADBF6000C77E6 /* SPRenderTexture.m in Sources */,
+				DE33072612D2EBCD009CC5E7 /* SPUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
