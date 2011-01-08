@@ -11,10 +11,19 @@
 
 #import <Foundation/Foundation.h>
 
+/** ------------------------------------------------------------------------------------------------
+ 
+ The SPAnimatable protocol describes objects that are animated depending on the passed time. 
+ Any object that implements this protocol can be added to the SPJuggler.
+ 
+------------------------------------------------------------------------------------------------- */
+
 @protocol SPAnimatable
 
+/// Advance the animation by a number of seconds.
 - (void)advanceTime:(double)seconds;
 
+/// Indicates if the animation is finished. (The juggler will purge the object.)
 @property (nonatomic, readonly) BOOL isComplete;
 
 @end

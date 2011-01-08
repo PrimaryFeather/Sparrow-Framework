@@ -12,6 +12,15 @@
 #import <Foundation/Foundation.h>
 #import "SPTexture.h"
 
+/** ------------------------------------------------------------------------------------------------
+ 
+ An SPSubTexture represents a section of another texture. This is achived solely by 
+    manipulation of texture coordinates, making the class very efficient. 
+ 
+    It is allowed to create subtextures of subtextures.
+ 
+------------------------------------------------------------------------------------------------- */
+
 @interface SPSubTexture : SPTexture 
 {
   @private
@@ -20,10 +29,24 @@
     SPRectangle *mRootClipping;
 }
 
-@property (nonatomic, readonly) SPTexture *baseTexture;
-@property (nonatomic, copy) SPRectangle *clipping;
+/// ------------------
+/// @name Initializers
+/// ------------------
 
+/// Initializes a subtexture with a region (in points) of another texture.
 - (id)initWithRegion:(SPRectangle*)region ofTexture:(SPTexture*)texture;
+
+/// Factory method.
 + (SPSubTexture*)textureWithRegion:(SPRectangle*)region ofTexture:(SPTexture*)texture;
+
+/// ----------------
+/// @name Properties
+/// ----------------
+
+/// The texture which the subtexture is based on.
+@property (nonatomic, readonly) SPTexture *baseTexture;
+
+/// The clipping rectangle, which is the region provided on initialization, scaled into [0.0, 1.0].
+@property (nonatomic, copy) SPRectangle *clipping;
 
 @end

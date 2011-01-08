@@ -11,11 +11,17 @@
 
 #import <Foundation/Foundation.h>
 
+/// The SPUtils class contains utility methods for different purposes.
 
 @interface SPUtils : NSObject 
 
+/// Finds the next power of two equal to or above the specified number.
 + (int)nextPowerOfTwo:(int)number;
+
+/// Returns a random integer number between `minValue` (inclusive) and `maxValue` (exclusive).
 + (int)randomIntBetween:(int)minValue and:(int)maxValue;
+
+/// Returns a random float number between 0.0 and 1.0
 + (float)randomFloat;
 
 @end

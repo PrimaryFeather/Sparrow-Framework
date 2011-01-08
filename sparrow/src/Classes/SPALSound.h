@@ -12,6 +12,14 @@
 #import <Foundation/Foundation.h>
 #import "SPSound.h"
 
+/** ------------------------------------------------------------------------------------------------ 
+
+ The SPALSound class is a concrete implemenation of SPSound that uses OpenAL internally. 
+ 
+ Don't create instances of this class manually. Use [SPSound initWithContentsOfFile:] instead.
+ 
+------------------------------------------------------------------------------------------------- */
+
 @interface SPALSound : SPSound 
 {
   @private
@@ -19,9 +27,19 @@
     double mDuration;
 }
 
+/// --------------------
+/// @name Initialization
+/// --------------------
+
+/// Initializes a sound with its known properties.
 - (id)initWithData:(const void *)data size:(int)size channels:(int)channels frequency:(int)frequency
           duration:(double)duration;
 
+/// ----------------
+/// @name Properties
+/// ----------------
+
+/// The OpenAL buffer ID of the sound.
 @property (nonatomic, readonly) uint bufferID;
 
 @end

@@ -39,6 +39,15 @@ typedef struct
     BOOL premultipliedAlpha;
 } SPTextureProperties;
 
+/** ------------------------------------------------------------------------------------------------
+
+ The SPGLTexture class is a concrete implemenation of the abstract class SPTexture,
+ containing a standard 2D OpenGL texture. 
+ 
+ Don't use this class directly, but load textures with the init-methods of SPTexture instead.
+ 
+------------------------------------------------------------------------------------------------- */
+
 @interface SPGLTexture : SPTexture
 {
   @private
@@ -50,11 +59,24 @@ typedef struct
     BOOL mPremultipliedAlpha;    
 }
 
+/// ------------------
+/// @name Initializers
+/// ------------------
+
+/// Initializes a texture with raw pixel data and a set of properties.
 - (id)initWithData:(const void *)imgData properties:(SPTextureProperties)properties;
 
+/// Factory method.
 + (SPGLTexture*)textureWithData:(const void *)imgData properties:(SPTextureProperties)properties;
 
+/// ----------------
+/// @name Properties
+/// ----------------
+
+/// Indicates if the texture should repeat like a wallpaper or stretch the outermost pixels.
 @property (nonatomic, assign) BOOL repeat;
+
+/// The scale factor, which influences `width` and `height` properties.
 @property (nonatomic, assign) float scale;
 
 @end

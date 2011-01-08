@@ -14,6 +14,15 @@
 
 @class SPALSound;
 
+/** ------------------------------------------------------------------------------------------------
+
+ The SPALSoundChannel class is a concrete implemenation of SPSoundChannel that uses 
+ OpenAL internally. 
+ 
+ Don't create instances of this class manually. Use [SPSound createChannel] instead.
+ 
+------------------------------------------------------------------------------------------------- */
+
 @interface SPALSoundChannel : SPSoundChannel
 {
   @private
@@ -27,6 +36,11 @@
     BOOL mInterrupted;
 }
 
+/// ------------------
+/// @name Initializers
+/// ------------------
+
+/// Initializes a sound channel from an SPALSound object.
 - (id)initWithSound:(SPALSound *)sound;
 
 @end

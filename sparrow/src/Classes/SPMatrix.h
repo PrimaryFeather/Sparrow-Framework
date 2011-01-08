@@ -14,11 +14,19 @@
 
 @class SPPoint;
 
-// this is the form of the matrix:
-// |a c tx|
-// |b d ty|
-// |0 0  1|
+/** ------------------------------------------------------------------------------------------------
  
+ The SPMatrix class describes an affine, 2D transformation Matrix. It provides methods to
+ manipulate the matrix in convenient ways, and can be used to transform points.
+ 
+ The matrix has the following form:
+
+ 	|a c tx|
+ 	|b d ty|
+ 	|0 0  1| 
+ 
+------------------------------------------------------------------------------------------------- */
+
 @interface SPMatrix : SPPoolObject <NSCopying>
 {
   @private
@@ -26,29 +34,66 @@
     float mTx, mTy;
 }
 
+/// -----------------
+/// @name Intializers
+/// -----------------
+
+/// Initializes a matrix with the specified components. _Designated Initializer_.
+- (id)initWithA:(float)a b:(float)b c:(float)c d:(float)d tx:(float)tx ty:(float)ty;
+
+/// Initializes an identity matrix.
+- (id)init;
+
+/// Factory method.
++ (SPMatrix*)matrixWithA:(float)a b:(float)b c:(float)c d:(float)d tx:(float)tx ty:(float)ty;
+
+/// Factory method.
++ (SPMatrix*)matrixWithIdentity;
+
+/// -------------
+/// @name Methods
+/// -------------
+
+/// Compares to matrices.
+- (BOOL)isEqual:(id)other;
+
+/// Concatenates a matrix with the current matrix, combining the geometric effects of the two.
+- (void)concatMatrix:(SPMatrix*)matrix;
+
+/// Translates the matrix along the x and y axes.
+- (void)translateXBy:(float)dx yBy:(float)dy;
+
+/// Applies a scaling transformation to the matrix.
+- (void)scaleXBy:(float)sx yBy:(float)sy;
+
+/// Applies a uniform scaling transformation to the matrix.
+- (void)scaleBy:(float)scale;
+
+/// Applies a rotation on the matrix (angle in RAD).
+- (void)rotateBy:(float)angle;
+
+/// Sets each matrix property to a value that causes a null transformation.
+- (void)identity;
+
+/// Performs the opposite transformation of the matrix.
+- (void)invert;
+
+/// Applies the geometric transformation represented by the matrix to the specified point.
+- (SPPoint*)transformPoint:(SPPoint*)point;
+
+/// ----------------
+/// @name Properties
+/// ----------------
+
+/// Matrix component.
 @property (nonatomic, assign) float a;
 @property (nonatomic, assign) float b;
 @property (nonatomic, assign) float c;
 @property (nonatomic, assign) float d;
 @property (nonatomic, assign) float tx;
 @property (nonatomic, assign) float ty;
+
+/// The determinant of the matrix.
 @property (nonatomic, readonly) float determinant;
-
-// designated initializer
-- (id)initWithA:(float)a b:(float)b c:(float)c d:(float)d tx:(float)tx ty:(float)ty;
-- (id)init;
-- (BOOL)isEqual:(id)other;
-
-- (void)concatMatrix:(SPMatrix*)matrix;
-- (void)translateXBy:(float)dx yBy:(float)dy;
-- (void)scaleXBy:(float)sx yBy:(float)sy;
-- (void)scaleBy:(float)scale;
-- (void)rotateBy:(float)angle;
-- (void)identity;
-- (void)invert;
-- (SPPoint*)transformPoint:(SPPoint*)point;
-
-+ (SPMatrix*)matrixWithA:(float)a b:(float)b c:(float)c d:(float)d tx:(float)tx ty:(float)ty;
-+ (SPMatrix*)matrixWithIdentity;
 
 @end

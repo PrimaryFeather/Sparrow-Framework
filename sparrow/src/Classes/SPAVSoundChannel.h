@@ -15,6 +15,15 @@
 #import "SPSoundChannel.h"
 #import "SPAVSound.h"
 
+/** ------------------------------------------------------------------------------------------------
+
+ The SPAVSoundChannel class is a concrete implemenation of SPSoundChannel that uses AVAudioPlayer 
+ internally. 
+ 
+ Don't create instances of this class manually. Use [SPSound createChannel] instead.
+ 
+------------------------------------------------------------------------------------------------- */
+
 @interface SPAVSoundChannel : SPSoundChannel <AVAudioPlayerDelegate> 
 {
   @private
@@ -24,6 +33,11 @@
     float mVolume;
 }
 
+/// ------------------
+/// @name Initializers
+/// ------------------
+
+/// Initializes a sound channel from an SPAVSound object.
 - (id)initWithSound:(SPAVSound *)sound;
 
 @end

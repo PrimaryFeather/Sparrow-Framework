@@ -12,6 +12,25 @@
 #import <Foundation/Foundation.h>
 #import "SPSprite.h"
 
+/** ------------------------------------------------------------------------------------------------
+
+ An SPCompiledSprite allows you to optimize the rendering of static parts of your display list.
+ 
+ It analyzes the tree of children attached to it and optimizes the OpenGL rendering calls in a 
+ way that makes rendering them extremely fast. The downside is that you will no longe see any 
+ changes in the properties of the childs (position, rotation, alpha, etc.). To update the object
+ after changes have happened, simply call `compile` again.
+ 
+ With the exception of this peculiarity, a compiled sprite can be use just like any other sprite.
+ 
+	SPCompiledSprite *sprite = [SPCompiledSprite sprite];
+	[sprite addChild:object1];
+	[sprite addChild:object2];
+	
+	[sprite compile]; // this call is optional, it will be done on rendering automatically.
+  
+------------------------------------------------------------------------------------------------- */
+
 @interface SPCompiledSprite : SPSprite
 {
   @private
@@ -26,8 +45,17 @@
     uint mTexCoordBuffer;
 }
 
-- (id)init;
+/// -------------
+/// @name Methods
+/// -------------
+
+/// Compiles the children of the sprite to optimize rendering. After compilation, no changes in
+/// the children will show up. Call the method again to make changes visible.
+/// 
+/// @return Returns `YES` if compilation was successful. On error, it will `NSLog` the problem.
 - (BOOL)compile;
+
+/// Factory method.
 + (SPCompiledSprite *)sprite;
 
 @end

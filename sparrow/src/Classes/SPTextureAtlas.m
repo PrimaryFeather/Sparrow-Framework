@@ -94,7 +94,7 @@
         float width = [[attributeDict valueForKey:@"width"] floatValue] / scale;
         float height = [[attributeDict valueForKey:@"height"] floatValue] / scale;
         
-        [self addName:name forRegion:[SPRectangle rectangleWithX:x y:y width:width height:height]];        
+        [self addRegion:[SPRectangle rectangleWithX:x y:y width:width height:height] withName:name];
     }
     else if ([elementName isEqualToString:@"TextureAtlas"] && !mAtlasTexture)
     {
@@ -135,12 +135,12 @@
     return textures;
 }
 
-- (void)addName:(NSString *)name forRegion:(SPRectangle *)region
+- (void)addRegion:(SPRectangle *)region withName:(NSString *)name
 {
     [mTextureRegions setObject:region forKey:name];
 }
 
-- (void)removeName:(NSString *)name
+- (void)removeRegion:(NSString *)name
 {
     [mTextureRegions removeObjectForKey:name];
 }

@@ -12,6 +12,15 @@
 #import <Foundation/Foundation.h>
 #import "SPImage.h"
 
+/** ------------------------------------------------------------------------------------------------
+
+ An SPBitmapChar is an image that contains one char of a bitmap font. Its properties contain all
+ the information that is needed to arrange the char in a text. 
+ 
+ _You don't have to use this class directly in most cases._
+ 
+------------------------------------------------------------------------------------------------- */ 
+
 @interface SPBitmapChar : SPImage <NSCopying> 
 {
   @private
@@ -21,12 +30,28 @@
     float mXAdvance;    
 }
 
-@property (nonatomic, readonly) int charID;
-@property (nonatomic, readonly) float xOffset;
-@property (nonatomic, readonly) float yOffset;
-@property (nonatomic, readonly) float xAdvance;
+/// ------------------
+/// @name Initializers
+/// ------------------
 
+/// Initializes a char with a texture and his properties.
 - (id)initWithID:(int)charID texture:(SPTexture *)texture
          xOffset:(float)xOffset yOffset:(float)yOffset xAdvance:(float)xAdvance;
+
+/// ----------------
+/// @name Properties
+/// ----------------
+
+/// The unicode ID of the char.
+@property (nonatomic, readonly) int charID;
+
+/// The number of pixels to move the char in x direction on character arrangement.
+@property (nonatomic, readonly) float xOffset;
+
+/// The number of pixels to move the char in y direction on character arrangement.
+@property (nonatomic, readonly) float yOffset;
+
+/// The number of pixels the cursor has to be moved to the right for the next char.
+@property (nonatomic, readonly) float xAdvance;
 
 @end

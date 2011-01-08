@@ -18,11 +18,18 @@
 @class SPStage;
 @class SPRenderSupport;
 
-/*
-This class wraps the CAEAGLLayer from CoreAnimation into a convenient UIView subclass.
-The view content is basically an EAGL surface you render your OpenGL scene into.
-Note that setting the view non-opaque will only work if the EAGL surface has an alpha channel.
-*/
+/** ------------------------------------------------------------------------------------------------
+
+ An SPView is the UIView object that Sparrow renders its content into. 
+ 
+ Add it to the UIKit display list like any other view. Beware that Sparrow will only receive
+ multitouch events if the multitouchEnabled property of the view is enabled.
+ 
+ To start Sparrow, connect this class to your stage subclass and call the start method. When
+ the application ends or moves into the background, you should call the stop method.
+ 
+------------------------------------------------------------------------------------------------- */
+
 @interface SPView : UIView
 { 
   @private  
@@ -45,11 +52,27 @@ Note that setting the view non-opaque will only work if the EAGL surface has an 
     double mLastTouchTimestamp;
 }
 
+/// ----------------
+/// @name Properties
+/// ----------------
+
+/// Indicates if start was called.
 @property (nonatomic, readonly) BOOL isStarted;
+
+/// Assigns the desired framerate. Only dividers of 60 are allowed (60, 30, 20, 15, 12, 10, etc.)
 @property (nonatomic, assign) float frameRate;
+
+/// The stage object that will be processed.
 @property (nonatomic, retain) SPStage *stage;
 
+/// -------------
+/// @name Methods
+/// -------------
+
+/// Starts rendering and event handling.
 - (void)start;
+
+/// Stops rendering and event handling. Call this when the application moves into the background.
 - (void)stop;
 
 @end

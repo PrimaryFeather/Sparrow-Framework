@@ -16,7 +16,7 @@
 
 @implementation SPQuad
 
-- (id)initWithWidth:(float)width height:(float)height
+- (id)initWithWidth:(float)width height:(float)height color:(uint)color
 {
     if (self = [super init])
     {
@@ -25,9 +25,14 @@
         mVertexCoords[6] = width;
         mVertexCoords[7] = height;
         
-        self.color = SP_WHITE;
+        self.color = color;
     }
     return self;    
+}
+
+- (id)initWithWidth:(float)width height:(float)height
+{
+    return [self initWithWidth:width height:height color:SP_WHITE];
 }
 
 - (id)init
@@ -89,6 +94,11 @@
 + (SPQuad*)quadWithWidth:(float)width height:(float)height
 {
     return [[[SPQuad alloc] initWithWidth:width height:height] autorelease];
+}
+
++ (SPQuad*)quadWithWidth:(float)width height:(float)height color:(uint)color
+{
+    return [[[SPQuad alloc] initWithWidth:width height:height color:color] autorelease];
 }
 
 @end

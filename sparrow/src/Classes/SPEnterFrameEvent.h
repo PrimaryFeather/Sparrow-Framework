@@ -14,16 +14,41 @@
 
 #define SP_EVENT_TYPE_ENTER_FRAME @"enterFrame"
 
+/** ------------------------------------------------------------------------------------------------
+
+ An SPEnterFrameEvent is triggered once per frame and is dispatched to all objects in the
+ display tree.
+ 
+ It contains information about the time that has passed since the last frame. That way, you 
+ can easily make animations that are independet of the frame rate, but take the passed time
+ into account.
+ 
+------------------------------------------------------------------------------------------------- */
+
 @interface SPEnterFrameEvent : SPEvent
 {
   @private 
     double mPassedTime;
 }
 
-@property (nonatomic, readonly) double passedTime;
+/// ------------------
+/// @name Initializers
+/// ------------------
 
-- (id)initWithType:(NSString*)type bubbles:(BOOL)bubbles passedTime:(double)seconds; // des. init.
+/// Initializes an enter frame event with the passed time. _Designated Initializer_.
+- (id)initWithType:(NSString*)type bubbles:(BOOL)bubbles passedTime:(double)seconds;
+
+/// Initializes an enter frame event that does not bubble (recommended).
 - (id)initWithType:(NSString*)type passedTime:(double)seconds;
+
+/// Factory method.
 + (SPEnterFrameEvent*)eventWithType:(NSString*)type passedTime:(double)seconds;
+
+/// ----------------
+/// @name Properties
+/// ----------------
+
+/// The time that has passed since the last frame (in seconds).
+@property (nonatomic, readonly) double passedTime;
 
 @end

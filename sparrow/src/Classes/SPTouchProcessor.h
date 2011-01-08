@@ -13,6 +13,14 @@
 
 @class SPDisplayObjectContainer;
 
+/** ------------------------------------------------------------------------------------------------
+
+ The SPTouchProcesser processes raw touch information and dispatches it on display objects.
+ 
+ _This is an internal class. You do not have to use it manually._
+
+------------------------------------------------------------------------------------------------- */
+
 @interface SPTouchProcessor : NSObject 
 {
   @private
@@ -20,9 +28,25 @@
     NSMutableSet *mCurrentTouches;
 }
 
-@property (nonatomic, assign) SPDisplayObjectContainer *root;
+/// ------------------
+/// @name Initializers
+/// ------------------
 
+/// Initializes a touch processor with a certain root object.
 - (id)initWithRoot:(SPDisplayObjectContainer*)root;
+
+/// -------------
+/// @name Methods
+/// -------------
+
+/// @name Processes raw touches and dispatches events on the touched display objects.
 - (void)processTouches:(NSSet*)touches;
+
+/// ----------------
+/// @name Properties
+/// ----------------
+
+/// The root display container to check for touched targets.
+@property (nonatomic, assign) SPDisplayObjectContainer *root;
 
 @end

@@ -11,6 +11,14 @@
 
 #import <Foundation/Foundation.h>
 
+/** ------------------------------------------------------------------------------------------------
+ 
+ An SPTweenedProperty stores the information about the tweening of a single property of an object.
+ Its `currentValue` property updates the specified property of the target object.
+ 
+ _This is an internal class. You do not have to use it manually._
+ 
+------------------------------------------------------------------------------------------------- */
 
 @interface SPTweenedProperty : NSObject
 {
@@ -27,11 +35,28 @@
     char  mNumericType;
 }
 
+/// ------------------
+/// @name Initializers
+/// ------------------
+
+/// Initializes a tween property on a certain target. The start value will be zero.
+- (id)initWithTarget:(id)target name:(NSString *)name endValue:(float)endValue;
+
+/// ----------------
+/// @name Properties
+/// ----------------
+
+/// The start value of the tween.
 @property (nonatomic, assign) float startValue;
+
+/// The current value of the tween. Setting this property updates the target property.
 @property (nonatomic, assign) float currentValue;
+
+/// The end value of the tween.
 @property (nonatomic, assign) float endValue;
+
+/// The animation delta (endValue - startValue)
 @property (nonatomic, readonly) float delta;
 
-- (id)initWithTarget:(id)target name:(NSString *)name endValue:(float)endValue;
 
 @end

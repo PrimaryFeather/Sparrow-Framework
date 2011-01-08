@@ -14,6 +14,14 @@
 
 #import "SPSound.h"
 
+/** ------------------------------------------------------------------------------------------------
+
+ The SPAVSound class is a concrete implemenation of SPSound that uses AVAudioPlayer internally. 
+ 
+ Don't create instances of this class manually. Use [SPSound initWithContentsOfFile:] instead.
+ 
+ */
+
 @interface SPAVSound : SPSound 
 {
   @private
@@ -21,7 +29,18 @@
     double mDuration;
 }
 
+/// --------------------
+/// @name Initialization
+/// --------------------
+
+/// Initializes a sound with the contents of a file and the known duration.
 - (id)initWithContentsOfFile:(NSString *)path duration:(double)duration;
+
+/// -------------
+/// @name methods
+/// -------------
+
+/// Creates an AVAudioPlayer object from the sound.
 - (AVAudioPlayer *)createPlayer;
 
 @end
