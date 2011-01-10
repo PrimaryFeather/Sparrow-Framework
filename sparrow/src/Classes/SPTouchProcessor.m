@@ -44,11 +44,13 @@
 {
     SP_CREATE_POOL(pool);    
     
+    NSMutableSet *processedTouches = [[NSMutableSet alloc] init];
+    
     // process new touches
     for (SPTouch *touch in touches)
     {
         SPTouch *currentTouch = nil;
-               
+        
         for (SPTouch *existingTouch in mCurrentTouches)
         {
             if ((existingTouch.globalX == touch.previousGlobalX &&
@@ -71,7 +73,7 @@
                     SPPoint *touchPosition = [SPPoint pointWithX:touch.globalX y:touch.globalY];
                     existingTouch.target = [mRoot hitTestPoint:touchPosition forTouch:YES];       
                 }
-               
+                
                 currentTouch = existingTouch;
                 break;
             }
@@ -90,31 +92,23 @@
             currentTouch.tapCount = touch.tapCount;
             SPPoint *touchPosition = [SPPoint pointWithX:touch.globalX y:touch.globalY];
             currentTouch.target = [mRoot hitTestPoint:touchPosition forTouch:YES];
-            [mCurrentTouches addObject:currentTouch];
-        }        
+        }
+        
+        [processedTouches addObject:currentTouch];
     }
     
-    // dispatch events     
-    NSSet *immutableSet = [[NSSet alloc] initWithSet:mCurrentTouches];
-    for (SPTouch *touch in immutableSet)
+    // dispatch events         
+    for (SPTouch *touch in processedTouches)
     {       
         SPTouchEvent *touchEvent = [[SPTouchEvent alloc] initWithType:SP_EVENT_TYPE_TOUCH 
-                                                              touches:immutableSet];
+                                                              touches:processedTouches];
         [touch.target dispatchEvent:touchEvent];
         [touchEvent release];
-    }    
-    [immutableSet release];
+    }
     
-    // now remove all touches that ended or were cancelled    
-    NSMutableSet *remainingTouches = [[NSMutableSet alloc] initWithCapacity:mCurrentTouches.count];
-    for (SPTouch *touch in mCurrentTouches)
-    {        
-        if (touch.phase != SPTouchPhaseEnded && touch.phase != SPTouchPhaseCancelled)            
-            [remainingTouches addObject:touch];        
-    }    
     [mCurrentTouches release];    
-    mCurrentTouches = remainingTouches;    
-
+    mCurrentTouches = processedTouches;    
+    
     SP_RELEASE_POOL(pool);
 }
 
