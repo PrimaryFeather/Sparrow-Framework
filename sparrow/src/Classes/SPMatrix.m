@@ -125,7 +125,7 @@ static void setValues(SPMatrix *matrix, float a, float b, float c, float d, floa
     {    
         SPMatrix *matrix = (SPMatrix*)other;
         return SP_IS_FLOAT_EQUAL(mA, matrix->mA) && SP_IS_FLOAT_EQUAL(mB, matrix->mB) &&
-               SP_IS_FLOAT_EQUAL(mB, matrix->mB) && SP_IS_FLOAT_EQUAL(mC, matrix->mC) &&
+               SP_IS_FLOAT_EQUAL(mC, matrix->mC) && SP_IS_FLOAT_EQUAL(mD, matrix->mD) &&
                SP_IS_FLOAT_EQUAL(mTx, matrix->mTx) && SP_IS_FLOAT_EQUAL(mTy, matrix->mTy);
     }
 }
