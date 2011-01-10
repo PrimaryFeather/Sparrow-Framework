@@ -16,7 +16,7 @@
 
 /** ------------------------------------------------------------------------------------------------
 
- The SPALSoundChannel class is a concrete implemenation of SPSoundChannel that uses 
+ The SPALSoundChannel class is a concrete implementation of SPSoundChannel that uses 
  OpenAL internally. 
  
  Don't create instances of this class manually. Use [SPSound createChannel] instead.

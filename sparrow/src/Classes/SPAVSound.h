@@ -16,7 +16,7 @@
 
 /** ------------------------------------------------------------------------------------------------
 
- The SPAVSound class is a concrete implemenation of SPSound that uses AVAudioPlayer internally. 
+ The SPAVSound class is a concrete implementation of SPSound that uses AVAudioPlayer internally. 
  
  Don't create instances of this class manually. Use [SPSound initWithContentsOfFile:] instead.
  

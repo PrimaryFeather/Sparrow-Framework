@@ -41,7 +41,7 @@ typedef struct
 
 /** ------------------------------------------------------------------------------------------------
 
- The SPGLTexture class is a concrete implemenation of the abstract class SPTexture,
+ The SPGLTexture class is a concrete implementation of the abstract class SPTexture,
  containing a standard 2D OpenGL texture. 
  
  Don't use this class directly, but load textures with the init-methods of SPTexture instead.
