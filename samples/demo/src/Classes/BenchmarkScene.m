@@ -131,17 +131,12 @@
         [mContainer removeChildAtIndex:0];    
 }
 
-float getRandomNumber()
-{
-    return (float) arc4random() / UINT_MAX;
-}
-
 - (void)addTestObject
 {
     SPSprite *sprite = [[SPSprite alloc] init];
     int border = 15;
-    sprite.x = border + getRandomNumber() * 320 - 2*border;
-    sprite.y = border + getRandomNumber() * 480 - 2*border;
+    sprite.x = [SPUtils randomIntBetween:border and:320-border];
+    sprite.y = [SPUtils randomIntBetween:border and:480-border];
     
     SPImage *egg = [[SPImage alloc] initWithTexture:[mAtlas textureByName:@"benchmark_object"]];        
     egg.x = -egg.width/2 + 25;

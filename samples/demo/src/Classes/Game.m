@@ -15,6 +15,7 @@
 #import "BenchmarkScene.h"
 #import "MovieScene.h"
 #import "SoundScene.h"
+#import "RenderTextureScene.h"
 
 // --- private interface ---------------------------------------------------------------------------
 
@@ -76,7 +77,7 @@
                                atObject:self forType:SP_EVENT_TYPE_TRIGGERED];
         [self addSceneButton:hitTestButton];
         
-        SPButton *movieButton = [SPButton buttonWithUpState:sceneButtonTexture text:@"Simple Movie"];
+        SPButton *movieButton = [SPButton buttonWithUpState:sceneButtonTexture text:@"Movie Clip"];
         [movieButton addEventListener:@selector(onMovieButtonTriggered:)
                              atObject:self forType:SP_EVENT_TYPE_TRIGGERED];        
         [self addSceneButton:movieButton];
@@ -90,6 +91,11 @@
         [benchmarkButton addEventListener:@selector(onBenchmarkButtonTriggered:) atObject:self
                                   forType:SP_EVENT_TYPE_TRIGGERED];
         [self addSceneButton:benchmarkButton];
+        
+        SPButton *renderTextureButton = [SPButton buttonWithUpState:sceneButtonTexture text:@"RenderTexture"];
+        [renderTextureButton addEventListener:@selector(onRenderTextureButtonTriggered:) atObject:self
+                                  forType:SP_EVENT_TYPE_TRIGGERED];
+        [self addSceneButton:renderTextureButton];
         
         // add button that allows switching between resolutions (iPhone 4)
         
@@ -132,7 +138,7 @@
 - (void)addSceneButton:(SPButton *)button
 {
     button.x = mNumButtons % 2 == 0 ? 28 : 167;
-    button.y = 200 + (mNumButtons / 2) * 52;    
+    button.y = 150 + (mNumButtons / 2) * 52 + (mNumButtons % 2) * 26;    
     [mMainMenu addChild:button];
     mNumButtons++;
 }
@@ -200,6 +206,13 @@
 - (void)onBenchmarkButtonTriggered:(SPEvent *)event
 {
     SPSprite *scene = [[BenchmarkScene alloc] init];
+    [self showScene:scene];
+    [scene release];    
+}
+
+- (void)onRenderTextureButtonTriggered:(SPEvent *)event
+{
+    SPSprite *scene = [[RenderTextureScene alloc] init];
     [self showScene:scene];
     [scene release];    
 }
