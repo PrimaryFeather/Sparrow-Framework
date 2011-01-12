@@ -2,6 +2,29 @@
 Sparrow: Changelog
 ----------------------------------------------------------------------------------------------------
 
+version 1.1 - 2011-01-12
+
+- added SPRenderTexture
+- added SPUtils class for easy random number generation (more to come)
+- added support for looping and reversing tweens (thanks, Shilo!)
+- added new transition method: 'randomize'
+- added support for uncompressed PVR texture formats (565, 5551, 4444)
+- added simple way to use HD textures on the iPad
+- added support for creating dynamic texture atlases (add/remove regions on the fly)
+- added methods to access the glyphs of SPBitmapFont directly
+- added new init method to SPImage: 'initWithContentsOfImage:(UIImage *)image'
+- added more factory methods to different classes
+- added support for changing the fps of SPMovieClip at runtime (thanks Shilo!)
+- added AppleDoc inline API documentation
+- added bash script that generates API documentation
+- updated SPView class to be more robust
+- updated general rendering code (moved more OpenGL calls to SPRenderTexture)
+- fixed bug with canceled touch events
+- fixed bug that could cause a breakdown of the touch handling (thanks Kodi!)
+- fixed 'isEqual' method of SPMatrix (thanks Matt!)
+- fixed bug that could cut the outermost pixels of HD textures
+- Special thanks to numerous forum members for bug reports, suggestions and feedback!
+
 version 1.0 - 2010-10-24
 
 - added support for PVRTC-textures
