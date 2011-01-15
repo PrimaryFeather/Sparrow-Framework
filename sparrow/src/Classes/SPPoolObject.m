@@ -48,8 +48,9 @@
         SPPoolObject *object = poolInfo->lastElement;
         poolInfo->lastElement = object->mPoolPredecessor;
 
-        // zero out memory. (do not overwrite isa & mPoolPredecessor, thus "+2" and "-8")
-        memset((id)object + 2, 0, malloc_size(object) - 8);
+        // zero out memory. (do not overwrite isa & mPoolPredecessor, thus the offset)
+        unsigned int sizeOfFields = sizeof(Class) + sizeof(SPPoolObject *);
+        memset((char*)(id)object + sizeOfFields, 0, malloc_size(object) - sizeOfFields);
         
         return object;
     }
