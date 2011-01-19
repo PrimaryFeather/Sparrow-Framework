@@ -90,7 +90,7 @@ static float masterVolume = 1.0f;
         result = AudioSessionInitialize(NULL, NULL, interruptionCallback, NULL);
         if (result != kAudioSessionNoError)        
         {        
-            NSLog(@"Could not initialize audio session: %x", result);
+            NSLog(@"Could not initialize audio session: %x", (unsigned int)result);
             return NO;
         }        
         sessionInitialized = YES;
@@ -103,7 +103,7 @@ static float masterVolume = 1.0f;
     result = AudioSessionSetActive(YES);
     if (result != kAudioSessionNoError)
     {
-        NSLog(@"Could not activate audio session: %x", result);
+        NSLog(@"Could not activate audio session: %x", (unsigned int)result);
         return NO;
     }
     

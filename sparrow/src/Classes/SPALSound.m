@@ -27,7 +27,7 @@
     return nil;
 }
 
-- (id)initWithData:(void *)data size:(int)size channels:(int)channels frequency:(int)frequency
+- (id)initWithData:(const void *)data size:(int)size channels:(int)channels frequency:(int)frequency
           duration:(double)duration
 {
     if (self = [super init])

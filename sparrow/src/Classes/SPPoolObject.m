@@ -76,7 +76,7 @@
     SPPoolObject *lastElement;    
     
     int count=0;
-    while (lastElement = poolInfo->lastElement)
+    while ((lastElement = poolInfo->lastElement))
     {
         ++count;        
         poolInfo->lastElement = lastElement->mPoolPredecessor;

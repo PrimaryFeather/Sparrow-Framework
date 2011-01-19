@@ -34,7 +34,7 @@
  is provided with Sparrow. Here is a sample on how to use it:
  
 	# creates "atlas.xml" and "atlas.png" from the	provided images 
-	./generate_atlas.rb input/*.png output/atlas.xml
+	./generate_atlas.rb *.png output/atlas.xml
  
  The atlas generator can be found in the 'utils' directory in the Sparrow package. A README file
  shows you how to install and use it. If you want to have more control over your atlas, you will
