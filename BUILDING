@@ -1,26 +1,27 @@
-----------------------------------------------------------------------------------------------------
 Sparrow: Tips for building an app
-----------------------------------------------------------------------------------------------------
+=================================
 
---- A First look at Sparrow ------------------------------------------------------------------------
+A First look at Sparrow
+-----------------------
 
 In the folder 'samples/demo', you will find an Xcode project that shows the most basic Sparrow
 features and how to use them. Just open the project in Xcode, compile and run - everything should
 work out of the box.
 
---- Creating a new Xcode project that uses Sparrow -------------------------------------------------
+Creating a new Xcode project that uses Sparrow
+----------------------------------------------
 
 In the folder 'samples/scaffold', you will find an Xcode project that contains a bare-bone Sparrow
 application. We recommend that you use this project as a starting point for your game. Please follow
 this steps to use this Scaffold:
 
-Preconditions:
+### Preconditions: ###
 
 Sparrow is linked to your application via Xcode project references. This has the advantage that it's
 easy to update Sparrow (just download a new release and overwrite the old one in the same directory)
-and that you can easily step into Sparrow source code, I case you want to do so.
+and that you can easily step into Sparrow source code, in case you want to do so.
 
-This has to be done only once:
+### This has to be done only once: ###
 
 1. Set up a shared build output directory that will be shared by all Xcode projects.
    * In the Xcode preferences, tab: "Building", set "Place Build Products in" to 
@@ -30,7 +31,7 @@ This has to be done only once:
    * In the Xcode preferences, tab: "Source Trees", create a new Source Tree variable.
    * For Sparrow, create SPARROW_SRC and let it point to /some_valid_path/sparrow/src/
 
-Creating your new project:
+### Creating your new project: ###
 
 1. Copy the "scaffold"-folder to the place where you want to have your game project.
 2. Open "AppScaffold.xcodeproj"
@@ -40,7 +41,9 @@ Creating your new project:
 5. Enter the name of your game.
 6. That's it! Now you can start to develop your game with Sparrow. 
 
-Selecting target hardware: iPhone / iPod Touch / iPad
+### Selecting target hardware: iPhone / iPod Touch / iPad ###
 
 1. Enter the project Settings, tab: "Build"
 2. Select the target of your choice for the setting "Targeted Device Family"
+
+That's it!

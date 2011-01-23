@@ -1,8 +1,8 @@
-----------------------------------------------------------------------------------------------------
 Sparrow: Changelog
-----------------------------------------------------------------------------------------------------
+==================
 
 version 1.1 - 2011-01-12
+------------------------
 
 - added SPRenderTexture
 - added SPUtils class for easy random number generation (more to come)
@@ -26,6 +26,7 @@ version 1.1 - 2011-01-12
 - Special thanks to numerous forum members for bug reports, suggestions and feedback!
 
 version 1.0 - 2010-10-24
+------------------------
 
 - added support for PVRTC-textures
 - added new init method to SPTexture to allow simple use of Core Graphics drawings
@@ -46,6 +47,7 @@ version 1.0 - 2010-10-24
 - Special thanks to numerous forum members for bug reports, suggestions and feedback!
 
 version 0.9 - 2010-07-30
+------------------------
 
 - !!! interface change !!! 
   The IDs of vertices in SPQuad and SPImage have changed. ("colorOfVertex:", "texCoordsOfVertex:")
@@ -74,13 +76,14 @@ version 0.9 - 2010-07-30
 - Special thanks to: Mike, Baike, Paolo, Jule and Alex_H for bug reports, suggestions and feedback!
 
 version 0.8 - 2010-06-05
+------------------------
 
 - added audio classes
 - added SPMovieClip class
 - added new transition functions:
-  - easeInBack / easeOutBack / easeInOutBack / easeOutInBack
-  - easeInElastic / easeOutElastic / easeInOutElastic / easeOutInElastic
-  - easeInBounce / easeOutBounce / easeInOutBounce / easeOutInBounce
+    - easeInBack / easeOutBack / easeInOutBack / easeOutInBack
+    - easeInElastic / easeOutElastic / easeInOutElastic / easeOutInElastic
+    - easeInBounce / easeOutBounce / easeInOutBounce / easeOutInBounce
 - added 'removeTweensWithTarget:'-method to juggler
 - added 'removeAllChildren'-method to SPDisplayObjectContainer
 - added new text-only constructor to SPTextField
@@ -93,9 +96,9 @@ version 0.8 - 2010-06-05
 - changed license text to allow easy AppStore distribution
 - changed scaffold project to support audio
 - changed demo project
-  - new design
-  - new scene: sound 
-  - new scene: movie
+    - new design
+    - new scene: sound 
+    - new scene: movie
 - fixed touch issues when view size != stage size
 - fixed exception that occurred when the same object was added to a container twice
 - fixed flickering at application start
@@ -106,5 +109,6 @@ version 0.8 - 2010-06-05
 - disabled unit test execution in iPhone SDK < 3 (unit tests are only supported by iPhone SDK 3+)
 
 version 0.7 - 2010-01-14
+------------------------
 
 - first public version 
