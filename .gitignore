@@ -1,0 +1,5 @@
+# These files are ignored by git
+
+.DS_Store
+*.pbxuser
+*.perspectivev3
