@@ -77,8 +77,10 @@
     
     float scale = [SPStage contentScaleFactor];
     NSString *fullPath = [[NSBundle mainBundle] pathForResource:path withScaleFactor:scale];
-    NSURL *xmlUrl = [NSURL fileURLWithPath:fullPath];
-    NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:xmlUrl];
+    NSData *xmlData = [[NSData alloc] initWithContentsOfFile:fullPath];
+    NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:xmlData];
+    [xmlData release];
+    
     xmlParser.delegate = self;
     BOOL success = [xmlParser parse];
     
