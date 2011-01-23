@@ -24,6 +24,9 @@
  
  Furthermore, it will dispatch events of type `SP_EVENT_TYPE_SOUND_COMPLETED` when the sound
  is finished.
+ 
+ Before releasing a channel, it is a good habit to call `stop` or to remove any event listeners.
+ Otherwise, an event may be dispatched to an object that was already released, causing a crash.
 
 ------------------------------------------------------------------------------------------------- */
 
