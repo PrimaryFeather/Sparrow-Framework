@@ -21,7 +21,7 @@
     return result;    
 }
 
-+ (int)randomIntBetween:(int)minValue and:(int)maxValue
++ (int)randomIntBetweenMin:(int)minValue andMax:(int)maxValue
 {
     return (int)(minValue + [self randomFloat] * (maxValue - minValue));
 }

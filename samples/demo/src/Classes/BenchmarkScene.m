@@ -135,8 +135,8 @@
 {
     SPSprite *sprite = [[SPSprite alloc] init];
     int border = 15;
-    sprite.x = [SPUtils randomIntBetween:border and:320-border];
-    sprite.y = [SPUtils randomIntBetween:border and:480-border];
+    sprite.x = [SPUtils randomIntBetweenMin:border andMax:320-border];
+    sprite.y = [SPUtils randomIntBetweenMin:border andMax:480-border];
     
     SPImage *egg = [[SPImage alloc] initWithTexture:[mAtlas textureByName:@"benchmark_object"]];        
     egg.x = -egg.width/2 + 25;
