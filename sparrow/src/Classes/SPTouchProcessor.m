@@ -53,6 +53,9 @@
         
         for (SPTouch *existingTouch in mCurrentTouches)
         {
+            if (existingTouch.phase == SPTouchPhaseEnded || existingTouch.phase == SPTouchPhaseCancelled)
+                continue;
+            
             if ((existingTouch.globalX == touch.previousGlobalX &&
                  existingTouch.globalY == touch.previousGlobalY) ||
                 (existingTouch.globalX == touch.globalX &&
