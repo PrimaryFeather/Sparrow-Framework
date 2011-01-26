@@ -22,13 +22,13 @@
  after changes have happened, simply call `compile` again.
  
  With the exception of this peculiarity, a compiled sprite can be use just like any other sprite.
+
+    SPCompiledSprite *sprite = [SPCompiledSprite sprite];
+    [sprite addChild:object1];
+    [sprite addChild:object2];
+    
+    [sprite compile]; // this call is optional, it will be done on rendering automatically.
  
-	SPCompiledSprite *sprite = [SPCompiledSprite sprite];
-	[sprite addChild:object1];
-	[sprite addChild:object2];
-	
-	[sprite compile]; // this call is optional, it will be done on rendering automatically.
-  
 ------------------------------------------------------------------------------------------------- */
 
 @interface SPCompiledSprite : SPSprite

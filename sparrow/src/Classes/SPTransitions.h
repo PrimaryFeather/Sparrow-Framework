@@ -41,7 +41,7 @@
  
  Find a visual representation of the transitions at this URL: <br/>  
  http://www.sparrow-framework.org/wp-content/uploads/2010/06/transitions.png
-  
+
  You can define your own transitions by extending this class. The name of the method you declare 
  acts as the key that is used to identify the transition when you create the tween.
  
