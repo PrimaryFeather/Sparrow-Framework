@@ -31,6 +31,7 @@ static NSMutableArray *stages = NULL;
 
 @synthesize width = mWidth;
 @synthesize height = mHeight;
+@synthesize color = mColor;
 @synthesize juggler = mJuggler;
 @synthesize nativeView = mNativeView;
 

@@ -42,6 +42,7 @@
   @private
     float mWidth;
     float mHeight;
+    uint  mColor;
  
     // helpers
     SPTouchProcessor *mTouchProcessor;
@@ -70,6 +71,9 @@
 /// The requested number of frames per second. Must be a divisor of 60 (like 30, 20, 15, 12, 10, etc.).
 /// The actual frame rate might be lower if there is too much to process.
 @property (nonatomic, assign)   float frameRate;
+
+/// The background color of the stage. Default: black.
+@property (nonatomic, assign)   uint color;
 
 /// A juggler that is automatically advanced once per frame.
 @property (nonatomic, readonly) SPJuggler *juggler;

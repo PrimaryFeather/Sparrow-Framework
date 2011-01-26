@@ -26,7 +26,7 @@
 
 - (void)render:(SPRenderSupport *)support;
 {
-    [SPRenderSupport clearWithColor:0x0 alpha:1.0f];
+    [SPRenderSupport clearWithColor:mColor alpha:1.0f];
     [SPRenderSupport setupOrthographicRenderingWithLeft:0 right:mWidth bottom:mHeight top:0];    
     
     [super render:support];
