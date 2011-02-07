@@ -18,6 +18,7 @@
 #import "SPQuad.h"
 #import "SPBitmapFont.h"
 #import "SPStage.h"
+#import "SPTouchEvent.h"
 
 #import <UIKit/UIKit.h>
 
@@ -44,6 +45,7 @@ static NSMutableDictionary *bitmapFonts = nil;
 @synthesize vAlign = mVAlign;
 @synthesize border = mBorder;
 @synthesize color = mColor;
+@synthesize inputEnabled = mInputEnabled;
 
 - (id)initWithWidth:(float)width height:(float)height text:(NSString*)text fontName:(NSString*)name 
           fontSize:(float)size color:(uint)color 
@@ -69,6 +71,14 @@ static NSMutableDictionary *bitmapFonts = nil;
         [mTextArea release];
         
         mRequiresRedraw = YES;
+		
+		mInputEnabled = NO;
+		mDummyField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+		mDummyField.delegate = self;
+		mDummyField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+		mDummyField.autocorrectionType = UITextAutocorrectionTypeNo;
+		mDummyField.text = @" ";
+		[self addEventListener:@selector(onTouch:) atObject:self forType:SP_EVENT_TYPE_TOUCH];
     }
     return self;
 } 
@@ -76,7 +86,7 @@ static NSMutableDictionary *bitmapFonts = nil;
 - (id)initWithWidth:(float)width height:(float)height text:(NSString*)text;
 {
     return [self initWithWidth:width height:height text:text fontName:SP_DEFAULT_FONT_NAME
-                     fontSize:SP_DEFAULT_FONT_SIZE color:SP_DEFAULT_FONT_COLOR];   
+                     fontSize:SP_DEFAULT_FONT_SIZE color:SP_DEFAULT_FONT_COLOR];
 }
 
 - (id)initWithWidth:(float)width height:(float)height
@@ -319,8 +329,46 @@ static NSMutableDictionary *bitmapFonts = nil;
     }
 }
 
+- (void)onTouch:(SPTouchEvent *)event
+{
+	if (mInputEnabled)
+	{
+		SPTouch *touch = [event.touches anyObject];
+		if (touch.phase == SPTouchPhaseEnded)
+		{
+			if (mDummyField.superview != self.stage.nativeView) {
+				[self.stage.nativeView addSubview:mDummyField];
+			}
+			[mDummyField becomeFirstResponder];
+		}
+	}
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+	if ([string isEqualToString:@""]) {
+		if (![self.text isEqualToString:@""]) {
+			self.text = [self.text substringToIndex:[self.text length]-1];
+		}
+	}
+	else {
+		self.text = [[NSString alloc] initWithFormat:@"%@%@", self.text, string];
+	}
+	mDummyField.text = @" ";
+	return NO;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+	[mDummyField resignFirstResponder];
+	return YES;
+}
+
 - (void)dealloc
 {
+	[self removeEventListener:@selector(onTouch:) atObject:self forType:SP_EVENT_TYPE_TOUCH];
+	mDummyField.delegate = nil;
+	[mDummyField resignFirstResponder];
+	[mDummyField release];
     [mText release];
     [mFontName release];
     [super dealloc];

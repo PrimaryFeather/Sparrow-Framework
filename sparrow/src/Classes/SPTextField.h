@@ -12,6 +12,7 @@
 #import <Foundation/Foundation.h>
 #import "SPDisplayObjectContainer.h"
 #import "SPMacros.h"
+#import <UIKit/UIKit.h>
 
 @class SPTexture;
 @class SPQuad;
@@ -79,7 +80,7 @@ typedef enum
  
 ------------------------------------------------------------------------------------------------- */
 
-@interface SPTextField : SPDisplayObjectContainer
+@interface SPTextField : SPDisplayObjectContainer <UITextFieldDelegate>
 {
   @private
     float mFontSize;
@@ -95,6 +96,9 @@ typedef enum
     SPQuad *mHitArea;
     SPQuad *mTextArea;
     SPDisplayObject *mContents;
+	
+	UITextField *mDummyField;
+	BOOL mInputEnabled;
 }
 
 /// ------------------
@@ -165,5 +169,7 @@ typedef enum
 
 /// The bounds of the actual characters inside the text field.
 @property (nonatomic, readonly) SPRectangle *textBounds;
+
+@property (nonatomic, assign) BOOL inputEnabled;
 
 @end

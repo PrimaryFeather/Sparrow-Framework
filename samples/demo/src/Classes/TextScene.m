@@ -30,10 +30,11 @@
     int offset = 10;    
     
     SPTextField *colorTF = [SPTextField textFieldWithWidth:300 height:60 
-        text:@"TextFields can have a border and a color."];
+        text:@"TextFields can have a border and a color and be used for input.\ntextField.inputEnabled = YES"];
     colorTF.x = colorTF.y = offset;
     colorTF.border = YES;
     colorTF.color = 0x333399;
+	colorTF.inputEnabled = YES;
     [self addChild:colorTF];
     
     SPTextField *leftTF = [SPTextField textFieldWithWidth:145 height:80 
