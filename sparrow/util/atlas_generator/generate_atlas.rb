@@ -12,7 +12,7 @@
 #
 
 require 'rubygems'
-require 'ftools'
+require 'fileutils'
 require 'quick_magick'
 require 'optparse'
 require 'ostruct'
@@ -218,7 +218,7 @@ atlas_image.append_to_operators 'sharpen', 1 if (options.sharpen)
 
 # Save output to correct path
 target_path = File.dirname(target_file)
-File.makedirs target_path
+FileUtils.makedirs target_path
 atlas_name  = File.basename(target_file, File.extname(target_file))
 atlas_image_path = File.join(target_path, atlas_name) + ".png" 
 atlas_image.save(atlas_image_path)
