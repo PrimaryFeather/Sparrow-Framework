@@ -81,7 +81,7 @@ enum PVRPixelType
     float contentScaleFactor = [SPStage contentScaleFactor];
     
     NSString *fullPath = [path isAbsolutePath] ? 
-        path : [[NSBundle mainBundle] pathForResource:path withScaleFactor:contentScaleFactor];
+        path : [[NSBundle bundleForClass:[self class]] pathForResource:path withScaleFactor:contentScaleFactor];
 
     if (![[NSFileManager defaultManager] fileExistsAtPath:fullPath])
     {

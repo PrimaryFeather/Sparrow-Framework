@@ -39,7 +39,7 @@
     [self release];
     
     NSString *fullPath = [path isAbsolutePath] ? 
-        path : [[NSBundle mainBundle] pathForResource:path ofType:nil];    
+        path : [[NSBundle bundleForClass:[self class]] pathForResource:path ofType:nil];    
     
     if (![[NSFileManager defaultManager] fileExistsAtPath:fullPath])
     {

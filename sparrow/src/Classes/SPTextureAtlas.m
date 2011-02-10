@@ -63,7 +63,7 @@
     if (!path) return;
     
     float scale = [SPStage contentScaleFactor];
-    NSString *fullPath = [[NSBundle mainBundle] pathForResource:path withScaleFactor:scale];
+    NSString *fullPath = [[NSBundle bundleForClass:[self class]] pathForResource:path withScaleFactor:scale];
     NSData *xmlData = [[NSData alloc] initWithContentsOfFile:fullPath];
     NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:xmlData];
     [xmlData release];
