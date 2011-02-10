@@ -216,7 +216,7 @@ enum PVRPixelType
             break;
         default: 
             [fileData release];
-            [NSException raise:SP_EXC_INVALID_OPERATION format:@"Unsupported PRV image format"];
+            [NSException raise:SP_EXC_INVALID_OPERATION format:@"Unsupported PVR image format"];
             return nil;
     }
     
