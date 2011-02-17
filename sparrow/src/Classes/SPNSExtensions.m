@@ -38,13 +38,18 @@
 
 - (NSString *)pathForResource:(NSString *)name withScaleFactor:(float)factor
 {
+    NSString *directory = [name stringByDeletingLastPathComponent];
+    NSString *file = [name lastPathComponent];
+    
     if (factor != 1.0f)
     {
         NSString *suffix = [NSString stringWithFormat:@"@%@x", [NSNumber numberWithFloat:factor]];
-        NSString *path = [self pathForResource:[name stringByAppendingSuffixToFilename:suffix] ofType:nil];
+        NSString *path = [self pathForResource:[file stringByAppendingSuffixToFilename:suffix] 
+                                        ofType:nil inDirectory:directory];
         if (path) return path;        
     }    
-    return [self pathForResource:name ofType:nil];    
+    
+    return [self pathForResource:file ofType:nil inDirectory:directory];    
 }
 
 @end

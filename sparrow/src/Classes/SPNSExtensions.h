@@ -30,10 +30,10 @@
 /** Sparrow extensions for the NSBundle class. */
 @interface NSBundle (SPNSExtensions)
 
-/// Determines if a resource with a certain scale factor suffix (@2x) exists.
+/// Finds the path for a resource with a certain scale factor (a file with a prefix like '@2x').
 /// 
 /// @return Returns the path to the scaled resource if it exists; otherwise, the path to the
-//          unscaled resource - or nil if that does not exist, either.
+///         unscaled resource - or nil if that does not exist, either.
 - (NSString *)pathForResource:(NSString *)name withScaleFactor:(float)factor;
 
 @end
