@@ -17,6 +17,7 @@
 
 #import "SPImage.h"
 #import "SPPoint.h"
+#import "SPTexture.h"
 
 // -------------------------------------------------------------------------------------------------
 
@@ -51,6 +52,26 @@
     STAssertEqualObjects([SPPoint pointWithX:5 y:6], [image texCoordsOfVertex:2], @"wrong tex coords!");    
     STAssertEqualObjects([SPPoint pointWithX:7 y:8], [image texCoordsOfVertex:3], @"wrong tex coords!");
     [image release];    
+}
+
+- (void)testChangeTexture
+{
+    SPTexture *texture1 = [[SPTexture alloc] initWithWidth:32 height:24 draw:NULL];
+    SPTexture *texture2 = [[SPTexture alloc] initWithWidth:64 height:48 draw:NULL];
+    
+    SPImage *image = [[SPImage alloc] initWithTexture:texture1];
+    STAssertEqualObjects(image.texture, texture1, @"wrong texture");
+    STAssertEquals(texture1.width, image.width, @"wrong texture width");
+    STAssertEquals(texture1.height, image.height, @"wrong texture height");
+    
+    image.texture = texture2;
+    STAssertEqualObjects(image.texture, texture2, @"wrong texture");
+    STAssertEquals(texture2.width, image.width, @"wrong texture width");
+    STAssertEquals(texture2.height, image.height, @"wrong texture height");
+    
+    [texture1 release];
+    [texture2 release];
+    [image release];
 }
 
 @end

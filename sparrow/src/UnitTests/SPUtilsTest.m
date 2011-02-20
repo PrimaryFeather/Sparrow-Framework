@@ -54,7 +54,7 @@
 {
     for (int i=0; i<20; ++i)
     {
-        int rnd = [SPUtils randomIntBetween:5 and:10];
+        int rnd = [SPUtils randomIntBetweenMin:5 andMax:10];
         STAssertTrue(rnd >= 5, @"random number too small");
         STAssertTrue(rnd < 10, @"random number too big");        
     }    
