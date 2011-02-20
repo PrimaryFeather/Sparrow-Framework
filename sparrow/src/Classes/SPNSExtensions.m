@@ -36,20 +36,23 @@
 
 @implementation NSBundle (SPNSExtensions)
 
-- (NSString *)pathForResource:(NSString *)name withScaleFactor:(float)factor
+- (NSString *)pathForResource:(NSString *)name
 {
     NSString *directory = [name stringByDeletingLastPathComponent];
-    NSString *file = [name lastPathComponent];
-    
+    NSString *file = [name lastPathComponent];    
+    return [self pathForResource:file ofType:nil inDirectory:directory];
+}
+
+- (NSString *)pathForResource:(NSString *)name withScaleFactor:(float)factor
+{
     if (factor != 1.0f)
     {
         NSString *suffix = [NSString stringWithFormat:@"@%@x", [NSNumber numberWithFloat:factor]];
-        NSString *path = [self pathForResource:[file stringByAppendingSuffixToFilename:suffix] 
-                                        ofType:nil inDirectory:directory];
+        NSString *path = [self pathForResource:[name stringByAppendingSuffixToFilename:suffix]];
         if (path) return path;        
     }    
     
-    return [self pathForResource:file ofType:nil inDirectory:directory];    
+    return [self pathForResource:name];
 }
 
 @end

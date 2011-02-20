@@ -30,6 +30,9 @@
 /** Sparrow extensions for the NSBundle class. */
 @interface NSBundle (SPNSExtensions)
 
+/// Finds the path for a resource. 'name' may include directories and the file extension.
+- (NSString *)pathForResource:(NSString *)name;
+
 /// Finds the path for a resource with a certain scale factor (a file with a prefix like '@2x').
 /// 
 /// @return Returns the path to the scaled resource if it exists; otherwise, the path to the

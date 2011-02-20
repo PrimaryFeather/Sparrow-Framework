@@ -15,6 +15,7 @@
 #import "SPEvent.h"
 #import "SPALSound.h"
 #import "SPAVSound.h"
+#import "SPNSExtensions.h"
 
 #import <AudioToolbox/AudioToolbox.h> 
 
@@ -39,7 +40,7 @@
     [self release];
     
     NSString *fullPath = [path isAbsolutePath] ? 
-        path : [[NSBundle mainBundle] pathForResource:path ofType:nil];    
+        path : [[NSBundle mainBundle] pathForResource:path];    
     
     if (![[NSFileManager defaultManager] fileExistsAtPath:fullPath])
     {
