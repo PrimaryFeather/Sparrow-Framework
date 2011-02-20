@@ -97,21 +97,6 @@
                                   forType:SP_EVENT_TYPE_TRIGGERED];
         [self addSceneButton:renderTextureButton];
         
-        // add button that allows switching between resolutions (iPhone 4)
-        
-        UIScreen *screen = [UIScreen mainScreen];
-        if ([screen respondsToSelector:@selector(scale)] && [screen scale] != 1.0f &&
-            [UIImage instancesRespondToSelector:@selector(scale)])
-        {
-            SPTexture *screenButtonTexture = [SPTexture textureWithContentsOfFile:@"resolution.png"];
-            SPButton *screenButton = [SPButton buttonWithUpState:screenButtonTexture];
-            screenButton.x = self.width/2 - screenButton.width/2;
-            screenButton.y = self.height - screenButton.height - 5;
-            [screenButton addEventListener:@selector(onScreenButtonTriggered:)
-                                      atObject:self forType:SP_EVENT_TYPE_TRIGGERED];
-            [self addChild:screenButton];
-        }
-        
         // add back-button (becomes visible when a scene is entered)
         
         SPTexture *backButtonTexture = [SPTexture textureWithContentsOfFile:@"button_back.png"];
@@ -215,11 +200,6 @@
     SPSprite *scene = [[RenderTextureScene alloc] init];
     [self showScene:scene];
     [scene release];    
-}
-
-- (void)onScreenButtonTriggered:(SPEvent *)event
-{
-    [SPStage setSupportHighResolutions:![SPStage supportHighResolutions]];
 }
 
 #pragma mark -
