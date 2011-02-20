@@ -38,6 +38,8 @@
 
 - (NSString *)pathForResource:(NSString *)name
 {
+    if (!name) return nil;
+    
     NSString *directory = [name stringByDeletingLastPathComponent];
     NSString *file = [name lastPathComponent];    
     return [self pathForResource:file ofType:nil inDirectory:directory];
