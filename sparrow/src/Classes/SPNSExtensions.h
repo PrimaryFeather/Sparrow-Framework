@@ -39,4 +39,8 @@
 ///         unscaled resource - or nil if that does not exist, either.
 - (NSString *)pathForResource:(NSString *)name withScaleFactor:(float)factor;
 
+/// Returns the NSBundle object of the current application. Different to `[NSBundle mainBundle]`,
+/// this works in unit tests, as well.
++ (NSBundle *)appBundle;
+
 @end

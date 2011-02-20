@@ -10,6 +10,7 @@
 //
 
 #import "SPNSExtensions.h"
+#import "SPDisplayObject.h"
 
 @implementation NSInvocation (SPNSExtensions)
 
@@ -55,6 +56,11 @@
     }    
     
     return [self pathForResource:name];
+}
+
++ (NSBundle *)appBundle
+{
+    return [NSBundle bundleForClass:[SPDisplayObject class]];
 }
 
 @end
