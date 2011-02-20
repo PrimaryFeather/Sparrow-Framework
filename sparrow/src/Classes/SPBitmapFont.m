@@ -142,12 +142,12 @@
         if (!mFontTexture)
         {
             NSString *filename = [attributeDict valueForKey:@"file"];
-            mFontTexture = [[SPTexture alloc] initWithContentsOfFile:filename]; 
-            
-            // update sizes, now that we know the scale setting
-            mSize /= mFontTexture.scale;
-            mLineHeight /= mFontTexture.scale;            
+            mFontTexture = [[SPTexture alloc] initWithContentsOfFile:filename];             
         }
+        
+        // update sizes, now that we know the scale setting
+        mSize /= mFontTexture.scale;
+        mLineHeight /= mFontTexture.scale;
     }
 }
 
