@@ -22,7 +22,7 @@
 {
     if (!texture) [NSException raise:SP_EXC_INVALID_OPERATION format:@"texture cannot be nil!"];
     
-    if (self = [super initWithWidth:texture.width height:texture.height])
+    if ((self = [super initWithWidth:texture.width height:texture.height]))
     {
         self.texture = texture;
         mTexCoords[0] = 0.0f; mTexCoords[1] = 0.0f;

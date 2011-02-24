@@ -37,7 +37,7 @@ static NSMutableArray *stages = NULL;
 
 - (id)initWithWidth:(float)width height:(float)height
 {    
-    if (self = [super init])
+    if ((self = [super init]))
     {
         // Save existing stages to have access to them in "SPStage setSupportHighResolutions:".
         // We use a CFArray to avoid that 'self' is retained -> that would cause a memory leak!

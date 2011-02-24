@@ -37,7 +37,7 @@ static void setValues(SPMatrix *matrix, float a, float b, float c, float d, floa
 
 - (id)initWithA:(float)a b:(float)b c:(float)c d:(float)d tx:(float)tx ty:(float)ty
 {
-    if (self = [super init])
+    if ((self = [super init]))
     {
         mA = a; mB = b; mC = c; mD = d;
         mTx = tx; mTy = ty;

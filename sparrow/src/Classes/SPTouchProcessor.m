@@ -27,7 +27,7 @@
 
 - (id)initWithRoot:(SPDisplayObjectContainer*)root
 {
-    if (self = [super init])
+    if ((self = [super init]))
     {
         mRoot = root;
         mCurrentTouches = [[NSMutableSet alloc] initWithCapacity:2];

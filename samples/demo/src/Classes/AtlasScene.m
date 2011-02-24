@@ -12,7 +12,7 @@
 
 - (id)init
 {
-    if (self = [super init])
+    if ((self = [super init]))
     {        
         SPTextureAtlas *atlas = [SPTextureAtlas atlasWithContentsOfFile:@"atlas.xml"];
         NSLog(@"found %d textures.", atlas.count);

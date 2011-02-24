@@ -20,7 +20,7 @@
 
 - (id)initWithType:(NSString*)type bubbles:(BOOL)bubbles touches:(NSSet*)touches
 {   
-    if (self = [super initWithType:type bubbles:bubbles])
+    if ((self = [super initWithType:type bubbles:bubbles]))
     {        
         mTouches = [touches retain];
     }

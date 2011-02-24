@@ -14,7 +14,7 @@
 
 - (id)init
 {
-    if (self = [super init])
+    if ((self = [super init]))
     {
         // notice these lines in 'DemoAppDelegate!'
         // [SPAudioEngine start];

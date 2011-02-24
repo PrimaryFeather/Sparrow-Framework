@@ -12,7 +12,7 @@
 
 - (id)init
 {
-    if (self = [super init]) 
+    if ((self = [super init])) 
     {
         NSString *description = @"[Animation provided by angryanimator.com]";        
         SPTextField *infoText = [SPTextField textFieldWithWidth:300 height:30 

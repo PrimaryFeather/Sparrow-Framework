@@ -32,7 +32,7 @@
 
 - (id)initWithContentsOfFile:(NSString *)path texture:(SPTexture *)texture
 {
-    if (self = [super init])
+    if ((self = [super init]))
     {
         mTextureRegions = [[NSMutableDictionary alloc] init];
         mAtlasTexture = [texture retain];

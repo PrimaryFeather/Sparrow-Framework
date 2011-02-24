@@ -25,7 +25,7 @@
 
 - (id)initWithData:(const void*)imgData properties:(SPTextureProperties)properties
 {
-    if (self = [super init])
+    if ((self = [super init]))
     {        
         mWidth = properties.width;
         mHeight = properties.height;

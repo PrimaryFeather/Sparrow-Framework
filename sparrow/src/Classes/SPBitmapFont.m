@@ -44,7 +44,7 @@
 
 - (id)initWithContentsOfFile:(NSString *)path texture:(SPTexture *)texture
 {
-    if (self = [super init])
+    if ((self = [super init]))
     {
         mName = [[NSString alloc] initWithString:@"unknown"];
         mLineHeight = mSize = SP_DEFAULT_FONT_SIZE;

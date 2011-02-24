@@ -22,7 +22,7 @@
 - (id)initWithID:(int)charID texture:(SPTexture *)texture
          xOffset:(float)xOffset yOffset:(float)yOffset xAdvance:(float)xAdvance;
 {
-    if (self = [super initWithTexture:texture])
+    if ((self = [super initWithTexture:texture]))
     {
         mCharID = charID;
         mXOffset = xOffset;

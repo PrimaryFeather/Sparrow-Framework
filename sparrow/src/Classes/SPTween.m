@@ -27,7 +27,7 @@ typedef float (*FnPtrTransition) (id, SEL, float);
 
 - (id)initWithTarget:(id)target time:(double)time transition:(NSString*)transition
 {
-    if (self = [super init])
+    if ((self = [super init]))
     {
         mTarget = [target retain];
         mTotalTime = MAX(0.0001, time); // zero is not allowed

@@ -27,7 +27,7 @@ typedef void (*FnPtrSetterI) (id, SEL, int);
 
 - (id)initWithTarget:(id)target name:(NSString *)name endValue:(float)endValue;
 {
-    if (self = [super init])
+    if ((self = [super init]))
     {
         mTarget = [target retain];        
         mEndValue = endValue;

@@ -18,7 +18,7 @@
 
 - (id)initWithWidth:(float)width height:(float)height color:(uint)color
 {
-    if (self = [super init])
+    if ((self = [super init]))
     {
         mVertexCoords[2] = width; 
         mVertexCoords[5] = height; 

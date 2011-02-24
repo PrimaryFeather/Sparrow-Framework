@@ -46,7 +46,7 @@ static void getChildEventListeners(SPDisplayObject *object, NSString *eventType,
     }    
     #endif
     
-    if (self = [super init]) 
+    if ((self = [super init])) 
     {
         mChildren = [[NSMutableArray alloc] init];
     }    

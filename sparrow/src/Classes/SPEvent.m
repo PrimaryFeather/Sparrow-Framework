@@ -21,7 +21,7 @@
 
 - (id)initWithType:(NSString*)type bubbles:(BOOL)bubbles
 {    
-    if (self = [super init])
+    if ((self = [super init]))
     {        
         mType = [[NSString alloc] initWithString:type];
         mBubbles = bubbles;

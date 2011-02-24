@@ -25,7 +25,7 @@
 // designated initializer
 - (id)initWithX:(float)x y:(float)y
 {
-    if (self = [super init])
+    if ((self = [super init]))
     {
         mX = x;
         mY = y;        

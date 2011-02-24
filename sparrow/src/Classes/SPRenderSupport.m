@@ -24,7 +24,7 @@
 
 - (id)init
 {
-    if (self = [super init])
+    if ((self = [super init]))
     {
         mBoundTextureID = UINT_MAX;
         mPremultipliedAlpha = YES;

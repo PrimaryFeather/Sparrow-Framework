@@ -25,7 +25,7 @@
 
 - (id)initWithContentsOfFile:(NSString *)path duration:(double)duration
 {
-    if (self = [super init])
+    if ((self = [super init]))
     {
         NSString *fullPath = [path isAbsolutePath] ? 
             path : [[NSBundle appBundle] pathForResource:path];

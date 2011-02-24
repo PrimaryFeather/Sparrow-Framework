@@ -12,7 +12,7 @@
 
 - (id)initWithWidth:(float)width height:(float)height
 {
-    if (self = [super initWithWidth:width height:height])
+    if ((self = [super initWithWidth:width height:height]))
     {
         // this is where the code of your game will start. 
         // in this sample, we add just a simple quad to see if it works.

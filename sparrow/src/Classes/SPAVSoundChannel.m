@@ -23,7 +23,7 @@
 
 - (id)initWithSound:(SPAVSound *)sound
 {
-    if (self = [super init])
+    if ((self = [super init]))
     {
         mVolume = 1.0f;
         mSound = [sound retain];

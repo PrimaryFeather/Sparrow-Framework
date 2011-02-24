@@ -19,7 +19,7 @@
 
 - (id)initWithRegion:(SPRectangle*)region ofTexture:(SPTexture*)texture
 {
-    if (self = [super init])
+    if ((self = [super init]))
     {
         mBaseTexture = [texture retain];
         

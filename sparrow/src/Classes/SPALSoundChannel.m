@@ -42,7 +42,7 @@
 
 - (id)initWithSound:(SPALSound *)sound
 {
-    if (self = [super init])
+    if ((self = [super init]))
     {
         mSound = [sound retain];
         mVolume = 1.0f;

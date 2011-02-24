@@ -22,7 +22,7 @@
 
 - (id)initWithQuad:(SPQuad*)quad
 {
-    if (self = [super init])
+    if ((self = [super init]))
     {
         // move quad to center, so that scaling works like expected
         mQuad = [quad retain];

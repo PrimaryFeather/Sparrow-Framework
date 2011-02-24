@@ -48,7 +48,7 @@ static NSMutableDictionary *bitmapFonts = nil;
 - (id)initWithWidth:(float)width height:(float)height text:(NSString*)text fontName:(NSString*)name 
           fontSize:(float)size color:(uint)color 
 {
-    if (self = [super init])
+    if ((self = [super init]))
     {        
         mText = [text copy];
         mFontSize = size;

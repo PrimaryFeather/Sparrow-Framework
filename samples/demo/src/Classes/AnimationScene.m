@@ -20,7 +20,7 @@
 
 - (id)init
 {
-    if (self = [super init])
+    if ((self = [super init]))
     {
         // define some sample transitions for the animation demo. There are more available!
         mTransitions = [[NSMutableArray alloc] initWithObjects:

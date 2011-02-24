@@ -26,7 +26,7 @@
         return nil;
     }    
     
-    if (self = [super init])
+    if ((self = [super init]))
     {
         mTotalTime = MAX(0.0001, time); // zero is not allowed
         mCurrentTime = 0;

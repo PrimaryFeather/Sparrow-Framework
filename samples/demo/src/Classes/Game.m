@@ -32,7 +32,7 @@
 
 - (id)initWithWidth:(float)width height:(float)height
 {
-    if (self = [super initWithWidth:width height:height])
+    if ((self = [super initWithWidth:width height:height]))
     {
         mNumButtons = 0;        
                 

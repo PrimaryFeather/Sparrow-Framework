@@ -43,7 +43,7 @@
 
 - (id)initWithUpState:(SPTexture*)upState downState:(SPTexture*)downState;
 {
-    if (self = [super init])
+    if ((self = [super init]))
     {
         mUpState = [upState retain];
         mDownState = [downState retain];

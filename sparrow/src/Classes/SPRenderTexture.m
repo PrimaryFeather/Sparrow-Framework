@@ -27,7 +27,7 @@
 
 - (id)initWithWidth:(float)width height:(float)height fillColor:(uint)argb scale:(float)scale
 {
-    if (self = [super init])
+    if ((self = [super init]))
     {
         int legalWidth  = [SPUtils nextPowerOfTwo:width  * scale];
         int legalHeight = [SPUtils nextPowerOfTwo:height * scale];

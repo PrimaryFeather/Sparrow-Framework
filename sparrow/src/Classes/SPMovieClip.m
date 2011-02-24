@@ -34,7 +34,7 @@
 
 - (id)initWithFrame:(SPTexture *)texture fps:(float)fps
 {
-    if (self = [super initWithTexture:texture])
+    if ((self = [super initWithTexture:texture]))
     {
         self.fps = fps;
         mLoop = YES;

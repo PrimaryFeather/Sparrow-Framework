@@ -13,7 +13,7 @@
 
 - (id)init
 {
-    if (self = [super init])
+    if ((self = [super init]))
     {
         mWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
         mSparrowView = [[SPView alloc] initWithFrame:mWindow.bounds]; 

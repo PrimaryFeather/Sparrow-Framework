@@ -43,7 +43,7 @@
     }    
     #endif
     
-    if (self = [super init])
+    if ((self = [super init]))
     {
         mAlpha = 1.0f;
         mScaleX = 1.0f;
