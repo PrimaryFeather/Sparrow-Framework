@@ -302,6 +302,101 @@
     return outerContainer;
 }
 
+- (SPDisplayObject *)createDisplayObjectWithWidth:(float)width height:(float)height
+                                             text:(NSString *)text fontSize:(float)size
+{    
+    SPSprite *lineContainer = [SPSprite sprite];
+    
+    if (size == SP_NATIVE_FONT_SIZE) size = mSize;    
+    float scale = size / mSize;    
+    lineContainer.scaleX = lineContainer.scaleY = scale;        
+    float containerWidth = width / scale;
+    float containerHeight = height / scale;    
+    
+    int lastWhiteSpace = -1;
+    float currentX = 0;
+    SPSprite *currentLine = [SPSprite sprite];
+	
+	int lastCharID = -1;
+    
+    for (int i=0; i<text.length; i++)
+    {        
+        BOOL lineFull = NO;
+		
+        int charID = [text characterAtIndex:i];    
+        if (charID == CHAR_NEWLINE)        
+        {
+            lineFull = YES;
+        }            
+        else 
+        {        
+            if (charID == CHAR_SPACE || charID == CHAR_TAB)        
+                lastWhiteSpace = i;        
+            
+            SPBitmapChar *bitmapChar = [self charByID:charID];
+            if (!bitmapChar) bitmapChar = [self charByID:CHAR_SPACE];
+			
+			int kerningAdjustment = 0;
+			if (lastCharID != -1)
+			{
+				SPBitmapChar *lastBitmapChar = (SPBitmapChar *)[mChars objectForKey:[NSNumber numberWithInt:lastCharID]];
+				if (!lastBitmapChar) lastBitmapChar = [self charByID:CHAR_SPACE];
+				kerningAdjustment = [lastBitmapChar getKerning:charID];
+			}
+            
+            bitmapChar.x = currentX + bitmapChar.xOffset + kerningAdjustment;
+            bitmapChar.y = bitmapChar.yOffset;
+            [currentLine addChild:bitmapChar];
+            
+            currentX += bitmapChar.xAdvance;
+			
+			lastCharID = charID;
+            
+            if (currentX > containerWidth)        
+            {
+                // remove characters and add them again to next line
+                int numCharsToRemove = lastWhiteSpace == -1 ? 1 : i - lastWhiteSpace;
+                int removeIndex = currentLine.numChildren - numCharsToRemove;
+                
+                for (int i=0; i<numCharsToRemove; ++i)
+                    [currentLine removeChildAtIndex:removeIndex];
+                
+                if (currentLine.numChildren == 0)
+                    break;
+                
+                SPDisplayObject *lastChar = [currentLine childAtIndex:currentLine.numChildren-1];
+                currentX = lastChar.x + lastChar.width;
+                
+                i -= numCharsToRemove;
+                lineFull = YES;                
+            }
+        }
+        
+        if (lineFull || i == text.length - 1)
+        {
+            float nextLineY = currentLine.y + mLineHeight;             
+            [lineContainer addChild:currentLine];                        
+            
+            if (nextLineY + mLineHeight <= containerHeight)
+            {
+                currentLine = [SPSprite sprite];
+                currentLine.y = nextLineY;            
+                lastWhiteSpace = -1;
+                currentX = 0;
+            }
+            else
+            {
+                break;
+            }
+        }
+	}
+
+	SPSprite *outerContainer = [SPCompiledSprite sprite];
+    [outerContainer addChild:lineContainer];    
+
+    return outerContainer;
+}
+
 - (void)dealloc
 {
     [mFontTexture release];

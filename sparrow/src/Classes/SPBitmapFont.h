@@ -78,6 +78,10 @@
                                            hAlign:(SPHAlign)hAlign vAlign:(SPVAlign)vAlign
                                            border:(BOOL)border;
 
+/// Creates a display object that contains the given text by arranging individual chars using the native font texture.
+- (SPDisplayObject *)createDisplayObjectWithWidth:(float)width height:(float)height
+                                             text:(NSString *)text fontSize:(float)size;
+
 /// ----------------
 /// @name Properties
 /// ----------------
