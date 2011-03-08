@@ -28,6 +28,7 @@
         mXOffset = xOffset;
         mYOffset = yOffset;
         mXAdvance = xAdvance;
+		mKernings = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -41,6 +42,31 @@
 {
     [self release];
     return nil;
+}
+
+- (void)addKerning:(int)toCharID amount:(int)amount
+{
+	NSNumber *n = [[NSNumber numberWithInt:amount] retain];
+	[mKernings setObject:n forKey:[NSNumber numberWithInt:toCharID]];
+}
+
+- (int)getKerning:(int)toCharID
+{
+	int result = 0;
+	
+	NSNumber *amount = (NSNumber *)[mKernings objectForKey:[NSNumber numberWithInt:toCharID]];
+	if (amount)
+	{
+		result = [amount intValue];
+	}
+	
+	return result;
+}
+
+- (void)dealloc
+{
+    [mKernings release];
+    [super dealloc];
 }
 
 #pragma mark NSCopying

@@ -27,7 +27,8 @@
     int mCharID;
     float mXOffset;
     float mYOffset;
-    float mXAdvance;    
+    float mXAdvance;  
+	NSMutableDictionary *mKernings;
 }
 
 /// ------------------
@@ -37,6 +38,16 @@
 /// Initializes a char with a texture and his properties.
 - (id)initWithID:(int)charID texture:(SPTexture *)texture
          xOffset:(float)xOffset yOffset:(float)yOffset xAdvance:(float)xAdvance;
+
+/// -------------
+/// @name Methods
+/// -------------
+
+/// Adds kerning information relative to a specific other character ID.
+- (void)addKerning:(int)toCharID amount:(int)amount;
+
+/// Retrieve kerning information relative to the given character ID.
+- (int)getKerning:(int)toCharID;
 
 /// ----------------
 /// @name Properties

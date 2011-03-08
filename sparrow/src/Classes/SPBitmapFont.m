@@ -122,6 +122,18 @@
         [mChars setObject:bitmapChar forKey:[NSNumber numberWithInt:charID]];
         [bitmapChar release];
     }
+	else if ([elementName isEqualToString:@"kerning"])
+	{
+		int first = [[attributeDict valueForKey:@"first"] intValue];
+		SPBitmapChar *bitmapChar = (SPBitmapChar *)[mChars objectForKey:[NSNumber numberWithInt:first]];;
+		
+		if (bitmapChar)
+		{
+			int second = [[attributeDict valueForKey:@"second"] intValue];
+			int amount = [[attributeDict valueForKey:@"amount"] intValue];
+			[bitmapChar addKerning:second amount:amount];
+		}
+	}
     else if ([elementName isEqualToString:@"info"])
     {
         [mName release];
@@ -171,6 +183,8 @@
     int lastWhiteSpace = -1;
     float currentX = 0;
     SPSprite *currentLine = [SPSprite sprite];
+	
+	int lastCharID = -1;
     
     for (int i=0; i<text.length; i++)
     {        
@@ -188,13 +202,23 @@
             
             SPBitmapChar *bitmapChar = [self charByID:charID];
             if (!bitmapChar) bitmapChar = [self charByID:CHAR_SPACE];
+			
+			int kerningAdjustment = 0;
+			if (lastCharID != -1)
+			{
+				SPBitmapChar *lastBitmapChar = (SPBitmapChar *)[mChars objectForKey:[NSNumber numberWithInt:lastCharID]];
+				if (!lastBitmapChar) lastBitmapChar = [self charByID:CHAR_SPACE];
+				kerningAdjustment = [lastBitmapChar getKerning:charID];
+			}
             
-            bitmapChar.x = currentX + bitmapChar.xOffset;
+            bitmapChar.x = currentX + bitmapChar.xOffset + kerningAdjustment;
             bitmapChar.y = bitmapChar.yOffset;
             bitmapChar.color = color;
             [currentLine addChild:bitmapChar];
             
             currentX += bitmapChar.xAdvance;
+			
+			lastCharID = charID;
             
             if (currentX > containerWidth)        
             {
@@ -233,7 +257,7 @@
                 break;
             }
         }
-    }
+	}
     
     // hAlign
     if (hAlign != SPHAlignLeft)
