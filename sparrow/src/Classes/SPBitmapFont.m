@@ -41,6 +41,7 @@
 @synthesize name = mName;
 @synthesize lineHeight = mLineHeight;
 @synthesize size = mSize;
+@synthesize kerning = mKerning;
 
 - (id)initWithContentsOfFile:(NSString *)path texture:(SPTexture *)texture
 {
@@ -49,6 +50,7 @@
         mName = [[NSString alloc] initWithString:@"unknown"];
         mLineHeight = mSize = SP_DEFAULT_FONT_SIZE;
         mFontTexture = [texture retain];
+		mKerning = YES;
         
         [self parseFontXml:path];
     }
@@ -203,16 +205,21 @@
             SPBitmapChar *bitmapChar = [self charByID:charID];
             if (!bitmapChar) bitmapChar = [self charByID:CHAR_SPACE];
 			
-			int kerningAdjustment = 0;
-			if (lastCharID != -1)
-			{
-				SPBitmapChar *lastBitmapChar = (SPBitmapChar *)[mChars objectForKey:[NSNumber numberWithInt:lastCharID]];
-				if (!lastBitmapChar) lastBitmapChar = [self charByID:CHAR_SPACE];
-				kerningAdjustment = [lastBitmapChar getKerning:charID];
-			}
-            
-            bitmapChar.x = currentX + bitmapChar.xOffset + kerningAdjustment;
+            bitmapChar.x = currentX + bitmapChar.xOffset;
             bitmapChar.y = bitmapChar.yOffset;
+			
+			if (mKerning)
+			{
+				int kerningAdjustment = 0;
+				if (lastCharID != -1)
+				{
+					SPBitmapChar *lastBitmapChar = (SPBitmapChar *)[mChars objectForKey:[NSNumber numberWithInt:lastCharID]];
+					if (!lastBitmapChar) lastBitmapChar = [self charByID:CHAR_SPACE];
+					kerningAdjustment = [lastBitmapChar getKerning:charID];
+				}
+				bitmapChar.x += kerningAdjustment;
+			}
+
             bitmapChar.color = color;
             [currentLine addChild:bitmapChar];
             
@@ -304,6 +311,8 @@
 
 - (SPDisplayObject *)createDisplayObjectWithWidth:(float)width height:(float)height
                                              text:(NSString *)text fontSize:(float)size
+                                           hAlign:(SPHAlign)hAlign vAlign:(SPVAlign)vAlign
+                                           border:(BOOL)border borderColor:(uint)borderColor
 {    
     SPSprite *lineContainer = [SPSprite sprite];
     
@@ -335,18 +344,23 @@
             
             SPBitmapChar *bitmapChar = [self charByID:charID];
             if (!bitmapChar) bitmapChar = [self charByID:CHAR_SPACE];
-			
-			int kerningAdjustment = 0;
-			if (lastCharID != -1)
-			{
-				SPBitmapChar *lastBitmapChar = (SPBitmapChar *)[mChars objectForKey:[NSNumber numberWithInt:lastCharID]];
-				if (!lastBitmapChar) lastBitmapChar = [self charByID:CHAR_SPACE];
-				kerningAdjustment = [lastBitmapChar getKerning:charID];
-			}
             
-            bitmapChar.x = currentX + bitmapChar.xOffset + kerningAdjustment;
+            bitmapChar.x = currentX + bitmapChar.xOffset;
             bitmapChar.y = bitmapChar.yOffset;
-            [currentLine addChild:bitmapChar];
+			
+			if (mKerning)
+			{
+				int kerningAdjustment = 0;
+				if (lastCharID != -1)
+				{
+					SPBitmapChar *lastBitmapChar = (SPBitmapChar *)[mChars objectForKey:[NSNumber numberWithInt:lastCharID]];
+					if (!lastBitmapChar) lastBitmapChar = [self charByID:CHAR_SPACE];
+					kerningAdjustment = [lastBitmapChar getKerning:charID];
+				}
+				bitmapChar.x += kerningAdjustment;
+			}
+			
+			[currentLine addChild:bitmapChar];
             
             currentX += bitmapChar.xAdvance;
 			
@@ -391,9 +405,46 @@
         }
 	}
 
-	SPSprite *outerContainer = [SPCompiledSprite sprite];
+    // hAlign
+    if (hAlign != SPHAlignLeft)
+    {
+        for (SPSprite *line in lineContainer)
+        {
+            SPDisplayObject *lastChar = [line childAtIndex:line.numChildren-1];
+            float lineWidth = lastChar.x + lastChar.width;
+            float widthDiff = containerWidth - lineWidth;
+            line.x = (int) (hAlign == SPHAlignRight ? widthDiff : widthDiff / 2);
+        }
+    }
+    
+    SPSprite *outerContainer = [SPCompiledSprite sprite];
     [outerContainer addChild:lineContainer];    
-
+    
+    if (vAlign != SPVAlignTop)
+    {
+        float contentHeight = lineContainer.numChildren * mLineHeight * scale;
+        float heightDiff = height - contentHeight;
+        lineContainer.y = (int)(vAlign == SPVAlignBottom ? heightDiff : heightDiff / 2.0f);
+    }
+    
+    if (border)
+    {
+        SPQuad *topBorder = [SPQuad quadWithWidth:width height:1];
+        SPQuad *bottomBorder = [SPQuad quadWithWidth:width height:1];
+        SPQuad *leftBorder = [SPQuad quadWithWidth:1 height:height-2];
+        SPQuad *rightBorder = [SPQuad quadWithWidth:1 height:height-2];
+        
+        topBorder.color = bottomBorder.color = leftBorder.color = rightBorder.color = borderColor;
+        bottomBorder.y = height - 1;
+        leftBorder.y = rightBorder.y = 1;
+        rightBorder.x = width - 1;
+        
+        [outerContainer addChild:topBorder];
+        [outerContainer addChild:bottomBorder];
+        [outerContainer addChild:leftBorder];
+        [outerContainer addChild:rightBorder];        
+    }    
+    
     return outerContainer;
 }
 

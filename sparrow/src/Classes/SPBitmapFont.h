@@ -53,6 +53,7 @@
     NSString *mName;
     float mSize;
     float mLineHeight;
+	BOOL mKerning;
 }
 
 /// ------------------
@@ -80,7 +81,9 @@
 
 /// Creates a display object that contains the given text by arranging individual chars using the native font texture.
 - (SPDisplayObject *)createDisplayObjectWithWidth:(float)width height:(float)height
-                                             text:(NSString *)text fontSize:(float)size;
+                                             text:(NSString *)text fontSize:(float)size
+										   hAlign:(SPHAlign)hAlign vAlign:(SPVAlign)vAlign
+										   border:(BOOL)border borderColor:(uint)borderColor;
 
 /// ----------------
 /// @name Properties
@@ -94,5 +97,8 @@
 
 /// The height of one line in pixels.
 @property (nonatomic, assign)   float lineHeight;
+
+/// Allows using kerning information with a bitmap font (where available). Default is YES.
+@property (nonatomic, assign)	BOOL kerning;
 
 @end

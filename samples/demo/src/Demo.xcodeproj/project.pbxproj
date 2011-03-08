@@ -34,6 +34,14 @@
 		25C23C0011ECA85200A25DF7 /* branching_mouse.fnt in Resources */ = {isa = PBXBuildFile; fileRef = 25C23BFE11ECA85200A25DF7 /* branching_mouse.fnt */; };
 		25C23C0111ECA85200A25DF7 /* branching_mouse.png in Resources */ = {isa = PBXBuildFile; fileRef = 25C23BFF11ECA85200A25DF7 /* branching_mouse.png */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
+		6430ACBB1322941700ED9CC7 /* bernard.fnt in Resources */ = {isa = PBXBuildFile; fileRef = 6430ACB91322941700ED9CC7 /* bernard.fnt */; };
+		6430ACBC1322941700ED9CC7 /* bernard.png in Resources */ = {isa = PBXBuildFile; fileRef = 6430ACBA1322941700ED9CC7 /* bernard.png */; };
+		6430ACBF1322943100ED9CC7 /* bernard@2x.fnt in Resources */ = {isa = PBXBuildFile; fileRef = 6430ACBD1322943100ED9CC7 /* bernard@2x.fnt */; };
+		6430ACC01322943100ED9CC7 /* bernard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6430ACBE1322943100ED9CC7 /* bernard@2x.png */; };
+		643D32CF1325B1D600C47406 /* brush@2x.fnt in Resources */ = {isa = PBXBuildFile; fileRef = 643D32CD1325B1D600C47406 /* brush@2x.fnt */; };
+		643D32D01325B1D600C47406 /* brush@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 643D32CE1325B1D600C47406 /* brush@2x.png */; };
+		643D32D31325B1E900C47406 /* brush.fnt in Resources */ = {isa = PBXBuildFile; fileRef = 643D32D11325B1E900C47406 /* brush.fnt */; };
+		643D32D41325B1E900C47406 /* brush.png in Resources */ = {isa = PBXBuildFile; fileRef = 643D32D21325B1E900C47406 /* brush.png */; };
 		DE061A2A119D799900DFF25D /* MovieScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DE061A29119D799900DFF25D /* MovieScene.m */; };
 		DE0F755910641630004F2821 /* BenchmarkScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DE0F755810641630004F2821 /* BenchmarkScene.m */; };
 		DE18FE3711B0839E00D01F04 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE18FE3611B0839E00D01F04 /* AVFoundation.framework */; };
@@ -116,6 +124,14 @@
 		28AD733E0D9D9553002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* Demo_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Demo_Prefix.pch; sourceTree = "<group>"; };
+		6430ACB91322941700ED9CC7 /* bernard.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = bernard.fnt; sourceTree = "<group>"; };
+		6430ACBA1322941700ED9CC7 /* bernard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bernard.png; sourceTree = "<group>"; };
+		6430ACBD1322943100ED9CC7 /* bernard@2x.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "bernard@2x.fnt"; sourceTree = "<group>"; };
+		6430ACBE1322943100ED9CC7 /* bernard@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bernard@2x.png"; sourceTree = "<group>"; };
+		643D32CD1325B1D600C47406 /* brush@2x.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "brush@2x.fnt"; sourceTree = "<group>"; };
+		643D32CE1325B1D600C47406 /* brush@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "brush@2x.png"; sourceTree = "<group>"; };
+		643D32D11325B1E900C47406 /* brush.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = brush.fnt; sourceTree = "<group>"; };
+		643D32D21325B1E900C47406 /* brush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = brush.png; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Demo-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Demo-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		DE061A28119D799900DFF25D /* MovieScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieScene.h; sourceTree = "<group>"; };
 		DE061A29119D799900DFF25D /* MovieScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieScene.m; sourceTree = "<group>"; };
@@ -200,6 +216,10 @@
 		25C23A5411EC631500A25DF7 /* 1x */ = {
 			isa = PBXGroup;
 			children = (
+				643D32D11325B1E900C47406 /* brush.fnt */,
+				643D32D21325B1E900C47406 /* brush.png */,
+				6430ACB91322941700ED9CC7 /* bernard.fnt */,
+				6430ACBA1322941700ED9CC7 /* bernard.png */,
 				25894E0E11EDD209005616B4 /* resolution.png */,
 				25C23BFE11ECA85200A25DF7 /* branching_mouse.fnt */,
 				25C23BFF11ECA85200A25DF7 /* branching_mouse.png */,
@@ -220,6 +240,10 @@
 		25C23A6311EC632400A25DF7 /* 2x */ = {
 			isa = PBXGroup;
 			children = (
+				643D32CD1325B1D600C47406 /* brush@2x.fnt */,
+				643D32CE1325B1D600C47406 /* brush@2x.png */,
+				6430ACBD1322943100ED9CC7 /* bernard@2x.fnt */,
+				6430ACBE1322943100ED9CC7 /* bernard@2x.png */,
 				25894E0C11EDD1FA005616B4 /* resolution@2x.png */,
 				25C23BFA11ECA83D00A25DF7 /* branching_mouse@2x.fnt */,
 				25C23BFB11ECA83D00A25DF7 /* branching_mouse@2x.png */,
@@ -453,6 +477,14 @@
 				25C23C0111ECA85200A25DF7 /* branching_mouse.png in Resources */,
 				25894E0D11EDD1FA005616B4 /* resolution@2x.png in Resources */,
 				25894E0F11EDD209005616B4 /* resolution.png in Resources */,
+				6430ACBB1322941700ED9CC7 /* bernard.fnt in Resources */,
+				6430ACBC1322941700ED9CC7 /* bernard.png in Resources */,
+				6430ACBF1322943100ED9CC7 /* bernard@2x.fnt in Resources */,
+				6430ACC01322943100ED9CC7 /* bernard@2x.png in Resources */,
+				643D32CF1325B1D600C47406 /* brush@2x.fnt in Resources */,
+				643D32D01325B1D600C47406 /* brush@2x.png in Resources */,
+				643D32D31325B1E900C47406 /* brush.fnt in Resources */,
+				643D32D41325B1E900C47406 /* brush.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
