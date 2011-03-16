@@ -15,10 +15,12 @@
 typedef float  (*FnPtrGetterF) (id, SEL);
 typedef double (*FnPtrGetterD) (id, SEL);
 typedef int    (*FnPtrGetterI) (id, SEL);
+typedef uint   (*FnPtrGetterUI) (id, SEL);
 
 typedef void (*FnPtrSetterF) (id, SEL, float);
 typedef void (*FnPtrSetterD) (id, SEL, double);
 typedef void (*FnPtrSetterI) (id, SEL, int);
+typedef void (*FnPtrSetterUI) (id, SEL, uint);
  
 @implementation SPTweenedProperty
 
@@ -27,7 +29,8 @@ typedef void (*FnPtrSetterI) (id, SEL, int);
 
 - (id)initWithTarget:(id)target name:(NSString *)name endValue:(float)endValue;
 {
-    if ((self = [super init]))
+    self = [super init];
+    if (self)
     {
         mTarget = [target retain];        
         mEndValue = endValue;
@@ -44,7 +47,7 @@ typedef void (*FnPtrSetterI) (id, SEL, int);
         // query argument type
         NSMethodSignature *sig = [mTarget methodSignatureForSelector:mGetter];
         mNumericType = *[sig methodReturnType];    
-        if (mNumericType != 'f' && mNumericType != 'i' && mNumericType != 'd')
+        if (mNumericType != 'f' && mNumericType != 'i' && mNumericType != 'd' && mNumericType != 'I')
             [NSException raise:SP_EXC_INVALID_OPERATION format:@"property not numeric: '%@'", name];
         
         mGetterFunc = [mTarget methodForSelector:mGetter];
@@ -69,7 +72,12 @@ typedef void (*FnPtrSetterI) (id, SEL, int);
     {
         FnPtrSetterD func = (FnPtrSetterD)mSetterFunc;
         func(mTarget, mSetter, (double)value);
-    }        
+    }
+    else if (mNumericType == 'I')
+    {
+        FnPtrSetterUI func = (FnPtrSetterUI)mSetterFunc;
+        func(mTarget, mSetter, (double)value);
+    }
     else
     {
         FnPtrSetterI func = (FnPtrSetterI)mSetterFunc;
@@ -87,6 +95,11 @@ typedef void (*FnPtrSetterI) (id, SEL, int);
     else if (mNumericType == 'd')
     {
         FnPtrGetterD func = (FnPtrGetterD)mGetterFunc;
+        return func(mTarget, mGetter);
+    }
+    else if (mNumericType == 'I')
+    {
+        FnPtrGetterUI func = (FnPtrGetterUI)mGetterFunc;
         return func(mTarget, mGetter);
     }
     else 
