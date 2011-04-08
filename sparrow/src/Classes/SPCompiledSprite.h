@@ -17,8 +17,8 @@
  An SPCompiledSprite allows you to optimize the rendering of static parts of your display list.
  
  It analyzes the tree of children attached to it and optimizes the OpenGL rendering calls in a 
- way that makes rendering them extremely fast. The downside is that you will no longe see any 
- changes in the properties of the childs (position, rotation, alpha, etc.). To update the object
+ way that makes rendering them extremely fast. The downside is that you will no longer see any 
+ changes in the properties of the children (position, rotation, alpha, etc.). To update the object
  after changes have happened, simply call `compile` again.
  
  With the exception of this peculiarity, a compiled sprite can be use just like any other sprite.
