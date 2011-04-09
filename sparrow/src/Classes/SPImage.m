@@ -61,23 +61,6 @@
     return [SPPoint pointWithX:mTexCoords[vertexID*2] y:mTexCoords[vertexID*2+1]];
 }
 
-- (void)setTexture:(SPTexture*)texture
-{
-    if (texture != mTexture)
-    {
-        [mTexture release];
-        mTexture = [texture retain];
-        
-        if (mTexture) 
-        {
-            mVertexCoords[2] = texture.width;
-            mVertexCoords[5] = texture.height; 
-            mVertexCoords[6] = texture.width;
-            mVertexCoords[7] = texture.height;
-        }
-    }
-}
-
 + (SPImage*)imageWithTexture:(SPTexture*)texture
 {
     return [[[SPImage alloc] initWithTexture:texture] autorelease];

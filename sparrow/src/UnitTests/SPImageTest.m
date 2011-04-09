@@ -64,10 +64,11 @@
     STAssertEquals(texture1.width, image.width, @"wrong texture width");
     STAssertEquals(texture1.height, image.height, @"wrong texture height");
     
+    // changing the texture should NOT change the image size
     image.texture = texture2;
     STAssertEqualObjects(image.texture, texture2, @"wrong texture");
-    STAssertEquals(texture2.width, image.width, @"wrong texture width");
-    STAssertEquals(texture2.height, image.height, @"wrong texture height");
+    STAssertEquals(texture1.width, image.width, @"wrong texture width");
+    STAssertEquals(texture1.height, image.height, @"wrong texture height");
     
     [texture1 release];
     [texture2 release];
