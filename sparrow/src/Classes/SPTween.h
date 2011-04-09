@@ -49,9 +49,10 @@ typedef enum
  
  Tweens dispatch events in certain phases of their life time:
  
- * `SP_EVENT_TYPE_TWEEN_STARTED`: Dispatched once when the tween starts
- * `SP_EVENT_TYPE_TWEEN_UPDATED`: Dispatched every time it is advanced
- * `SP_EVENT_TYPE_TWEEN_COMPLETED`: Dispatched when it reaches its target value (except when it loops).
+ * `SP_EVENT_TYPE_TWEEN_STARTED`:   Dispatched once when the tween starts
+ * `SP_EVENT_TYPE_TWEEN_UPDATED`:   Dispatched every time it is advanced
+ * `SP_EVENT_TYPE_TWEEN_COMPLETED`: Dispatched when it reaches its target value (repeatedly
+                                    dispatched when looping).
  
  Tweens can loop in two ways:
  
@@ -73,7 +74,7 @@ typedef enum
     double mDelay;
     
     SPLoopType mLoop;
-    BOOL mInvertTransition;
+    int mLoopCount;
 }
 
 /// ------------------

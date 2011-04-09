@@ -40,7 +40,7 @@
         mLoop = YES;
         mPlaying = YES;
         mTotalDuration = 0.0;
-        mElapsedTime = 0.0;
+        mCurrentTime = 0.0;
         mCurrentFrame = 0;
         mFrames = [[NSMutableArray alloc] init];
         mSounds = [[NSMutableArray alloc] init];
@@ -156,7 +156,7 @@
 {
     float newFrameDuration = (fps == 0.0f ? INT_MAX : 1.0 / fps);
 	float acceleration = newFrameDuration / mDefaultFrameDuration;
-    mElapsedTime *= acceleration;
+    mCurrentTime *= acceleration;
     mDefaultFrameDuration = newFrameDuration;
     
 	for (int i=0; i<self.numFrames; ++i)
@@ -198,10 +198,10 @@
 - (void)setCurrentFrame:(int)frameID
 {
     mCurrentFrame = frameID;
-    mElapsedTime = 0.0;
+    mCurrentTime = 0.0;
     
     for (int i=0; i<frameID; ++i)
-        mElapsedTime += [[mFrameDurations objectAtIndex:i] doubleValue];
+        mCurrentTime += [[mFrameDurations objectAtIndex:i] doubleValue];
     
     [self updateCurrentFrame];
 }
@@ -226,28 +226,20 @@
 
 - (void)advanceTime:(double)seconds
 {    
-    if (!mPlaying || (!mLoop && mElapsedTime == mTotalDuration)) return;
+    if (mLoop && mCurrentTime == mTotalDuration) mCurrentTime = 0.0;    
+    if (!mPlaying || seconds == 0.0 || mCurrentTime == mTotalDuration) return;    
     
-    double previousElapsedTime = mElapsedTime;
-    mElapsedTime += seconds;       
-    
-    if (mLoop)
-    {
-        while (mElapsedTime > mTotalDuration) 
-            mElapsedTime -= mTotalDuration;    
-    }
-    else
-    {
-        mElapsedTime = MIN(mTotalDuration, mElapsedTime);
-    }
-    
-    double durationSum = 0.0;
     int i = 0;
-    
+    double durationSum = 0.0;
+    double previousTime = mCurrentTime;
+    double restTime = mTotalDuration - mCurrentTime;
+    double carryOverTime = seconds > restTime ? seconds - restTime : 0.0;
+    mCurrentTime = MIN(mTotalDuration, mCurrentTime + seconds);            
+       
     for (NSNumber *frameDuration in mFrameDurations)
     {
         double fd = [frameDuration doubleValue];
-        if (durationSum + fd >= mElapsedTime)            
+        if (durationSum + fd >= mCurrentTime)            
         {
             if (mCurrentFrame != i)
             {
@@ -262,8 +254,13 @@
         durationSum += fd;
     }
     
-    if (!mLoop && previousElapsedTime < mTotalDuration && mElapsedTime >= mTotalDuration)
-        [self dispatchEvent:[SPEvent eventWithType:SP_EVENT_TYPE_MOVIE_COMPLETED]];
+    if (previousTime < mTotalDuration && mCurrentTime == mTotalDuration &&
+        [self hasEventListenerForType:SP_EVENT_TYPE_MOVIE_COMPLETED])
+    {
+        [self dispatchEvent:[SPEvent eventWithType:SP_EVENT_TYPE_MOVIE_COMPLETED]];        
+    }
+    
+    [self advanceTime:carryOverTime];
 }
 
 - (BOOL)isComplete

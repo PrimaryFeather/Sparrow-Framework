@@ -44,6 +44,21 @@
     mStartedCount = mUpdatedCount = mCompletedCount = 0;
 }
 
+- (void)onTweenStarted:(SPEvent*)event
+{
+    mStartedCount++;
+}
+
+- (void)onTweenUpdated:(SPEvent*)event
+{
+    mUpdatedCount++;
+}
+
+- (void)onTweenCompleted:(SPEvent*)event
+{
+    mCompletedCount++;
+}
+
 - (void)testBasicTween
 {    
     float startX = 10.0f;
@@ -99,21 +114,6 @@
     [tween removeEventListenersAtObject:self forType:SP_EVENT_TYPE_TWEEN_STARTED];
     [tween removeEventListenersAtObject:self forType:SP_EVENT_TYPE_TWEEN_UPDATED];    
     [tween removeEventListenersAtObject:self forType:SP_EVENT_TYPE_TWEEN_COMPLETED];    
-}
-
-- (void)onTweenStarted:(SPEvent*)event
-{
-    mStartedCount++;
-}
-
-- (void)onTweenUpdated:(SPEvent*)event
-{
-    mUpdatedCount++;
-}
-
-- (void)onTweenCompleted:(SPEvent*)event
-{
-    mCompletedCount++;
 }
 
 - (void)testSequentialTweens
@@ -172,6 +172,7 @@
     
     SPTween *tween = [SPTween tweenWithTarget:quad time:totalTime transition:SP_TRANSITION_LINEAR];
     [tween animateProperty:@"x" targetValue:startX + deltaX];
+    [tween addEventListener:@selector(onTweenCompleted:) atObject:self forType:SP_EVENT_TYPE_TWEEN_COMPLETED];
     tween.loop = SPLoopTypeRepeat;
     
     [tween advanceTime:0.0];
@@ -182,12 +183,18 @@
     
     [tween advanceTime:totalTime / 2.0];
     STAssertEqualsWithAccuracy(startX, quad.x, E, @"wrong x value");
+    STAssertEquals(1, mCompletedCount, @"completed event not fired");    
     
     [tween advanceTime:totalTime / 2.0];
     STAssertEqualsWithAccuracy(startX + 0.5f * deltaX, quad.x, E, @"wrong x value");
     
     [tween advanceTime:totalTime / 2.0];
     STAssertEqualsWithAccuracy(startX, quad.x, E, @"wrong x value");
+    STAssertEquals(2, mCompletedCount, @"completed event not fired");
+    
+    [tween advanceTime:totalTime * 2];
+    STAssertEqualsWithAccuracy(startX, quad.x, E, @"wrong x value");
+    STAssertEquals(4, mCompletedCount, @"completed event not fired the correct number of times");
 }
 
 - (void)testTweenWithReversingLoop
@@ -201,6 +208,7 @@
     
     SPTween *tween = [SPTween tweenWithTarget:quad time:totalTime transition:SP_TRANSITION_LINEAR];
     [tween animateProperty:@"x" targetValue:startX + deltaX];
+    [tween addEventListener:@selector(onTweenCompleted:) atObject:self forType:SP_EVENT_TYPE_TWEEN_COMPLETED];
     tween.loop = SPLoopTypeReverse;
     
     [tween advanceTime:0.0];
@@ -211,12 +219,49 @@
     
     [tween advanceTime:totalTime / 2.0];
     STAssertEqualsWithAccuracy(startX + deltaX, quad.x, E, @"wrong x value");
+    STAssertEquals(1, mCompletedCount, @"completed event not fired");
     
     [tween advanceTime:totalTime / 2.0];
     STAssertEqualsWithAccuracy(startX + 0.5f * deltaX, quad.x, E, @"wrong x value");
     
     [tween advanceTime:totalTime / 2.0];
     STAssertEqualsWithAccuracy(startX, quad.x, E, @"wrong x value");
+    STAssertEquals(2, mCompletedCount, @"completed event not fired");
+    
+    [tween advanceTime:totalTime * 2];
+    STAssertEqualsWithAccuracy(startX, quad.x, E, @"wrong x value");
+    STAssertEquals(4, mCompletedCount, @"completed event not fired the correct number of times");
+}
+
+- (void)testTweenWithChangingLoop
+{
+    float startX = 0.0f;
+    float deltaX = 100.0f;
+    float totalTime = 1.0f;
+    
+    SPQuad *quad = [SPQuad quadWithWidth:100 height:100];
+    quad.x = startX;
+    
+    SPTween *tween = [SPTween tweenWithTarget:quad time:totalTime transition:SP_TRANSITION_LINEAR];
+    [tween animateProperty:@"x" targetValue:startX + deltaX];
+    [tween addEventListener:@selector(onTweenCompleted:) atObject:self forType:SP_EVENT_TYPE_TWEEN_COMPLETED];
+    
+    [tween advanceTime:totalTime / 2.0f];
+    STAssertEquals(0, mCompletedCount, @"completed event fired too soon");
+    
+    [tween advanceTime:totalTime / 2.0f];
+    STAssertEquals(1, mCompletedCount, @"completed event not fired");
+    
+    [tween advanceTime:totalTime * 2];
+    STAssertEquals(1, mCompletedCount, @"completed event fired too often");
+    
+    tween.loop = SPLoopTypeRepeat;
+    
+    [tween advanceTime:totalTime / 2.0f];
+    STAssertEquals(1, mCompletedCount, @"completed event fired too often");
+    
+    [tween advanceTime:totalTime / 2.0f];
+    STAssertEquals(2, mCompletedCount, @"completed event missing");    
 }
 
 - (void)makeTweenWithTime:(double)time andAdvanceBy:(double)advanceTime

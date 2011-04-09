@@ -29,7 +29,8 @@
  frame a custom duration. You can also play a sound whenever a certain frame appears.
  
  The methods `play` and `pause` control playback of the movie. You will receive an event of type
- `SP_EVENT_TYPE_MOVIE_COMPLETED` when the movie finished playback (except when you enabled looping).
+ `SP_EVENT_TYPE_MOVIE_COMPLETED` when the movie finished playback. When the movie is looping,
+ the event is dispatched once per loop.
  
  As any animated object, a movie clip has to be added to a juggler (or have its `advanceTime:` 
  method called regularly) to run.
@@ -45,7 +46,7 @@
     
     double mDefaultFrameDuration;
     double mTotalDuration;
-    double mElapsedTime;
+    double mCurrentTime;
     BOOL mLoop;
     BOOL mPlaying;
     int mCurrentFrame;

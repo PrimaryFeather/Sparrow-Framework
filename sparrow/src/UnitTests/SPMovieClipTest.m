@@ -22,12 +22,25 @@
 // -------------------------------------------------------------------------------------------------
 
 @interface SPMovieClipTest : SenTestCase 
-
+{
+  @private
+    int mCompletedCount;
+}
 @end
 
 // -------------------------------------------------------------------------------------------------
 
 @implementation SPMovieClipTest
+
+- (void) setUp
+{
+    mCompletedCount = 0;
+}
+
+- (void)onMovieCompleted:(SPEvent*)event
+{
+    mCompletedCount++;
+}
 
 - (void)testFrameManipulation
 {    
@@ -169,6 +182,46 @@
     
     movie.fps = 0.0f;
     STAssertEqualsWithAccuracy(0.0f, movie.fps, E, @"wrong fps");
+}
+
+- (void)testCompletedEvent
+{
+    float fps = 4.0f;
+    double frameDuration = 1.0 / fps;
+    
+    NSArray *frames = [NSArray arrayWithObjects:[SPTexture emptyTexture], [SPTexture emptyTexture],
+                       [SPTexture emptyTexture], [SPTexture emptyTexture], nil];
+    int numFrames = frames.count;
+    
+    SPMovieClip *movie = [SPMovieClip movieWithFrames:frames fps:fps];    
+    [movie addEventListener:@selector(onMovieCompleted:) atObject:self 
+                    forType:SP_EVENT_TYPE_MOVIE_COMPLETED];
+    
+    movie.loop = NO;
+    
+    [movie advanceTime:frameDuration];
+    STAssertEquals(0, mCompletedCount, @"completed event fired too soon");
+    [movie advanceTime:frameDuration];
+    STAssertEquals(0, mCompletedCount, @"completed event fired too soon");
+    [movie advanceTime:frameDuration];
+    STAssertEquals(0, mCompletedCount, @"completed event fired too soon");
+    [movie advanceTime:frameDuration];
+    STAssertEquals(1, mCompletedCount, @"completed event not fired");    
+    [movie advanceTime:numFrames * 2 * frameDuration];
+    STAssertEquals(1, mCompletedCount, @"too many completed events fired");
+    
+    movie.loop = YES;
+    
+    [movie advanceTime:frameDuration];
+    STAssertEquals(1, mCompletedCount, @"completed event fired too soon");
+    [movie advanceTime:frameDuration];
+    STAssertEquals(1, mCompletedCount, @"completed event fired too soon");
+    [movie advanceTime:frameDuration];
+    STAssertEquals(1, mCompletedCount, @"completed event fired too soon");
+    [movie advanceTime:frameDuration];
+    STAssertEquals(2, mCompletedCount, @"completed event not fired");    
+    [movie advanceTime:numFrames * 2 * frameDuration];
+    STAssertEquals(4, mCompletedCount, @"wrong number of events dispatched");
 }
 
 @end
