@@ -264,6 +264,23 @@
     STAssertEquals(2, mCompletedCount, @"completed event missing");    
 }
 
+- (void)testUnsignedIntTween
+{
+    SPQuad *quad = [SPQuad quadWithWidth:100 height:100];
+    quad.color = 0;
+    
+    SPTween *tween = [SPTween tweenWithTarget:quad time:2.0];
+    [tween animateProperty:@"color" targetValue:100];
+    
+    STAssertEquals((uint)0, quad.color, @"quad starts with wrong color");
+    
+    [tween advanceTime:1.0];
+    STAssertEquals((uint)50, quad.color, @"wrong intermediate color");
+    
+    [tween advanceTime:1.0];
+    STAssertEquals((uint)100, quad.color, @"wrong final color");
+}
+
 - (void)makeTweenWithTime:(double)time andAdvanceBy:(double)advanceTime
 {
     SPQuad *quad = [SPQuad quadWithWidth:100 height:100];
