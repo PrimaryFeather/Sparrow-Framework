@@ -32,8 +32,8 @@ typedef enum
  
  The primary use of this class is to do standard animations like movement, fading, rotation, etc.
  But there are no limits on what to animate; as long as the property you want to animate is numeric
- (`int`, `float`, `double`), the tween can handle it. For a list of available Transition types,
- see `SPTransitions`. 
+ (`int`, `uint`, `float`, `double`), the tween can handle it. For a list of available Transition 
+ types, see `SPTransitions`. 
  
  Here is an example of a tween that moves an object to the right, rotates it, and fades it out:
  

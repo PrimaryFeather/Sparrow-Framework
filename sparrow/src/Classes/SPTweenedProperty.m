@@ -12,14 +12,14 @@
 #import "SPTweenedProperty.h"
 #import "SPMacros.h"
 
-typedef float  (*FnPtrGetterF) (id, SEL);
-typedef double (*FnPtrGetterD) (id, SEL);
-typedef int    (*FnPtrGetterI) (id, SEL);
+typedef float  (*FnPtrGetterF)  (id, SEL);
+typedef double (*FnPtrGetterD)  (id, SEL);
+typedef int    (*FnPtrGetterI)  (id, SEL);
 typedef uint   (*FnPtrGetterUI) (id, SEL);
 
-typedef void (*FnPtrSetterF) (id, SEL, float);
-typedef void (*FnPtrSetterD) (id, SEL, double);
-typedef void (*FnPtrSetterI) (id, SEL, int);
+typedef void (*FnPtrSetterF)  (id, SEL, float);
+typedef void (*FnPtrSetterD)  (id, SEL, double);
+typedef void (*FnPtrSetterI)  (id, SEL, int);
 typedef void (*FnPtrSetterUI) (id, SEL, uint);
  
 @implementation SPTweenedProperty
@@ -29,8 +29,7 @@ typedef void (*FnPtrSetterUI) (id, SEL, uint);
 
 - (id)initWithTarget:(id)target name:(NSString *)name endValue:(float)endValue;
 {
-    self = [super init];
-    if (self)
+    if ((self = [super init]))
     {
         mTarget = [target retain];        
         mEndValue = endValue;
