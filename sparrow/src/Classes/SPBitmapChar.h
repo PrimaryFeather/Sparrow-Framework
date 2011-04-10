@@ -21,13 +21,15 @@
  
 ------------------------------------------------------------------------------------------------- */ 
 
-@interface SPBitmapChar : SPImage <NSCopying> 
+@interface SPBitmapChar : NSObject
 {
   @private
+    SPTexture *mTexture;
     int mCharID;
     float mXOffset;
     float mYOffset;
-    float mXAdvance;    
+    float mXAdvance;
+    NSMutableDictionary *mKernings;
 }
 
 /// ------------------
@@ -37,6 +39,19 @@
 /// Initializes a char with a texture and his properties.
 - (id)initWithID:(int)charID texture:(SPTexture *)texture
          xOffset:(float)xOffset yOffset:(float)yOffset xAdvance:(float)xAdvance;
+
+/// -------------
+/// @name Methods
+/// -------------
+
+/// Adds kerning information relative to a specific other character ID.
+- (void)addKerning:(int)amount toChar:(int)charID;
+
+/// Retrieve kerning information relative to the given character ID.
+- (int)kerningToChar:(int)charID;
+
+/// Creates an image of the char
+- (SPImage *)createImage;
 
 /// ----------------
 /// @name Properties
@@ -53,5 +68,8 @@
 
 /// The number of pixels the cursor has to be moved to the right for the next char.
 @property (nonatomic, readonly) float xAdvance;
+
+/// The texture of the character.
+@property (nonatomic, retain) SPTexture *texture;
 
 @end

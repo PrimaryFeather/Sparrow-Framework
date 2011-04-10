@@ -91,6 +91,7 @@ typedef enum
     BOOL mBorder;    
     BOOL mRequiresRedraw;
     BOOL mIsRenderedText;
+	BOOL mKerning;
     
     SPQuad *mHitArea;
     SPQuad *mTextArea;
@@ -165,5 +166,8 @@ typedef enum
 
 /// The bounds of the actual characters inside the text field.
 @property (nonatomic, readonly) SPRectangle *textBounds;
+
+/// Allows using kerning information with a bitmap font (where available). Default is YES.
+@property (nonatomic, assign) BOOL kerning;
 
 @end

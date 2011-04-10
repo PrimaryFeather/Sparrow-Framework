@@ -124,6 +124,13 @@
         [mChars setObject:bitmapChar forKey:[NSNumber numberWithInt:charID]];
         [bitmapChar release];
     }
+	else if ([elementName isEqualToString:@"kerning"])
+	{
+		int first  = [[attributeDict valueForKey:@"first"] intValue];
+        int second = [[attributeDict valueForKey:@"second"] intValue];
+        int amount = [[attributeDict valueForKey:@"amount"] intValue];
+		[[self charByID:second] addKerning:amount toChar:first];
+	}
     else if ([elementName isEqualToString:@"info"])
     {
         [mName release];
@@ -153,14 +160,13 @@
 
 - (SPBitmapChar *)charByID:(int)charID
 {
-    SPBitmapChar *bitmapChar = (SPBitmapChar *)[mChars objectForKey:[NSNumber numberWithInt:charID]];
-    return [[bitmapChar copy] autorelease];
+    return (SPBitmapChar *)[mChars objectForKey:[NSNumber numberWithInt:charID]];
 }
 
 - (SPDisplayObject *)createDisplayObjectWithWidth:(float)width height:(float)height
                                              text:(NSString *)text fontSize:(float)size color:(uint)color 
                                            hAlign:(SPHAlign)hAlign vAlign:(SPVAlign)vAlign
-                                           border:(BOOL)border
+                                           border:(BOOL)border kerning:(BOOL)kerning
 {    
     SPSprite *lineContainer = [SPSprite sprite];
     
@@ -171,6 +177,7 @@
     float containerHeight = height / scale;    
     
     int lastWhiteSpace = -1;
+    int lastCharID = -1;
     float currentX = 0;
     SPSprite *currentLine = [SPSprite sprite];
     
@@ -190,13 +197,19 @@
             
             SPBitmapChar *bitmapChar = [self charByID:charID];
             if (!bitmapChar) bitmapChar = [self charByID:CHAR_SPACE];
+            SPImage *charImage = [bitmapChar createImage];
             
-            bitmapChar.x = currentX + bitmapChar.xOffset;
-            bitmapChar.y = bitmapChar.yOffset;
-            bitmapChar.color = color;
-            [currentLine addChild:bitmapChar];
+            charImage.x = currentX + bitmapChar.xOffset;
+            charImage.y = bitmapChar.yOffset;
+
+            if (kerning)
+                charImage.x += [bitmapChar kerningToChar:lastCharID];
+
+            charImage.color = color;
+            [currentLine addChild:charImage];
             
             currentX += bitmapChar.xAdvance;
+			lastCharID = charID;
             
             if (currentX > containerWidth)        
             {
@@ -214,7 +227,7 @@
                 currentX = lastChar.x + lastChar.width;
                 
                 i -= numCharsToRemove;
-                lineFull = YES;                
+                lineFull = YES;
             }
         }
         
@@ -227,8 +240,9 @@
             {
                 currentLine = [SPSprite sprite];
                 currentLine.y = nextLineY;            
-                lastWhiteSpace = -1;
                 currentX = 0;
+                lastWhiteSpace = -1;
+                lastCharID = -1;
             }
             else
             {

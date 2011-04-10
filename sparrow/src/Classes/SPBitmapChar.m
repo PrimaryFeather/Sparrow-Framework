@@ -18,16 +18,19 @@
 @synthesize xOffset = mXOffset;
 @synthesize yOffset = mYOffset;
 @synthesize xAdvance = mXAdvance;
+@synthesize texture = mTexture;
 
 - (id)initWithID:(int)charID texture:(SPTexture *)texture
          xOffset:(float)xOffset yOffset:(float)yOffset xAdvance:(float)xAdvance;
 {
-    if ((self = [super initWithTexture:texture]))
+    if ((self = [super init]))
     {
+        mTexture = [texture retain];
         mCharID = charID;
         mXOffset = xOffset;
         mYOffset = yOffset;
         mXAdvance = xAdvance;
+		mKernings = nil;
     }
     return self;
 }
@@ -43,13 +46,31 @@
     return nil;
 }
 
-#pragma mark NSCopying
-
-- (id)copyWithZone:(NSZone*)zone;
+- (void)addKerning:(int)amount toChar:(int)charID
 {
-    return [[[self class] allocWithZone:zone] initWithID:mCharID texture:self.texture 
-                                                 xOffset:mXOffset yOffset:mYOffset 
-                                                xAdvance:mXAdvance];
+    if (!mKernings)
+        mKernings = [[NSMutableDictionary alloc] init];    
+
+	[mKernings setObject:[NSNumber numberWithInt:amount] 
+                  forKey:[NSNumber numberWithInt:charID]];
+}
+
+- (int)kerningToChar:(int)charID
+{
+	NSNumber *amount = (NSNumber *)[mKernings objectForKey:[NSNumber numberWithInt:charID]];
+	return [amount intValue];
+}
+
+- (SPImage *)createImage
+{
+    return [SPImage imageWithTexture:mTexture];
+}
+
+- (void)dealloc
+{
+    [mKernings release];
+    [mTexture release];
+    [super dealloc];
 }
 
 @end

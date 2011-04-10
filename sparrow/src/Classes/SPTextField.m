@@ -44,6 +44,7 @@ static NSMutableDictionary *bitmapFonts = nil;
 @synthesize vAlign = mVAlign;
 @synthesize border = mBorder;
 @synthesize color = mColor;
+@synthesize kerning = mKerning;
 
 - (id)initWithWidth:(float)width height:(float)height text:(NSString*)text fontName:(NSString*)name 
           fontSize:(float)size color:(uint)color 
@@ -56,6 +57,7 @@ static NSMutableDictionary *bitmapFonts = nil;
         mHAlign = SPHAlignCenter;
         mVAlign = SPVAlignCenter;
         mBorder = NO;        
+		mKerning = YES;
         self.fontName = name;
         
         mHitArea = [[SPQuad alloc] initWithWidth:width height:height];
@@ -169,7 +171,7 @@ static NSMutableDictionary *bitmapFonts = nil;
  
     SPDisplayObject *contents = [bitmapFont createDisplayObjectWithWidth:mHitArea.width 
         height:mHitArea.height text:mText fontSize:mFontSize color:mColor
-        hAlign:mHAlign vAlign:mVAlign border:mBorder];    
+        hAlign:mHAlign vAlign:mVAlign border:mBorder kerning:mKerning];    
     
     SPRectangle *textBounds = [(SPDisplayObjectContainer *)contents childAtIndex:0].bounds;
     mTextArea.x = textBounds.x; mTextArea.y = textBounds.y;
@@ -272,6 +274,15 @@ static NSMutableDictionary *bitmapFonts = nil;
         else 
             mRequiresRedraw = YES;
     }
+}
+
+- (void)setKerning:(BOOL)kerning
+{
+	if (kerning != mKerning)
+	{
+		mKerning = kerning;
+		mRequiresRedraw = YES;
+	}
 }
 
 + (SPTextField*)textFieldWithWidth:(float)width height:(float)height text:(NSString*)text 

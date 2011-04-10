@@ -8,6 +8,11 @@ As an alternative, you can use the Bitmap Font Generator from AngelCode:
 -> http://www.angelcode.com/products/bmfont/
 It can export this xml format directly. However, this tool works only in MS Windows.
 
+On OS X, Glyph Designer from 71Squared is a great font tool (it's not free, though):
+-> http://glyphdesigner.71squared.com/
+It exports to both the Hiero format and to Sparrow's native format. In the latter case, 
+you can use its output without this script.
+
 Usage: hiero2sparrow.rb input.fnt [output.fnt]
 
 - The output parameter is optional. If omitted, the xml data overwrites the input file.

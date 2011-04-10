@@ -39,7 +39,9 @@ root_element = xml_doc.add_element "font"
 current_parent = root_element
 pages_parent = nil
 chars_parent = nil
+kernings_parent = nil
 num_chars = 0
+num_kernings = 0
 
 puts "Parsing #{input_file_path} ..."
 
@@ -51,7 +53,7 @@ IO.foreach(input_file_path) do |line|
   line_parts = line.split /\s+/    
   element_name = line_parts.shift  
 
-  next if element_name == "chars"  
+  next if element_name == "chars" || element_name == "kernings"
   
   if element_name == "page"
     pages_parent ||= root_element.add_element "pages"
@@ -60,6 +62,10 @@ IO.foreach(input_file_path) do |line|
     chars_parent ||= root_element.add_element "chars"
     current_parent = chars_parent
     num_chars += 1
+  elsif element_name == "kerning"
+    kernings_parent ||= root_element.add_element "kernings"
+    current_parent = kernings_parent
+    num_kernings += 1
   end
   
   current_element = current_parent.add_element element_name
@@ -72,6 +78,7 @@ IO.foreach(input_file_path) do |line|
 end
 
 chars_parent.attributes["count"] = num_chars
+kernings_parent.attributes["count"] = num_kernings unless kernings_parent.nil?
 
 puts "Saving output to #{output_file_path} ..."
 

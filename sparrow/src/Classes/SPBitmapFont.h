@@ -76,7 +76,7 @@
 - (SPDisplayObject *)createDisplayObjectWithWidth:(float)width height:(float)height
                                              text:(NSString *)text fontSize:(float)size color:(uint)color 
                                            hAlign:(SPHAlign)hAlign vAlign:(SPVAlign)vAlign
-                                           border:(BOOL)border;
+                                           border:(BOOL)border kerning:(BOOL)kerning;
 
 /// ----------------
 /// @name Properties
