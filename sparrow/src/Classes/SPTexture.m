@@ -207,7 +207,10 @@ enum PVRPixelType
             break;
         case OGL_RGBA_4444:
             properties.format = SPTextureFormat4444;
-            break;            
+            break;
+        case OGL_RGBA_8888:
+            properties.format = SPTextureFormatRGBA;
+            break;
         case OGL_PVRTC2:
             properties.format = hasAlpha ? SPTextureFormatPvrtcRGBA2 : SPTextureFormatPvrtcRGB2;
             break;
