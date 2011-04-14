@@ -43,6 +43,9 @@
 /// Converts color and alpha into the format needed by OpenGL. Premultiplies alpha depending on state.
 - (uint)convertColor:(uint)color alpha:(float)alpha;
 
+/// Resets texture binding and alpha settings.
+- (void)reset;
+
 /// Converts color and alpha into the format needed by OpenGL, optionally premultiplying alpha values.
 + (uint)convertColor:(uint)color alpha:(float)alpha premultiplyAlpha:(BOOL)pma;
 

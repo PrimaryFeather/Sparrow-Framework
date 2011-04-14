@@ -141,7 +141,7 @@
     glBindFramebufferOES(GL_FRAMEBUFFER_OES, mFramebuffer);
     glViewport(0, 0, mWidth, mHeight);
     
-    [mRenderSupport bindTexture:nil]; // old textures could have become invalid
+    [mRenderSupport reset];
     [mStage render:mRenderSupport];
     
     glBindRenderbufferOES(GL_RENDERBUFFER_OES, mRenderbuffer);

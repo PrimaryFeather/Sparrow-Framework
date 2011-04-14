@@ -26,11 +26,16 @@
 {
     if ((self = [super init]))
     {
-        mBoundTextureID = UINT_MAX;
-        mPremultipliedAlpha = YES;
-        [self bindTexture:nil];        
+        [self reset];
     }
     return self;
+}
+
+- (void)reset
+{
+    mBoundTextureID = UINT_MAX;
+    mPremultipliedAlpha = YES;
+    [self bindTexture:nil];
 }
 
 - (void)bindTexture:(SPTexture *)texture

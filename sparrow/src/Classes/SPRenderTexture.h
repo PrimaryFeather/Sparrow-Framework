@@ -45,6 +45,11 @@ typedef void (^SPDrawingBlock)();
 	     }             
 	 }]; 
 
+ One thing you should be aware of is that calling any of this class' drawing methods from within
+ a `render:` method of an `SPDisplayObject` may lead to problems with texture bindings. To
+ circumvent this, either move your drawing code into an enter frame event listener or call the
+ `reset` method of `SPRenderSupport` after the drawing calls. 
+ 
 ------------------------------------------------------------------------------------------------- */
 
 @interface SPRenderTexture : SPTexture 

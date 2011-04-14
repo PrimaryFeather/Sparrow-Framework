@@ -126,7 +126,7 @@
                                                      bottom:0 top:mTexture.height];
         
         // reset texture binding
-        [mRenderSupport bindTexture:nil];
+        [mRenderSupport reset];
     }    
    
     block();
