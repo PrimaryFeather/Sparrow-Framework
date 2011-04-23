@@ -64,10 +64,31 @@ typedef void (^SPTextureDrawingBlock)(CGContextRef context);
 	        [string drawAtPoint:CGPointMake(20.0f, 20.0f) 
                        withFont:[UIFont fontWithName:@"Arial" size:25]];
 	    }];
+
+ *Texture Frame*
+ 
+ The frame property of a texture allows you to define the position where the texture will appear 
+ within an `SPImage`. The rectangle is specified in the coordinate system of the texture:
+ 
+	texture.frame = [SPRectangle rectangleWithX:-10 y:-10 width:30 height:30];
+	SPImage *image = [SPImage imageWithTexture:texture];
+ 
+ This code would create an image with a size of 30x30, with the texture placed at x=10, y=10 within 
+ that image (assuming that the texture has a width and height of 10 pixels, it would appear in the
+ middle of the image). This is especially useful when a texture has transparent areas at its sides. 
+ It is then possible to crop the texture (removing the transparent edges) and make up for that 
+ by specifying a frame. 
+ 
+ The texture class itself does not make any use of the frame data. It's up to classes that use
+ `SPTexture` to support that feature.
  
 ------------------------------------------------------------------------------------------------- */
 
 @interface SPTexture : NSObject
+{
+  @private 
+    SPRectangle *mFrame;
+}
 
 /// ------------------
 /// @name Initializers
@@ -129,5 +150,8 @@ typedef void (^SPTextureDrawingBlock)(CGContextRef context);
 
 /// The scale factor, which influences `width` and `height` properties.
 @property (nonatomic, readonly) float scale;
+
+/// The frame indicates how the texture should be displayed within an image. (Default: `nil`)
+@property (nonatomic, copy) SPRectangle *frame;
 
 @end

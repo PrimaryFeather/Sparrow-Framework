@@ -104,6 +104,13 @@
     for (int i=0; i<4; ++i)
         colors[i] = [support convertColor:mVertexColors[i] alpha:alpha];    
     
+    SPRectangle *frame = mTexture.frame;
+    if (frame)
+    {               
+        glTranslatef(-frame.x, -frame.y, 0.0f);
+        glScalef(mTexture.width / frame.width, mTexture.height / frame.height, 1.0f);        
+    }
+    
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);    
     glEnableClientState(GL_VERTEX_ARRAY);
     glEnableClientState(GL_COLOR_ARRAY);    

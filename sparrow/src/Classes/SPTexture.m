@@ -63,6 +63,8 @@ enum PVRPixelType
 
 @implementation SPTexture
 
+@synthesize frame = mFrame;
+
 - (id)init
 {    
     if ([self isMemberOfClass:[SPTexture class]]) 
@@ -248,6 +250,12 @@ enum PVRPixelType
     {
         return [[SPSubTexture alloc] initWithRegion:region ofTexture:texture];
     }
+}
+
+- (void)dealloc
+{
+    [mFrame release];
+    [super dealloc];
 }
 
 + (SPTexture *)emptyTexture

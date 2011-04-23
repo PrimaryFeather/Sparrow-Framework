@@ -35,6 +35,7 @@
     if ((self = [super init]))
     {
         mTextureRegions = [[NSMutableDictionary alloc] init];
+        mTextureFrames  = [[NSMutableDictionary alloc] init];
         mAtlasTexture = [texture retain];
         [self parseAtlasXml:path];
     }
@@ -90,13 +91,23 @@
     {
         float scale = mAtlasTexture.scale;
         
-        NSString *name = [attributeDict valueForKey:@"name"];
-        float x = [[attributeDict valueForKey:@"x"] floatValue] / scale;
-        float y = [[attributeDict valueForKey:@"y"] floatValue] / scale;
-        float width = [[attributeDict valueForKey:@"width"] floatValue] / scale;
-        float height = [[attributeDict valueForKey:@"height"] floatValue] / scale;
+        NSString *name = [attributeDict objectForKey:@"name"];
+        SPRectangle *frame = nil;
         
-        [self addRegion:[SPRectangle rectangleWithX:x y:y width:width height:height] withName:name];
+        float x = [[attributeDict objectForKey:@"x"] floatValue] / scale;
+        float y = [[attributeDict objectForKey:@"y"] floatValue] / scale;
+        float width = [[attributeDict objectForKey:@"width"] floatValue] / scale;
+        float height = [[attributeDict objectForKey:@"height"] floatValue] / scale;
+        float frameX = [[attributeDict objectForKey:@"frameX"] floatValue] / scale;
+        float frameY = [[attributeDict objectForKey:@"frameY"] floatValue] / scale;
+        float frameWidth = [[attributeDict objectForKey:@"frameWidth"] floatValue] / scale;
+        float frameHeight = [[attributeDict objectForKey:@"frameHeight"] floatValue] / scale;
+        
+        if (frameWidth && frameHeight)
+            frame = [SPRectangle rectangleWithX:frameX y:frameY width:frameWidth height:frameHeight];
+        
+        [self addRegion:[SPRectangle rectangleWithX:x y:y width:width height:height] 
+               withName:name frame:frame];
     }
     else if ([elementName isEqualToString:@"TextureAtlas"] && !mAtlasTexture)
     {
@@ -115,7 +126,10 @@
 {
     SPRectangle *region = [mTextureRegions objectForKey:name];
     if (!region) return nil;    
-    return [SPSubTexture textureWithRegion:region ofTexture:mAtlasTexture];    
+    
+    SPTexture *texture = [SPSubTexture textureWithRegion:region ofTexture:mAtlasTexture];
+    texture.frame = [mTextureFrames objectForKey:name];
+    return texture;
 }
 
 - (NSArray *)texturesStartingWith:(NSString *)name
@@ -139,12 +153,19 @@
 
 - (void)addRegion:(SPRectangle *)region withName:(NSString *)name
 {
-    [mTextureRegions setObject:region forKey:name];
+    [self addRegion:region withName:name frame:nil];
+}
+
+- (void)addRegion:(SPRectangle *)region withName:(NSString *)name frame:(SPRectangle *)frame
+{
+    [mTextureRegions setObject:region forKey:name];    
+    if (frame) [mTextureFrames setObject:frame forKey:name];
 }
 
 - (void)removeRegion:(NSString *)name
 {
     [mTextureRegions removeObjectForKey:name];
+    [mTextureFrames  removeObjectForKey:name];
 }
 
 + (SPTextureAtlas *)atlasWithContentsOfFile:(NSString *)path
@@ -156,6 +177,7 @@
 {
     [mAtlasTexture release];
     [mTextureRegions release];
+    [mTextureFrames release];
     [super dealloc];
 }
 

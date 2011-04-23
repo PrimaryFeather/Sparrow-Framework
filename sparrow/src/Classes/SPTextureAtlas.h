@@ -43,9 +43,16 @@
  Whatever tool you use, Sparrow expects the following file format:
 
 	<TextureAtlas imagePath='atlas.png'>
-	  <SubTexture name='texture_1' x='0'  y='0' height='50' width='50'/>
-	  <SubTexture name='texture_2' x='50' y='0' height='30' width='20'/> 
+	  <SubTexture name='texture_1' x='0'  y='0' width='50' height='50'/>
+	  <SubTexture name='texture_2' x='50' y='0' width='20' height='30'/> 
 	</TextureAtlas>
+ 
+ If your images have transparent areas at their edges, you can make use of the `frame` property
+ of `SPTexture`. Trim the texture by removing the transparent edges and specify the original 
+ texture size like this:
+
+	<SubTexture name='trimmed' x='0' y='0' height='10' width='10'
+	            frameX='-10' frameY='-10' frameWidth='30' frameHeight='30'/>
  
 ------------------------------------------------------------------------------------------------- */
 
@@ -58,6 +65,7 @@
   @private
     SPTexture *mAtlasTexture;
     NSMutableDictionary *mTextureRegions;
+    NSMutableDictionary *mTextureFrames;
 }
 
 /// ------------------
@@ -89,6 +97,9 @@
 
 /// Creates a region for a subtexture and gives it a name.
 - (void)addRegion:(SPRectangle *)region withName:(NSString *)name;
+
+/// Creates a region for a subtexture with a frame and gives it a name.
+- (void)addRegion:(SPRectangle *)region withName:(NSString *)name frame:(SPRectangle *)frame;
 
 /// Removes a region with a certain name.
 - (void)removeRegion:(NSString *)name;
