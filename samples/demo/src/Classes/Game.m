@@ -7,7 +7,7 @@
 //
 
 #import "Game.h"
-#import "AtlasScene.h"
+#import "TextureScene.h"
 #import "TouchScene.h"
 #import "TextScene.h"
 #import "AnimationScene.h"
@@ -52,10 +52,10 @@
         
         // add scene buttons
         
-        SPButton *atlasButton = [SPButton buttonWithUpState:sceneButtonTexture text:@"Texture Atlas"];
-        [atlasButton addEventListener:@selector(onAtlasButtonTriggered:) atObject:self 
-                              forType:SP_EVENT_TYPE_TRIGGERED];
-        [self addSceneButton:atlasButton];
+        SPButton *textureButton = [SPButton buttonWithUpState:sceneButtonTexture text:@"Textures"];
+        [textureButton addEventListener:@selector(onTextureButtonTriggered:) atObject:self 
+                                forType:SP_EVENT_TYPE_TRIGGERED];
+        [self addSceneButton:textureButton];
         
         SPButton *touchButton = [SPButton buttonWithUpState:sceneButtonTexture text:@"Multitouch"];
         [touchButton addEventListener:@selector(onTouchButtonTriggered:) atObject:self
@@ -139,9 +139,9 @@
     mMainMenu.visible = YES;    
 }
 
-- (void)onAtlasButtonTriggered:(SPEvent *)event
+- (void)onTextureButtonTriggered:(SPEvent *)event
 {
-    SPSprite *scene = [[AtlasScene alloc] init];
+    SPSprite *scene = [[TextureScene alloc] init];
     [self showScene:scene];
     [scene release];    
 }

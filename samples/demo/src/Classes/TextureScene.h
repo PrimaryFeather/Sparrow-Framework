@@ -1,5 +1,5 @@
 //
-//  AtlasScene.h
+//  TextureScene.h
 //  Demo
 //
 //  Created by Daniel Sperl on 26.07.09.
@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "Sparrow.h"
 
-@interface AtlasScene : SPSprite 
+@interface TextureScene : SPSprite 
 
 @end

@@ -27,10 +27,25 @@
 
 @implementation NSString (SPNSExtensions)
 
+- (NSString *)fullPathExtension
+{
+    NSString *filename = [self lastPathComponent];
+    NSRange range = { .location = 1, .length = filename.length - 1 }; // ignore first letter -> '.hidden' files
+    uint dotLocation = [filename rangeOfString:@"." options:NSLiteralSearch range:range].location;
+    return dotLocation == NSNotFound ? @"" : [filename substringFromIndex:dotLocation + 1];
+}
+
+- (NSString *)stringByDeletingFullPathExtension
+{
+    NSString *base = self;
+    while (![base isEqualToString:(base = [base stringByDeletingPathExtension])]) {}
+    return base;
+}
+
 - (NSString *)stringByAppendingSuffixToFilename:(NSString *)suffix
 {
-    return [[self stringByDeletingPathExtension] stringByAppendingFormat:@"%@.%@", 
-                                                 suffix, [self pathExtension]];
+    return [[self stringByDeletingFullPathExtension] stringByAppendingFormat:@"%@.%@", 
+            suffix, [self fullPathExtension]];
 }
 
 @end

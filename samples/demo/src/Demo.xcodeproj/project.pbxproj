@@ -28,12 +28,19 @@
 		25C23B0011EC7FE200A25DF7 /* atlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 25C23AFE11EC7FE200A25DF7 /* atlas.png */; };
 		25C23B0111EC7FE200A25DF7 /* atlas.xml in Resources */ = {isa = PBXBuildFile; fileRef = 25C23AFF11EC7FE200A25DF7 /* atlas.xml */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
+		DE0240901381B87E008A91B9 /* logo_rect.pvr in Resources */ = {isa = PBXBuildFile; fileRef = DE02408F1381B87E008A91B9 /* logo_rect.pvr */; };
+		DE0240921381B891008A91B9 /* logo_rect@2x.pvr in Resources */ = {isa = PBXBuildFile; fileRef = DE0240911381B891008A91B9 /* logo_rect@2x.pvr */; };
+		DE0240941381B89B008A91B9 /* logo_rect.pvr.gz in Resources */ = {isa = PBXBuildFile; fileRef = DE0240931381B89B008A91B9 /* logo_rect.pvr.gz */; };
+		DE0240961381B8A4008A91B9 /* logo_rect@2x.pvr.gz in Resources */ = {isa = PBXBuildFile; fileRef = DE0240951381B8A4008A91B9 /* logo_rect@2x.pvr.gz */; };
+		DE0240981381B8E2008A91B9 /* logo_rect_tc.pvr in Resources */ = {isa = PBXBuildFile; fileRef = DE0240971381B8E2008A91B9 /* logo_rect_tc.pvr */; };
+		DE02409A1381B8FA008A91B9 /* logo_rect_tc@2x.pvr in Resources */ = {isa = PBXBuildFile; fileRef = DE0240991381B8FA008A91B9 /* logo_rect_tc@2x.pvr */; };
 		DE061A2A119D799900DFF25D /* MovieScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DE061A29119D799900DFF25D /* MovieScene.m */; };
 		DE0F755910641630004F2821 /* BenchmarkScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DE0F755810641630004F2821 /* BenchmarkScene.m */; };
 		DE18FE3711B0839E00D01F04 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE18FE3611B0839E00D01F04 /* AVFoundation.framework */; };
 		DE396AE8104055A100C27DDF /* CustomHitTestScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DE396AE7104055A100C27DDF /* CustomHitTestScene.m */; };
 		DE396AEB104056A500C27DDF /* RoundButton.m in Sources */ = {isa = PBXBuildFile; fileRef = DE396AEA104056A500C27DDF /* RoundButton.m */; };
-		DED0B719101C90CB008D3794 /* AtlasScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DED0B718101C90CB008D3794 /* AtlasScene.m */; };
+		DE5A7ED913805C4500C6CBBC /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DE5A7ED813805C4500C6CBBC /* libz.dylib */; };
+		DEB2D16B1380580800FA7B88 /* TextureScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DEB2D16A1380580800FA7B88 /* TextureScene.m */; };
 		DED0B7F0101CE0A9008D3794 /* TextScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DED0B7EF101CE0A9008D3794 /* TextScene.m */; };
 		DED6FF371041623A001FF6C8 /* AnimationScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DED6FF361041623A001FF6C8 /* AnimationScene.m */; };
 		DEDF882612ABED67005DEAE8 /* RenderTextureScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DEDF882512ABED67005DEAE8 /* RenderTextureScene.m */; };
@@ -109,6 +116,12 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* Demo_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Demo_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Demo-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Demo-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		DE02408F1381B87E008A91B9 /* logo_rect.pvr */ = {isa = PBXFileReference; lastKnownFileType = file; path = logo_rect.pvr; sourceTree = "<group>"; };
+		DE0240911381B891008A91B9 /* logo_rect@2x.pvr */ = {isa = PBXFileReference; lastKnownFileType = file; path = "logo_rect@2x.pvr"; sourceTree = "<group>"; };
+		DE0240931381B89B008A91B9 /* logo_rect.pvr.gz */ = {isa = PBXFileReference; lastKnownFileType = archive.gzip; path = logo_rect.pvr.gz; sourceTree = "<group>"; };
+		DE0240951381B8A4008A91B9 /* logo_rect@2x.pvr.gz */ = {isa = PBXFileReference; lastKnownFileType = archive.gzip; path = "logo_rect@2x.pvr.gz"; sourceTree = "<group>"; };
+		DE0240971381B8E2008A91B9 /* logo_rect_tc.pvr */ = {isa = PBXFileReference; lastKnownFileType = file; path = logo_rect_tc.pvr; sourceTree = "<group>"; };
+		DE0240991381B8FA008A91B9 /* logo_rect_tc@2x.pvr */ = {isa = PBXFileReference; lastKnownFileType = file; path = "logo_rect_tc@2x.pvr"; sourceTree = "<group>"; };
 		DE061A28119D799900DFF25D /* MovieScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieScene.h; sourceTree = "<group>"; };
 		DE061A29119D799900DFF25D /* MovieScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieScene.m; sourceTree = "<group>"; };
 		DE0F755710641630004F2821 /* BenchmarkScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BenchmarkScene.h; sourceTree = "<group>"; };
@@ -118,8 +131,9 @@
 		DE396AE7104055A100C27DDF /* CustomHitTestScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomHitTestScene.m; sourceTree = "<group>"; };
 		DE396AE9104056A500C27DDF /* RoundButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoundButton.h; sourceTree = "<group>"; };
 		DE396AEA104056A500C27DDF /* RoundButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoundButton.m; sourceTree = "<group>"; };
-		DED0B717101C90CB008D3794 /* AtlasScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtlasScene.h; sourceTree = "<group>"; };
-		DED0B718101C90CB008D3794 /* AtlasScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtlasScene.m; sourceTree = "<group>"; };
+		DE5A7ED813805C4500C6CBBC /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		DEB2D1691380580800FA7B88 /* TextureScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureScene.h; sourceTree = "<group>"; };
+		DEB2D16A1380580800FA7B88 /* TextureScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextureScene.m; sourceTree = "<group>"; };
 		DED0B7EE101CE0A9008D3794 /* TextScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextScene.h; sourceTree = "<group>"; };
 		DED0B7EF101CE0A9008D3794 /* TextScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextScene.m; sourceTree = "<group>"; };
 		DED6FF351041623A001FF6C8 /* AnimationScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationScene.h; sourceTree = "<group>"; };
@@ -157,6 +171,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE5A7ED913805C4500C6CBBC /* libz.dylib in Frameworks */,
 				DEF34CCC10F1C6180019136B /* libSparrow.a in Frameworks */,
 				DEF171F611B010E500A11DD7 /* CoreGraphics.framework in Frameworks */,
 				DEF171F811B010E500A11DD7 /* Foundation.framework in Frameworks */,
@@ -207,6 +222,9 @@
 				25C23A5911EC631500A25DF7 /* Default.png */,
 				25C23A5A11EC631500A25DF7 /* Icon.png */,
 				25C23A5B11EC631500A25DF7 /* logo.png */,
+				DE02408F1381B87E008A91B9 /* logo_rect.pvr */,
+				DE0240971381B8E2008A91B9 /* logo_rect_tc.pvr */,
+				DE0240931381B89B008A91B9 /* logo_rect.pvr.gz */,
 			);
 			name = 1x;
 			path = ../media/graphics/1x;
@@ -226,6 +244,9 @@
 				25C23A6811EC632400A25DF7 /* Default@2x.png */,
 				25C23A6911EC632400A25DF7 /* Icon@2x.png */,
 				25C23A6A11EC632400A25DF7 /* logo@2x.png */,
+				DE0240911381B891008A91B9 /* logo_rect@2x.pvr */,
+				DE0240991381B8FA008A91B9 /* logo_rect_tc@2x.pvr */,
+				DE0240951381B8A4008A91B9 /* logo_rect@2x.pvr.gz */,
 			);
 			name = 2x;
 			path = ../media/graphics/2x;
@@ -267,6 +288,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DE5A7ED813805C4500C6CBBC /* libz.dylib */,
 				DEF1721711B0110200A11DD7 /* AudioToolbox.framework */,
 				DEF171F511B010E500A11DD7 /* CoreGraphics.framework */,
 				DEF171F711B010E500A11DD7 /* Foundation.framework */,
@@ -282,10 +304,10 @@
 		DE396AE41040555100C27DDF /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				DEB2D1691380580800FA7B88 /* TextureScene.h */,
+				DEB2D16A1380580800FA7B88 /* TextureScene.m */,
 				DEFE4CEC101B684B00E22471 /* TouchScene.h */,
 				DEFE4CED101B684B00E22471 /* TouchScene.m */,
-				DED0B717101C90CB008D3794 /* AtlasScene.h */,
-				DED0B718101C90CB008D3794 /* AtlasScene.m */,
 				DED0B7EE101CE0A9008D3794 /* TextScene.h */,
 				DED0B7EF101CE0A9008D3794 /* TextScene.m */,
 				DE396AE6104055A100C27DDF /* CustomHitTestScene.h */,
@@ -445,6 +467,12 @@
 				DEE11FA11351D94A0030CB62 /* brush.png in Resources */,
 				DEE11FA41351D95A0030CB62 /* brush@2x.fnt in Resources */,
 				DEE11FA51351D95A0030CB62 /* brush@2x.png in Resources */,
+				DE0240901381B87E008A91B9 /* logo_rect.pvr in Resources */,
+				DE0240921381B891008A91B9 /* logo_rect@2x.pvr in Resources */,
+				DE0240941381B89B008A91B9 /* logo_rect.pvr.gz in Resources */,
+				DE0240961381B8A4008A91B9 /* logo_rect@2x.pvr.gz in Resources */,
+				DE0240981381B8E2008A91B9 /* logo_rect_tc.pvr in Resources */,
+				DE02409A1381B8FA008A91B9 /* logo_rect_tc@2x.pvr in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -460,7 +488,6 @@
 				DEFE4CF0101B684B00E22471 /* Game.m in Sources */,
 				DEFE4CF1101B684B00E22471 /* TouchScene.m in Sources */,
 				DEFE4CF2101B684B00E22471 /* TouchSheet.m in Sources */,
-				DED0B719101C90CB008D3794 /* AtlasScene.m in Sources */,
 				DED0B7F0101CE0A9008D3794 /* TextScene.m in Sources */,
 				DE396AE8104055A100C27DDF /* CustomHitTestScene.m in Sources */,
 				DE396AEB104056A500C27DDF /* RoundButton.m in Sources */,
@@ -469,6 +496,7 @@
 				DE061A2A119D799900DFF25D /* MovieScene.m in Sources */,
 				DEF1726911B017AA00A11DD7 /* SoundScene.m in Sources */,
 				DEDF882612ABED67005DEAE8 /* RenderTextureScene.m in Sources */,
+				DEB2D16B1380580800FA7B88 /* TextureScene.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -486,39 +514,14 @@
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = YES;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Demo_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
-				GCC_THUMB_SUPPORT = NO;
-				INFOPLIST_FILE = "Demo-Info.plist";
-				PRODUCT_NAME = Demo;
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 			};
 			name = Debug;
 		};
 		1D6058950D05DD3E006BFB54 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = YES;
-				DEAD_CODE_STRIPPING = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Demo_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
-				GCC_THUMB_SUPPORT = NO;
-				INFOPLIST_FILE = "Demo-Info.plist";
-				"New Setting" = "";
-				PRODUCT_NAME = Demo;
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 			};
 			name = Release;
 		};
@@ -526,17 +529,26 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_DYNAMIC_NO_PIC = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Demo_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "Demo-Info.plist";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
 				);
 				PREBINDING = NO;
+				PRODUCT_NAME = Demo;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "../../../sparrow/src/**";
 			};
@@ -546,17 +558,24 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_DYNAMIC_NO_PIC = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Demo_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "Demo-Info.plist";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
 				);
 				PREBINDING = NO;
+				PRODUCT_NAME = Demo;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "../../../sparrow/src/**";
 			};

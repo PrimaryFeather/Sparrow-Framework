@@ -68,12 +68,12 @@
 
 - (void)parseFontXml:(NSString*)path
 {
-    SP_CREATE_POOL(pool);
-    
     [mChars release];    
     mChars = [[NSMutableDictionary alloc] init];
     
     if (!path) return;
+    
+    SP_CREATE_POOL(pool);
     
     float scale = [SPStage contentScaleFactor];
     NSString *fullPath = [[NSBundle appBundle] pathForResource:path withScaleFactor:scale];
