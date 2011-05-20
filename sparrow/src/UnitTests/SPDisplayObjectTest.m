@@ -242,6 +242,54 @@
     STAssertEqualsWithAccuracy(SP_D2R(-10.0f), quad.rotation, E, @"wrong angle");
 }
 
+- (void)testPivotPoint
+{
+    float width = 100.0f;
+    float height = 150.0f;
+    
+    // a quad with a pivot point should behave exactly as a quad without 
+    // pivot point inside a sprite
+    
+    SPSprite *sprite = [SPSprite sprite];
+    SPQuad *innerQuad = [SPQuad quadWithWidth:width height:height];
+    [sprite addChild:innerQuad];
+    
+    SPQuad *quad = [SPQuad quadWithWidth:width height:height];
+    
+    STAssertEqualObjects(sprite.bounds, quad.bounds, @"Bounds are not equal (no pivot)");
+   
+    innerQuad.x = -50;
+    quad.pivotX = 50;
+    
+    innerQuad.y = -20;
+    quad.pivotY = 20;
+    
+    STAssertEqualObjects(sprite.bounds, quad.bounds, @"Bounds are not equal (pivot)");
+    
+    sprite.rotation = SP_D2R(45);
+    quad.rotation = SP_D2R(45);
+    
+    STAssertEqualObjects(sprite.bounds, quad.bounds, @"Bounds are not equal (pivot, rotation)");
+
+    sprite.scaleX = 1.5f;
+    quad.scaleX = 1.5f;
+    
+    STAssertEqualObjects(sprite.bounds, quad.bounds, @"Bounds are not equal (pivot, scaleX");
+    
+    sprite.scaleY = 0.6f;
+    quad.scaleY = 0.6f;
+    
+    STAssertEqualObjects(sprite.bounds, quad.bounds, @"Bounds are not equal (pivot, scaleY");
+
+    sprite.x = 5.0f;
+    sprite.y = 20.0f;
+    
+    quad.x = 5.0f;
+    quad.y = 20.0f;
+    
+    STAssertEqualObjects(sprite.bounds, quad.bounds, @"Bounds are not equal (pivot, translation");
+}
+ 
 - (void)testName
 {
     SPSprite *sprite = [SPSprite sprite];

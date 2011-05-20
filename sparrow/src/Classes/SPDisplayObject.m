@@ -22,6 +22,8 @@
 
 @synthesize x = mX;
 @synthesize y = mY;
+@synthesize pivotX = mPivotX;
+@synthesize pivotY = mPivotY;
 @synthesize scaleX = mScaleX;
 @synthesize scaleY = mScaleY;
 @synthesize rotation = mRotationZ;
@@ -290,6 +292,7 @@
 {
     SPMatrix *matrix = [[SPMatrix alloc] init];
     
+    if (mPivotX != 0.0f || mPivotY != 0.0f) [matrix translateXBy:-mPivotX yBy:-mPivotY];
     if (mScaleX != 1.0f || mScaleY != 1.0f) [matrix scaleXBy:mScaleX yBy:mScaleY];
     if (mRotationZ != 0.0f)                 [matrix rotateBy:mRotationZ];
     if (mX != 0.0f || mY != 0.0f)           [matrix translateXBy:mX yBy:mY];

@@ -63,7 +63,6 @@
 		DE61138C134F8FA600AB742E /* SPTexture.h in Headers */ = {isa = PBXBuildFile; fileRef = DE0853F80FEC2CFF00DAF53C /* SPTexture.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DE61138D134F8FA600AB742E /* SPGLTexture.h in Headers */ = {isa = PBXBuildFile; fileRef = DECF84310FF649D50026A4ED /* SPGLTexture.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DE61138E134F8FA600AB742E /* SPSubTexture.h in Headers */ = {isa = PBXBuildFile; fileRef = DECF84B90FF681BA0026A4ED /* SPSubTexture.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DE61138F134F8FA600AB742E /* SPTextureAtlas.h in Headers */ = {isa = PBXBuildFile; fileRef = DECF84260FF619150026A4ED /* SPTextureAtlas.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DE611390134F8FBD00AB742E /* SPTweenedProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = DEED1737108A50000071438F /* SPTweenedProperty.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DE611391134F8FBD00AB742E /* SPAnimatable.h in Headers */ = {isa = PBXBuildFile; fileRef = DE70442A0FB618AE007F5ECC /* SPAnimatable.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DE611392134F8FBD00AB742E /* SPJuggler.h in Headers */ = {isa = PBXBuildFile; fileRef = DE7044260FB61506007F5ECC /* SPJuggler.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -77,6 +76,8 @@
 		DE61139A134F8FBD00AB742E /* SPNSExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = DE68EA150FBB5660004DBC95 /* SPNSExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DE61139B134F8FBD00AB742E /* SPPoolObject.h in Headers */ = {isa = PBXBuildFile; fileRef = DED9B51B10629D9F00989853 /* SPPoolObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DE61139C134F8FD400AB742E /* Sparrow.h in Headers */ = {isa = PBXBuildFile; fileRef = DEEA9402101E44F10071DD21 /* Sparrow.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DEC734811386BC1400234D95 /* SPTextureAtlas.h in Headers */ = {isa = PBXBuildFile; fileRef = DECF84260FF619150026A4ED /* SPTextureAtlas.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DEC734AA1386C02600234D95 /* SPTextureAtlas.m in Sources */ = {isa = PBXBuildFile; fileRef = DECF84270FF619150026A4ED /* SPTextureAtlas.m */; };
 		DED8B48711B0827E00A1766C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		DED8B48811B0827E00A1766C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE9CF1EB0FED3128008A32FF /* CoreGraphics.framework */; };
 		DED8B48911B0827E00A1766C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD15070DC6FC5B0079059D /* QuartzCore.framework */; };
@@ -128,7 +129,6 @@
 		DEFE4BE2101B31DF00E22471 /* SPMatrix.m in Sources */ = {isa = PBXBuildFile; fileRef = DE469D260F9386FD00F56E91 /* SPMatrix.m */; };
 		DEFE4BE3101B31DF00E22471 /* SPPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = DE469D280F9386FD00F56E91 /* SPPoint.m */; };
 		DEFE4BE4101B31DF00E22471 /* SPRectangle.m in Sources */ = {isa = PBXBuildFile; fileRef = DE469D2A0F9386FD00F56E91 /* SPRectangle.m */; };
-		DEFE4BE6101B31DF00E22471 /* SPTextureAtlas.m in Sources */ = {isa = PBXBuildFile; fileRef = DECF84270FF619150026A4ED /* SPTextureAtlas.m */; };
 		DEFE4C38101B5FB100E22471 /* SPRendering.m in Sources */ = {isa = PBXBuildFile; fileRef = DE9CF1BC0FED2678008A32FF /* SPRendering.m */; };
 		DEFE4C3A101B5FB100E22471 /* SPTouchProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = DEDCD3AD0FADEE280022011C /* SPTouchProcessor.m */; };
 /* End PBXBuildFile section */
@@ -274,6 +274,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DEEA934E101E33F00071DD21 /* libSparrow.a in Frameworks */,
+				DE02408D13819FAD008A91B9 /* libz.dylib in Frameworks */,
 				DEEA933A101E32E10071DD21 /* CoreGraphics.framework in Frameworks */,
 				DEEA933B101E32E10071DD21 /* Foundation.framework in Frameworks */,
 				DEEA933C101E32E10071DD21 /* OpenGLES.framework in Frameworks */,
@@ -282,7 +283,6 @@
 				DEEDE3A111B29908009FD4C8 /* OpenAL.framework in Frameworks */,
 				DEEDE3A211B29908009FD4C8 /* AVFoundation.framework in Frameworks */,
 				DEEDE3A311B29909009FD4C8 /* AudioToolbox.framework in Frameworks */,
-				DE02408D13819FAD008A91B9 /* libz.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -624,7 +624,6 @@
 				DE61138C134F8FA600AB742E /* SPTexture.h in Headers */,
 				DE61138D134F8FA600AB742E /* SPGLTexture.h in Headers */,
 				DE61138E134F8FA600AB742E /* SPSubTexture.h in Headers */,
-				DE61138F134F8FA600AB742E /* SPTextureAtlas.h in Headers */,
 				DE611390134F8FBD00AB742E /* SPTweenedProperty.h in Headers */,
 				DE611391134F8FBD00AB742E /* SPAnimatable.h in Headers */,
 				DE611392134F8FBD00AB742E /* SPJuggler.h in Headers */,
@@ -638,6 +637,7 @@
 				DE61139A134F8FBD00AB742E /* SPNSExtensions.h in Headers */,
 				DE61139B134F8FBD00AB742E /* SPPoolObject.h in Headers */,
 				DE61139C134F8FD400AB742E /* Sparrow.h in Headers */,
+				DEC734811386BC1400234D95 /* SPTextureAtlas.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -748,7 +748,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DEFE4BE6101B31DF00E22471 /* SPTextureAtlas.m in Sources */,
+				DEC734AA1386C02600234D95 /* SPTextureAtlas.m in Sources */,
 				DEFE4C38101B5FB100E22471 /* SPRendering.m in Sources */,
 				DEFE4C3A101B5FB100E22471 /* SPTouchProcessor.m in Sources */,
 				DEFE4BE2101B31DF00E22471 /* SPMatrix.m in Sources */,
@@ -811,15 +811,16 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_DYNAMIC_NO_PIC = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
@@ -831,13 +832,11 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_DYNAMIC_NO_PIC = YES;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
 				PREBINDING = NO;
-				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
@@ -846,13 +845,8 @@
 		DEEA9337101E32A40071DD21 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
-				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = "UnitTests-Info.plist";
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -864,7 +858,6 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = UnitTest;
 				WRAPPER_EXTENSION = octest;
 			};
@@ -873,12 +866,8 @@
 		DEEA9338101E32A40071DD21 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				INFOPLIST_FILE = "UnitTests-Info.plist";
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -890,24 +879,15 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = UnitTest;
 				WRAPPER_EXTENSION = octest;
-				ZERO_LINK = NO;
 			};
 			name = Release;
 		};
 		DEFE4BC3101B317700E22471 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Daniel Sperl";
-				COPY_PHASE_STRIP = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
-				GCC_THUMB_SUPPORT = NO;
-				GCC_WARN_PEDANTIC = NO;
-				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
 				PRODUCT_NAME = Sparrow;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8F2B7F7C-97B8-4A99-B7EE-104D609292F6";
@@ -917,19 +897,11 @@
 		DEFE4BC4101B317700E22471 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_PREPROCESSOR_DEFINITIONS = "";
-				GCC_THUMB_SUPPORT = NO;
-				GCC_WARN_PEDANTIC = NO;
-				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
 				PRODUCT_NAME = Sparrow;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				ZERO_LINK = NO;
 			};
 			name = Release;
 		};
