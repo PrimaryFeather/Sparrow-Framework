@@ -55,7 +55,7 @@
     [mObjects removeObject:object];
 }
 
-- (void)removeAllObjects;
+- (void)removeAllObjects
 {
     [mObjects removeAllObjects];
 }

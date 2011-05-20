@@ -75,7 +75,7 @@ static NSMutableDictionary *bitmapFonts = nil;
     return self;
 } 
 
-- (id)initWithWidth:(float)width height:(float)height text:(NSString*)text;
+- (id)initWithWidth:(float)width height:(float)height text:(NSString*)text
 {
     return [self initWithWidth:width height:height text:text fontName:SP_DEFAULT_FONT_NAME
                      fontSize:SP_DEFAULT_FONT_SIZE color:SP_DEFAULT_FONT_COLOR];   

@@ -41,7 +41,7 @@
 
 #define MAX_DRAG_DIST 40
 
-- (id)initWithUpState:(SPTexture*)upState downState:(SPTexture*)downState;
+- (id)initWithUpState:(SPTexture*)upState downState:(SPTexture*)downState
 {
     if ((self = [super init]))
     {
@@ -70,7 +70,7 @@
     return self;
 }
 
-- (id)initWithUpState:(SPTexture*)upState;
+- (id)initWithUpState:(SPTexture*)upState
 {
     self = [self initWithUpState:upState downState:upState];
     mScaleWhenDown = 0.9f;

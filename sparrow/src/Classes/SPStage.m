@@ -75,7 +75,7 @@ static NSMutableArray *stages = NULL;
     [mTouchProcessor processTouches:touches];
 }
 
-- (SPDisplayObject*)hitTestPoint:(SPPoint*)localPoint forTouch:(BOOL)isTouch;
+- (SPDisplayObject*)hitTestPoint:(SPPoint*)localPoint forTouch:(BOOL)isTouch
 {
     if (isTouch && (!self.visible || !self.touchable)) 
         return nil;

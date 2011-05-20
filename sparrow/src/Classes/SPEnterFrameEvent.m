@@ -25,7 +25,7 @@
     return self;    
 }
 
-- (id)initWithType:(NSString*)type passedTime:(double)seconds;
+- (id)initWithType:(NSString*)type passedTime:(double)seconds
 {
     return [self initWithType:type bubbles:NO passedTime:seconds];
 }

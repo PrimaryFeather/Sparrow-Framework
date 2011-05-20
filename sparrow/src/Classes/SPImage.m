@@ -18,7 +18,7 @@
 
 @synthesize texture = mTexture;
 
-- (id)initWithTexture:(SPTexture*)texture;
+- (id)initWithTexture:(SPTexture*)texture
 {
     if (!texture) [NSException raise:SP_EXC_INVALID_OPERATION format:@"texture cannot be nil!"];
     

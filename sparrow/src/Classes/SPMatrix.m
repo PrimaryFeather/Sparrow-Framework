@@ -148,7 +148,7 @@ static void setValues(SPMatrix *matrix, float a, float b, float c, float d, floa
 
 #pragma mark NSCopying
 
-- (id)copyWithZone:(NSZone*)zone;
+- (id)copyWithZone:(NSZone*)zone
 {
     return [[[self class] allocWithZone:zone] initWithA:mA b:mB c:mC d:mD 
                                                      tx:mTx ty:mTy];

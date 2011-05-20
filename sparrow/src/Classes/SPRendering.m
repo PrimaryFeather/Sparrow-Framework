@@ -24,7 +24,7 @@
 
 @implementation SPStage (Rendering)
 
-- (void)render:(SPRenderSupport *)support;
+- (void)render:(SPRenderSupport *)support
 {
     [SPRenderSupport clearWithColor:mColor alpha:1.0f];
     [SPRenderSupport setupOrthographicRenderingWithLeft:0 right:mWidth bottom:mHeight top:0];    
@@ -40,7 +40,7 @@
 
 @implementation SPDisplayObjectContainer (Rendering)
 
-- (void)render:(SPRenderSupport *)support;
+- (void)render:(SPRenderSupport *)support
 {    
     float alpha = self.alpha;
     
@@ -92,7 +92,7 @@
 
 @implementation SPImage (Rendering)
 
-- (void)render:(SPRenderSupport *)support;
+- (void)render:(SPRenderSupport *)support
 {    
     static float texCoords[8];     
     static uint colors[4];

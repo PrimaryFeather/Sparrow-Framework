@@ -35,6 +35,7 @@
 		DE0240981381B8E2008A91B9 /* logo_rect_tc.pvr in Resources */ = {isa = PBXBuildFile; fileRef = DE0240971381B8E2008A91B9 /* logo_rect_tc.pvr */; };
 		DE02409A1381B8FA008A91B9 /* logo_rect_tc@2x.pvr in Resources */ = {isa = PBXBuildFile; fileRef = DE0240991381B8FA008A91B9 /* logo_rect_tc@2x.pvr */; };
 		DE061A2A119D799900DFF25D /* MovieScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DE061A29119D799900DFF25D /* MovieScene.m */; };
+		DE08354913869D9A00023C9E /* libSparrow.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE08354813869D9A00023C9E /* libSparrow.a */; };
 		DE0F755910641630004F2821 /* BenchmarkScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DE0F755810641630004F2821 /* BenchmarkScene.m */; };
 		DE18FE3711B0839E00D01F04 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE18FE3611B0839E00D01F04 /* AVFoundation.framework */; };
 		DE396AE8104055A100C27DDF /* CustomHitTestScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DE396AE7104055A100C27DDF /* CustomHitTestScene.m */; };
@@ -60,30 +61,29 @@
 		DEF1720011B010E500A11DD7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEF171FF11B010E500A11DD7 /* UIKit.framework */; };
 		DEF1721811B0110200A11DD7 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEF1721711B0110200A11DD7 /* AudioToolbox.framework */; };
 		DEF1726911B017AA00A11DD7 /* SoundScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DEF1726811B017AA00A11DD7 /* SoundScene.m */; };
-		DEF34CCC10F1C6180019136B /* libSparrow.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DEF34CB510F1C5D80019136B /* libSparrow.a */; };
 		DEFE4CF0101B684B00E22471 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFE4CEB101B684B00E22471 /* Game.m */; };
 		DEFE4CF1101B684B00E22471 /* TouchScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFE4CED101B684B00E22471 /* TouchScene.m */; };
 		DEFE4CF2101B684B00E22471 /* TouchSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFE4CEF101B684B00E22471 /* TouchSheet.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		DEF34CB410F1C5D80019136B /* PBXContainerItemProxy */ = {
+		DE08354113869D8100023C9E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = DEFE4D07101B6B3500E22471 /* Sparrow.xcodeproj */;
+			containerPortal = DE08353913869D8100023C9E /* Sparrow.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = DEFE4BC2101B317600E22471;
 			remoteInfo = Sparrow;
 		};
-		DEF34CB610F1C5D80019136B /* PBXContainerItemProxy */ = {
+		DE08354313869D8100023C9E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = DEFE4D07101B6B3500E22471 /* Sparrow.xcodeproj */;
+			containerPortal = DE08353913869D8100023C9E /* Sparrow.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = DEEA9335101E32A30071DD21;
 			remoteInfo = UnitTests;
 		};
-		DEF34CCA10F1C60B0019136B /* PBXContainerItemProxy */ = {
+		DE08354613869D9400023C9E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = DEFE4D07101B6B3500E22471 /* Sparrow.xcodeproj */;
+			containerPortal = DE08353913869D8100023C9E /* Sparrow.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = DEFE4BC1101B317600E22471;
 			remoteInfo = Sparrow;
@@ -124,6 +124,8 @@
 		DE0240991381B8FA008A91B9 /* logo_rect_tc@2x.pvr */ = {isa = PBXFileReference; lastKnownFileType = file; path = "logo_rect_tc@2x.pvr"; sourceTree = "<group>"; };
 		DE061A28119D799900DFF25D /* MovieScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieScene.h; sourceTree = "<group>"; };
 		DE061A29119D799900DFF25D /* MovieScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieScene.m; sourceTree = "<group>"; };
+		DE08353913869D8100023C9E /* Sparrow.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Sparrow.xcodeproj; path = ../../../sparrow/src/Sparrow.xcodeproj; sourceTree = "<group>"; };
+		DE08354813869D9A00023C9E /* libSparrow.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libSparrow.a; sourceTree = SOURCE_ROOT; };
 		DE0F755710641630004F2821 /* BenchmarkScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BenchmarkScene.h; sourceTree = "<group>"; };
 		DE0F755810641630004F2821 /* BenchmarkScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BenchmarkScene.m; sourceTree = "<group>"; };
 		DE18FE3611B0839E00D01F04 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -163,7 +165,6 @@
 		DEFE4CED101B684B00E22471 /* TouchScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouchScene.m; sourceTree = "<group>"; };
 		DEFE4CEE101B684B00E22471 /* TouchSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchSheet.h; sourceTree = "<group>"; };
 		DEFE4CEF101B684B00E22471 /* TouchSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouchSheet.m; sourceTree = "<group>"; };
-		DEFE4D07101B6B3500E22471 /* Sparrow.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Sparrow.xcodeproj; path = ../../../sparrow/src/Sparrow.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,8 +172,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE08354913869D9A00023C9E /* libSparrow.a in Frameworks */,
 				DE5A7ED913805C4500C6CBBC /* libz.dylib in Frameworks */,
-				DEF34CCC10F1C6180019136B /* libSparrow.a in Frameworks */,
 				DEF171F611B010E500A11DD7 /* CoreGraphics.framework in Frameworks */,
 				DEF171F811B010E500A11DD7 /* Foundation.framework in Frameworks */,
 				DEF171FA11B010E500A11DD7 /* OpenAL.framework in Frameworks */,
@@ -255,7 +256,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				DEFE4D07101B6B3500E22471 /* Sparrow.xcodeproj */,
+				DE08353913869D8100023C9E /* Sparrow.xcodeproj */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -288,6 +289,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DE08354813869D9A00023C9E /* libSparrow.a */,
 				DE5A7ED813805C4500C6CBBC /* libz.dylib */,
 				DEF1721711B0110200A11DD7 /* AudioToolbox.framework */,
 				DEF171F511B010E500A11DD7 /* CoreGraphics.framework */,
@@ -299,6 +301,15 @@
 				DE18FE3611B0839E00D01F04 /* AVFoundation.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DE08353A13869D8100023C9E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DE08354213869D8100023C9E /* libSparrow.a */,
+				DE08354413869D8100023C9E /* UnitTest.octest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		DE396AE41040555100C27DDF /* Scenes */ = {
@@ -358,15 +369,6 @@
 			path = ../media/audio;
 			sourceTree = SOURCE_ROOT;
 		};
-		DEF34CB010F1C5D80019136B /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				DEF34CB510F1C5D80019136B /* libSparrow.a */,
-				DEF34CB710F1C5D80019136B /* UnitTest.octest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -381,7 +383,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				DEF34CCB10F1C60B0019136B /* PBXTargetDependency */,
+				DE08354713869D9400023C9E /* PBXTargetDependency */,
 			);
 			name = Demo;
 			productName = Demo;
@@ -407,8 +409,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = DEF34CB010F1C5D80019136B /* Products */;
-					ProjectRef = DEFE4D07101B6B3500E22471 /* Sparrow.xcodeproj */;
+					ProductGroup = DE08353A13869D8100023C9E /* Products */;
+					ProjectRef = DE08353913869D8100023C9E /* Sparrow.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -419,18 +421,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		DEF34CB510F1C5D80019136B /* libSparrow.a */ = {
+		DE08354213869D8100023C9E /* libSparrow.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libSparrow.a;
-			remoteRef = DEF34CB410F1C5D80019136B /* PBXContainerItemProxy */;
+			remoteRef = DE08354113869D8100023C9E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		DEF34CB710F1C5D80019136B /* UnitTest.octest */ = {
+		DE08354413869D8100023C9E /* UnitTest.octest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = UnitTest.octest;
-			remoteRef = DEF34CB610F1C5D80019136B /* PBXContainerItemProxy */;
+			remoteRef = DE08354313869D8100023C9E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -503,10 +505,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		DEF34CCB10F1C60B0019136B /* PBXTargetDependency */ = {
+		DE08354713869D9400023C9E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Sparrow;
-			targetProxy = DEF34CCA10F1C60B0019136B /* PBXContainerItemProxy */;
+			targetProxy = DE08354613869D9400023C9E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -515,6 +517,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PREPROCESSOR_DEFINITIONS = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 			};
 			name = Debug;
 		};
@@ -522,6 +528,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PREPROCESSOR_DEFINITIONS = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 			};
 			name = Release;
 		};

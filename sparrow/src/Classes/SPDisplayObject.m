@@ -172,7 +172,7 @@
     return [self boundsInSpace:mParent];
 }
 
-- (SPDisplayObject*)hitTestPoint:(SPPoint*)localPoint forTouch:(BOOL)isTouch;
+- (SPDisplayObject*)hitTestPoint:(SPPoint*)localPoint forTouch:(BOOL)isTouch
 {
     // on a touch test, invisible or untouchable objects cause the test to fail
     if (isTouch && (!mVisible || !mTouchable)) return nil;
