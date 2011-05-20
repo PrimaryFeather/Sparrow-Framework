@@ -4,7 +4,6 @@
 .DS_Store
 
 # Xcode
-build/*
 *.pbxuser
 *.mode1v3
 *.mode2v3
@@ -12,3 +11,4 @@ build/*
 *.moved-aside
 xcuserdata
 profile
+build
