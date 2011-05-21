@@ -42,26 +42,41 @@
 
 - (SPRectangle*)boundsInSpace:(SPDisplayObject*)targetCoordinateSpace
 {
-    if (targetCoordinateSpace == self) // optimization
-        return [SPRectangle rectangleWithX:0 y:0 width:mVertexCoords[6] height:mVertexCoords[7]];
-    
-    SPMatrix *transformationMatrix = [self transformationMatrixToSpace:targetCoordinateSpace];
-    SPPoint *point = [[SPPoint alloc] init];
-    
     float minX = FLT_MAX, maxX = -FLT_MAX, minY = FLT_MAX, maxY = -FLT_MAX;
-    for (int i=0; i<4; ++i)
+    
+    if (targetCoordinateSpace == self) // optimization
     {
-        point.x = mVertexCoords[2*i];
-        point.y = mVertexCoords[2*i+1];
-        SPPoint *transformedPoint = [transformationMatrix transformPoint:point];
-        float tfX = transformedPoint.x; 
-        float tfY = transformedPoint.y;
-        minX = MIN(minX, tfX);
-        maxX = MAX(maxX, tfX);
-        minY = MIN(minY, tfY);
-        maxY = MAX(maxY, tfY);
+        for (int i=0; i<4; ++i)
+        {
+            float x = mVertexCoords[2*i];
+            float y = mVertexCoords[2*i+1];
+            minX = MIN(minX, x);
+            maxX = MAX(maxX, x);
+            minY = MIN(minY, y);
+            maxY = MAX(maxY, y);
+        }        
     }
-    [point release];
+    else
+    {
+        SPMatrix *transformationMatrix = [self transformationMatrixToSpace:targetCoordinateSpace];
+        SPPoint *point = [[SPPoint alloc] init];
+            
+        for (int i=0; i<4; ++i)
+        {
+            point.x = mVertexCoords[2*i];
+            point.y = mVertexCoords[2*i+1];
+            SPPoint *transformedPoint = [transformationMatrix transformPoint:point];
+            float tfX = transformedPoint.x; 
+            float tfY = transformedPoint.y;
+            minX = MIN(minX, tfX);
+            maxX = MAX(maxX, tfX);
+            minY = MIN(minY, tfY);
+            maxY = MAX(maxY, tfY);
+        }
+        
+        [point release];
+    }
+    
     return [SPRectangle rectangleWithX:minX y:minY width:maxX-minX height:maxY-minY];    
 }
 
