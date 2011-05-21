@@ -86,11 +86,9 @@ enum PVRPixelType
 - (id)initWithContentsOfFile:(NSString *)path
 {
     float contentScaleFactor = [SPStage contentScaleFactor];
+    NSString *fullPath = [SPUtils absolutePathToFile:path withScaleFactor:contentScaleFactor];
     
-    NSString *fullPath = [path isAbsolutePath] ? 
-        path : [[NSBundle appBundle] pathForResource:path withScaleFactor:contentScaleFactor];
-
-    if (![[NSFileManager defaultManager] fileExistsAtPath:fullPath])
+    if (!fullPath)
     {
         [self release];
         [NSException raise:SP_EXC_FILE_NOT_FOUND format:@"file '%@' not found", path];

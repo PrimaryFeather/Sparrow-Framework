@@ -24,4 +24,17 @@
 /// Returns a random float number between 0.0 and 1.0
 + (float)randomFloat;
 
+/// Returns a Boolean value that indicates whether a file or directory exists at a specified path.
++ (BOOL)fileExistsAtPath:(NSString *)path;
+
+/// Finds the full path for a file with a certain scale factor (a file with a suffix like '@2x').
+/// If the path is relative, it is searched in the application bundle.
+/// 
+/// @return Returns the path to the scaled resource if it exists; otherwise, the path to the
+///         unscaled resource - or nil if that does not exist, either.
++ (NSString *)absolutePathToFile:(NSString *)path withScaleFactor:(float)factor;
+
+/// Returns the absolute path to a file, or nil if it does not exist.
++ (NSString *)absolutePathToFile:(NSString *)path;
+
 @end

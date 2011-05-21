@@ -91,6 +91,12 @@
     STAssertEqualObjects(@"/", basename, @"wrong base name on standard path");
 }
 
+- (void)testAppBundle
+{
+    NSString *absolutePath = [[NSBundle appBundle] pathForResource:@"pvrtc_image.pvr"];
+    STAssertNotNil(absolutePath, @"path to resource not found");
+}
+
 @end
 
 #endif

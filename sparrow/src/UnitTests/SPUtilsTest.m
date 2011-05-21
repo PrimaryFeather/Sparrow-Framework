@@ -15,6 +15,7 @@
 #import <SenTestingKit/SenTestingKit.h>
 
 #import "SPUtils.h"
+#import "SPNSExtensions.h"
 
 // -------------------------------------------------------------------------------------------------
 
@@ -58,6 +59,45 @@
         STAssertTrue(rnd >= 5, @"random number too small");
         STAssertTrue(rnd < 10, @"random number too big");        
     }    
+}
+
+- (void)testFileExistsAtPath
+{
+    NSString *absolutePath = [[NSBundle appBundle] pathForResource:@"pvrtc_image.pvr"];
+    
+    BOOL fileExists = [SPUtils fileExistsAtPath:absolutePath];
+    STAssertTrue(fileExists, @"resource file not found");
+    
+    fileExists = [SPUtils fileExistsAtPath:@"/tmp/some_non_existing_file.foo"];
+    STAssertFalse(fileExists, @"found non-existing file");
+    
+    NSString *folder = [absolutePath stringByDeletingLastPathComponent];
+    BOOL folderExists = [SPUtils fileExistsAtPath:folder];
+    STAssertTrue(folderExists, @"folder not found");
+}
+
+- (void)testAbsolutePathToFile
+{
+    NSString *absolutePath1x = [SPUtils absolutePathToFile:@"pvrtc_image.pvr"];
+    NSString *absolutePath2x = [SPUtils absolutePathToFile:@"pvrtc_image.pvr" withScaleFactor:2.0f];
+    
+    STAssertNotNil(absolutePath1x, @"resource not found (1x)");
+    STAssertNotNil(absolutePath2x, @"resource not found (2x)");
+    
+    uint suffixLoc = [absolutePath2x rangeOfString:@"@2x.pvr"].location;
+    STAssertEquals(suffixLoc, absolutePath2x.length - 7, @"did not find correct resource (2x)");
+    
+    NSString *nonexistingPath = [SPUtils absolutePathToFile:@"does_not_exist.foo"];
+    STAssertNil(nonexistingPath, @"found non-existing file");
+    
+    nonexistingPath = [SPUtils absolutePathToFile:@"does_not_exist@2x.foo"];
+    STAssertNil(nonexistingPath, @"found non-existing file");
+    
+    NSString *nilPath = [SPUtils absolutePathToFile:nil];
+    STAssertNil(nilPath, @"found nil-path");
+    
+    nilPath = [SPUtils absolutePathToFile:nil withScaleFactor:2.0f];
+    STAssertNil(nilPath, @"found nil-path (2x)");
 }
 
 @end

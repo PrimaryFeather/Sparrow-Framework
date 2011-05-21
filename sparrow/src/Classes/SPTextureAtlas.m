@@ -15,7 +15,7 @@
 #import "SPSubTexture.h"
 #import "SPGLTexture.h"
 #import "SPRectangle.h"
-#import "SPNSExtensions.h"
+#import "SPUtils.h"
 #import "SPStage.h"
 
 // --- private interface ---------------------------------------------------------------------------
@@ -64,7 +64,7 @@
     if (!path) return;
     
     float scale = [SPStage contentScaleFactor];
-    NSString *fullPath = [[NSBundle appBundle] pathForResource:path withScaleFactor:scale];
+    NSString *fullPath = [SPUtils absolutePathToFile:path withScaleFactor:scale];
     NSData *xmlData = [[NSData alloc] initWithContentsOfFile:fullPath];
     NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:xmlData];
     [xmlData release];

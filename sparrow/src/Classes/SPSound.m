@@ -15,7 +15,7 @@
 #import "SPEvent.h"
 #import "SPALSound.h"
 #import "SPAVSound.h"
-#import "SPNSExtensions.h"
+#import "SPUtils.h"
 
 #import <AudioToolbox/AudioToolbox.h> 
 
@@ -39,10 +39,8 @@
     // SPSound is a class factory! We'll return a subclass, thus we don't need 'self' anymore.
     [self release];
     
-    NSString *fullPath = [path isAbsolutePath] ? 
-        path : [[NSBundle appBundle] pathForResource:path];    
-    
-    if (![[NSFileManager defaultManager] fileExistsAtPath:fullPath])
+    NSString *fullPath = [SPUtils absolutePathToFile:path];
+    if (!fullPath)
     {
         [self release];
         [NSException raise:SP_EXC_FILE_NOT_FOUND format:@"file %@ not found", fullPath];

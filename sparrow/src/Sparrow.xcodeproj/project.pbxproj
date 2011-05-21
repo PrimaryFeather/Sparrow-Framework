@@ -93,6 +93,8 @@
 		DEE63A5611AED38100D60321 /* SPSoundChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = DEE63A5011AED38100D60321 /* SPSoundChannel.m */; };
 		DEE6516B11F9DF200065207E /* SPCompiledSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = DE2CC36011EF75B600439B43 /* SPCompiledSprite.m */; };
 		DEE94E8311B43DE60000FE20 /* SPMovieClip.m in Sources */ = {isa = PBXBuildFile; fileRef = DEE94E8111B43DE60000FE20 /* SPMovieClip.m */; };
+		DEEA57441387905C0030A901 /* pvrtc_image.pvr in Resources */ = {isa = PBXBuildFile; fileRef = DEEA573F13878E060030A901 /* pvrtc_image.pvr */; };
+		DEEA5746138791AE0030A901 /* pvrtc_image@2x.pvr in Resources */ = {isa = PBXBuildFile; fileRef = DEEA5745138791AB0030A901 /* pvrtc_image@2x.pvr */; };
 		DEEA933A101E32E10071DD21 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE9CF1EB0FED3128008A32FF /* CoreGraphics.framework */; };
 		DEEA933B101E32E10071DD21 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		DEEA933C101E32E10071DD21 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD14FF0DC6FC520079059D /* OpenGLES.framework */; };
@@ -247,6 +249,8 @@
 		DEE63A8511AED51400D60321 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		DEE94E8011B43DE60000FE20 /* SPMovieClip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPMovieClip.h; sourceTree = "<group>"; };
 		DEE94E8111B43DE60000FE20 /* SPMovieClip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPMovieClip.m; sourceTree = "<group>"; };
+		DEEA573F13878E060030A901 /* pvrtc_image.pvr */ = {isa = PBXFileReference; lastKnownFileType = file; path = pvrtc_image.pvr; sourceTree = "<group>"; };
+		DEEA5745138791AB0030A901 /* pvrtc_image@2x.pvr */ = {isa = PBXFileReference; lastKnownFileType = file; path = "pvrtc_image@2x.pvr"; sourceTree = "<group>"; };
 		DEEA9335101E32A30071DD21 /* UnitTest.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTest.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEEA937F101E3BA20071DD21 /* UnitTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
 		DEEA9402101E44F10071DD21 /* Sparrow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sparrow.h; sourceTree = "<group>"; };
@@ -344,6 +348,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				DEEA573E13878E060030A901 /* Fixtures */,
 				DEEA937F101E3BA20071DD21 /* UnitTests-Info.plist */,
 			);
 			name = Resources;
@@ -555,6 +560,15 @@
 			name = Textures;
 			sourceTree = "<group>";
 		};
+		DEEA573E13878E060030A901 /* Fixtures */ = {
+			isa = PBXGroup;
+			children = (
+				DEEA573F13878E060030A901 /* pvrtc_image.pvr */,
+				DEEA5745138791AB0030A901 /* pvrtc_image@2x.pvr */,
+			);
+			path = Fixtures;
+			sourceTree = "<group>";
+		};
 		DEED1736108A4FE30071438F /* Internal */ = {
 			isa = PBXGroup;
 			children = (
@@ -648,6 +662,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DEEA9339101E32A40071DD21 /* Build configuration list for PBXNativeTarget "UnitTests" */;
 			buildPhases = (
+				DEEA5743138790550030A901 /* Resources */,
 				DEEA9331101E32A30071DD21 /* Sources */,
 				DEEA9332101E32A30071DD21 /* Frameworks */,
 				DEEA9333101E32A30071DD21 /* ShellScript */,
@@ -703,6 +718,18 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DEEA5743138790550030A901 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DEEA57441387905C0030A901 /* pvrtc_image.pvr in Resources */,
+				DEEA5746138791AE0030A901 /* pvrtc_image@2x.pvr in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
 		DEEA9333101E32A30071DD21 /* ShellScript */ = {

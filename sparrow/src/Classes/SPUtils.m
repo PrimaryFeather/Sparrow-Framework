@@ -10,7 +10,9 @@
 //
 
 #import "SPUtils.h"
+#import "SPNSExtensions.h"
 
+#include <sys/stat.h>
 
 @implementation SPUtils
 
@@ -29,6 +31,35 @@
 + (float)randomFloat
 {
     return (float) arc4random() / UINT_MAX;
+}
+
++ (BOOL)fileExistsAtPath:(NSString *)path
+{
+    struct stat buffer;   
+    return stat([path UTF8String], &buffer) == 0;
+}
+
++ (NSString *)absolutePathToFile:(NSString *)path withScaleFactor:(float)factor
+{
+    NSString *absolutePath = [path isAbsolutePath] ?
+        path : [[NSBundle appBundle] pathForResource:path];
+    
+    if (factor != 1.0f)
+    {
+        NSString *suffix = [NSString stringWithFormat:@"@%@x", [NSNumber numberWithFloat:factor]];
+        NSString *pathWithScale = [absolutePath stringByAppendingSuffixToFilename:suffix];
+        if ([SPUtils fileExistsAtPath:pathWithScale]) return pathWithScale;
+    }
+    
+    if ([SPUtils fileExistsAtPath:absolutePath])
+        return absolutePath;
+    else
+        return nil;
+}
+
++ (NSString *)absolutePathToFile:(NSString *)path
+{
+    return [SPUtils absolutePathToFile:path withScaleFactor:1.0f];
 }
 
 @end

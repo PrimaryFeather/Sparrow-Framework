@@ -19,7 +19,7 @@
 #import "SPImage.h"
 #import "SPTextField.h"
 #import "SPStage.h"
-#import "SPNSExtensions.h"
+#import "SPUtils.h"
 #import "SPCompiledSprite.h"
 
 #define CHAR_SPACE   32
@@ -76,7 +76,8 @@
     SP_CREATE_POOL(pool);
     
     float scale = [SPStage contentScaleFactor];
-    NSString *fullPath = [[NSBundle appBundle] pathForResource:path withScaleFactor:scale];
+
+    NSString *fullPath = [SPUtils absolutePathToFile:path withScaleFactor:scale];    
     NSData *xmlData = [[NSData alloc] initWithContentsOfFile:fullPath];
     NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:xmlData];
     [xmlData release];

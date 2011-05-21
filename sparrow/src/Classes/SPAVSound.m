@@ -11,7 +11,7 @@
 
 #import "SPAVSound.h"
 #import "SPAVSoundChannel.h"
-#import "SPNSExtensions.h"
+#import "SPUtils.h"
 
 @implementation SPAVSound
 
@@ -27,8 +27,7 @@
 {
     if ((self = [super init]))
     {
-        NSString *fullPath = [path isAbsolutePath] ? 
-            path : [[NSBundle appBundle] pathForResource:path];
+        NSString *fullPath = [SPUtils absolutePathToFile:path];
         mSoundData = [[NSData alloc] initWithContentsOfMappedFile:fullPath];
         mDuration = duration;
     }
