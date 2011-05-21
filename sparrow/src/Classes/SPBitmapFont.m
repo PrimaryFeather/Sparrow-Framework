@@ -49,6 +49,7 @@
         mName = [[NSString alloc] initWithString:@"unknown"];
         mLineHeight = mSize = SP_DEFAULT_FONT_SIZE;
         mFontTexture = [texture retain];
+        mChars = [[NSMutableDictionary alloc] init];
         
         [self parseFontXml:path];
     }
@@ -68,17 +69,15 @@
 
 - (void)parseFontXml:(NSString*)path
 {
-    [mChars release];    
-    mChars = [[NSMutableDictionary alloc] init];
-    
     if (!path) return;
+    
+    float scaleFactor = [SPStage contentScaleFactor];
+    mPath = [[SPUtils absolutePathToFile:path withScaleFactor:scaleFactor] retain];
+    if (!mPath) [NSException raise:SP_EXC_FILE_NOT_FOUND format:@"file not found: %@", path];
     
     SP_CREATE_POOL(pool);
     
-    float scale = [SPStage contentScaleFactor];
-
-    NSString *fullPath = [SPUtils absolutePathToFile:path withScaleFactor:scale];    
-    NSData *xmlData = [[NSData alloc] initWithContentsOfFile:fullPath];
+    NSData *xmlData = [[NSData alloc] initWithContentsOfFile:mPath];
     NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:xmlData];
     [xmlData release];
     
@@ -150,7 +149,9 @@
         if (!mFontTexture)
         {
             NSString *filename = [attributeDict valueForKey:@"file"];
-            mFontTexture = [[SPTexture alloc] initWithContentsOfFile:filename];             
+            NSString *folder = [mPath stringByDeletingLastPathComponent];
+            NSString *absolutePath = [folder stringByAppendingPathComponent:filename];
+            mFontTexture = [[SPTexture alloc] initWithContentsOfFile:absolutePath];             
         }
         
         // update sizes, now that we know the scale setting
@@ -299,6 +300,7 @@
 {
     [mFontTexture release];
     [mChars release];
+    [mPath release];
     [mName release];
     [super dealloc];
 }

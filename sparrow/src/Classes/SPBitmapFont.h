@@ -49,8 +49,9 @@
 {
   @private
     SPTexture *mFontTexture;
-    NSMutableDictionary *mChars;
     NSString *mName;
+    NSString *mPath;
+    NSMutableDictionary *mChars;    
     float mSize;
     float mLineHeight;
 }

@@ -64,6 +64,7 @@
 {
   @private
     SPTexture *mAtlasTexture;
+    NSString *mPath;
     NSMutableDictionary *mTextureRegions;
     NSMutableDictionary *mTextureFrames;
 }

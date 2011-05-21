@@ -59,13 +59,15 @@
 
 - (void)parseAtlasXml:(NSString *)path
 {
+    if (!path) return;
+
+    float scaleFactor = [SPStage contentScaleFactor];
+    mPath = [[SPUtils absolutePathToFile:path withScaleFactor:scaleFactor] retain];    
+    if (!mPath) [NSException raise:SP_EXC_FILE_NOT_FOUND format:@"file not found: %@", path];
+    
     SP_CREATE_POOL(pool);
     
-    if (!path) return;
-    
-    float scale = [SPStage contentScaleFactor];
-    NSString *fullPath = [SPUtils absolutePathToFile:path withScaleFactor:scale];
-    NSData *xmlData = [[NSData alloc] initWithContentsOfFile:fullPath];
+    NSData *xmlData = [[NSData alloc] initWithContentsOfFile:mPath];
     NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:xmlData];
     [xmlData release];
     
@@ -112,8 +114,10 @@
     else if ([elementName isEqualToString:@"TextureAtlas"] && !mAtlasTexture)
     {
         // load atlas texture
-        NSString *imagePath = [attributeDict valueForKey:@"imagePath"];        
-        mAtlasTexture = [[SPTexture alloc] initWithContentsOfFile:imagePath];
+        NSString *filename = [attributeDict valueForKey:@"imagePath"];        
+        NSString *folder = [mPath stringByDeletingLastPathComponent];
+        NSString *absolutePath = [folder stringByAppendingPathComponent:filename];
+        mAtlasTexture = [[SPTexture alloc] initWithContentsOfFile:absolutePath];
     }
 }
 
@@ -175,6 +179,7 @@
 
 - (void)dealloc
 {
+    [mPath release];
     [mAtlasTexture release];
     [mTextureRegions release];
     [mTextureFrames release];
