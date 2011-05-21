@@ -12,6 +12,7 @@
 		DE019C3B1026363D00ECB0AC /* SPNSExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = DE68EA160FBB5660004DBC95 /* SPNSExtensions.m */; };
 		DE019C3C1026364800ECB0AC /* SPJuggler.m in Sources */ = {isa = PBXBuildFile; fileRef = DE7044270FB61506007F5ECC /* SPJuggler.m */; };
 		DE02408D13819FAD008A91B9 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DE5A7ED513805C2B00C6CBBC /* libz.dylib */; };
+		DE0456E813882B4E005FFBCE /* SPButtonTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DE0456E413882A27005FFBCE /* SPButtonTest.m */; };
 		DE13D18B12AADBF6000C77E6 /* SPRenderTexture.h in Headers */ = {isa = PBXBuildFile; fileRef = DE13D18912AADBF6000C77E6 /* SPRenderTexture.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DE13D18C12AADBF6000C77E6 /* SPRenderTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = DE13D18A12AADBF6000C77E6 /* SPRenderTexture.m */; };
 		DE14412E12421EA600FFA95A /* SPNSExtensionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DE05748611E915A900F3A8A4 /* SPNSExtensionsTest.m */; };
@@ -150,6 +151,7 @@
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		28FD14FF0DC6FC520079059D /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		28FD15070DC6FC5B0079059D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		DE0456E413882A27005FFBCE /* SPButtonTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPButtonTest.m; sourceTree = "<group>"; };
 		DE05748611E915A900F3A8A4 /* SPNSExtensionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPNSExtensionsTest.m; sourceTree = "<group>"; };
 		DE08535C0FEC21F500DAF53C /* SPImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPImage.h; sourceTree = "<group>"; };
 		DE08535D0FEC21F500DAF53C /* SPImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPImage.m; sourceTree = "<group>"; };
@@ -419,6 +421,7 @@
 				DE05748611E915A900F3A8A4 /* SPNSExtensionsTest.m */,
 				DE33072812D2ECB1009CC5E7 /* SPUtilsTest.m */,
 				DEF8F2CE12E1CCF50043D2F8 /* SPPoolObjectTest.m */,
+				DE0456E413882A27005FFBCE /* SPButtonTest.m */,
 			);
 			path = UnitTests;
 			sourceTree = "<group>";
@@ -768,6 +771,7 @@
 				DE14414212421F4E00FFA95A /* SPStageTest.m in Sources */,
 				DE33072B12D2ED1A009CC5E7 /* SPUtilsTest.m in Sources */,
 				DEF8F2D312E1CDF40043D2F8 /* SPPoolObjectTest.m in Sources */,
+				DE0456E813882B4E005FFBCE /* SPButtonTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
