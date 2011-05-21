@@ -46,19 +46,19 @@
     return nil;
 }
 
-- (void)addKerning:(int)amount toChar:(int)charID
+- (void)addKerning:(float)amount toChar:(int)charID
 {
     if (!mKernings)
         mKernings = [[NSMutableDictionary alloc] init];    
 
-	[mKernings setObject:[NSNumber numberWithInt:amount] 
+	[mKernings setObject:[NSNumber numberWithFloat:amount] 
                   forKey:[NSNumber numberWithInt:charID]];
 }
 
-- (int)kerningToChar:(int)charID
+- (float)kerningToChar:(int)charID
 {
 	NSNumber *amount = (NSNumber *)[mKernings objectForKey:[NSNumber numberWithInt:charID]];
-	return [amount intValue];
+	return [amount floatValue];
 }
 
 - (SPImage *)createImage

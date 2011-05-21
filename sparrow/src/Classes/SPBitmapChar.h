@@ -45,10 +45,10 @@
 /// -------------
 
 /// Adds kerning information relative to a specific other character ID.
-- (void)addKerning:(int)amount toChar:(int)charID;
+- (void)addKerning:(float)amount toChar:(int)charID;
 
 /// Retrieve kerning information relative to the given character ID.
-- (int)kerningToChar:(int)charID;
+- (float)kerningToChar:(int)charID;
 
 /// Creates an image of the char
 - (SPImage *)createImage;

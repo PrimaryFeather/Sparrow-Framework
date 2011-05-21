@@ -128,7 +128,7 @@
 	{
 		int first  = [[attributeDict valueForKey:@"first"] intValue];
         int second = [[attributeDict valueForKey:@"second"] intValue];
-        int amount = [[attributeDict valueForKey:@"amount"] intValue];
+        float amount = [[attributeDict valueForKey:@"amount"] floatValue] / mFontTexture.scale;
 		[[self charByID:second] addKerning:amount toChar:first];
 	}
     else if ([elementName isEqualToString:@"info"])
@@ -201,11 +201,11 @@
             if (!bitmapChar) bitmapChar = [self charByID:CHAR_SPACE];
             SPImage *charImage = [bitmapChar createImage];
             
+            if (kerning) 
+                currentX += [bitmapChar kerningToChar:lastCharID];
+            
             charImage.x = currentX + bitmapChar.xOffset;
             charImage.y = bitmapChar.yOffset;
-
-            if (kerning)
-                charImage.x += [bitmapChar kerningToChar:lastCharID];
 
             charImage.color = color;
             [currentLine addChild:charImage];
