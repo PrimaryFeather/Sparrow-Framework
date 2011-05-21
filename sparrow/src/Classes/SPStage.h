@@ -64,6 +64,13 @@
 /// Process a new set up touches. Dispatches touch events on affected children.
 - (void)processTouches:(NSSet*)touches;
 
+/// -------------
+/// @name Methods
+/// -------------
+
+/// Returns the first available stage instance. (In most cases, there is only one stage, anyway.)
++ (SPStage *)mainStage;
+
 /// ----------------
 /// @name Properties
 /// ----------------

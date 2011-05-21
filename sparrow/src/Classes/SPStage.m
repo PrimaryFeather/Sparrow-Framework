@@ -93,6 +93,11 @@ static NSMutableArray *stages = NULL;
     return target;
 }
 
++ (SPStage *)mainStage
+{
+    return [stages objectAtIndex:0];
+}
+
 - (float)width
 {
     return mWidth;
