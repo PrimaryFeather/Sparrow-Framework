@@ -49,15 +49,15 @@ typedef enum
  
  Tweens dispatch events in certain phases of their life time:
  
- * `SP_EVENT_TYPE_TWEEN_STARTED`:   Dispatched once when the tween starts
- * `SP_EVENT_TYPE_TWEEN_UPDATED`:   Dispatched every time it is advanced
- * `SP_EVENT_TYPE_TWEEN_COMPLETED`: Dispatched when it reaches its target value (repeatedly
+ - `SP_EVENT_TYPE_TWEEN_STARTED`:   Dispatched once when the tween starts
+ - `SP_EVENT_TYPE_TWEEN_UPDATED`:   Dispatched every time it is advanced
+ - `SP_EVENT_TYPE_TWEEN_COMPLETED`: Dispatched when it reaches its target value (repeatedly
                                     dispatched when looping).
  
  Tweens can loop in two ways:
  
- * `SPLoopTypeRepeat`: Starts the animation from the beginning when it's finished.
- * `SPLoopTypeReverse`: Reverses the animation when it's finished, tweening back to the start value.
+ - `SPLoopTypeRepeat`: Starts the animation from the beginning when it's finished.
+ - `SPLoopTypeReverse`: Reverses the animation when it's finished, tweening back to the start value.
  
 ------------------------------------------------------------------------------------------------- */
 

@@ -31,12 +31,12 @@ typedef enum {
  Before you play sounds, you should start an audio session. The type of the audio session
  defines how iOS will handle audio processing and how iPod music will mix with your audio.
  
- * `SPAudioSessionCategory_AmbientSound:`     iPod music mixes with your audio, audio silences on mute
- * `SPAudioSessionCategory_SoloAmbientSound:` iPod music is silenced, audio silences on mute
- * `SPAudioSessionCategory_MediaPlayback:`    iPod music is silenced, audio continues on mute
- * `SPAudioSessionCategory_RecordAudio:`      iPod music is silenced, used for audio recording
- * `SPAudioSessionCategory_PlayAndRecord:`    iPod music is silenced, for simultaneous in- and output
- * `SPAudioSessionCategory_AudioProcessing:`  For using an audio hardware codec or signal processor
+ - `SPAudioSessionCategory_AmbientSound:`     iPod music mixes with your audio, audio silences on mute
+ - `SPAudioSessionCategory_SoloAmbientSound:` iPod music is silenced, audio silences on mute
+ - `SPAudioSessionCategory_MediaPlayback:`    iPod music is silenced, audio continues on mute
+ - `SPAudioSessionCategory_RecordAudio:`      iPod music is silenced, used for audio recording
+ - `SPAudioSessionCategory_PlayAndRecord:`    iPod music is silenced, for simultaneous in- and output
+ - `SPAudioSessionCategory_AudioProcessing:`  For using an audio hardware codec or signal processor
  
  */
 

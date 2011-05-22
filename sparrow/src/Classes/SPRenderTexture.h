@@ -38,7 +38,7 @@ typedef void (^SPDrawingBlock)();
  
 	[renderTexture bundleDrawCalls:^
 	 {
-	     for (int i=0; i&lt;numDrawings; ++i)
+	     for (int i=0; i<numDrawings; ++i)
 	     {
 	        image.rotation = (2 * PI / numDrawings) * i;
 	        [renderTexture drawObject:image];            

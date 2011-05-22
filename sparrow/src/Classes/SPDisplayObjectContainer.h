@@ -34,11 +34,11 @@
  
  Adding and removing objects from a container triggers non-bubbling events.
  
- * `SP_EVENT_TYPE_ADDED`: the object was added to a parent.
- * `SP_EVENT_TYPE_ADDED_TO_STAGE`: the object was added to a parent that is connected to the stage,
+ - `SP_EVENT_TYPE_ADDED`: the object was added to a parent.
+ - `SP_EVENT_TYPE_ADDED_TO_STAGE`: the object was added to a parent that is connected to the stage,
                                    thus becoming visible now.
- * `SP_EVENT_TYPE_REMOVED`: the object was removed from a parent.
- * `SP_EVENT_TYPE_REMOVED_FROM_STAGE`: the object was removed from a parent that is connected to 
+ - `SP_EVENT_TYPE_REMOVED`: the object was removed from a parent.
+ - `SP_EVENT_TYPE_REMOVED_FROM_STAGE`: the object was removed from a parent that is connected to 
                                        the stage, thus becoming invisible now.
  
  Especially the `ADDED_TO_STAGE` event is very helpful, as it allows you to automatically execute

@@ -48,9 +48,9 @@ typedef void (^SPTextureDrawingBlock)(CGContextRef context);
  simultaneously for normal and retina displays. If HD texture support is activated (via
  `[SPStage setSupportHighResolutions:]`) and you load a texture like this:
  
-	SPTexture *texture = [[SPTexture alloc] initWithContentsOfFile:@"image.png"];
- 
- Sparrow will check if it finds the file `"image@2x.png"`, and will load that instead (provided that
+    [[SPTexture alloc] initWithContentsOfFile:@"image.png"];
+  
+ Sparrow will check if it finds the file `image@2x.png`, and will load that instead (provided that
  it is available and the application is running on a HD device). The texture object will then
  return values for width and height that are the original number of pixels divided by 2 
  (by setting their scale-factor to `2.0`). That way, you will always work with the same values 

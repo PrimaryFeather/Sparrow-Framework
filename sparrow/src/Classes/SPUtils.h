@@ -31,7 +31,7 @@
 /// If the path is relative, it is searched in the application bundle.
 /// 
 /// @return Returns the path to the scaled resource if it exists; otherwise, the path to the
-///         unscaled resource - or nil if that does not exist, either.
+/// unscaled resource - or nil if that does not exist, either.
 + (NSString *)absolutePathToFile:(NSString *)path withScaleFactor:(float)factor;
 
 /// Returns the absolute path to a file, or nil if it does not exist.

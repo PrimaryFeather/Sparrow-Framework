@@ -34,6 +34,9 @@
 	    <char id="32" x="60" y="29" width="1" height="1" xoffset="0" yoffset="27" xadvance="8" />
 	    <char id="33" x="155" y="144" width="9" height="21" xoffset="0" yoffset="6" xadvance="9" />
 	  </chars>
+	  <kernings> <!-- Kerning is optional -->
+	    <kerning first="83" second="83" amount="-4"/>
+	  </kernings>
 	</font>
   
  _You don't have to use this class directly in most cases. SPTextField contains methods that

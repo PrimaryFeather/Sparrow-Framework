@@ -35,6 +35,11 @@
  connected to the stage - otherwise, the method will return `nil`, and you won't have access to 
  the juggler.
  
+ As an alternative, you can also use this static method to access your stage. It will return the
+ first stage instance that was created (and normally, there is only one stage available, anyway).
+ 
+    [SPStage mainStage];
+ 
 ------------------------------------------------------------------------------------------------- */
 
 @interface SPStage : SPDisplayObjectContainer

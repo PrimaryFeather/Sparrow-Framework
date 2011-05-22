@@ -48,18 +48,20 @@ typedef enum
  
  There are two types of fonts that can be displayed:
  
- * Standard iOS fonts. This renders the text with standard iOS fonts like Verdana or Arial. Use this
+ - Standard iOS fonts. This renders the text with standard iOS fonts like Verdana or Arial. Use this
    method if you want to keep it simple, and if the text changes not too often. Simply pass the 
    font name to the corresponding property.
- * Bitmap fonts. If you need speed or fancy font effects, use a bitmap font instead. That is a 
+ - Bitmap fonts. If you need speed or fancy font effects, use a bitmap font instead. That is a 
    font that has its glyphs rendered to a texture atlas. To use it, first register the font with
-   the method registerBitmapFontFromFile:, and then pass the font name to the corresponding 
+   the method `registerBitmapFontFromFile:`, and then pass the font name to the corresponding 
    property of the text field.
     
- For the latter, we recommend the Angel Code Bitmap Font Generator. Export the font data as an XML 
+ For the latter, we recommend the excellent [Glyph Designer](http://glyphdesigner.71squared.com) 
+ from 71squared. It supports Sparrow natively. 
+ 
+ Alternatively, you can use the [Bitmap Font Generator](http://www.angelcode.com/products/bmfont)
+ from Angel Code, which is a free tool for Windows. Export the font data as an XML 
  file and the texture as a png with white characters on a transparent background (32 bit). 
-
- -> http://www.angelcode.com/products/bmfont/
  
  Here is a sample with a standard font:
  

@@ -15,9 +15,9 @@
 /** ------------------------------------------------------------------------------------------------
  
  An SPSubTexture represents a section of another texture. This is achived solely by 
-    manipulation of texture coordinates, making the class very efficient. 
+ manipulation of texture coordinates, making the class very efficient. 
  
-    It is allowed to create subtextures of subtextures.
+ Note that it is OK to create subtextures of subtextures.
  
 ------------------------------------------------------------------------------------------------- */
 

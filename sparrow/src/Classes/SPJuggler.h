@@ -38,9 +38,9 @@
  
  The Sparrow blog contains three extensive articles about the juggler:
  
- * http://www.sparrow-framework.org/2010/08/tweens-jugglers-animating-your-stage/
- * http://www.sparrow-framework.org/2010/09/tweens-jugglers-an-in-depth-look-at-the-juggler/
- * http://www.sparrow-framework.org/2010/10/tweens-jugglers-unleashed/
+ - http://www.sparrow-framework.org/2010/08/tweens-jugglers-animating-your-stage/
+ - http://www.sparrow-framework.org/2010/09/tweens-jugglers-an-in-depth-look-at-the-juggler/
+ - http://www.sparrow-framework.org/2010/10/tweens-jugglers-unleashed/
  
 ------------------------------------------------------------------------------------------------- */
 

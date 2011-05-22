@@ -13,8 +13,8 @@
 #import "SPPoolObject.h"
 #import "SPPoint.h"
 
-/** The SPRectangle class describes a rectangle by its top-left corner point (x, y) and by 
-    its width and height. */
+/// The SPRectangle class describes a rectangle by its top-left corner point (x, y) and by 
+/// its width and height.
 
 @interface SPRectangle : SPPoolObject <NSCopying>
 {

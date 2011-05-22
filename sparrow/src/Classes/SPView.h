@@ -23,10 +23,10 @@
  An SPView is the UIView object that Sparrow renders its content into. 
  
  Add it to the UIKit display list like any other view. Beware that Sparrow will only receive
- multitouch events if the multitouchEnabled property of the view is enabled.
+ multitouch events if the `multitouchEnabled` property of the view is enabled.
  
- To start Sparrow, connect this class to your stage subclass and call the start method. When
- the application ends or moves into the background, you should call the stop method.
+ To start Sparrow, connect this class to your stage subclass and call the `start` method. When
+ the application ends or moves into the background, you should call the `stop` method.
  
 ------------------------------------------------------------------------------------------------- */
 

@@ -31,8 +31,8 @@
  is disrupted (e.g. by a phone call), and will continue playback where they stopped.
  
  Behind the scenes, the SPSound class will choose the appropriate technology for playback: 
- uncompressed files will use OpenAL, compressed sound will be handled by Apple’s AVAudioPlayer. 
- You don’t have to care. 
+ uncompressed files will use OpenAL, compressed sound will be handled by Apple's AVAudioPlayer. 
+ You don't have to care. 
  
 ------------------------------------------------------------------------------------------------- */
 

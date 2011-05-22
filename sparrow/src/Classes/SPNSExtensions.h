@@ -43,7 +43,7 @@
 /// Finds the path for a resource with a certain scale factor (a file with a suffix like '@2x').
 /// 
 /// @return Returns the path to the scaled resource if it exists; otherwise, the path to the
-///         unscaled resource - or nil if that does not exist, either.
+/// unscaled resource - or nil if that does not exist, either.
 - (NSString *)pathForResource:(NSString *)name withScaleFactor:(float)factor;
 
 /// Returns the NSBundle object of the current application. Different to `[NSBundle mainBundle]`,

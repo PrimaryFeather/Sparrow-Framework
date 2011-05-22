@@ -17,13 +17,13 @@
 /** ------------------------------------------------------------------------------------------------
 
  A texture atlas is a collection of many smaller textures in one big image. The class
- `SPTextureAtlas` is used to access textures from such an atlas.
+ SPTextureAtlas is used to access textures from such an atlas.
  
  Using a texture atlas for your textures has two main advantages:
  
- * In OpenGL, there’s always one texture active at a given moment. Whenever you change the active 
+ - In OpenGL, there's always one texture active at a given moment. Whenever you change the active 
    texture, a "texture-switch" has to be executed, and that switch takes time.
- * To use a texture in OpenGL, its height and width must each be a power of 2. Sparrow hides this 
+ - To use a texture in OpenGL, its height and width must each be a power of 2. Sparrow hides this 
    limitation from you, but you will nevertheless use more memory if you do not follow that rule.
  
  By using a texture atlas, you avoid both texture switches and the power-of-two limitation. All 
@@ -38,7 +38,7 @@
  
  The atlas generator can be found in the 'utils' directory in the Sparrow package. A README file
  shows you how to install and use it. If you want to have more control over your atlas, you will
- find great alternative tools on the Internet (e.g. "Texture Packer").
+ find great alternative tools on the Internet, like [Texture Packer](http://www.texturepacker.com).
  
  Whatever tool you use, Sparrow expects the following file format:
 

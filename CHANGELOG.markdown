@@ -32,7 +32,6 @@ version 1.2 - 2011-05-22
 - fixed bug that caused Sparrow to treat new touch as if it was an existing one
 - fixed name of random number method because of conflicting keyword 'and'
 - fixed clearWithColor method
-
 - Special thanks to 
   - Shilo White for the Pivot Point
   - Ludometrics for Bitmap Font kerning
