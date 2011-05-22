@@ -3,7 +3,7 @@
 //  Demo
 //
 //  Created by Daniel Sperl on 05.12.10.
-//  Copyright 2010 Incognitek. All rights reserved.
+//  Copyright 2011 Gamua. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
