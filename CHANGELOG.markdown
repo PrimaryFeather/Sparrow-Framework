@@ -1,6 +1,46 @@
 Sparrow: Changelog
 ==================
 
+version 1.2 - 2011-05-22
+------------------------
+
+- added pivotX- and pivotY-property to SPDisplayObject to allow manipulation of the origin point
+- added support for GZip'ed PVR textures
+- added support for texture frames aka trimmed textures
+- added kerning to bitmap fonts (if the font file contains kerning information)
+- added [SPStage mainStage] method for quick access to the stage
+- added ability to choose between nearest neighbor, bilinear and trilinear texture filtering
+- added 'moveToX:y' and 'scaleTo:' methods to SPTween
+- added support for RGBA8888 texture format
+- added support for tweening unsigned integers
+- added events on each loop of an SPMovieClip
+- added support for directories when loading resource files; in iOS 3.x, that did not work before.
+- added color property to stage
+- added [NSBundle appBundle] extension method. This method is now used throughout the framework 
+  instead of [NSBundle mainBundle]. That way, unit tests will find their resource files, too.
+- updated button to behave just like a textfield: the text does not stretch any longer
+  when width or height are changed
+- updated projects for Xcode4
+- updated xml parsing to work around memory leak
+- fixed bounds-optimization of SPQuad, which might have failed in subclasses
+- fixed path handling of bitmap font and atlas classes
+- fixed that HD textures were only found within application bundle
+- fixed texture binding problems of SPRenderTexture
+- fixed generate_atlas.rb script to work with Ruby 1.9
+- fixed looping behavior of tween and movie clip
+- fixed wrong scale setting when loading bitmap font with custom texture
+- fixed bug that caused Sparrow to treat new touch as if it was an existing one
+- fixed name of random number method because of conflicting keyword 'and'
+- fixed clearWithColor method
+
+- Special thanks to 
+  - Shilo White for the Pivot Point
+  - Ludometrics for Bitmap Font kerning
+  - Tadas Vilkeliskis for tweening of unsigned integers
+  - Jonathan Shieh for his fix that allows unit tests to load files
+  - Andreas Wålm for making generate_atlas.rb work with ruby 1.9
+  - numerous forum members for bug reports, suggestions and feedback!
+
 version 1.1 - 2011-01-12
 ------------------------
 

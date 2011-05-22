@@ -1,7 +1,7 @@
 Sparrow: Simplified BSD License
 ===============================
 
-Copyright 2010 incognitek. All rights reserved.
+Copyright 2011 Gamua. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are
 permitted provided that the following conditions are met:
@@ -17,9 +17,9 @@ permitted provided that the following conditions are met:
       sufficient to add a copy of this license to the application's internet page (if available).
       The content of the following disclaimer is still in effect.
 
-THIS SOFTWARE IS PROVIDED BY INCOGNITEK ``AS IS'' AND ANY EXPRESS OR IMPLIED
+THIS SOFTWARE IS PROVIDED BY GAMUA ``AS IS'' AND ANY EXPRESS OR IMPLIED
 WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
-FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL INCOGNITEK OR
+FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL GAMUA OR
 CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
 CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
 SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
@@ -29,4 +29,4 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 The views and conclusions contained in the software and documentation are those of the
 authors and should not be interpreted as representing official policies, either expressed
-or implied, of incognitek.
+or implied, of Gamua.

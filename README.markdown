@@ -12,9 +12,9 @@ API that is easy to use and hard to misuse.
 Who is Sparrow for?
 -------------------
  
-Obviously Sparrow is for iPhone developers, especially those involved in game development. You
-will need to have a basic understanding of Objective-C – but there’s no way around that on the
-iPhone anyway.
+Obviously, Sparrow is for iPhone and iPad developers, especially those involved in game development.
+You will need to have a basic understanding of Objective-C – but there’s no way around that on the
+iOS anyway.
 
 If you have already worked with Adobe™ Flash/Flex technology, you will immediately befriend with
 Sparrow since it uses lots of similar concepts and naming schemes. That said, everything is
@@ -24,5 +24,5 @@ quickly as well.
 How to start?
 -------------
 
-* Read through the file 'BUILDING' for a quick start with Sparrow.
+* Read through the file 'BUILDING.markdown' for a quick start with Sparrow.
 * Visit <http://www.sparrow-framework.org>
