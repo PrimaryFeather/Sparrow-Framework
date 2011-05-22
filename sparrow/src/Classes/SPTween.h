@@ -103,6 +103,12 @@ typedef enum
 /// on one tween.
 - (void)animateProperty:(NSString*)property targetValue:(float)value;
 
+/// Animates the `x` and `y` properties of an object simultaneously.
+- (void)moveToX:(float)x y:(float)y;
+
+/// Animates the `scaleX` and `scaleY` properties of an object simultaneously.
+- (void)scaleTo:(float)scale;
+
 /// ----------------
 /// @name Properties
 /// ----------------

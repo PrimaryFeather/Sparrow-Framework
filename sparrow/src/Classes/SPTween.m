@@ -63,6 +63,18 @@ typedef float (*FnPtrTransition) (id, SEL, float);
     [tweenedProp release];
 }
 
+- (void)moveToX:(float)x y:(float)y
+{
+    [self animateProperty:@"x" targetValue:x];
+    [self animateProperty:@"y" targetValue:y];
+}
+
+- (void)scaleTo:(float)scale
+{
+    [self animateProperty:@"scaleX" targetValue:scale];
+    [self animateProperty:@"scaleY" targetValue:scale];
+}
+
 - (void)advanceTime:(double)seconds
 {
     if (seconds == 0.0 || (mLoop == SPLoopTypeNone && mCurrentTime == mTotalTime))
