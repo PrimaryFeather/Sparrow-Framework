@@ -22,14 +22,14 @@
 @synthesize repeat = mRepeat;
 @synthesize hasPremultipliedAlpha = mPremultipliedAlpha;
 @synthesize scale = mScale;
+@synthesize filter = mFilter;
 
 - (id)initWithData:(const void*)imgData properties:(SPTextureProperties)properties
 {
     if ((self = [super init]))
     {        
         mWidth = properties.width;
-        mHeight = properties.height;
-        mRepeat = NO;
+        mHeight = properties.height;        
         mPremultipliedAlpha = properties.premultipliedAlpha;
         mScale = 1.0f;       
 
@@ -42,7 +42,7 @@
         {
             default:
             case SPTextureFormatRGBA:
-                bitsPerPixel = 8;
+                bitsPerPixel = 32;
                 glTexFormat = GL_RGBA;
                 break;
             case SPTextureFormatAlpha:
@@ -86,20 +86,16 @@
                 break;
         }
         
+        mMipmaps = properties.numMipmaps > 0 || (properties.generateMipmaps && !compressed);
+        
         glGenTextures(1, &mTextureID);
         glBindTexture(GL_TEXTURE_2D, mTextureID);
         
-        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); 
-        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, mRepeat ? GL_REPEAT : GL_CLAMP_TO_EDGE); 
-        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, mRepeat ? GL_REPEAT : GL_CLAMP_TO_EDGE); 
-       
+        self.repeat = NO;
+        self.filter = SPTextureFilterBilinear;
+        
         if (!compressed)
-        {       
-            if (properties.numMipmaps > 0 || properties.generateMipmaps)
-                glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
-            else
-                glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-            
+        {
             if (properties.numMipmaps == 0 && properties.generateMipmaps)
                 glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE);  
             
@@ -119,11 +115,6 @@
         }
         else
         {
-            // 'generateMipmaps' not supported for compressed textures
-            
-            glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, properties.numMipmaps == 0 ?
-                            GL_LINEAR : GL_LINEAR_MIPMAP_NEAREST);
-            
             int levelWidth = mWidth;
             int levelHeight = mHeight;
             unsigned char *levelData = (unsigned char *)imgData;
@@ -139,8 +130,7 @@
             }
         }
         
-        glBindTexture(GL_TEXTURE_2D, 0);            
-
+        glBindTexture(GL_TEXTURE_2D, 0);
     }
     return self; 
 }
@@ -166,7 +156,33 @@
     glBindTexture(GL_TEXTURE_2D, mTextureID);    
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, mRepeat ? GL_REPEAT : GL_CLAMP_TO_EDGE);     
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, mRepeat ? GL_REPEAT : GL_CLAMP_TO_EDGE); 
-    glBindTexture(GL_TEXTURE_2D, 0);  
+}
+
+- (void)setFilter:(SPTextureFilter)filterType
+{
+    mFilter = filterType;
+    glBindTexture(GL_TEXTURE_2D, mTextureID); 
+    
+    int magFilter, minFilter;
+    
+    if (filterType == SPTextureFilterNearestNeighbor)
+    {
+        magFilter = GL_NEAREST;
+        minFilter = mMipmaps ? GL_NEAREST_MIPMAP_NEAREST : GL_NEAREST;
+    }
+    else if (filterType == SPTextureFilterBilinear)
+    {
+        magFilter = GL_LINEAR;
+        minFilter = mMipmaps ? GL_LINEAR_MIPMAP_NEAREST : GL_LINEAR;
+    }
+    else
+    {
+        magFilter = GL_LINEAR;
+        minFilter = mMipmaps ? GL_LINEAR_MIPMAP_LINEAR : GL_LINEAR;
+    }
+    
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, magFilter); 
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, minFilter);
 }
 
 + (SPGLTexture*)textureWithData:(const void *)imgData properties:(SPTextureProperties)properties

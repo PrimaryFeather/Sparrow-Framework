@@ -21,6 +21,13 @@ typedef enum
     SPColorSpaceAlpha
 } SPColorSpace;
 
+typedef enum 
+{
+    SPTextureFilterNearestNeighbor,
+    SPTextureFilterBilinear,
+    SPTextureFilterTrilinear
+} SPTextureFilter;
+
 typedef void (^SPTextureDrawingBlock)(CGContextRef context);
 
 /** ------------------------------------------------------------------------------------------------
@@ -144,6 +151,15 @@ typedef void (^SPTextureDrawingBlock)(CGContextRef context);
 
 /// The OpenGL texture ID.
 @property (nonatomic, readonly) uint textureID;
+
+/// Indicates if the texture should repeat like a wallpaper or stretch the outermost pixels.
+/// Note: this makes sense only in textures with sidelengths that are powers of two and that are
+/// not loaded from a texture atlas (i.e. no subtextures). (Default: `NO`)
+@property (nonatomic, assign) BOOL repeat;
+
+/// The filter type influences how the texture appears when it is scaled up or down. 
+/// (Default: `SPTextureFilterBilinear`)
+@property (nonatomic, assign) SPTextureFilter filter;
 
 /// Indicates if the alpha values are premultiplied into the RGB values.
 @property (nonatomic, readonly) BOOL hasPremultipliedAlpha;

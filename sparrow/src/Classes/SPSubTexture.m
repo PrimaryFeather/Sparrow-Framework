@@ -92,6 +92,26 @@
     return mBaseTexture.textureID;
 }
 
+- (void)setRepeat:(BOOL)value
+{
+    mBaseTexture.repeat = value;
+}
+
+- (BOOL)repeat
+{
+    return mBaseTexture.repeat;
+}
+
+- (SPTextureFilter)filter
+{    
+    return mBaseTexture.filter;
+}
+
+- (void)setFilter:(SPTextureFilter)value
+{
+    mBaseTexture.filter = value;
+}
+
 - (BOOL)hasPremultipliedAlpha
 {
     return mBaseTexture.hasPremultipliedAlpha;

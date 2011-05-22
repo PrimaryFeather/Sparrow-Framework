@@ -56,7 +56,9 @@ typedef struct
     float mHeight;
     float mScale;
     BOOL mRepeat;
-    BOOL mPremultipliedAlpha;    
+    BOOL mPremultipliedAlpha;
+    BOOL mMipmaps;
+    SPTextureFilter mFilter;
 }
 
 /// ------------------
@@ -73,8 +75,9 @@ typedef struct
 /// @name Properties
 /// ----------------
 
-/// Indicates if the texture should repeat like a wallpaper or stretch the outermost pixels.
-@property (nonatomic, assign) BOOL repeat;
+/// The filter type influences how the texture appears when it is scaled up or down. 
+/// Default: `SPTextureFilterLinear`.
+@property (nonatomic, assign) SPTextureFilter filter;
 
 /// The scale factor, which influences `width` and `height` properties.
 @property (nonatomic, assign) float scale;

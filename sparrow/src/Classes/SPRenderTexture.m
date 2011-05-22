@@ -182,6 +182,26 @@
     return mTexture.height;
 }
 
+- (void)setRepeat:(BOOL)value
+{
+    mTexture.repeat = value;
+}
+
+- (BOOL)repeat
+{
+    return mTexture.repeat;
+}
+
+- (SPTextureFilter)filter
+{
+    return mTexture.filter;
+}
+
+- (void)setFilter:(SPTextureFilter)value
+{
+    mTexture.filter = value;
+}
+
 - (uint)textureID
 {
     return mTexture.textureID;

@@ -349,6 +349,28 @@ enum PVRPixelType
     return 0;    
 }
 
+- (void)setRepeat:(BOOL)value
+{
+    [NSException raise:SP_EXC_ABSTRACT_METHOD format:@"Override this method in subclasses."];    
+}
+
+- (BOOL)repeat
+{
+    [NSException raise:SP_EXC_ABSTRACT_METHOD format:@"Override this method in subclasses."];
+    return NO;
+}
+
+- (SPTextureFilter)filter
+{
+    [NSException raise:SP_EXC_ABSTRACT_METHOD format:@"Override this method in subclasses."];
+    return SPTextureFilterBilinear;
+}
+
+- (void)setFilter:(SPTextureFilter)filter
+{
+    [NSException raise:SP_EXC_ABSTRACT_METHOD format:@"Override this method in subclasses."];
+}
+
 - (BOOL)hasPremultipliedAlpha
 {
     [NSException raise:SP_EXC_ABSTRACT_METHOD format:@"Override this method in subclasses."];
