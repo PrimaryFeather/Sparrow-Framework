@@ -47,7 +47,7 @@
 @interface SPJuggler : NSObject <SPAnimatable>
 {
   @private
-    NSMutableSet *mObjects;
+    NSMutableArray *mObjects;
     double mElapsedTime;
 }
 

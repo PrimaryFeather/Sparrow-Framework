@@ -19,9 +19,9 @@
 
 - (id)init
 {    
-    if ((self = [super init]))
+    if (self = [super init])
     {        
-        mObjects = [[NSMutableSet alloc] init];
+        mObjects = [[NSMutableArray alloc] init];
         mElapsedTime = 0.0;
     }
     return self;
@@ -37,7 +37,7 @@
     mElapsedTime += seconds;
     
     // we need work with a copy, since user-code could modify the collection during the enumeration
-    for (id<SPAnimatable> object in [mObjects allObjects])    
+    for (id<SPAnimatable> object in mObjects)    
     {
         [object advanceTime:seconds];        
         if (object.isComplete) [self removeObject:object];
@@ -47,7 +47,7 @@
 - (void)addObject:(id<SPAnimatable>)object
 {
     if (object)
-        [mObjects addObject:object];    
+        [mObjects addObject:object];
 }
 
 - (void)removeObject:(id<SPAnimatable>)object
@@ -63,7 +63,7 @@
 - (void)removeTweensWithTarget:(id)object
 {
     SEL targetSel = @selector(target);
-    NSMutableSet *remainingObjects = [[NSMutableSet alloc] init];
+    NSMutableArray *remainingObjects = [[NSMutableArray alloc] init];
     
     for (id currentObject in mObjects)
     {
