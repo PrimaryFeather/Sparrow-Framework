@@ -11,6 +11,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SPAnimatable.h"
+#import "SPMacros.h"
 
 /** ------------------------------------------------------------------------------------------------
 
@@ -47,7 +48,7 @@
 @interface SPJuggler : NSObject <SPAnimatable>
 {
   @private
-    NSMutableSet *mObjects;
+    NSMutableArray *mObjects;
     double mElapsedTime;
 }
 
@@ -72,7 +73,12 @@
 - (void)removeAllObjects;
 
 /// Removes all objects of type `SPTween` that have a certain target.
-- (void)removeTweensWithTarget:(id)object;
+/// DEPRECATED! Use `removeObjectsWithTarget` instead.
+- (void)removeTweensWithTarget:(id)object SP_DEPRECATED;
+
+/// Removes all objects with a `target` property referencing a certain object (e.g. tweens or
+/// delayed invocations).
+- (void)removeObjectsWithTarget:(id)object;
 
 /// Delays the execution of a certain method. Returns a proxy object on which to call the method
 /// instead. Execution will be delayed until `time` has passed.
