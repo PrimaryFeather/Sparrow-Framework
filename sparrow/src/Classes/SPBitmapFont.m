@@ -206,8 +206,8 @@
             
             charImage.x = currentX + bitmapChar.xOffset;
             charImage.y = bitmapChar.yOffset;
-
-            charImage.color = color;
+            if(SP_COLOR_PART_ALPHA(color) != 0xFF)
+                charImage.color = color;
             [currentLine addChild:charImage];
             
             currentX += bitmapChar.xAdvance;
