@@ -48,7 +48,7 @@ puts "Parsing #{input_file_path} ..."
 IO.foreach(input_file_path) do |line|    
   
   # replace spaces within quotes
-  line.gsub!(/"(\S*)(\s+)(\S*")/) { |match| $1 + SPACE_MARKER + $3 }  
+  line.gsub!(/(["]).+?\1/) { |match| match.gsub(/\s+?/, SPACE_MARKER) }
 
   line_parts = line.split /\s+/    
   element_name = line_parts.shift  
