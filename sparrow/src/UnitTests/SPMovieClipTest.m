@@ -152,11 +152,16 @@
     movie.loop = NO;
     [movie advanceTime:movie.duration + frameDuration];
     STAssertEquals(3, movie.currentFrame, @"movie looped");
+    STAssertFalse(movie.isPlaying, @"movie returned true for 'isPlaying' after reaching end");
     
     movie.currentFrame = 0;
     STAssertEquals(0, movie.currentFrame, @"wrong current frame");
     [movie advanceTime:frameDuration * 1.1];
     STAssertEquals(1, movie.currentFrame, @"wrong current frame");
+    
+    [movie stop];
+    STAssertFalse(movie.isPlaying, @"movie returned true for 'isPlaying' after reaching end");
+    STAssertEquals(0, movie.currentFrame, @"movie did not reset playhead on stop");
 }
 
 - (void)testChangeFps

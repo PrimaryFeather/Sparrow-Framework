@@ -112,6 +112,9 @@
 /// Pause playback.
 - (void)pause;
 
+/// Stop playback. Resets currentFrame to beginning.
+- (void)stop;
+
 /// ----------------
 /// @name Properties
 /// ----------------
