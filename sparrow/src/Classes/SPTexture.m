@@ -212,6 +212,9 @@ enum PVRPixelType
         case OGL_RGB_565:
             properties.format = SPTextureFormat565;
             break;
+        case OGL_RGB_888:
+            properties.format = SPTextureFormat888;
+            break;
         case OGL_RGBA_5551:
             properties.format = SPTextureFormat5551;
             break;
