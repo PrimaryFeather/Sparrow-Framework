@@ -25,6 +25,7 @@ typedef enum
     SPTextureFormatPvrtcRGB4,
     SPTextureFormatPvrtcRGBA4,
     SPTextureFormat565,
+    SPTextureFormat888,
     SPTextureFormat5551,
     SPTextureFormat4444
 } SPTextureFormat;

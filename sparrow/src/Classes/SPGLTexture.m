@@ -74,6 +74,10 @@
                 glTexFormat = GL_RGB;
                 glTexType = GL_UNSIGNED_SHORT_5_6_5;
                 break;
+            case SPTextureFormat888:
+                bitsPerPixel = 24;
+                glTexFormat = GL_RGB;
+                break;
             case SPTextureFormat5551:
                 bitsPerPixel = 16;                    
                 glTexFormat = GL_RGBA;

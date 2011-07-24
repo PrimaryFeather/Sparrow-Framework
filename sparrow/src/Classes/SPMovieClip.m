@@ -183,6 +183,12 @@
     mPlaying = NO;
 }
 
+- (void)stop
+{
+    mPlaying = NO;
+    self.currentFrame = 0;
+}
+
 - (void)updateCurrentFrame
 {
     self.texture = [mFrames objectAtIndex:mCurrentFrame];
@@ -204,6 +210,14 @@
         mCurrentTime += [[mFrameDurations objectAtIndex:i] doubleValue];
     
     [self updateCurrentFrame];
+}
+
+- (BOOL)isPlaying
+{
+    if (mPlaying)
+        return mLoop || mCurrentTime < mTotalDuration;
+    else
+        return NO;
 }
 
 - (void)checkIndex:(int)frameID
