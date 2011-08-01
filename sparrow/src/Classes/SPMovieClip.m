@@ -36,7 +36,7 @@
 {
     if ((self = [super initWithTexture:texture]))
     {
-        self.fps = fps;
+        mDefaultFrameDuration = 1.0f / fps;
         mLoop = YES;
         mPlaying = YES;
         mTotalDuration = 0.0;
