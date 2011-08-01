@@ -52,14 +52,13 @@
     SPTexture *frame2 = [SPTexture emptyTexture];
     SPTexture *frame3 = [SPTexture emptyTexture];
     
-    SPMovieClip *movie = [SPMovieClip movieWithFrame:frame0 fps:4.0f];    
+    SPMovieClip *movie = [SPMovieClip movieWithFrame:frame0 fps:fps];    
     
     STAssertEqualsWithAccuracy(frame0.width, movie.width, E, @"wrong size");
     STAssertEqualsWithAccuracy(frame0.height, movie.height, E, @"wrong size");
 
     STAssertEquals(1, movie.numFrames, @"wrong number of frames");
     STAssertEquals(0, movie.currentFrame, @"wrong start value");
-    STAssertEquals(frameDuration, movie.duration, @"wrong duration");
     STAssertEquals(YES, movie.loop, @"wrong default value");
     STAssertEquals(YES, movie.isPlaying, @"wrong default value");
     STAssertEqualsWithAccuracy(frameDuration, movie.duration, E, @"wrong duration");
