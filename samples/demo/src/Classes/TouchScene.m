@@ -60,7 +60,10 @@
     sheet2.y = 295; 
     
     [self addChild:sheet1];
-    [self addChild:sheet2];    
+    [self addChild:sheet2];  
+    
+    [sheet1 release];
+    [sheet2 release];
 }
 
 @end
