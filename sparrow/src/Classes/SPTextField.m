@@ -152,7 +152,7 @@ static NSMutableDictionary *bitmapFonts = nil;
         
         [mText drawInRect:CGRectMake(0, yOffset, width, height)
                  withFont:[UIFont fontWithName:mFontName size:fontSize] 
-            lineBreakMode:lbm alignment:mHAlign];
+            lineBreakMode:lbm alignment:(UITextAlignment)mHAlign];
     }];
     
     SPImage *image = [SPImage imageWithTexture:texture];
