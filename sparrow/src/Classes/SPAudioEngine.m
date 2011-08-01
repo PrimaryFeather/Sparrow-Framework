@@ -31,7 +31,7 @@
 
 // --- C functions ---
 
-void interruptionCallback (void *inUserData, UInt32 interruptionState) 
+static void interruptionCallback (void *inUserData, UInt32 interruptionState) 
 {   
     if (interruptionState == kAudioSessionBeginInterruption)  
         [SPAudioEngine beginInterruption]; 
