@@ -1,5 +1,5 @@
-Sparrow: an Open Source Framework for iPhone game development 
-=============================================================
+Sparrow Framework: The Open Source Game Engine for iOS
+======================================================
 
 What is Sparrow?
 ----------------

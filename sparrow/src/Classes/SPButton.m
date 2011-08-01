@@ -98,7 +98,7 @@
     }
     else if (touch.phase == SPTouchPhaseMoved && mIsDown)
     {
-        // reset button when user dragged to far away after pushing
+        // reset button when user dragged too far away after pushing
         SPRectangle *buttonRect = [self boundsInSpace:self.stage];
         if (touch.globalX < buttonRect.x - MAX_DRAG_DIST ||
             touch.globalY < buttonRect.y - MAX_DRAG_DIST ||

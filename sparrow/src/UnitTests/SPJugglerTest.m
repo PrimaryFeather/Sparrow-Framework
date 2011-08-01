@@ -66,7 +66,7 @@
     mQuad = nil;
 }
 
-- (void)testRemoveTweensWithTarget
+- (void)testRemoveObjectsWithTarget
 {
     mJuggler = [SPJuggler juggler];
     
@@ -82,7 +82,7 @@
     [mJuggler addObject:tween1];
     [mJuggler addObject:tween2];
     
-    [mJuggler removeTweensWithTarget:quad1];    
+    [mJuggler removeObjectsWithTarget:quad1];    
     [mJuggler advanceTime:1.0];
     
     STAssertEquals(0.0f, quad1.rotation, @"removed tween was advanced");

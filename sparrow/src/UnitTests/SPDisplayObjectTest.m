@@ -163,6 +163,22 @@
     [sprite2 release];
 }
 
+- (void)testLocalToGlobalWithPivot
+{
+    SPSprite *sprite = [SPSprite sprite];
+    SPQuad *quad = [SPQuad quadWithWidth:40 height:30];
+    quad.x = 10;
+    quad.y = 20;
+    quad.pivotX = quad.width;
+    quad.pivotY = quad.height;
+    [sprite addChild:quad];
+    SPPoint *point = [SPPoint pointWithX:0.0f y:0.0f];
+    
+    SPPoint *globalPoint = [quad localToGlobal:point];
+    STAssertEqualsWithAccuracy(-30.0f, globalPoint.x, E, @"wrong global point with pivot");
+    STAssertEqualsWithAccuracy(-10.0f, globalPoint.y, E, @"wrong global point with pivot");
+}
+
 - (void)testGlobalToLocal
 {
     SPSprite *sprite = [[SPSprite alloc] init];
