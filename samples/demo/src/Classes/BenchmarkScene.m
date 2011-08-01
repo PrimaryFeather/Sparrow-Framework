@@ -126,9 +126,7 @@
     mResultText.y = (480 - mResultText.height) / 2;
     
     [self addChild:mResultText];
-    
-    while (mContainer.numChildren > 0)
-        [mContainer removeChildAtIndex:0];    
+    [mContainer removeAllChildren];
 }
 
 - (void)addTestObject
