@@ -88,13 +88,13 @@
     // target to 'self' for now, but undo that later on (instead of creating a copy, which could
     // lead to the creation of a huge amount of objects).
     SPEventDispatcher *previousTarget = event.target;
-    if (!event.target || event.currentTarget) event.target = self;
+    if (!previousTarget || event.currentTarget) event.target = self;
     event.currentTarget = self;        
 
     [self retain]; // the event listener could release 'self', so we have to make sure that it 
                    // stays valid while we're here.
     
-    BOOL stopImmediatPropagation = NO;    
+    BOOL stopImmediatePropagation = NO;    
     if (listeners.count != 0)
     {    
         // we can enumerate directly over the array, since "add"- and "removeEventListener" won't
@@ -106,14 +106,14 @@
             [inv invoke];
             if (event.stopsImmediatePropagation) 
             {
-                stopImmediatPropagation = YES;
+                stopImmediatePropagation = YES;
                 break;
             }
         }
         [listeners release];
     }
     
-    if (!stopImmediatPropagation)
+    if (!stopImmediatePropagation)
     {
         event.currentTarget = nil; // this is how we can find out later if the event was redispatched
         if (event.bubbles && !event.stopsPropagation && [self isKindOfClass:[SPDisplayObject class]])
