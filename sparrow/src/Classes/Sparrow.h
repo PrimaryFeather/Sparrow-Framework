@@ -11,6 +11,27 @@
 
 #define SPARROW_VERSION @"1.2"
 
+
+----------------------------------------------------------------------------------------------------
+Attention:
+
+Sparrow is switching the main development to the master branch, as is the common practice on git 
+projects. Access to the latest release version is still possible via tags. This is done to prevent
+confusion of new users. 
+
+The development branch will stay for a while, so that existing users have the time to switch, but
+eventually it will be deleted. This message is written outside of comments to generate compile 
+errors that should draw your attention.
+
+To switch to the master branch and get the latest version, open the terminal and type:
+
+git checkout master
+git pull
+
+Sorry for the inconvenience!
+----------------------------------------------------------------------------------------------------
+
+
 #import "SPNSExtensions.h"
 #import "SPEventDispatcher.h"
 #import "SPDisplayObject.h"
