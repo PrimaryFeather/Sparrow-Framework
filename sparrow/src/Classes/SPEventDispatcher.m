@@ -89,14 +89,15 @@
     // lead to the creation of a huge amount of objects).
     SPEventDispatcher *previousTarget = event.target;
     if (!previousTarget || event.currentTarget) event.target = self;
-    event.currentTarget = self;        
-
+    
     [self retain]; // the event listener could release 'self', so we have to make sure that it 
                    // stays valid while we're here.
     
     BOOL stopImmediatePropagation = NO;    
     if (listeners.count != 0)
     {    
+        event.currentTarget = self;
+        
         // we can enumerate directly over the array, since "add"- and "removeEventListener" won't
         // change it, but instead always create a new array.
         [listeners retain];
