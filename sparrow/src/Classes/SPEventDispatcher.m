@@ -113,14 +113,12 @@
         [listeners release];
     }
     
-    if (!stopImmediatePropagation)
+    if (!stopImmediatePropagation && event.bubbles && !event.stopsPropagation && 
+        [self isKindOfClass:[SPDisplayObject class]])
     {
         event.currentTarget = nil; // this is how we can find out later if the event was redispatched
-        if (event.bubbles && !event.stopsPropagation && [self isKindOfClass:[SPDisplayObject class]])
-        {
-            SPDisplayObject *target = (SPDisplayObject*)self;
-            [target.parent dispatchEvent:event];            
-        }
+        SPDisplayObject *target = (SPDisplayObject*)self;
+        [target.parent dispatchEvent:event];
     }
     
     if (previousTarget) event.target = previousTarget;
