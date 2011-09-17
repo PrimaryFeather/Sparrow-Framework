@@ -184,10 +184,18 @@ static void getChildEventListeners(SPDisplayObject *object, NSString *eventType,
 {    
     int numChildren = [mChildren count];
 
-    if (numChildren == 0) 
-        return [SPRectangle rectangleWithX:0 y:0 width:0 height:0];
-    else if (numChildren == 1) 
+    if (numChildren == 0)
+    {
+        SPMatrix *transformationMatrix = [self transformationMatrixToSpace:targetCoordinateSpace];
+        SPPoint *point = [SPPoint pointWithX:self.x y:self.y];
+        SPPoint *transformedPoint = [transformationMatrix transformPoint:point];
+        return [SPRectangle rectangleWithX:transformedPoint.x y:transformedPoint.y 
+                                     width:0.0f height:0.0f];
+    }
+    else if (numChildren == 1)
+    {
         return [[mChildren objectAtIndex:0] boundsInSpace:targetCoordinateSpace];
+    }
     else
     {
         float minX = FLT_MAX, maxX = -FLT_MAX, minY = FLT_MAX, maxY = -FLT_MAX;    
