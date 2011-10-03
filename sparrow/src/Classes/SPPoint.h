@@ -65,6 +65,9 @@
 /// Determines a point between two specified points. `ratio = 0 -> p1, ratio = 1 -> p2`
 + (SPPoint *)interpolateFromPoint:(SPPoint *)p1 toPoint:(SPPoint *)p2 ratio:(float)ratio;
 
+/// dot product
++ (float) dot:(SPPoint *)p1 andPoint:(SPPoint *)p2;
+
 /// ----------------
 /// @name Properties
 /// ----------------

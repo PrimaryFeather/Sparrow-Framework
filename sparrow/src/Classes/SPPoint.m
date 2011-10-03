@@ -109,6 +109,11 @@
                              y:invRatio * p1->mY + ratio * p2->mY];
 }
 
++ (float) dot:(SPPoint *)p1 andPoint:(SPPoint *)p2
+{
+	return (p1.x * p2.x) + (p1.y * p2.y);
+}
+
 + (SPPoint *)pointWithPolarLength:(float)length angle:(float)angle
 {
     return [[[SPPoint alloc] initWithPolarLength:length angle:angle] autorelease];
