@@ -41,6 +41,7 @@
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];    
+    mPlayer.delegate = nil;
     [mPlayer release];
     [mSound release];
     [super dealloc];
