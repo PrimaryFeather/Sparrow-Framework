@@ -96,7 +96,7 @@
 
 #else
 
-@implementation NSObject (SPPoolObjectExtensions)
+@implementation SPPoolObject
 
 + (SPPoolInfo *)poolInfo 
 {
