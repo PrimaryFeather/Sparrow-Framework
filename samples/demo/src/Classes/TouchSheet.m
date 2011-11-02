@@ -70,7 +70,17 @@
         
         SPPoint *prevVector = [touch1PrevPos subtractPoint:touch2PrevPos];
         SPPoint *vector = [touch1Pos subtractPoint:touch2Pos];
+
+        // update pivot point based on previous center
+        SPPoint *touch1PrevLocalPos = [touch1 previousLocationInSpace:self];
+        SPPoint *touch2PrevLocalPos = [touch2 previousLocationInSpace:self];
+        self.pivotX = (touch1PrevLocalPos.x + touch2PrevLocalPos.x) * 0.5f;
+        self.pivotY = (touch1PrevLocalPos.y + touch2PrevLocalPos.y) * 0.5f;
         
+        // update location based on the current center
+        self.x = (touch1Pos.x + touch2Pos.x) * 0.5f;
+        self.y = (touch1Pos.y + touch2Pos.y) * 0.5f;
+
         float angleDiff = vector.angle - prevVector.angle;
         self.rotation += angleDiff;   
         
