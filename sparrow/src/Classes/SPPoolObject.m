@@ -40,7 +40,9 @@
     if (!poolInfo->lastElement) 
     {
         // pool is empty -> allocate
-        return NSAllocateObject(self, 0, NULL);
+        SPPoolObject *object = NSAllocateObject(self, 0, NULL);
+        object->mRetainCount = 1;
+        return object;
     }
     else 
     {
@@ -51,23 +53,32 @@
         // zero out memory. (do not overwrite isa & mPoolPredecessor, thus the offset)
         unsigned int sizeOfFields = sizeof(Class) + sizeof(SPPoolObject *);
         memset((char*)(id)object + sizeOfFields, 0, malloc_size(object) - sizeOfFields);
-        
+        object->mRetainCount = 1;
         return object;
     }
 }
 
-- (void)dealloc
+- (uint)retainCount
 {
-    SPPoolInfo *poolInfo = [isa poolInfo];
-    self->mPoolPredecessor = poolInfo->lastElement;
-    poolInfo->lastElement = self;
-    
-    if (0) [super dealloc]; // just to shut down a compiler warning ...
+    return mRetainCount;
 }
 
-- (void)purge
+- (id)retain
 {
-    [super dealloc];
+    ++mRetainCount;
+    return self;
+}
+
+- (oneway void)release
+{
+    --mRetainCount;
+    
+    if (!mRetainCount)
+    {
+        SPPoolInfo *poolInfo = [isa poolInfo];
+        self->mPoolPredecessor = poolInfo->lastElement;
+        poolInfo->lastElement = self;
+    }
 }
 
 + (int)purgePool
@@ -80,7 +91,7 @@
     {
         ++count;        
         poolInfo->lastElement = lastElement->mPoolPredecessor;
-        [lastElement purge];
+        [lastElement dealloc];
     }
     
     return count;
