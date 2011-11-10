@@ -40,7 +40,7 @@
  
  Every display object may be the target of touch events. If you don't want an object to be
  touchable, you can disable the `touchable` property. When it's disabled, neither the object
- nor its childs will receive any more touch events.
+ nor its children will receive any more touch events.
  
  *Points vs. Pixels*
  
