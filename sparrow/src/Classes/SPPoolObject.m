@@ -81,6 +81,13 @@
     }
 }
 
+- (void)purge
+{
+    // will call 'dealloc' internally --
+    // which should not be called directly.
+    [super release];
+}
+
 + (int)purgePool
 {
     SPPoolInfo *poolInfo = [self poolInfo];    
@@ -91,7 +98,7 @@
     {
         ++count;        
         poolInfo->lastElement = lastElement->mPoolPredecessor;
-        [lastElement dealloc];
+        [lastElement purge];
     }
     
     return count;
