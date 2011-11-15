@@ -132,6 +132,7 @@
     return [[[self class] allocWithZone:zone] initWithX:mX y:mY width:mWidth height:mHeight];
 }
 
+#ifndef DISABLE_MEMORY_POOLING
 #pragma mark SPPoolObject
 
 + (SPPoolInfo *)poolInfo
@@ -139,5 +140,6 @@
     static SPPoolInfo poolInfo;
     return &poolInfo;
 }
+#endif
 
 @end

@@ -10,9 +10,10 @@
 //
 
 #import "SPPoolObject.h"
-#import <malloc/malloc.h>
 
 #ifndef DISABLE_MEMORY_POOLING
+
+#import <malloc/malloc.h>
 
 #define COMPLAIN_MISSING_IMP @"Class %@ needs this code:\n\
 + (SPPoolInfo *) poolInfo\n\
@@ -115,11 +116,6 @@
 #else
 
 @implementation SPPoolObject
-
-+ (SPPoolInfo *)poolInfo 
-{
-    return nil;
-}
 
 + (int)purgePool
 {
