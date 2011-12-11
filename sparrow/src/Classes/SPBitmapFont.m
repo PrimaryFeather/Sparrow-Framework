@@ -105,8 +105,8 @@
         float scale = mFontTexture.scale;
         
         SPRectangle *region = [[SPRectangle alloc] init];
-        region.x = [[attributeDict valueForKey:@"x"] floatValue] / scale;
-        region.y = [[attributeDict valueForKey:@"y"] floatValue] / scale;
+        region.x = [[attributeDict valueForKey:@"x"] floatValue] / scale + mFontTexture.frame.x;
+        region.y = [[attributeDict valueForKey:@"y"] floatValue] / scale + mFontTexture.frame.y;
         region.width = [[attributeDict valueForKey:@"width"] floatValue] / scale;
         region.height = [[attributeDict valueForKey:@"height"] floatValue] / scale;
         SPSubTexture *texture = [[SPSubTexture alloc] initWithRegion:region ofTexture:mFontTexture];
