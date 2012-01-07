@@ -56,9 +56,11 @@ typedef enum
    the method `registerBitmapFontFromFile:`, and then pass the font name to the corresponding 
    property of the text field.
     
- For the latter, we recommend the excellent [Glyph Designer](http://glyphdesigner.71squared.com) 
- from 71squared. It supports Sparrow natively. 
+ For the latter, we recommend one of the following tools; both support Sparrow natively.
  
+ - [Glyph Designer](http://glyphdesigner.71squared.com) from 71squared. 
+ - [bmGlyph](http://www.bmglyph.com) available in the App Store 
+  
  Alternatively, you can use the [Bitmap Font Generator](http://www.angelcode.com/products/bmfont)
  from Angel Code, which is a free tool for Windows. Export the font data as an XML 
  file and the texture as a png with white characters on a transparent background (32 bit). 
