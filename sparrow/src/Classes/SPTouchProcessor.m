@@ -17,6 +17,7 @@
 #import "SPPoint.h"
 #import "SPMatrix.h"
 #import "SPDisplayObjectContainer.h"
+#import "SPStage.h"
 
 #define MULTITAP_TIME 0.25f
 #define MULTITAP_DIST 25
@@ -70,7 +71,7 @@
                 existingTouch.phase = touch.phase;
                 existingTouch.tapCount = touch.tapCount;
                 
-                if (!existingTouch.target.stage)
+                if (![[SPStage mainStage] containsChild:existingTouch.target])
                 {
                     // target could have been removed from stage -> find new target in that case
                     SPPoint *touchPosition = [SPPoint pointWithX:touch.globalX y:touch.globalY];

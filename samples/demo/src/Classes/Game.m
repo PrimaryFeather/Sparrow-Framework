@@ -102,8 +102,8 @@
         SPTexture *backButtonTexture = [SPTexture textureWithContentsOfFile:@"button_back.png"];
         mBackButton = [[SPButton alloc] initWithUpState:backButtonTexture text:@"back"];
         mBackButton.visible = NO;
-        mBackButton.x = (int)(self.stage.width - mBackButton.width) / 2;
-        mBackButton.y = self.stage.height - mBackButton.height + 1;
+        mBackButton.x = (int)([SPStage mainStage].width - mBackButton.width) / 2;
+        mBackButton.y = [SPStage mainStage].height - mBackButton.height + 1;
         [mBackButton addEventListener:@selector(onBackButtonTriggered:) atObject:self 
                               forType:SP_EVENT_TYPE_TRIGGERED];
         [self addChild:mBackButton];

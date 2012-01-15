@@ -64,7 +64,7 @@
 
         if (mFrameCount % mWaitFrames == 0)
         {
-            float targetFPS = self.stage.frameRate;
+            float targetFPS = [SPStage mainStage].frameRate;
             float realFPS = mWaitFrames / mElapsed;
             
             if (ceilf(realFPS) >= targetFPS)
@@ -113,11 +113,11 @@
     [mJuggler removeAllObjects];
     
     NSLog(@"benchmark complete!");
-    NSLog(@"fps: %.1f", self.stage.frameRate);
+    NSLog(@"fps: %.1f", [SPStage mainStage].frameRate);
     NSLog(@"number of objects: %d", mContainer.numChildren);
     
     NSString *resultString = [NSString stringWithFormat:@"Result:\n%d objects\nwith %.0f fps", 
-                              mContainer.numChildren, self.stage.frameRate]; 
+                              mContainer.numChildren, [SPStage mainStage].frameRate]; 
     
     mResultText = [SPTextField textFieldWithWidth:250 height:200 text:resultString];
     mResultText.fontSize = 30;

@@ -13,6 +13,7 @@
 #import "SPEnterFrameEvent.h"
 #import "SPDisplayObject_Internal.h"
 #import "SPMacros.h"
+#import "SPStage.h"
 
 // --- C functions ---------------------------------------------------------------------------------
 
@@ -71,7 +72,7 @@ static void getChildEventListeners(SPDisplayObject *object, NSString *eventType,
         [child dispatchEvent:addedEvent];
         [addedEvent release];    
         
-        if (self.stage)
+        if ([SPStage mainStage])
         {
             SPEvent *addedToStageEvent = [[SPEvent alloc] initWithType:SP_EVENT_TYPE_ADDED_TO_STAGE];
             [child dispatchEventOnChildren:addedToStageEvent];
@@ -139,7 +140,7 @@ static void getChildEventListeners(SPDisplayObject *object, NSString *eventType,
         [child dispatchEvent:remEvent];
         [remEvent release];    
         
-        if (self.stage)
+        if ([SPStage mainStage])
         {
             SPEvent *remFromStageEvent = [[SPEvent alloc] initWithType:SP_EVENT_TYPE_REMOVED_FROM_STAGE];
             [child dispatchEventOnChildren:remFromStageEvent];

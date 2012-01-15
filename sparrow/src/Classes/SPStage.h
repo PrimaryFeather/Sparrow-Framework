@@ -29,16 +29,7 @@
  A stage also contains a default juggler which you can use for your animations. It is advanced 
  automatically once per frame. You can access this juggler from any display object by calling
  
-	self.stage.juggler
- 
- You have to take care, however, that the display object you are making this call from is already
- connected to the stage - otherwise, the method will return `nil`, and you won't have access to 
- the juggler.
- 
- As an alternative, you can also use this static method to access your stage. It will return the
- first stage instance that was created (and normally, there is only one stage available, anyway).
- 
-    [SPStage mainStage];
+	[SPStage mainStage].juggler
  
 ------------------------------------------------------------------------------------------------- */
 

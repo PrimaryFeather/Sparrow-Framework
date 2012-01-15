@@ -169,7 +169,8 @@
 @property (nonatomic, readonly) SPDisplayObject *root;
 
 /// The stage the display object is connected to, or nil if it is not connected to a stage.
-@property (nonatomic, readonly) SPStage *stage;
+/// DEPRECATED! Use `[SPStage mainStage]` instead.
+@property (nonatomic, readonly) SPStage *stage __attribute__((deprecated));
 
 /// The transformation matrix of the object relative to its parent.
 @property (nonatomic, readonly) SPMatrix *transformationMatrix;

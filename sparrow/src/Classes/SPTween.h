@@ -41,7 +41,7 @@ typedef enum
 	[tween animateProperty:@"x" targetValue:object.x + 50];
  	[tween animateProperty:@"rotation" targetValue:object.rotation + SP_D2R(45)];
  	[tween animateProperty:@"alpha" targetValue:0.0f];
- 	[self.stage.juggler addObject:tween];
+ 	[[SPStage mainStage].juggler addObject:tween];
  
  Note that the object is added to a juggler at the end. A tween will only be executed if its
  `advanceTime:` method is executed regularly - the juggler will do that for us, and will release
