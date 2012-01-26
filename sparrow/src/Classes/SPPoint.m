@@ -43,6 +43,11 @@
     return [self initWithX:0.0f y:0.0f];
 }
 
+- (float)lengthSq 
+{
+    return SQ(mX) + SQ(mY);
+}
+
 - (float)length
 {
     return sqrtf(SQ(mX) + SQ(mY));
@@ -51,6 +56,17 @@
 - (float)angle
 {
     return atan2f(mY, mX);
+}
+
+- (BOOL)isZero
+{
+    return mX == 0 && mY == 0;
+}
+
+- (SPPoint *)negate
+{
+    SPPoint *result = [[SPPoint alloc] initWithX:-mX y:-mY];
+    return [result autorelease];
 }
 
 - (SPPoint*)addPoint:(SPPoint*)point
@@ -71,7 +87,15 @@
     return [result autorelease];
 }
 
-- (SPPoint*)normalize
+- (SPPoint *)rotateBy:(float)angle
+{
+    float sina = sinf(angle);
+    float cosa = cosf(angle);
+    SPPoint *result = [[SPPoint alloc] initWithX:(mX * cosa) - (mY * sina) y:(mX * sina) + (mY * cosa)];
+    return [result autorelease];
+}
+
+- (SPPoint *)normalize
 {
     if (mX == 0 && mY == 0)
         [NSException raise:SP_EXC_INVALID_OPERATION format:@"Cannot normalize point in the origin"];
@@ -79,6 +103,17 @@
     float inverseLength = 1.0f / self.length;
     SPPoint *result = [[SPPoint alloc] initWithX:mX * inverseLength y:mY * inverseLength];
     return [result autorelease];
+}
+
+- (float)dot:(SPPoint *)other
+{
+    return mX * other->mX + mY * other->mY;
+}
+
+- (float)angleBetween:(SPPoint *)other 
+{
+    float cos = [self dot:other] / (self.length * other.length);
+    return cos >= 1.0f ? 0.0f : acosf(cos);
 }
 
 - (BOOL)isEqual:(id)other 
