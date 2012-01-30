@@ -61,6 +61,15 @@
 /// Sets width and height components to zero.
 - (void)setEmpty;
 
+/// Sets the bounds of the rectangle.
+- (void)setX:(float)x y:(float)y width:(float)width height:(float)height;
+
+/// Expands the bounds of this rectangle to contain the specified point.
+- (void)addX:(float)x y:(float)y;
+
+/// Expands the bounds of this rectangle to contain the specified point.
+- (void)addPoint:(SPPoint *)p;
+
 /// ----------------
 /// @name Properties
 /// ----------------
@@ -70,6 +79,16 @@
 @property (nonatomic, assign) float y;
 @property (nonatomic, assign) float width;
 @property (nonatomic, assign) float height;
+
+@property (nonatomic, readonly) float minX;
+@property (nonatomic, readonly) float minY;
+@property (nonatomic, readonly) float maxX;
+@property (nonatomic, readonly) float maxY;
+@property (nonatomic, readonly) float centerX;
+@property (nonatomic, readonly) float centerY;
+@property (nonatomic, readonly) SPPoint *min;
+@property (nonatomic, readonly) SPPoint *max;
+@property (nonatomic, readonly) SPPoint *center;
 
 /// Determines if a rectangle has an empty area.
 @property (nonatomic, readonly) BOOL isEmpty;

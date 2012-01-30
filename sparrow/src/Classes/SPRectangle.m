@@ -98,6 +98,73 @@
     mX = mY = mWidth = mHeight = 0;
 }
 
+- (void)setX:(float)x y:(float)y width:(float)width height:(float)height 
+{
+    mX = x;
+    mY = y;
+    mWidth = width;
+    mHeight = height;
+}
+
+- (void)addX:(float)x y:(float)y 
+{
+    float x1 = MIN(mX, x);
+    float x2 = MAX(mX + mWidth, x);
+    float y1 = MIN(mY, y);
+    float y2 = MAX(mY + mHeight, y);
+    [self setX:x1 y:y1 width:x2 - x1 height:y2 - y1];
+}
+
+- (void)addPoint:(SPPoint *)p 
+{
+    [self addX:p.x y:p.y];
+}
+
+- (float)minX 
+{
+    return mX;
+}
+
+- (float)minY
+{
+    return mY;
+}
+
+- (float)maxX
+{
+    return mX + mWidth;
+}
+
+- (float)maxY
+{
+    return mY + mHeight;
+}
+
+- (float)centerX
+{
+    return mX + (mWidth / 2.0f);
+}
+
+- (float)centerY
+{
+    return mY + (mHeight / 2.0f);
+}
+
+- (SPPoint *)min
+{
+    return [[[SPPoint alloc] initWithX:self.minX y:self.minY] autorelease];
+}
+
+- (SPPoint *)max
+{
+    return [[[SPPoint alloc] initWithX:self.maxX y:self.maxY] autorelease];
+}
+
+- (SPPoint *)center
+{
+    return [[[SPPoint alloc] initWithX:self.centerX y:self.centerY] autorelease];
+}
+
 - (BOOL)isEmpty
 {
     return mWidth == 0 || mHeight == 0;
