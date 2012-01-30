@@ -13,12 +13,6 @@
 
 @class SPPoolObject;
 
-typedef struct
-{
-    Class poolClass;
-    SPPoolObject *lastElement;    
-} SPPoolInfo;
-
 /** ------------------------------------------------------------------------------------------------
  
  The SPPoolObject class is an alternative to the base class `NSObject` that manages a pool of 
@@ -45,6 +39,12 @@ typedef struct
 
 #ifndef DISABLE_MEMORY_POOLING
 
+typedef struct
+{
+    Class poolClass;
+    SPPoolObject *lastElement;
+} SPPoolInfo;
+
 @interface SPPoolObject : NSObject 
 {
   @private
@@ -62,10 +62,9 @@ typedef struct
 
 #else
 
-@interface SPPoolObject : NSObject 
+@class SPPoolInfo;
 
-/// Dummy implementation of SPPoolObject method to simplify switching between NSObject and SPPoolObject.
-+ (SPPoolInfo *)poolInfo;
+@interface SPPoolObject : NSObject
 
 /// Dummy implementation of SPPoolObject method to simplify switching between NSObject and SPPoolObject.
 + (int)purgePool;
