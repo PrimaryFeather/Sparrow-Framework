@@ -90,6 +90,14 @@
 - (void)swapChildAtIndex:(int)index1 withChildAtIndex:(int)index2;
 
 /// Sorts the display children using the given NSComparator block.
+/// For example, to depth-sort children such that objects lower on the screen are
+/// sorted in front of those higher on the screen:
+///
+/// [container sortChildren:^(id a, id b) {
+///     float aY = ((SPDisplayObject *) a).y;
+///     float bY = ((SPDisplayObject *)b).y;
+///     return (aY < bY ? NSOrderedAscending : (aY > bY ? NSOrderedDescending : NSOrderedSame));
+/// }];
 - (void)sortChildren:(NSComparator)comp;
 
 /// ----------------
