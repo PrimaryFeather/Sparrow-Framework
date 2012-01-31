@@ -89,6 +89,9 @@
 /// Swaps the indexes of two children.
 - (void)swapChildAtIndex:(int)index1 withChildAtIndex:(int)index2;
 
+/// Sorts the display children using the given NSComparator block.
+- (void)sortChildren:(NSComparator)comp;
+
 /// ----------------
 /// @name Properties
 /// ----------------
