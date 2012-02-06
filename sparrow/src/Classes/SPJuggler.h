@@ -18,7 +18,7 @@
  The SPJuggler takes objects that implement SPAnimatable (e.g. `SPTween`s) and executes them.
  
  A juggler is a simple object. It does no more than saving a list of objects implementing 
- `SPAnimatable` and advancing their time if he is told to do so (by calling its own `advanceTime:`
+ `SPAnimatable` and advancing their time if it is told to do so (by calling its own `advanceTime:`
  method). When an animation is completed, it throws it away.
  
  There is a default juggler in every stage. You can access it by calling

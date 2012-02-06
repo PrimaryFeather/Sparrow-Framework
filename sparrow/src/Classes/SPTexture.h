@@ -116,7 +116,8 @@ typedef void (^SPTextureDrawingBlock)(CGContextRef context);
 /// Initializes a texture with the contents of a UIImage.
 - (id)initWithContentsOfImage:(UIImage *)image;
 
-/// Initializes a texture with a region (in points) of another texture.
+/// Initializes a texture with a region (in points) of another texture. The new texture will 
+/// reference the base texture; no data is duplicated.
 - (id)initWithRegion:(SPRectangle*)region ofTexture:(SPTexture*)texture;
 
 /// Factory method.
@@ -135,7 +136,7 @@ typedef void (^SPTextureDrawingBlock)(CGContextRef context);
 /// @name Methods
 /// -------------
 
-/// Convertes texture coordinates in the format required for rendering.
+/// Converts texture coordinates into the format required for rendering.
 - (void)adjustTextureCoordinates:(const float *)texCoords saveAtTarget:(float *)targetTexCoords 
                      numVertices:(int)numVertices;
 

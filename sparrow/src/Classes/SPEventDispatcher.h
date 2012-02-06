@@ -70,7 +70,7 @@
 /// Removes an event listener at an object.
 - (void)removeEventListener:(SEL)listener atObject:(id)object forType:(NSString*)eventType;
 
-/// Removes all event listeners at an objct that have a certain type.
+/// Removes all event listeners at an object that have a certain type.
 - (void)removeEventListenersAtObject:(id)object forType:(NSString*)eventType;
 
 /// Dispatches an event to all objects that have registered for events of the same type.

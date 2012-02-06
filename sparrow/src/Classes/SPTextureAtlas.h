@@ -19,7 +19,7 @@
  A texture atlas is a collection of many smaller textures in one big image. The class
  SPTextureAtlas is used to access textures from such an atlas.
  
- Using a texture atlas for your textures has two main advantages:
+ Using a texture atlas for your textures solves two problems:
  
  - In OpenGL, there's always one texture active at a given moment. Whenever you change the active 
    texture, a "texture-switch" has to be executed, and that switch takes time.

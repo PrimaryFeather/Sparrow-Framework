@@ -14,8 +14,7 @@
 
 /** ------------------------------------------------------------------------------------------------
 
- An SPQuad displays a single, colored rectangle.
- It renders a rectangular area with a single color or a color gradient. 
+ An SPQuad represents a rectangle with a uniform color or a color gradient. 
  
  You can set one color per vertex. The colors will smoothly fade into each other over the area
  of the quad. To display a simple linear color gradient, assign one color to vertices 0 and 1 and 

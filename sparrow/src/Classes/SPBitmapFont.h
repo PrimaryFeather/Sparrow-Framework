@@ -73,7 +73,7 @@
 /// @name Methods
 /// -------------
 
-/// Creates a single bitmap char with a certain character ID.
+/// Returns a single bitmap char with a certain character ID.
 - (SPBitmapChar *)charByID:(int)charID;
 
 /// Creates a display object that contains the given text by arranging individual chars.
