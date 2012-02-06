@@ -23,7 +23,7 @@
  
  There is a default juggler in every stage. You can access it by calling
  
-	SPJuggler *juggler = self.stage.juggler;
+	SPJuggler *juggler = [SPStage mainStage].juggler;
  
  in any object that has access to the stage. You can, however, create juggler objects yourself, too.
  That way, you can group your game into logical components that handle their animations independently.

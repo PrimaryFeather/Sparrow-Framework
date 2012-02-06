@@ -283,9 +283,7 @@
 
 - (SPStage*)stage
 {
-    SPDisplayObject *root = self.root;
-    if ([root isKindOfClass:[SPStage class]]) return (SPStage*) root;
-    else return nil;
+    return [SPStage mainStage];
 }
 
 - (SPMatrix*)transformationMatrix

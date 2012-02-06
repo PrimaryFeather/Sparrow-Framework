@@ -52,12 +52,12 @@
 
 - (void)onAddedToStage:(SPEvent *)event
 {
-    [self.stage.juggler addObject:mMovie];
+    [[SPStage mainStage].juggler addObject:mMovie];
 }
 
 - (void)onRemovedFromStage:(SPEvent *)event
 {
-    [self.stage.juggler removeObject:mMovie];
+    [[SPStage mainStage].juggler removeObject:mMovie];
 }
 
 @end
