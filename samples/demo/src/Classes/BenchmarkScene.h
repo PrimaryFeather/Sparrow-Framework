@@ -7,12 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Scene.h"
 
-@interface BenchmarkScene : SPSprite 
+@interface BenchmarkScene : Scene
 {
     SPButton *mStartButton;
     SPTextField *mResultText;
-    SPJuggler *mJuggler;
     SPTextureAtlas *mAtlas;
 
     SPSprite *mContainer;

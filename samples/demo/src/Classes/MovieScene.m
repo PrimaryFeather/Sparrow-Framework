@@ -37,8 +37,8 @@
         [stepSound release];
         
         // move the clip to the center and add it to the stage
-        mMovie.x = 160 - (int)mMovie.width / 2;
-        mMovie.y = 240 - (int)mMovie.height / 2; 
+        mMovie.x = CENTER_X - (int)mMovie.width / 2;
+        mMovie.y = CENTER_Y - (int)mMovie.height / 2; 
         [self addChild:mMovie];                
         [mMovie release];        
 

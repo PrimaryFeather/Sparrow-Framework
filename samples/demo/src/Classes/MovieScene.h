@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Sparrow.h"
+#import "Scene.h"
 
-@interface MovieScene : SPSprite 
+@interface MovieScene : Scene 
 {
     SPMovieClip *mMovie;
 }

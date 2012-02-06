@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Sparrow.h"
+#import "Scene.h"
 
-@interface TextureScene : SPSprite 
+@interface TextureScene : Scene 
 
 @end

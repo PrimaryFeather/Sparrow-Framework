@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Scene.h"
 
-
-@interface RenderTextureScene : SPSprite 
+@interface RenderTextureScene : Scene 
 {     
     SPRenderTexture *mRenderTexture;
     SPImage *mBrush;

@@ -7,16 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Sparrow.h"
+#import "Scene.h"
 
 @interface Game : SPStage
 {
   @private
-    SPSprite *mCurrentScene;
+    Scene *mCurrentScene;
     SPSprite *mMainMenu;
-    SPButton *mBackButton;
-    
-    int mNumButtons;
 }
 
 @end

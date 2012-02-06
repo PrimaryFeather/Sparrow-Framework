@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Sparrow.h"
+#import "Scene.h"
 
-@interface AnimationScene : SPSprite
+@interface AnimationScene : Scene
 {
     SPButton *mStartButton;
     SPButton *mDelayButton;

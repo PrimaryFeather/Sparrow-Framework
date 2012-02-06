@@ -49,6 +49,7 @@
 		DED0B7F0101CE0A9008D3794 /* TextScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DED0B7EF101CE0A9008D3794 /* TextScene.m */; };
 		DED6FF371041623A001FF6C8 /* AnimationScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DED6FF361041623A001FF6C8 /* AnimationScene.m */; };
 		DEDF882612ABED67005DEAE8 /* RenderTextureScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DEDF882512ABED67005DEAE8 /* RenderTextureScene.m */; };
+		DEE71E6C14E02E0700210256 /* Scene.m in Sources */ = {isa = PBXBuildFile; fileRef = DEE71E6B14E02E0700210256 /* Scene.m */; };
 		DEE94F1211B4557E0000FE20 /* step.caf in Resources */ = {isa = PBXBuildFile; fileRef = DEE94F1111B4557E0000FE20 /* step.caf */; };
 		DEEDE3E811B29C77009FD4C8 /* sound0.caf in Resources */ = {isa = PBXBuildFile; fileRef = DEEDE3E511B29C77009FD4C8 /* sound0.caf */; };
 		DEEDE3E911B29C77009FD4C8 /* sound1.caf in Resources */ = {isa = PBXBuildFile; fileRef = DEEDE3E611B29C77009FD4C8 /* sound1.caf */; };
@@ -146,6 +147,8 @@
 		DED6FF361041623A001FF6C8 /* AnimationScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationScene.m; sourceTree = "<group>"; };
 		DEDF882412ABED67005DEAE8 /* RenderTextureScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderTextureScene.h; sourceTree = "<group>"; };
 		DEDF882512ABED67005DEAE8 /* RenderTextureScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RenderTextureScene.m; sourceTree = "<group>"; };
+		DEE71E6A14E02E0700210256 /* Scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scene.h; sourceTree = "<group>"; };
+		DEE71E6B14E02E0700210256 /* Scene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Scene.m; sourceTree = "<group>"; };
 		DEE94F1111B4557E0000FE20 /* step.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = step.caf; sourceTree = "<group>"; };
 		DEEDE3E511B29C77009FD4C8 /* sound0.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sound0.caf; sourceTree = "<group>"; };
 		DEEDE3E611B29C77009FD4C8 /* sound1.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sound1.caf; sourceTree = "<group>"; };
@@ -333,6 +336,8 @@
 				DEF1726811B017AA00A11DD7 /* SoundScene.m */,
 				DEDF882412ABED67005DEAE8 /* RenderTextureScene.h */,
 				DEDF882512ABED67005DEAE8 /* RenderTextureScene.m */,
+				DEE71E6A14E02E0700210256 /* Scene.h */,
+				DEE71E6B14E02E0700210256 /* Scene.m */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -502,6 +507,7 @@
 				DEF1726911B017AA00A11DD7 /* SoundScene.m in Sources */,
 				DEDF882612ABED67005DEAE8 /* RenderTextureScene.m in Sources */,
 				DEB2D16B1380580800FA7B88 /* TextureScene.m in Sources */,
+				DEE71E6C14E02E0700210256 /* Scene.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

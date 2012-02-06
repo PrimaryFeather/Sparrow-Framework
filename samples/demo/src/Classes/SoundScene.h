@@ -8,13 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
+#import "Scene.h"
 
-@interface SoundScene : SPSprite <AVAudioPlayerDelegate> 
+@interface SoundScene : Scene <AVAudioPlayerDelegate> 
 {
     SPSoundChannel *mMusicChannel;
     SPSoundChannel *mSoundChannel;
     SPButton *mChannelButton;
 }
-
 
 @end

@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Sparrow.h"
 #import "TouchSheet.h"
+#import "Scene.h"
 
-@interface TouchScene : SPSprite 
+@interface TouchScene : Scene 
 
 @end

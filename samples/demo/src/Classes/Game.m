@@ -17,27 +17,13 @@
 #import "SoundScene.h"
 #import "RenderTextureScene.h"
 
-// --- private interface ---------------------------------------------------------------------------
-
-@interface Game ()
-
-- (void)showScene:(SPSprite *)scene;
-- (void)addSceneButton:(SPButton *)button;
-
-@end
-
-// --- class implementation ------------------------------------------------------------------------
-
 @implementation Game
 
 - (id)initWithWidth:(float)width height:(float)height
 {
     if ((self = [super initWithWidth:width height:height]))
     {
-        mNumButtons = 0;        
-                
-        // add background image 
-        
+        // add background image
         SPImage *background = [SPImage imageWithContentsOfFile:@"Default.png"];
         [self addChild:background];
         
@@ -48,166 +34,70 @@
         SPImage *logo = [SPImage imageWithContentsOfFile:@"logo.png"];
         [mMainMenu addChild:logo];
         
-        SPTexture *sceneButtonTexture = [SPTexture textureWithContentsOfFile:@"button_big.png"];
+        // choose which scenes will be accessible
+        NSArray *scenesToCreate = [NSArray arrayWithObjects:
+                                   @"Textures", [TextureScene class],
+                                   @"Multitouch", [TouchScene class],
+                                   @"TextFields", [TextScene class],
+                                   @"Animations", [AnimationScene class],
+                                   @"Custom hit-test", [CustomHitTestScene class],
+                                   @"Movie Clip", [MovieScene class],
+                                   @"Sound", [SoundScene class],
+                                   @"RenderTexture", [RenderTextureScene class],
+                                   @"Benchmark", [BenchmarkScene class], nil];
         
-        // add scene buttons
+        SPTexture *buttonTexture = [SPTexture textureWithContentsOfFile:@"button_big.png"];
+        int count = 0;
+        int index = 0;
         
-        SPButton *textureButton = [SPButton buttonWithUpState:sceneButtonTexture text:@"Textures"];
-        [textureButton addEventListener:@selector(onTextureButtonTriggered:) atObject:self 
-                                forType:SP_EVENT_TYPE_TRIGGERED];
-        [self addSceneButton:textureButton];
-        
-        SPButton *touchButton = [SPButton buttonWithUpState:sceneButtonTexture text:@"Multitouch"];
-        [touchButton addEventListener:@selector(onTouchButtonTriggered:) atObject:self
-                              forType:SP_EVENT_TYPE_TRIGGERED];        
-        [self addSceneButton:touchButton];
-        
-        SPButton *textButton = [SPButton buttonWithUpState:sceneButtonTexture text:@"TextFields"];
-        [textButton addEventListener:@selector(onTextButtonTriggered:) atObject:self
+        // create buttons for each scene
+        while (index < scenesToCreate.count)
+        {
+            NSString *sceneTitle = [scenesToCreate objectAtIndex:index++];
+            Class sceneClass = [scenesToCreate objectAtIndex:index++];
+            
+            SPButton *button = [SPButton buttonWithUpState:buttonTexture text:sceneTitle];
+            button.x = count % 2 == 0 ? 28 : 167;
+            button.y = 150 + (count / 2) * 52 + (count % 2) * 26;    
+            button.name = NSStringFromClass(sceneClass);
+            [button addEventListener:@selector(onButtonTriggered:) atObject:self 
                              forType:SP_EVENT_TYPE_TRIGGERED];
-        [self addSceneButton:textButton];
-
-        SPButton *animationButton = [SPButton buttonWithUpState:sceneButtonTexture text:@"Animations"];
-        [animationButton addEventListener:@selector(onAnimationButtonTriggered:) atObject:self
-                                  forType:SP_EVENT_TYPE_TRIGGERED];
-        [self addSceneButton:animationButton];
+            [mMainMenu addChild:button];
+            ++count;
+        }
         
-        SPButton *hitTestButton = [SPButton buttonWithUpState:sceneButtonTexture text:@"Custom hit-test"];
-        [hitTestButton addEventListener:@selector(onHitTestButtonTriggered:)
-                               atObject:self forType:SP_EVENT_TYPE_TRIGGERED];
-        [self addSceneButton:hitTestButton];
+        [self addEventListener:@selector(onSceneClosing:) atObject:self
+                       forType:EVENT_TYPE_SCENE_CLOSING];
         
-        SPButton *movieButton = [SPButton buttonWithUpState:sceneButtonTexture text:@"Movie Clip"];
-        [movieButton addEventListener:@selector(onMovieButtonTriggered:)
-                             atObject:self forType:SP_EVENT_TYPE_TRIGGERED];        
-        [self addSceneButton:movieButton];
-        
-        SPButton *soundButton = [SPButton buttonWithUpState:sceneButtonTexture text:@"Sound"];
-        [soundButton addEventListener:@selector(onSoundButtonTriggered:) atObject:self
-                             forType:SP_EVENT_TYPE_TRIGGERED];
-        [self addSceneButton:soundButton];
-        
-        SPButton *benchmarkButton = [SPButton buttonWithUpState:sceneButtonTexture text:@"Benchmark"];
-        [benchmarkButton addEventListener:@selector(onBenchmarkButtonTriggered:) atObject:self
-                                  forType:SP_EVENT_TYPE_TRIGGERED];
-        [self addSceneButton:benchmarkButton];
-        
-        SPButton *renderTextureButton = [SPButton buttonWithUpState:sceneButtonTexture text:@"RenderTexture"];
-        [renderTextureButton addEventListener:@selector(onRenderTextureButtonTriggered:) atObject:self
-                                  forType:SP_EVENT_TYPE_TRIGGERED];
-        [self addSceneButton:renderTextureButton];
-        
-        // add back-button (becomes visible when a scene is entered)
-        
-        SPTexture *backButtonTexture = [SPTexture textureWithContentsOfFile:@"button_back.png"];
-        mBackButton = [[SPButton alloc] initWithUpState:backButtonTexture text:@"back"];
-        mBackButton.visible = NO;
-        mBackButton.x = (int)(self.stage.width - mBackButton.width) / 2;
-        mBackButton.y = self.stage.height - mBackButton.height + 1;
-        [mBackButton addEventListener:@selector(onBackButtonTriggered:) atObject:self 
-                              forType:SP_EVENT_TYPE_TRIGGERED];
-        [self addChild:mBackButton];
     }
     return self;
 }
 
-- (void)showScene:(SPSprite *)scene
+- (void)onButtonTriggered:(SPEvent *)event
 {
-    mCurrentScene = scene;
-    [self addChild:scene];
-
+    if (mCurrentScene) return;
+    
+    // the class name of the scene is saved in the "name" property of the button. 
+    SPButton *button = (SPButton *)event.target;
+    Class sceneClass = NSClassFromString(button.name);
+    
+    // create an instance of that class and add it to the display tree.
+    mCurrentScene = [[sceneClass alloc] init];
     mMainMenu.visible = NO;
-    mBackButton.visible = YES;
+    [self addChild:mCurrentScene];
 }
 
-- (void)addSceneButton:(SPButton *)button
-{
-    button.x = mNumButtons % 2 == 0 ? 28 : 167;
-    button.y = 150 + (mNumButtons / 2) * 52 + (mNumButtons % 2) * 26;    
-    [mMainMenu addChild:button];
-    mNumButtons++;
-}
-
-#pragma mark -
-
-- (void)onBackButtonTriggered:(SPEvent *)event
+- (void)onSceneClosing:(SPEvent *)event
 {
     [mCurrentScene removeFromParent];
+    [mCurrentScene release];
     mCurrentScene = nil;
-    
-    mBackButton.visible = NO;
-    mMainMenu.visible = YES;    
+    mMainMenu.visible = YES;
 }
-
-- (void)onTextureButtonTriggered:(SPEvent *)event
-{
-    SPSprite *scene = [[TextureScene alloc] init];
-    [self showScene:scene];
-    [scene release];    
-}
-
-- (void)onTouchButtonTriggered:(SPEvent *)event
-{
-    SPSprite *scene = [[TouchScene alloc] init];
-    [self showScene:scene];
-    [scene release];
-}
-
-- (void)onTextButtonTriggered:(SPEvent *)event
-{
-    SPSprite *scene = [[TextScene alloc] init];
-    [self showScene:scene];
-    [scene release];
-}
-
-- (void)onAnimationButtonTriggered:(SPEvent *)event
-{
-    SPSprite *scene = [[AnimationScene alloc] init];
-    [self showScene:scene];
-    [scene release];
-}
-
-- (void)onHitTestButtonTriggered:(SPEvent *)event
-{
-    SPSprite *scene = [[CustomHitTestScene alloc] init];
-    [self showScene:scene];
-    [scene release];
-}
-
-- (void)onMovieButtonTriggered:(SPEvent *)event
-{
-    SPSprite *scene = [[MovieScene alloc] init];
-    [self showScene:scene];
-    [scene release];
-}
-
-- (void)onSoundButtonTriggered:(SPEvent *)event
-{
-    SPSprite *scene = [[SoundScene alloc] init];
-    [self showScene:scene];
-    [scene release];
-}
-
-- (void)onBenchmarkButtonTriggered:(SPEvent *)event
-{
-    SPSprite *scene = [[BenchmarkScene alloc] init];
-    [self showScene:scene];
-    [scene release];    
-}
-
-- (void)onRenderTextureButtonTriggered:(SPEvent *)event
-{
-    SPSprite *scene = [[RenderTextureScene alloc] init];
-    [self showScene:scene];
-    [scene release];    
-}
-
-#pragma mark -
 
 - (void)dealloc
 {
     [mMainMenu release]; // automatically releases all children   
-    [mBackButton release];    
     [mCurrentScene release];
     [super dealloc];
 }

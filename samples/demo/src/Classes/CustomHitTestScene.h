@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Sparrow.h"
+#import "Scene.h"
 
-@interface CustomHitTestScene : SPSprite
+@interface CustomHitTestScene : Scene
 
 @end
