@@ -12,14 +12,19 @@
 #import "SPPoolObject.h"
 #import <malloc/malloc.h>
 
-#ifndef DISABLE_MEMORY_POOLING
-
 #define COMPLAIN_MISSING_IMP @"Class %@ needs this code:\n\
 + (SPPoolInfo *) poolInfo\n\
 {\n\
-  static SPPoolInfo poolInfo;\n\
-  return &poolInfo;\n\
+  static SPPoolInfo *poolInfo = nil;\n\
+  if (!poolInfo) poolInfo = [[SPPoolInfo alloc] init];\n\
+  return poolInfo;\n\
 }"
+
+@implementation SPPoolInfo
+// empty
+@end
+
+#ifndef DISABLE_MEMORY_POOLING
 
 @implementation SPPoolObject
 

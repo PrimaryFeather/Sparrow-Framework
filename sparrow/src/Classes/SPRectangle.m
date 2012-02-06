@@ -136,8 +136,9 @@
 
 + (SPPoolInfo *)poolInfo
 {
-    static SPPoolInfo poolInfo;
-    return &poolInfo;
+    static SPPoolInfo *poolInfo = nil;
+    if (!poolInfo) poolInfo = [[SPPoolInfo alloc] init];
+    return poolInfo;
 }
 
 @end

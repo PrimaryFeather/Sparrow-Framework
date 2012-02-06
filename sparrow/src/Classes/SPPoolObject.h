@@ -13,11 +13,14 @@
 
 @class SPPoolObject;
 
-typedef struct
+@interface SPPoolInfo : NSObject
 {
+  @public
     Class poolClass;
-    SPPoolObject *lastElement;    
-} SPPoolInfo;
+    SPPoolObject *lastElement;
+}
+
+@end
 
 /** ------------------------------------------------------------------------------------------------
  
@@ -35,10 +38,11 @@ typedef struct
  To use memory pooling for another class, you just have to inherit from SPPoolObject and implement
  the following method:
  
- 	+ (SPPoolInfo *) poolInfo
+ 	+ (SPPoolInfo *)poolInfo
  	{
- 	    static SPPoolInfo poolInfo;
- 	    return &poolInfo;
+ 	    static SPPoolInfo *poolInfo = nil;
+ 	    if (!poolInfo) poolInfo = [[SPPoolInfo alloc] init];
+ 	    return poolInfo;
  	}
  
  ------------------------------------------------------------------------------------------------- */
@@ -71,6 +75,5 @@ typedef struct
 + (int)purgePool;
 
 @end
-
 
 #endif
