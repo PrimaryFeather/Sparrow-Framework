@@ -14,8 +14,7 @@
 
 /** ------------------------------------------------------------------------------------------------
 
- An SPBitmapChar is an image that contains one char of a bitmap font. Its properties contain all
- the information that is needed to arrange the char in a text. 
+ A BitmapChar contains the information about one char of a bitmap font.
  
  _You don't have to use this class directly in most cases._
  
@@ -36,7 +35,7 @@
 /// @name Initializers
 /// ------------------
 
-/// Initializes a char with a texture and his properties.
+/// Initializes a char with a texture and its properties.
 - (id)initWithID:(int)charID texture:(SPTexture *)texture
          xOffset:(float)xOffset yOffset:(float)yOffset xAdvance:(float)xAdvance;
 
@@ -50,7 +49,7 @@
 /// Retrieve kerning information relative to the given character ID.
 - (float)kerningToChar:(int)charID;
 
-/// Creates an image of the char
+/// Creates an image of the char.
 - (SPImage *)createImage;
 
 /// ----------------
