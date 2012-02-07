@@ -5,5 +5,14 @@
 #ifdef __OBJC__
     #import <Foundation/Foundation.h>
     #import <UIKit/UIKit.h>
+    
     #import "Sparrow.h" 
+    #import "Media.h"
 #endif
+
+
+#define GAME_WIDTH  320
+#define GAME_HEIGHT 480
+
+#define CENTER_X   (GAME_WIDTH / 2)
+#define CENTER_Y   (GAME_HEIGHT / 2)
