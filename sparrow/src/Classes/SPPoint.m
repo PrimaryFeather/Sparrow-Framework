@@ -71,13 +71,23 @@
 
 - (SPPoint*)addPoint:(SPPoint*)point
 {
-    SPPoint *result = [[SPPoint alloc] initWithX:mX+point->mX y:mY+point->mY];    
+    return [self addX:point->mX y:point->mY];
+}
+
+- (SPPoint *)addX:(float)x y:(float)y
+{
+    SPPoint *result = [[SPPoint alloc] initWithX:mX+x y:mY+y];    
     return [result autorelease];
 }
 
 - (SPPoint*)subtractPoint:(SPPoint*)point
 {
-    SPPoint *result = [[SPPoint alloc] initWithX:mX-point->mX y:mY-point->mY];    
+    return [self subtractX:point->mX y:point->mY];
+}
+
+- (SPPoint *)subtractX:(float)x y:(float)y
+{
+    SPPoint *result = [[SPPoint alloc] initWithX:mX-x y:mY-y];    
     return [result autorelease];
 }
 
