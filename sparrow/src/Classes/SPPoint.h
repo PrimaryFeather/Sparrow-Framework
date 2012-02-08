@@ -80,6 +80,9 @@
 /// Calculates the distance between two points.
 + (float)distanceFromPoint:(SPPoint *)p1 toPoint:(SPPoint *)p2;
 
+/// Calculates the squared distance between two points.
++ (float)distanceSqFromPoint:(SPPoint *)p1 toPoint:(SPPoint *)p2;
+
 /// Determines a point between two specified points. `ratio = 0 -> p1, ratio = 1 -> p2`
 + (SPPoint *)interpolateFromPoint:(SPPoint *)p1 toPoint:(SPPoint *)p2 ratio:(float)ratio;
 
