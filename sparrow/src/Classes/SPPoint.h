@@ -44,23 +44,44 @@
 /// @name Methods
 // --------------
 
+/// Returns the negation of this point
+- (SPPoint *)negate;
+
 /// Adds a point to the current point and returns the resulting point.
 - (SPPoint *)addPoint:(SPPoint *)point;
+
+/// Adds a point to the current point and returns the resulting point.
+- (SPPoint *)addX:(float)x y:(float)y;
 
 /// Substracts a point from the current point and returns the resulting point.
 - (SPPoint *)subtractPoint:(SPPoint *)point;
 
+/// Substracts a point from the current point and returns the resulting point.
+- (SPPoint *)subtractX:(float)x y:(float)y;
+
 /// Scales the point by a certain factor and returns the resulting point.
 - (SPPoint *)scaleBy:(float)scalar;
 
+/// Rotates the point by the given angle (in radians) and returns the resulting point.
+- (SPPoint *)rotateBy:(float)angle;
+
 /// Scales the line segment between the origin and the current point to one.
 - (SPPoint *)normalize;
+
+/// Returns the dot-product of this vector and the given vector
+- (float)dot:(SPPoint *)other;
+
+/// Returns the angle between this vector and the given vector
+- (float)angleBetween:(SPPoint *)other;
 
 /// Compares two points.
 - (BOOL)isEqual:(id)other;
 
 /// Calculates the distance between two points.
 + (float)distanceFromPoint:(SPPoint *)p1 toPoint:(SPPoint *)p2;
+
+/// Calculates the squared distance between two points.
++ (float)distanceSqFromPoint:(SPPoint *)p1 toPoint:(SPPoint *)p2;
 
 /// Determines a point between two specified points. `ratio = 0 -> p1, ratio = 1 -> p2`
 + (SPPoint *)interpolateFromPoint:(SPPoint *)p1 toPoint:(SPPoint *)p2 ratio:(float)ratio;
@@ -73,10 +94,16 @@
 @property (nonatomic, assign) float x;
 @property (nonatomic, assign) float y;
 
+/// The squared distance to the origin (or the squared length of the vector)
+@property (readonly) float lengthSq;
+
 /// The distance to the origin (or the length of the vector).
 @property (readonly) float length;
 
 /// The angle between the origin and the point (in RAD).
 @property (readonly) float angle;
+
+/// Returns true if this is the zero-vector
+@property (readonly) BOOL isZero;
 
 @end
