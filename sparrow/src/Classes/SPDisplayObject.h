@@ -129,17 +129,26 @@
 /// The y coordinate of the object relative to the local coordinates of the parent.
 @property (nonatomic, assign) float y;
 
+/// The coordinates of the object relative to the local coordinates of the parent
+@property (nonatomic, copy) SPPoint *loc;
+
 /// The x coordinate of the object's origin in its own coordinate space (default: 0).
 @property (nonatomic, assign) float pivotX;
 
 /// The y coordinate of the object's origin in its own coordinate space (default: 0).
 @property (nonatomic, assign) float pivotY;
 
+/// The object's origin in its own coordinate space
+@property (nonatomic, copy) SPPoint *pivot;
+
 /// The horizontal scale factor. "1" means no scale, negative values flip the object.
 @property (nonatomic, assign) float scaleX;
 
 /// The vertical scale factor. "1" means no scale, negative values flip the object.
 @property (nonatomic, assign) float scaleY;
+
+/// The object's x and y scale factor
+@property (nonatomic, copy) SPPoint *scale;
 
 /// The width of the object in points.
 @property (nonatomic, assign) float width;
