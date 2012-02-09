@@ -130,7 +130,7 @@
 		DE061A28119D799900DFF25D /* MovieScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieScene.h; sourceTree = "<group>"; };
 		DE061A29119D799900DFF25D /* MovieScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieScene.m; sourceTree = "<group>"; };
 		DE08353913869D8100023C9E /* Sparrow.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Sparrow.xcodeproj; path = ../../../sparrow/src/Sparrow.xcodeproj; sourceTree = "<group>"; };
-		DE08354813869D9A00023C9E /* libSparrow.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libSparrow.a; sourceTree = SOURCE_ROOT; };
+		DE08354813869D9A00023C9E /* libSparrow.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libSparrow.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE0F755710641630004F2821 /* BenchmarkScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BenchmarkScene.h; sourceTree = "<group>"; };
 		DE0F755810641630004F2821 /* BenchmarkScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BenchmarkScene.m; sourceTree = "<group>"; };
 		DE18FE3611B0839E00D01F04 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
