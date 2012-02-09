@@ -231,6 +231,39 @@
     [super dispatchEvent:event];
 }
 
+- (SPPoint *)loc
+{
+    return [SPPoint pointWithX:self.x y:self.y];
+}
+
+- (void)setLoc:(SPPoint *)loc
+{
+    self.x = loc.x;
+    self.y = loc.y;
+}
+
+- (SPPoint *)pivot
+{
+    return [SPPoint pointWithX:self.pivotX y:self.pivotY];
+}
+
+- (void)setPivot:(SPPoint *)pivot
+{
+    self.pivotX = pivot.x;
+    self.pivotY = pivot.y;
+}
+
+- (SPPoint *)scale
+{
+    return [SPPoint pointWithX:self.scaleX y:self.scaleY];
+}
+
+- (void)setScale:(SPPoint *)scale
+{
+    self.scaleX = scale.x;
+    self.scaleY = scale.y;
+}
+
 - (float)width
 {
     return [self boundsInSpace:mParent].width; 
