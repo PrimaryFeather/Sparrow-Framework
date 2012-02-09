@@ -80,7 +80,7 @@ typedef void (*FnPtrSetterUI) (id, SEL, uint);
     else
     {
         FnPtrSetterI func = (FnPtrSetterI)mSetterFunc;
-        func(mTarget, mSetter, (int)(value+0.5f));
+        func(mTarget, mSetter, (int)(value > 0 ? value+0.5f : value-0.5f));
     }        
 }
 

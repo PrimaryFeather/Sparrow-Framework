@@ -33,11 +33,15 @@
     int mCompletedCount;
 }
 
+@property (nonatomic, assign) int intProperty;
+
 @end
 
 // -------------------------------------------------------------------------------------------------
 
 @implementation SPTweenTest
+
+@synthesize intProperty = mIntProperty;
 
 - (void) setUp
 {
@@ -279,6 +283,24 @@
     
     [tween advanceTime:1.0];
     STAssertEquals((uint)100, quad.color, @"wrong final color");
+}
+
+- (void)testSignedIntTween
+{
+    // try positive value
+    SPTween *tween = [SPTween tweenWithTarget:self time:1.0];
+    [tween animateProperty:@"intProperty" targetValue:100];
+    [tween advanceTime:1.0];
+    
+    STAssertEquals(100, self.intProperty, @"tween didn't finish although time has passed");
+    
+    // and negative value
+    self.intProperty = 0;
+    tween = [SPTween tweenWithTarget:self time:1.0];
+    [tween animateProperty:@"intProperty" targetValue:-100];
+    [tween advanceTime:1.0];
+    
+    STAssertEquals(-100, self.intProperty, @"tween didn't finish although time has passed");
 }
 
 - (void)makeTweenWithTime:(double)time andAdvanceBy:(double)advanceTime
