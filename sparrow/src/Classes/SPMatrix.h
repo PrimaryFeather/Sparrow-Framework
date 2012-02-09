@@ -54,6 +54,9 @@
 /// @name Methods
 /// -------------
 
+/// Sets all components simultaneously.
+- (void)setA:(float)a b:(float)b c:(float)c d:(float)d tx:(float)tx ty:(float)ty;
+
 /// Compares to matrices.
 - (BOOL)isEqual:(id)other;
 

@@ -72,6 +72,12 @@
     [point release];    
 }
 
+- (void)testLengthSquared
+{
+    SPPoint *point = [[SPPoint alloc] initWithX:-4 y:3];
+    STAssertEqualsWithAccuracy(25.0f, point.lengthSquared, E, @"wrong squared length");
+}
+
 - (void)testAngle
 {    
     SPPoint *point = [[SPPoint alloc] initWithX:10 y:0];
@@ -133,6 +139,30 @@
     [origin release];
 }
 
+- (void)testInvert
+{
+    SPPoint *point = [mP1 invert];
+    STAssertEqualsWithAccuracy(-mP1.x, point.x, E, @"wrong x value");
+    STAssertEqualsWithAccuracy(-mP1.y, point.y, E, @"wrong y value");
+}
+
+- (void)testDotProduct
+{
+    STAssertEqualsWithAccuracy(11.0f, [mP1 dot:mP2], E, @"wrong dot product");
+}
+
+- (void)testRotate
+{
+    SPPoint *point = [SPPoint pointWithX:0 y:5];
+    SPPoint *rPoint = [point rotateBy:PI_HALF];
+    STAssertEqualsWithAccuracy(-5.0f, rPoint.x, E, @"wrong rotation");
+    STAssertEqualsWithAccuracy( 0.0f, rPoint.y, E, @"wrong rotation");
+    
+    rPoint = [point rotateBy:PI];
+    STAssertEqualsWithAccuracy( 0.0f, rPoint.x, E, @"wrong rotation");
+    STAssertEqualsWithAccuracy(-5.0f, rPoint.y, E, @"wrong rotation");
+}
+
 - (void)testClone
 {
     SPPoint *result = [mP1 copy];
@@ -154,6 +184,19 @@
     [p3 release];
 }
 
+- (void)testIsOrigin
+{
+    SPPoint *point = [SPPoint point];
+    STAssertTrue([SPPoint point].isOrigin, @"point not indicated as being in the origin");
+    
+    point.x = 1.0f;
+    STAssertFalse(point.isOrigin, @"point wrongly indicated as being in the origin");
+    
+    point.x = 0.0f;
+    point.y = 1.0f;
+    STAssertFalse(point.isOrigin, @"point wrongly indicated as being in the origin");
+}
+
 - (void)testDistance
 {
     SPPoint *p3 = [[SPPoint alloc] initWithX:5 y:0];
@@ -165,6 +208,18 @@
     STAssertTrue(SP_IS_FLOAT_EQUAL(10.0f, distance), @"wrong distance");
     [p3 release];
     [p4 release];
+}
+
+- (void)testAngleBetweenPoints
+{
+    SPPoint *p1 = [SPPoint pointWithX:3.0f y:0.0f];
+    SPPoint *p2 = [SPPoint pointWithX:0.0f y:1.5f];
+    SPPoint *p3 = [SPPoint pointWithX:-2.0f y:0.0f];
+    SPPoint *p4 = [SPPoint pointWithX:0.0f y:-4.0f];
+    
+    STAssertEqualsWithAccuracy(PI_HALF, [SPPoint angleBetweenPoint:p1 andPoint:p2], E, @"wrong angle");
+    STAssertEqualsWithAccuracy(PI, [SPPoint angleBetweenPoint:p1 andPoint:p3], E, @"wrong angle");
+    STAssertEqualsWithAccuracy(PI_HALF, [SPPoint angleBetweenPoint:p1 andPoint:p4], E, @"wrong angle");
 }
 
 - (void)testPolarPoint

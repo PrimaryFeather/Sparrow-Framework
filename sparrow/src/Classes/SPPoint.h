@@ -53,14 +53,26 @@
 /// Scales the point by a certain factor and returns the resulting point.
 - (SPPoint *)scaleBy:(float)scalar;
 
-/// Scales the line segment between the origin and the current point to one.
+/// Rotates the point by the given angle (in radians, CCW) and returns the resulting point.
+- (SPPoint *)rotateBy:(float)angle;
+
+/// Returns a point that has the same direction but a length of one.
 - (SPPoint *)normalize;
+
+/// Returns a point that is the inverse (negation) of this point.
+- (SPPoint *)invert;
+
+/// Returns the dot-product of this and the given point.
+- (float)dot:(SPPoint *)other;
 
 /// Compares two points.
 - (BOOL)isEqual:(id)other;
 
 /// Calculates the distance between two points.
 + (float)distanceFromPoint:(SPPoint *)p1 toPoint:(SPPoint *)p2;
+
+/// Calculates the angle between two points.
++ (float)angleBetweenPoint:(SPPoint *)p1 andPoint:(SPPoint *)p2;
 
 /// Determines a point between two specified points. `ratio = 0 -> p1, ratio = 1 -> p2`
 + (SPPoint *)interpolateFromPoint:(SPPoint *)p1 toPoint:(SPPoint *)p2 ratio:(float)ratio;
@@ -76,7 +88,13 @@
 /// The distance to the origin (or the length of the vector).
 @property (readonly) float length;
 
-/// The angle between the origin and the point (in RAD).
+/// The squared distance to the origin (or the squared length of the vector)
+@property (readonly) float lengthSquared;
+
+/// The angle between the positive x-axis and the point (in radians, CCW).
 @property (readonly) float angle;
+
+/// Returns true if this point is in the origin (x and y equal zero).
+@property (readonly) BOOL isOrigin;
 
 @end

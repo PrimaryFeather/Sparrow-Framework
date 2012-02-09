@@ -19,6 +19,8 @@
 #import "SPPoint.h"
 #import "SPRectangle.h"
 
+#define E 0.0001f
+
 // -------------------------------------------------------------------------------------------------
 
 @interface SPRectangleTest : SenTestCase 
@@ -37,6 +39,45 @@
     STAssertTrue(SP_IS_FLOAT_EQUAL(30, rect.width), @"wrong width");
     STAssertTrue(SP_IS_FLOAT_EQUAL(40, rect.height), @"wrong height");    
     [rect release];
+}
+
+- (void)testSides
+{
+    SPRectangle *rect = [SPRectangle rectangleWithX:5 y:10 width:5 height:2];
+    STAssertEqualsWithAccuracy(rect.x, rect.left, E, @"wrong left property");
+    STAssertEqualsWithAccuracy(rect.y, rect.top, E, @"wrong top property");
+    STAssertEqualsWithAccuracy(rect.x + rect.width, rect.right, E, @"wrong right property");
+    STAssertEqualsWithAccuracy(rect.y + rect.height, rect.bottom, E, @"wrong bottom property");
+}
+
+- (void)testChangeSides
+{
+    SPRectangle *rect = [SPRectangle rectangleWithX:5 y:10 width:5 height:2];
+    
+    rect.right = 11.0f;
+    STAssertEqualsWithAccuracy(11.0f, rect.right, E, @"wrong right property");
+    STAssertEqualsWithAccuracy( 6.0f, rect.width, E, @"wrong width");
+    
+    rect.bottom = 11.0f;
+    STAssertEqualsWithAccuracy(11.0f, rect.bottom, E, @"wrong bottom property");
+    STAssertEqualsWithAccuracy( 1.0f, rect.height, E, @"wrong height");
+}
+
+- (void)testBorderPoints
+{
+    SPRectangle *rect = [SPRectangle rectangleWithX:5 y:10 width:5 height:2];
+    
+    SPPoint *topLeft = rect.topLeft;
+    STAssertEqualsWithAccuracy(rect.x, topLeft.x, E, @"wrong topLeft.x property");
+    STAssertEqualsWithAccuracy(rect.y, topLeft.y, E, @"wrong topLeft.y property");
+    
+    SPPoint *bottomRight = rect.bottomRight;
+    STAssertEqualsWithAccuracy(rect.right, bottomRight.x,  E, @"wrong bottomRight.x property");
+    STAssertEqualsWithAccuracy(rect.bottom, bottomRight.y, E, @"wrong bottomRight.y property");
+
+    SPPoint *size = rect.size;
+    STAssertEqualsWithAccuracy(rect.width, size.x,  E, @"wrong size.x property");
+    STAssertEqualsWithAccuracy(rect.height, size.y, E, @"wrong size.y property");
 }
 
 - (void)testContainsPoint

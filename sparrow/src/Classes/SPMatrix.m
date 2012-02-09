@@ -50,7 +50,7 @@ static void setValues(SPMatrix *matrix, float a, float b, float c, float d, floa
     return [self initWithA:1 b:0 c:0 d:1 tx:0 ty:0];
 }
 
-- (void)setValuesA:(float)a b:(float)b c:(float)c d:(float)d tx:(float)tx ty:(float)ty
+- (void)setA:(float)a b:(float)b c:(float)c d:(float)d tx:(float)tx ty:(float)ty
 {
     mA = a; mB = b; mC = c; mD = d;
     mTx = tx; mTy = ty;

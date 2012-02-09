@@ -48,20 +48,36 @@
     return sqrtf(SQ(mX) + SQ(mY));
 }
 
+- (float)lengthSquared 
+{
+    return SQ(mX) + SQ(mY);
+}
+
 - (float)angle
 {
     return atan2f(mY, mX);
 }
 
+- (BOOL)isOrigin
+{
+    return mX == 0.0f && mY == 0.0f;
+}
+
+- (SPPoint *)invert
+{
+    SPPoint *result = [[SPPoint alloc] initWithX:-mX y:-mY];
+    return [result autorelease];
+}
+
 - (SPPoint*)addPoint:(SPPoint*)point
 {
-    SPPoint *result = [[SPPoint alloc] initWithX:mX+point->mX y:mY+point->mY];    
+    SPPoint *result = [[SPPoint alloc] initWithX:mX+point->mX y:mY+point->mY];
     return [result autorelease];
 }
 
 - (SPPoint*)subtractPoint:(SPPoint*)point
 {
-    SPPoint *result = [[SPPoint alloc] initWithX:mX-point->mX y:mY-point->mY];    
+    SPPoint *result = [[SPPoint alloc] initWithX:mX-point->mX y:mY-point->mY]; 
     return [result autorelease];
 }
 
@@ -71,7 +87,15 @@
     return [result autorelease];
 }
 
-- (SPPoint*)normalize
+- (SPPoint *)rotateBy:(float)angle  
+{
+    float sina = sinf(angle);
+    float cosa = cosf(angle);
+    SPPoint *result = [[SPPoint alloc] initWithX:(mX * cosa) - (mY * sina) y:(mX * sina) + (mY * cosa)];
+    return [result autorelease];
+}
+
+- (SPPoint *)normalize
 {
     if (mX == 0 && mY == 0)
         [NSException raise:SP_EXC_INVALID_OPERATION format:@"Cannot normalize point in the origin"];
@@ -79,6 +103,11 @@
     float inverseLength = 1.0f / self.length;
     SPPoint *result = [[SPPoint alloc] initWithX:mX * inverseLength y:mY * inverseLength];
     return [result autorelease];
+}
+
+- (float)dot:(SPPoint *)other
+{
+    return mX * other->mX + mY * other->mY;
 }
 
 - (BOOL)isEqual:(id)other 
@@ -112,6 +141,12 @@
 + (SPPoint *)pointWithPolarLength:(float)length angle:(float)angle
 {
     return [[[SPPoint alloc] initWithPolarLength:length angle:angle] autorelease];
+}
+
++ (float)angleBetweenPoint:(SPPoint *)p1 andPoint:(SPPoint *)p2
+{
+    float cos = [p1 dot:p2] / (p1.length * p2.length);
+    return cos >= 1.0f ? 0.0f : acosf(cos);
 }
 
 + (SPPoint *)pointWithX:(float)x y:(float)y

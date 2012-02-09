@@ -73,9 +73,9 @@
 
 - (SPRectangle*)intersectionWithRectangle:(SPRectangle*)rectangle
 {
-    float left = MAX(mX, rectangle->mX);
-    float right = MIN(mX + mWidth, rectangle->mX + rectangle->mWidth);
-    float top = MAX(mY, rectangle->mY);
+    float left   = MAX(mX, rectangle->mX);
+    float right  = MIN(mX + mWidth, rectangle->mX + rectangle->mWidth);
+    float top    = MAX(mY, rectangle->mY);
     float bottom = MIN(mY + mHeight, rectangle->mY + rectangle->mHeight);
     
     if (left > right || top > bottom)
@@ -86,9 +86,9 @@
 
 - (SPRectangle*)uniteWithRectangle:(SPRectangle*)rectangle
 {
-    float left = MIN(mX, rectangle->mX);
-    float right = MAX(mX + mWidth, rectangle->mX + rectangle->mWidth);
-    float top = MIN(mY, rectangle->mY);
+    float left   = MIN(mX, rectangle->mX);
+    float right  = MAX(mX + mWidth, rectangle->mX + rectangle->mWidth);
+    float top    = MIN(mY, rectangle->mY);
     float bottom = MAX(mY + mHeight, rectangle->mY + rectangle->mHeight);
     return [SPRectangle rectangleWithX:left y:top width:right-left height:bottom-top];
 }
@@ -97,6 +97,27 @@
 {
     mX = mY = mWidth = mHeight = 0;
 }
+
+- (float)top { return mY; }
+- (void)setTop:(float)value { mY = value; }
+
+- (float)bottom { return mY + mHeight; }
+- (void)setBottom:(float)value { mHeight = value - mY; }
+
+- (float)left { return mX; }
+- (void)setLeft:(float)value { mX = value; }
+
+- (float)right { return mX + mWidth; }
+- (void)setRight:(float)value { mWidth = value - mX; }
+
+- (SPPoint *)topLeft { return [SPPoint pointWithX:mX y:mY]; }
+- (void)setTopLeft:(SPPoint *)value { mX = value.x; mY = value.y; }
+
+- (SPPoint *)bottomRight { return [SPPoint pointWithX:mX+mWidth y:mY+mHeight]; }
+- (void)setBottomRight:(SPPoint *)value { self.right = value.x; self.bottom = value.y; }
+
+- (SPPoint *)size { return [SPPoint pointWithX:mWidth y:mHeight]; }
+- (void)setSize:(SPPoint *)value { mWidth = value.x; mHeight = value.y; }
 
 - (BOOL)isEmpty
 {

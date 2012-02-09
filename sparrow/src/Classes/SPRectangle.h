@@ -71,6 +71,27 @@
 @property (nonatomic, assign) float width;
 @property (nonatomic, assign) float height;
 
+/// The y coordinate of the rectangle.
+@property (nonatomic, assign) float top;
+
+/// The sum of the y and height properties.
+@property (nonatomic, assign) float bottom;
+
+/// The x coordinate of the rectangle.
+@property (nonatomic, assign) float left;
+
+/// The sum of the x and width properties.
+@property (nonatomic, assign) float right;
+
+/// The location of the top-left corner, determined by the x and y coordinates of the point.
+@property (nonatomic, copy) SPPoint *topLeft;
+
+/// The location of the bottom-right corner, determined by the values of the right and bottom properties.
+@property (nonatomic, copy) SPPoint *bottomRight;
+
+/// The size of the Rectangle object, determined by the values of the width and height properties.
+@property (nonatomic, copy) SPPoint *size;
+
 /// Determines if a rectangle has an empty area.
 @property (nonatomic, readonly) BOOL isEmpty;
 
