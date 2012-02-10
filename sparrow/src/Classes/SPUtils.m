@@ -41,6 +41,8 @@
 
 + (NSString *)absolutePathToFile:(NSString *)path withScaleFactor:(float)factor
 {
+    NSString *originalPath = path;
+    
     if (factor != 1.0f)
     {
         NSString *suffix = [NSString stringWithFormat:@"@%@x", [NSNumber numberWithFloat:factor]];
@@ -52,6 +54,8 @@
     
     if ([SPUtils fileExistsAtPath:absolutePath])
         return absolutePath;
+    else if (factor != 1.0f)
+        return [SPUtils absolutePathToFile:originalPath];
     else
         return nil;
 }
