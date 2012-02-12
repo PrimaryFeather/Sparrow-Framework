@@ -238,6 +238,24 @@
     STAssertEqualsWithAccuracy(400.0f, sprite.height, E, @"wrong height: %f", sprite.height);    
 }
 
+- (void)testIllegalRecursion
+{
+    SPSprite *sprite1 = [SPSprite sprite];
+    SPSprite *sprite2 = [SPSprite sprite];
+    SPSprite *sprite3 = [SPSprite sprite];
+    
+    [sprite1 addChild:sprite2];
+    [sprite2 addChild:sprite3];
+    
+    STAssertThrows([sprite3 addChild:sprite1], @"container allowed adding child as parent");
+}
+
+- (void)testAddAsChildToSelf
+{
+    SPSprite *sprite = [SPSprite sprite];
+    STAssertThrows([sprite addChild:sprite], @"container allowed adding self as child");
+}
+
 - (void)addQuadToSprite:(SPSprite*)sprite
 {
     SPQuad *quad = [[SPQuad alloc] initWithWidth:100 height:100];

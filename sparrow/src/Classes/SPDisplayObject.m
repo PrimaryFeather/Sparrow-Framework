@@ -308,8 +308,15 @@
 
 - (void)setParent:(SPDisplayObjectContainer*)parent 
 { 
-    // only assigned, not retained -- otherwise, we would create a circular reference.
-    mParent = parent; 
+    SPDisplayObject *ancestor = parent;
+    while (ancestor != self && ancestor != nil)
+        ancestor = ancestor->mParent;
+    
+    if (ancestor == self)
+        [NSException raise:SP_EXC_INVALID_OPERATION 
+                    format:@"An object cannot be added as a child to itself or one of its children"];
+    else
+        mParent = parent; // only assigned, not retained (to avoid a circular reference).
 }
 
 - (void)dispatchEventOnChildren:(SPEvent *)event
