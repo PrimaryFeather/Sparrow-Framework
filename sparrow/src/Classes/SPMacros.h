@@ -67,4 +67,6 @@
 
 #define SP_IS_FLOAT_EQUAL(f1, f2)   (fabsf((f1)-(f2)) < SP_FLOAT_EPSILON)
 
+#define SP_CLAMP(value, min, max)   MIN((max), MAX((value), (min)))
+
 #define SP_DEPRECATED               __attribute__((deprecated))
