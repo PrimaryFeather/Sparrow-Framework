@@ -49,6 +49,8 @@
 
 - (BOOL)containsRectangle:(SPRectangle*)rectangle
 {
+    if (!rectangle) return NO;
+    
     float rX = rectangle->mX;
     float rY = rectangle->mY;
     float rWidth = rectangle->mWidth;
@@ -60,6 +62,8 @@
 
 - (BOOL)intersectsRectangle:(SPRectangle*)rectangle
 {
+    if (!rectangle) return  NO;
+    
     float rX = rectangle->mX;
     float rY = rectangle->mY;
     float rWidth = rectangle->mWidth;
@@ -73,6 +77,8 @@
 
 - (SPRectangle*)intersectionWithRectangle:(SPRectangle*)rectangle
 {
+    if (!rectangle) return nil;
+    
     float left   = MAX(mX, rectangle->mX);
     float right  = MIN(mX + mWidth, rectangle->mX + rectangle->mWidth);
     float top    = MAX(mY, rectangle->mY);
@@ -86,6 +92,8 @@
 
 - (SPRectangle*)uniteWithRectangle:(SPRectangle*)rectangle
 {
+    if (!rectangle) return [[self copy] autorelease];
+    
     float left   = MIN(mX, rectangle->mX);
     float right  = MAX(mX + mWidth, rectangle->mX + rectangle->mWidth);
     float top    = MIN(mY, rectangle->mY);

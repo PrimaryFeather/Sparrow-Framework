@@ -139,6 +139,14 @@
     STAssertEqualObjects(rect, [rect uniteWithRectangle:innerRect], @"wrong union");    
 }
 
+- (void)testNilArguments
+{
+    SPRectangle *rect = [SPRectangle rectangleWithX:0 y:0 width:10 height:20];
+    STAssertFalse([rect intersectsRectangle:nil], @"could not deal with nil argument");
+    STAssertNil([rect intersectionWithRectangle:nil], @"could not deal with nil argument");
+    STAssertEqualObjects(rect, [rect uniteWithRectangle:nil], @"could not deal with nil argument");
+}
+
 @end
 
 #endif
