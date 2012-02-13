@@ -100,6 +100,26 @@
     STAssertNil(nilPath, @"found nil-path (2x)");
 }
 
+- (void)testIdiom
+{
+    NSString *filename = @"image_idiom.png";
+    
+    NSString *absolutePath = [SPUtils absolutePathToFile:filename withScaleFactor:1.0f 
+                                                   idiom:UIUserInterfaceIdiomPhone];
+    STAssertTrue([absolutePath rangeOfString:@"image_idiom~iphone.png"].length != 0,
+                 @"idiom image not found");
+}
+
+- (void)testScaledIdiom
+{
+    NSString *filename = @"image_idiom.png";
+    
+    NSString *absolutePath = [SPUtils absolutePathToFile:filename withScaleFactor:2.0f 
+                                                   idiom:UIUserInterfaceIdiomPhone];
+    STAssertTrue([absolutePath rangeOfString:@"image_idiom@2x~iphone.png"].length != 0,
+                 @"idiom image not found");
+}
+
 - (void)testGetSdTextureFallback
 {
     NSString *filename = @"image_only_sd.png";

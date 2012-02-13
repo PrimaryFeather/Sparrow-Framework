@@ -10,6 +10,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIDevice.h>
 
 /// The SPUtils class contains utility methods for different purposes.
 
@@ -27,11 +28,18 @@
 /// Returns a Boolean value that indicates whether a file or directory exists at a specified path.
 + (BOOL)fileExistsAtPath:(NSString *)path;
 
-/// Finds the full path for a file with a certain scale factor (a file with a suffix like '@2x').
-/// If the path is relative, it is searched in the application bundle.
+/// Finds the full path for a file with a certain scale factor (a file with a suffix like '@2x')
+/// and user interface idiom ('~ipad' or '~iphone'). Relative paths are searched in the application
+/// bundle.
 /// 
-/// @return Returns the path to the scaled resource if it exists; otherwise, the path to the
-/// unscaled resource - or nil if that does not exist, either.
+/// @return The path to the scaled resource with idiom suffix; if that does not exist, the path
+///         to the scaled resource without idiom suffix; if that does not exist either, the path
+///         to the unscaled resource (first with, then without idiom). If none of those exist, nil.
++ (NSString *)absolutePathToFile:(NSString *)path withScaleFactor:(float)factor 
+                           idiom:(UIUserInterfaceIdiom)idiom;
+
+/// Finds the full path for a file with a certain scale factor (a file with a suffix like '@2x'),
+/// adhering the current user interface idiom. Relative paths are searched in the application bundle.
 + (NSString *)absolutePathToFile:(NSString *)path withScaleFactor:(float)factor;
 
 /// Returns the absolute path to a file, or nil if it does not exist.
