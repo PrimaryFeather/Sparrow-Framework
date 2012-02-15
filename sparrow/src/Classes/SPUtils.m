@@ -13,7 +13,6 @@
 #import "SPNSExtensions.h"
 
 #import <sys/stat.h>
-#import <UIKit/UIDevice.h>
 
 @implementation SPUtils
 
