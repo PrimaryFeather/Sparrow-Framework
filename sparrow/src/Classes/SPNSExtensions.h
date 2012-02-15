@@ -1,5 +1,5 @@
 //
-//  SPNSAdditions.h
+//  SPNSExtensions.h
 //  Sparrow
 //
 //  Created by Daniel Sperl on 13.05.09.
@@ -19,6 +19,7 @@
 
 @end
 
+
 /** Sparrow extensions for the NSString class. */
 @interface NSString (SPNSExtensions)
 
@@ -33,6 +34,7 @@
 - (NSString *)stringByAppendingSuffixToFilename:(NSString *)suffix;
 
 @end
+
 
 /** Sparrow extensions for the NSBundle class. */
 @interface NSBundle (SPNSExtensions)

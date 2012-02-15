@@ -1,5 +1,5 @@
 //
-//  SPNSAdditions.m
+//  SPNSExtensions.m
 //  Sparrow
 //
 //  Created by Daniel Sperl on 13.05.09.
@@ -11,6 +11,7 @@
 
 #import "SPNSExtensions.h"
 #import "SPDisplayObject.h"
+
 
 @implementation NSInvocation (SPNSExtensions)
 
@@ -24,6 +25,7 @@
 }
 
 @end
+
 
 @implementation NSString (SPNSExtensions)
 
@@ -49,6 +51,7 @@
 }
 
 @end
+
 
 @implementation NSBundle (SPNSExtensions)
 
