@@ -98,8 +98,23 @@ enum PVRPixelType
         return [self initWithContentsOfPvrFile:fullPath gzCompressed:NO];
     else if ([[path lowercaseString] hasSuffix:@".pvr.gz"])
         return [self initWithContentsOfPvrFile:fullPath gzCompressed:YES];
+    else if (![UIImage instancesRespondToSelector:@selector(scale)])
+        return [self initWithContentsOfImage:[UIImage imageWithContentsOfFile:fullPath]];
     else
-        return [self initWithContentsOfImage:[UIImage imageWithContentsOfFile:fullPath]];        
+    {
+        // load image via this crazy workaround to be sure that path is not extended with scale
+        NSData *data = [[NSData alloc] initWithContentsOfFile:fullPath];
+        UIImage *image1 = [[UIImage alloc] initWithData:data];
+        UIImage *image2 = [[UIImage alloc] initWithCGImage:image1.CGImage scale:contentScaleFactor 
+                                               orientation:UIImageOrientationUp];
+        self = [self initWithContentsOfImage:image2];
+        
+        [image2 release];
+        [image1 release];
+        [data release];
+
+        return self;
+    }
 }
 
 - (id)initWithWidth:(float)width height:(float)height draw:(SPTextureDrawingBlock)drawingBlock
