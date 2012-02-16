@@ -130,7 +130,6 @@
     @autoreleasepool 
     {
         double now = CACurrentMediaTime();
-        NSLog(@"advanceTime - %.3f", now);
         double timePassed = now - mLastFrameTimestamp;
         [mStage advanceTime:timePassed];
         mLastFrameTimestamp = now;
@@ -204,7 +203,6 @@
     if (mFrameRate > 0.0f)
     {
         mLastFrameTimestamp = CACurrentMediaTime();
-        NSLog(@"start - %.3f", mLastFrameTimestamp);
         
         if (mDisplayLinkSupported)
         {
