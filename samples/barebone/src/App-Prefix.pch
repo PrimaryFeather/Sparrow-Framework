@@ -1,0 +1,9 @@
+//
+// Prefix header for all source files of the 'AppScaffold' target in the 'AppScaffold' project
+//
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+    #import <UIKit/UIKit.h>
+    #import "Sparrow.h" 
+#endif
