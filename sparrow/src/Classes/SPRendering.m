@@ -22,6 +22,7 @@
 #import <OpenGLES/ES1/gl.h>
 #import <OpenGLES/ES1/glext.h>
 
+
 @implementation SPStage (Rendering)
 
 - (void)render:(SPRenderSupport *)support
@@ -37,6 +38,7 @@
 }
 
 @end
+
 
 @implementation SPDisplayObjectContainer (Rendering)
 
@@ -64,6 +66,7 @@
 
 @end
 
+
 @implementation SPQuad (Rendering)
 
 - (void)render:(SPRenderSupport *)support
@@ -89,6 +92,7 @@
 }
 
 @end
+
 
 @implementation SPImage (Rendering)
 

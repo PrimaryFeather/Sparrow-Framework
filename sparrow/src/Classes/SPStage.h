@@ -11,6 +11,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SPDisplayObjectContainer.h"
+#import "SPMacros.h"
 
 @class SPTouchProcessor;
 @class SPJuggler;
@@ -99,13 +100,21 @@
 @interface SPStage (HDSupport)
 
 /// Enables support for high resolutions (aka retina displays).
-+ (void)setSupportHighResolutions:(BOOL)value;
++ (void)setSupportHighResolutions:(BOOL)hd;
+
+/// Enables support for high resolutions (aka retina displays). If 'doubleOnPad' is true, 
+/// pad devices will use twice the resolution ('@2x' on iPad 1+2).
++ (void)setSupportHighResolutions:(BOOL)hd doubleOnPad:(BOOL)pad;
 
 /// Determines if high resolution support is activated.
 + (BOOL)supportHighResolutions;
 
+/// Determines if pad devices use twice the resolution.
++ (BOOL)doubleResolutionsOnPad;
+
 /// Sets the content scale factor, which determines the relationship between points and pixels.
-+ (void)setContentScaleFactor:(float)value;
+/// DEPRECATED! Use `doubleResolutionsOnPad` instead.
++ (void)setContentScaleFactor:(float)value SP_DEPRECATED; 
 
 /// The current content scale factor.
 + (float)contentScaleFactor;

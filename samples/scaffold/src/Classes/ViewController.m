@@ -3,8 +3,10 @@
 //  ViewControllerTest
 //
 
+#import <UIKit/UIDevice.h>
+
 #import "ViewController.h"
-#import "Game.h"
+#import "GameController.h"
 
 @implementation ViewController
 
@@ -42,22 +44,38 @@
 {
     [super viewDidLoad];
     
-    // Customize your Sparrow settings here
+    // Customize your Sparrow settings below
+    // ---------------------------------------------------------------------------------------------
     
-    [SPStage setSupportHighResolutions:YES]; // loads '@2x' textures automatically
-    [SPAudioEngine start];                   // starts up the sound engine
+    // 'supportHighResolutions' enables retina display support. It will cause '@2x' textures to be 
+    // loaded automatically.
+    // 
+    // 'doubleOnPad' allows you to handle the iPad as if it were an iPhone with a retina display
+    // and a resolution of '384x512' points (half of '768x1024'). It will load '@2x' textures on 
+    // iPad 1 & 2. If the iPad has a retina screen, it will load '@4x' textures instead.
+    
+    [SPStage setSupportHighResolutions:YES doubleOnPad:YES];
+    [SPAudioEngine start];  // starts up the sound engine
     
     [Media initAtlas];      // loads your texture atlas -> see Media.h/Media.m
     [Media initSound];      // loads all your sounds    -> see Media.h/Media.m
     
-    Game *game = [[Game alloc] init]; // this will start your game logic
+    // your game will have a different size depending on where it's running!
+    BOOL isPad = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
+    int gameWidth  = isPad ? 384 : 320;
+    int gameHeight = isPad ? 512 : 480;
+    
+    // this will start your game logic
+    GameController *controller = [[GameController alloc] initWithWidth:gameWidth height:gameHeight];
     
     SPView *sparrowView = self.sparrowView;
-    sparrowView.stage = game;
-    sparrowView.multipleTouchEnabled = NO;
-    sparrowView.frameRate = 30.0f;
+    sparrowView.stage = controller;
+    sparrowView.multipleTouchEnabled = NO; // enable multitouch here if you need it.
+    sparrowView.frameRate = 30.0f;         // possible fps: 60, 30, 20, 15, 12, 10, etc.
     
-    [game release];
+    [controller release];
+    
+    // ---------------------------------------------------------------------------------------------
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

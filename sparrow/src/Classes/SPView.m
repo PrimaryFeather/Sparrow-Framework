@@ -31,6 +31,7 @@
 - (void)createFramebuffer;
 - (void)destroyFramebuffer;
 
+- (void)nextFrame;
 - (void)renderStage;
 - (void)processTouchEvent:(UIEvent*)event;
 
@@ -124,17 +125,24 @@
     mRenderbuffer = 0;    
 }
 
+- (void)nextFrame
+{
+    @autoreleasepool 
+    {
+        double now = CACurrentMediaTime();
+        NSLog(@"advanceTime - %.3f", now);
+        double timePassed = now - mLastFrameTimestamp;
+        [mStage advanceTime:timePassed];
+        mLastFrameTimestamp = now;
+        
+        [self renderStage];
+    }
+}
+
 - (void)renderStage
 {
     if (mFramebuffer == 0 || mRenderbuffer == 0) 
         return; // buffers not yet initialized
-    
-    SP_CREATE_POOL(pool);
-    
-    double now = CACurrentMediaTime();
-    double timePassed = now - mLastFrameTimestamp;
-    [mStage advanceTime:timePassed];
-    mLastFrameTimestamp = now;
     
     [EAGLContext setCurrentContext:mContext];
     
@@ -146,8 +154,6 @@
     
     glBindRenderbufferOES(GL_RENDERBUFFER_OES, mRenderbuffer);
     [mContext presentRenderbuffer:GL_RENDERBUFFER_OES];
-    
-    SP_RELEASE_POOL(pool);
 }
 
 - (void)setTimer:(NSTimer *)newTimer 
@@ -198,11 +204,12 @@
     if (mFrameRate > 0.0f)
     {
         mLastFrameTimestamp = CACurrentMediaTime();
+        NSLog(@"start - %.3f", mLastFrameTimestamp);
         
         if (mDisplayLinkSupported)
         {
             mDisplayLink = [NSClassFromString(@"CADisplayLink") 
-                            displayLinkWithTarget:self selector:@selector(renderStage)];
+                            displayLinkWithTarget:self selector:@selector(nextFrame)];
             
 			[mDisplayLink setFrameInterval: (int)(REFRESH_RATE / mFrameRate)];
 			[mDisplayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
@@ -211,14 +218,14 @@
         {
             // timer used as a fallback
             self.timer = [NSTimer scheduledTimerWithTimeInterval:(1.0f / mFrameRate) 
-                target:self selector:@selector(renderStage) userInfo:nil repeats:YES];            
+                target:self selector:@selector(nextFrame) userInfo:nil repeats:YES];            
         }
     }    
 }
 
 - (void)stop
 {
-    [self renderStage]; // draw last-moment changes
+    [self nextFrame]; // draw last-moment changes
     
     self.timer = nil;
     self.displayLink = nil;
