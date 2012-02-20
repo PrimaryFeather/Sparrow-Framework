@@ -20,20 +20,21 @@
 }
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application 
-{    
-    @autoreleasepool
-    {
-        [SPStage setSupportHighResolutions:YES];
-        [SPAudioEngine start];
-        
-        Game *game = [[Game alloc] init];        
-        mSparrowView.stage = game;
-        mSparrowView.frameRate = 30.0f;
-        [game release];
-        
-        [mWindow makeKeyAndVisible];
-        [mSparrowView start];
-    }
+{   
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    
+    [SPStage setSupportHighResolutions:YES];
+    [SPAudioEngine start];
+    
+    Game *game = [[Game alloc] init];        
+    mSparrowView.stage = game;
+    mSparrowView.frameRate = 30.0f;
+    [game release];
+    
+    [mWindow makeKeyAndVisible];
+    [mSparrowView start];
+    
+    [pool release];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application 

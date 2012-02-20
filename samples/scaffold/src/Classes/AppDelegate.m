@@ -27,9 +27,13 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions 
 {
     mViewController = [[ViewController alloc] init];
-    
     mWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    mWindow.rootViewController = mViewController;
+    
+    if ([mWindow respondsToSelector:@selector(setRootViewController:)])
+        [mWindow setRootViewController:mViewController];
+    else
+        [mWindow addSubview:mViewController.view];
+
     [mWindow makeKeyAndVisible];
     
     return YES;
