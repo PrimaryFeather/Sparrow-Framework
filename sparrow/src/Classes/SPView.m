@@ -127,15 +127,16 @@
 
 - (void)nextFrame
 {
-    @autoreleasepool 
-    {
-        double now = CACurrentMediaTime();
-        double timePassed = now - mLastFrameTimestamp;
-        [mStage advanceTime:timePassed];
-        mLastFrameTimestamp = now;
-        
-        [self renderStage];
-    }
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    
+    double now = CACurrentMediaTime();
+    double timePassed = now - mLastFrameTimestamp;
+    [mStage advanceTime:timePassed];
+    mLastFrameTimestamp = now;
+    
+    [self renderStage];
+    
+    [pool release];
 }
 
 - (void)renderStage
