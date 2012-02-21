@@ -40,11 +40,7 @@
     [self release];
     
     NSString *fullPath = [SPUtils absolutePathToFile:path];
-    if (!fullPath)
-    {
-        [self release];
-        [NSException raise:SP_EXC_FILE_NOT_FOUND format:@"file %@ not found", fullPath];
-    }        
+    if (!fullPath) [NSException raise:SP_EXC_FILE_NOT_FOUND format:@"file %@ not found", fullPath];
     
     NSString *error = nil;
     
