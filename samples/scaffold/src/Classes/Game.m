@@ -5,7 +5,6 @@
 
 #import "Game.h" 
 
-
 // --- private interface ---------------------------------------------------------------------------
 
 @interface Game ()
@@ -114,7 +113,9 @@
 {
     NSSet *touches = [event touchesWithTarget:self andPhase:SPTouchPhaseEnded];
     if ([touches anyObject])
+    {
         [Media playSound:@"sound.caf"];
+    }
 }
 
 @end

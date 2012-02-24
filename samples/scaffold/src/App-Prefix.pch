@@ -16,3 +16,5 @@
 
 #define CENTER_X   (GAME_WIDTH / 2)
 #define CENTER_Y   (GAME_HEIGHT / 2)
+
+#define INTERFACE_ROTATION_TIME 0.5

@@ -7,8 +7,11 @@
 
 #import "ViewController.h"
 #import "GameController.h"
+#import "OverlayView.h"
 
 @implementation ViewController
+
+@synthesize overlayView = mOverlayView;
 
 - (id)init
 {
@@ -24,6 +27,12 @@
     return self;
 }
 
+- (void)dealloc
+{
+    [mOverlayView release];
+    [super dealloc];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [SPPoint purgePool];
@@ -37,7 +46,11 @@
 
 - (void)loadView
 {
-    self.view = [[[SPView alloc] initWithFrame:[UIScreen mainScreen].bounds] autorelease];
+    CGRect screenBounds = [UIScreen mainScreen].bounds;
+    self.view = [[[SPView alloc] initWithFrame:screenBounds] autorelease];
+    
+    mOverlayView = [[OverlayView alloc] initWithFrame:screenBounds];
+    [self.view addSubview:mOverlayView];
 }
 
 - (void)viewDidLoad
@@ -80,10 +93,54 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return NO;
+    NSArray *supportedOrientations = 
+        [[[NSBundle mainBundle] infoDictionary] objectForKey:@"UISupportedInterfaceOrientations"];
     
-    // Return YES for supported orientations
-    // return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+    BOOL isSupported = NO;
+    CGAffineTransform transform;
+    
+    if (interfaceOrientation == UIInterfaceOrientationPortrait &&
+        [supportedOrientations containsObject:@"UIInterfaceOrientationPortrait"])
+    {
+        isSupported = YES;
+        transform = CGAffineTransformIdentity;
+    }
+    else if (interfaceOrientation == UIInterfaceOrientationLandscapeLeft &&
+        [supportedOrientations containsObject:@"UIInterfaceOrientationLandscapeLeft"])
+    {
+        isSupported = YES;
+        transform = CGAffineTransformMakeRotation(-PI_HALF);
+    }
+    else if (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown &&
+             [supportedOrientations containsObject:@"UIInterfaceOrientationPortraitUpsideDown"])
+    {
+        isSupported = YES;
+        transform = CGAffineTransformMakeRotation(PI);
+    }
+    else if (interfaceOrientation == UIInterfaceOrientationLandscapeRight &&
+             [supportedOrientations containsObject:@"UIInterfaceOrientationLandscapeRight"])
+    {
+        isSupported = YES;
+        transform = CGAffineTransformMakeRotation(PI_HALF);
+    }
+    
+    if (isSupported)
+    {
+        // inform system about new orientation & rotate Sparrow content
+        [UIApplication sharedApplication].statusBarOrientation = interfaceOrientation;
+        [self.gameController rotateToInterfaceOrientation:interfaceOrientation];
+        
+        // rotate overlay view, animated
+        [UIView beginAnimations:@"RotateOverlay" context:nil];
+        [UIView setAnimationDuration:INTERFACE_ROTATION_TIME];
+        
+        mOverlayView.transform = transform;
+        mOverlayView.frame = [UIScreen mainScreen].bounds;
+        
+        [UIView commitAnimations];
+    }
+    
+    return [super shouldAutorotateToInterfaceOrientation:interfaceOrientation];
 }
 
 #pragma mark - notifications
@@ -103,6 +160,11 @@
 - (SPView *)sparrowView
 {
     return (SPView *)self.view;
+}
+
+- (GameController *)gameController
+{
+    return (GameController *)self.sparrowView.stage;
 }
 
 @end

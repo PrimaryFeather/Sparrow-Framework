@@ -36,6 +36,7 @@
 		DE71B21E14ED15F500E37AE6 /* background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DE71B21D14ED15F500E37AE6 /* background.jpg */; };
 		DE71B22214ED164600E37AE6 /* Default-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = DE71B22114ED164600E37AE6 /* Default-Portrait~ipad.png */; };
 		DE88295114ECF12000773036 /* GameController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE88295014ECF11F00773036 /* GameController.m */; };
+		DECF454814F2E527006A4287 /* OverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = DECF454714F2E527006A4287 /* OverlayView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +101,8 @@
 		DE71B22114ED164600E37AE6 /* Default-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait~ipad.png"; sourceTree = "<group>"; };
 		DE88294F14ECF11F00773036 /* GameController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameController.h; sourceTree = "<group>"; };
 		DE88295014ECF11F00773036 /* GameController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameController.m; sourceTree = "<group>"; };
+		DECF454614F2E527006A4287 /* OverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverlayView.h; sourceTree = "<group>"; };
+		DECF454714F2E527006A4287 /* OverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverlayView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +129,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				DECF454314F2E45A006A4287 /* Support */,
 				DE4F80D714E153EA00655D44 /* Game */,
 				1D3623240D0F684500981E51 /* AppDelegate.h */,
 				1D3623250D0F684500981E51 /* AppDelegate.m */,
@@ -258,6 +262,15 @@
 			path = 2x;
 			sourceTree = "<group>";
 		};
+		DECF454314F2E45A006A4287 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				DECF454614F2E527006A4287 /* OverlayView.h */,
+				DECF454714F2E527006A4287 /* OverlayView.m */,
+			);
+			name = Support;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -363,6 +376,7 @@
 				DE4F80C714E1481C00655D44 /* ViewController.m in Sources */,
 				DE4F80D614E153E600655D44 /* Media.m in Sources */,
 				DE88295114ECF12000773036 /* GameController.m in Sources */,
+				DECF454814F2E527006A4287 /* OverlayView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

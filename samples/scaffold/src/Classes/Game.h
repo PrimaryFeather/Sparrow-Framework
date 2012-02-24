@@ -11,7 +11,6 @@
   @private 
     float mGameWidth;
     float mGameHeight;
-    
 }
 
 - (id)initWithWidth:(float)width height:(float)height;
