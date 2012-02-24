@@ -228,6 +228,15 @@ static void getChildEventListeners(SPDisplayObject *object, NSString *eventType,
     return nil;
 }
 
+- (void)broadcastEvent:(SPEvent *)event
+{
+    if (event.bubbles) 
+        [NSException raise:SP_EXC_INVALID_OPERATION 
+                    format:@"Broadcast of bubbling events is prohibited"];
+    
+    [self dispatchEventOnChildren:event];
+}
+
 - (void)dispatchEventOnChildren:(SPEvent *)event
 {
     // the event listeners might modify the display tree, which could make the loop crash. 

@@ -89,6 +89,9 @@
 /// Swaps the indexes of two children.
 - (void)swapChildAtIndex:(int)index1 withChildAtIndex:(int)index2;
 
+/// Dispatches an event on all children (recursively). The event must not bubble. */
+- (void)broadcastEvent:(SPEvent *)event;
+
 /// ----------------
 /// @name Properties
 /// ----------------
