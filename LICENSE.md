@@ -1,7 +1,7 @@
 Sparrow: Simplified BSD License
 ===============================
 
-Copyright 2011 Gamua. All rights reserved.
+Copyright 2012 Gamua. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are
 permitted provided that the following conditions are met:
@@ -13,8 +13,9 @@ permitted provided that the following conditions are met:
       of conditions and the following disclaimer in the documentation and/or other materials
       provided with the distribution.
 
-   3. Redistributions via the Apple App Store constitute an exception to section 2. It is
-      sufficient to add a copy of this license to the application's internet page (if available).
+   3. Redistributions in binary form via an online application distribution system (like the 
+      Apple App Store) that inhibit execution of condition 2 must include a text equivalent
+      to the following in the app description: "Powered by the Sparrow Framework". 
       The content of the following disclaimer is still in effect.
 
 THIS SOFTWARE IS PROVIDED BY GAMUA ``AS IS'' AND ANY EXPRESS OR IMPLIED
