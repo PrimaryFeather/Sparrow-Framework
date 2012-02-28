@@ -12,6 +12,7 @@
     Game *mGame;
 }
 
-- (void)rotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation;
+- (void)rotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+                       animationTime:(double)time;
 
 @end

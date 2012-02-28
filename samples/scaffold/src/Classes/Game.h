@@ -15,4 +15,7 @@
 
 - (id)initWithWidth:(float)width height:(float)height;
 
+@property (nonatomic, readonly) float gameWidth;
+@property (nonatomic, readonly) float gameHeight;
+
 @end

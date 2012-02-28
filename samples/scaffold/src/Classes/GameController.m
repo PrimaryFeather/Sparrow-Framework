@@ -3,6 +3,7 @@
 //  AppScaffold
 //
 
+#import <OpenGLES/ES1/gl.h>
 #import "GameController.h"
 
 @implementation GameController
@@ -11,20 +12,38 @@
 {
     if ((self = [super initWithWidth:width height:height]))
     {
-        mGame = [[Game alloc] initWithWidth:width height:height];
+        int gameWidth  = width;
+        int gameHeight = height;
         
-        mGame.pivotX = mGame.x = width  / 2;
-        mGame.pivotY = mGame.y = height / 2;
+        // if we start up in landscape mode, width and height are swapped.
+        UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+        if (UIInterfaceOrientationIsLandscape(orientation)) SP_SWAP(gameWidth, gameHeight);
         
+        mGame = [[Game alloc] initWithWidth:gameWidth height:gameHeight];
+        
+        mGame.pivotX = gameWidth  / 2;
+        mGame.pivotY = gameHeight / 2;
+        
+        mGame.x = width  / 2;
+        mGame.y = height / 2;
+        
+        [self rotateToInterfaceOrientation:orientation animationTime:0];
         [self addChild:mGame];
     }
     
     return self;
 }
 
-- (void)rotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+- (void)dealloc
 {
-    float angles[] = {0.0f, 0.0f, PI, PI_HALF, -PI_HALF};
+    [mGame release];
+    [super dealloc];
+}
+
+- (void)rotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+                       animationTime:(double)animationTime
+{
+    float angles[] = {0.0f, 0.0f, -PI, PI_HALF, -PI_HALF};
     
     float oldAngle = mGame.rotation;
     float newAngle = angles[(int)interfaceOrientation];
@@ -33,17 +52,52 @@
     while (oldAngle - newAngle >  PI) newAngle += TWO_PI;
     while (oldAngle - newAngle < -PI) newAngle -= TWO_PI;
 
-    SPTween *tween = [SPTween tweenWithTarget:mGame time:INTERFACE_ROTATION_TIME 
-                                   transition:SP_TRANSITION_EASE_IN_OUT];
-    [tween animateProperty:@"rotation" targetValue:newAngle];
-    [[SPStage mainStage].juggler removeObjectsWithTarget:mGame];
-    [[SPStage mainStage].juggler addObject:tween];
+    // rotate game
+    if (animationTime)
+    {
+        SPTween *tween = [SPTween tweenWithTarget:mGame time:animationTime
+                                       transition:SP_TRANSITION_EASE_IN_OUT];
+        [tween animateProperty:@"rotation" targetValue:newAngle];
+        [[SPStage mainStage].juggler removeObjectsWithTarget:mGame];
+        [[SPStage mainStage].juggler addObject:tween];
+    }
+    else 
+    {
+        mGame.rotation = newAngle;
+    }
+    
+    // inform all display objects about the new game size
+    BOOL isPortrait = UIInterfaceOrientationIsPortrait(interfaceOrientation);
+    float newWidth  = isPortrait ? MIN(mGame.gameWidth, mGame.gameHeight) : 
+                                   MAX(mGame.gameWidth, mGame.gameHeight);
+    float newHeight = isPortrait ? MAX(mGame.gameWidth, mGame.gameHeight) :
+                                   MIN(mGame.gameWidth, mGame.gameHeight);
+    
+    if (newWidth != mGame.gameWidth)
+    {
+        SPEvent *resizeEvent = [[ResizeEvent alloc] initWithType:EVENT_TYPE_RESIZE
+                                width:newWidth height:newHeight animationTime:animationTime];
+        [mGame broadcastEvent:resizeEvent];
+        [resizeEvent release];
+    }
 }
 
-- (void)dealloc
+// Enable this method for the simplest possible universal app support: it will display a black
+// border around the iPhone (640x960) game when it is started on the iPad (768x1024); no need to 
+// modify any coordinates. 
+/*
+- (void)render:(SPRenderSupport *)support
 {
-    [mGame release];
-    [super dealloc];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    {
+        glEnable(GL_SCISSOR_TEST);
+        glScissor(64, 32, 640, 960);
+        [super render:support];
+        glDisable(GL_SCISSOR_TEST);
+    }
+    else 
+        [super render:support];
 }
+*/
 
 @end

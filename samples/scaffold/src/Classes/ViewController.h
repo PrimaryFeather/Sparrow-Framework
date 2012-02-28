@@ -8,9 +8,11 @@
 #import "GameController.h"
 
 @interface ViewController : UIViewController
+{
+  @private
+    SPView *mSparrowView;
+}
 
-@property (nonatomic, readonly) SPView *sparrowView;
-@property (nonatomic, readonly) UIView *overlayView;
-@property (nonatomic, readonly) GameController *gameController;
+- (id)initWithSparrowView:(SPView *)sparrowView;
 
 @end

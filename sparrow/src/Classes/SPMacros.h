@@ -69,4 +69,6 @@
 
 #define SP_CLAMP(value, min, max)   MIN((max), MAX((value), (min)))
 
+#define SP_SWAP(a, b)               do { a ^= b; b ^= a; a ^= b; } while (NO)
+
 #define SP_DEPRECATED               __attribute__((deprecated))

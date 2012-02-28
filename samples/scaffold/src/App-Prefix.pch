@@ -1,20 +1,15 @@
 //
-// Prefix header for all source files of the 'AppScaffold' target in the 'AppScaffold' project
+// Prefix header for all source files of the project
 //
 
 #ifdef __OBJC__
+
     #import <Foundation/Foundation.h>
     #import <UIKit/UIKit.h>
     
     #import "Sparrow.h" 
     #import "Media.h"
+    #import "OverlayView.h"
+    #import "ResizeEvent.h"
+
 #endif
-
-
-#define GAME_WIDTH  320
-#define GAME_HEIGHT 480
-
-#define CENTER_X   (GAME_WIDTH / 2)
-#define CENTER_Y   (GAME_HEIGHT / 2)
-
-#define INTERFACE_ROTATION_TIME 0.5
