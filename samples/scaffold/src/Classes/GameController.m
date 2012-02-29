@@ -12,12 +12,12 @@
 {
     if ((self = [super initWithWidth:width height:height]))
     {
-        int gameWidth  = width;
-        int gameHeight = height;
+        float gameWidth  = width;
+        float gameHeight = height;
         
         // if we start up in landscape mode, width and height are swapped.
         UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-        if (UIInterfaceOrientationIsLandscape(orientation)) SP_SWAP(gameWidth, gameHeight);
+        if (UIInterfaceOrientationIsLandscape(orientation)) SP_SWAP(gameWidth, gameHeight, float);
         
         mGame = [[Game alloc] initWithWidth:gameWidth height:gameHeight];
         

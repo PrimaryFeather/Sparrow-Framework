@@ -32,6 +32,30 @@
     STAssertEquals( 5, SP_CLAMP(10, 0, 5), @"wrong clamp result");
 }
 
+- (void)testSwap
+{
+    float x = 4.0f;
+    float y = 5.0f;
+    
+    SP_SWAP(x, y, float);
+    STAssertEquals(5.0f, x, @"float swap did not work");
+    STAssertEquals(4.0f, y, @"float swap did not work");
+    
+    int a = 4;
+    int b = 5;
+    
+    SP_SWAP(a, b, int);
+    STAssertEquals(5, a, @"int swap did not work");
+    STAssertEquals(4, b, @"int swap did not work");
+    
+    NSString *u = @"u";
+    NSString *v = @"v";
+    
+    SP_SWAP(u, v, id);
+    STAssertEqualObjects(@"v", u, @"string swap did not work");
+    STAssertEqualObjects(@"u", v, @"string swap did not work");
+}
+
 @end
 
 #endif
