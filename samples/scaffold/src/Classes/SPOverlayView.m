@@ -1,19 +1,14 @@
 //
-//  OverlayView.m
+//  SPOverlayView.m
 //  AppScaffold
 //
 
-#import "OverlayView.h"
+#import "SPOverlayView.h"
 
-@implementation OverlayView
+@implementation SPOverlayView
 
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
 {
-    // This class makes a UIView work just like a sprite in Sparrow:
-    // it will react only on touches of child objects, and won't block touches on 
-    // empty areas any longer. That makes it perfect for an overlay view, on which
-    // we can then add all kinds of UIKit elements: textfields, iAd banners, etc.
-    
     for (UIView *subview in self.subviews)
     {
         CGPoint innerPoint = CGPointMake(point.x - subview.frame.origin.x,

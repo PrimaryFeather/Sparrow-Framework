@@ -12,7 +12,7 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
-		DE1FBDFD14F831A300E86642 /* ResizeEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = DE1FBDFC14F831A300E86642 /* ResizeEvent.m */; };
+		DE1FBDFD14F831A300E86642 /* SPResizeEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = DE1FBDFC14F831A300E86642 /* SPResizeEvent.m */; };
 		DE3F093811B7B9DC009D4DB0 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE3F093711B7B9DC009D4DB0 /* AVFoundation.framework */; };
 		DE3F093A11B7B9DC009D4DB0 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE3F093911B7B9DC009D4DB0 /* AudioToolbox.framework */; };
 		DE3F097811B7BABD009D4DB0 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE3F097711B7BABD009D4DB0 /* OpenAL.framework */; };
@@ -37,7 +37,7 @@
 		DE71B21E14ED15F500E37AE6 /* background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DE71B21D14ED15F500E37AE6 /* background.jpg */; };
 		DE71B22214ED164600E37AE6 /* Default-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = DE71B22114ED164600E37AE6 /* Default-Portrait~ipad.png */; };
 		DE88295114ECF12000773036 /* GameController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE88295014ECF11F00773036 /* GameController.m */; };
-		DECF454814F2E527006A4287 /* OverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = DECF454714F2E527006A4287 /* OverlayView.m */; };
+		DECF454814F2E527006A4287 /* SPOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = DECF454714F2E527006A4287 /* SPOverlayView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,8 +74,8 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* App-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "App-Prefix.pch"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* App-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "App-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
-		DE1FBDFB14F831A300E86642 /* ResizeEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResizeEvent.h; sourceTree = "<group>"; };
-		DE1FBDFC14F831A300E86642 /* ResizeEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResizeEvent.m; sourceTree = "<group>"; };
+		DE1FBDFB14F831A300E86642 /* SPResizeEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; path = SPResizeEvent.h; sourceTree = "<group>"; };
+		DE1FBDFC14F831A300E86642 /* SPResizeEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPResizeEvent.m; sourceTree = "<group>"; };
 		DE3F093711B7B9DC009D4DB0 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		DE3F093911B7B9DC009D4DB0 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		DE3F097711B7BABD009D4DB0 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
@@ -104,8 +104,8 @@
 		DE71B22114ED164600E37AE6 /* Default-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait~ipad.png"; sourceTree = "<group>"; };
 		DE88294F14ECF11F00773036 /* GameController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameController.h; sourceTree = "<group>"; };
 		DE88295014ECF11F00773036 /* GameController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameController.m; sourceTree = "<group>"; };
-		DECF454614F2E527006A4287 /* OverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverlayView.h; sourceTree = "<group>"; };
-		DECF454714F2E527006A4287 /* OverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverlayView.m; sourceTree = "<group>"; };
+		DECF454614F2E527006A4287 /* SPOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; path = SPOverlayView.h; sourceTree = "<group>"; };
+		DECF454714F2E527006A4287 /* SPOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPOverlayView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -268,10 +268,10 @@
 		DECF454314F2E45A006A4287 /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				DECF454614F2E527006A4287 /* OverlayView.h */,
-				DECF454714F2E527006A4287 /* OverlayView.m */,
-				DE1FBDFB14F831A300E86642 /* ResizeEvent.h */,
-				DE1FBDFC14F831A300E86642 /* ResizeEvent.m */,
+				DECF454614F2E527006A4287 /* SPOverlayView.h */,
+				DECF454714F2E527006A4287 /* SPOverlayView.m */,
+				DE1FBDFB14F831A300E86642 /* SPResizeEvent.h */,
+				DE1FBDFC14F831A300E86642 /* SPResizeEvent.m */,
 			);
 			name = Support;
 			sourceTree = "<group>";
@@ -381,8 +381,8 @@
 				DE4F80C714E1481C00655D44 /* ViewController.m in Sources */,
 				DE4F80D614E153E600655D44 /* Media.m in Sources */,
 				DE88295114ECF12000773036 /* GameController.m in Sources */,
-				DECF454814F2E527006A4287 /* OverlayView.m in Sources */,
-				DE1FBDFD14F831A300E86642 /* ResizeEvent.m in Sources */,
+				DECF454814F2E527006A4287 /* SPOverlayView.m in Sources */,
+				DE1FBDFD14F831A300E86642 /* SPResizeEvent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

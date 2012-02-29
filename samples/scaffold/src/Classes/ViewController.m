@@ -51,7 +51,7 @@
 - (void)loadView
 {
     CGRect screenBounds = [UIScreen mainScreen].bounds;
-    self.view = [[[OverlayView alloc] initWithFrame:screenBounds] autorelease];
+    self.view = [[[SPOverlayView alloc] initWithFrame:screenBounds] autorelease];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

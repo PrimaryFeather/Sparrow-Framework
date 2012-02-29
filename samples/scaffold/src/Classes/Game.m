@@ -11,7 +11,7 @@
 
 - (void)setup;
 - (void)onEggTouched:(SPTouchEvent *)event;
-- (void)onResize:(ResizeEvent *)event;
+- (void)onResize:(SPResizeEvent *)event;
 
 @end
 
@@ -108,7 +108,7 @@
     // To force the game to start up in landscape, add the key "Initial Interface Orientation" to
     // the "App-Info.plist" file and choose any landscape orientation.
     
-    [self addEventListener:@selector(onResize:) atObject:self forType:EVENT_TYPE_RESIZE];
+    [self addEventListener:@selector(onResize:) atObject:self forType:SP_EVENT_TYPE_RESIZE];
     
     
     // We release the objects, because we don't keep any reference to them.
@@ -144,7 +144,7 @@
     }
 }
 
-- (void)onResize:(ResizeEvent *)event
+- (void)onResize:(SPResizeEvent *)event
 {
     NSLog(@"new size: %.0fx%.0f (%@)", event.width, event.height, 
           event.isPortrait ? @"portrait" : @"landscape");

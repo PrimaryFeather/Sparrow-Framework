@@ -1,11 +1,11 @@
 //
-//  ResizeEvent.m
+//  SPResizeEvent.m
 //  AppScaffold
 //
 
-#import "ResizeEvent.h"
+#import "SPResizeEvent.h"
 
-@implementation ResizeEvent
+@implementation SPResizeEvent
 
 @synthesize width = mWidth;
 @synthesize height = mHeight;

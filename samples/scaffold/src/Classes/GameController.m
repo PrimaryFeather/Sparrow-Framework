@@ -75,7 +75,7 @@
     
     if (newWidth != mGame.gameWidth)
     {
-        SPEvent *resizeEvent = [[ResizeEvent alloc] initWithType:EVENT_TYPE_RESIZE
+        SPEvent *resizeEvent = [[SPResizeEvent alloc] initWithType:SP_EVENT_TYPE_RESIZE
                                 width:newWidth height:newHeight animationTime:animationTime];
         [mGame broadcastEvent:resizeEvent];
         [resizeEvent release];

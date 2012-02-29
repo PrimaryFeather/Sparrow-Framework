@@ -1,13 +1,13 @@
 //
-//  ResizeEvent.h
+//  SPResizeEvent.h
 //  AppScaffold
 //
 
 #import "SPEvent.h"
 
-#define EVENT_TYPE_RESIZE @"resize"
+#define SP_EVENT_TYPE_RESIZE @"resize"
 
-@interface ResizeEvent : SPEvent
+@interface SPResizeEvent : SPEvent
 {
   @private
     float mWidth;

@@ -9,7 +9,7 @@
     
     #import "Sparrow.h" 
     #import "Media.h"
-    #import "OverlayView.h"
-    #import "ResizeEvent.h"
+    #import "SPOverlayView.h"
+    #import "SPResizeEvent.h"
 
 #endif
