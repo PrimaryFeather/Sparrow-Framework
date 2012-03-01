@@ -56,6 +56,10 @@ typedef void (^SPTextureDrawingBlock)(CGContextRef context);
  (by setting their scale-factor to `2.0`). That way, you will always work with the same values 
  for width and height - regardless of the device type.
  
+ It is also possible to switch textures depending on the device the app is executed on. The 
+ convention is to add a device modifier (`~ipad` or `~iphone`) to the image name, directly before 
+ the file extension (and after the scale modifier, if there is one).
+ 
  *Drawing API*
  
  Sparrow lets you create custom graphics directly at run-time by using the `Core Graphics` API.
