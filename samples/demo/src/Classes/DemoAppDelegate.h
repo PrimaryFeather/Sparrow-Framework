@@ -11,8 +11,8 @@
 
 @interface DemoAppDelegate : NSObject <UIApplicationDelegate> 
 {
-    UIWindow *window;
-    SPView *sparrowView;
+    UIWindow *mWindow;
+    SPView *mSparrowView;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;

@@ -23,47 +23,50 @@ void onUncaughtException(NSException *exception)
 
 @implementation DemoAppDelegate
 
-@synthesize window;
-@synthesize sparrowView;
+@synthesize window = mWindow;
+@synthesize sparrowView = mSparrowView;
 
-- (void)applicationDidFinishLaunching:(UIApplication *)application 
-{    
-    SP_CREATE_POOL(pool);    
-    
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions 
+{
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     NSSetUncaughtExceptionHandler(&onUncaughtException);     
     
+    CGRect screenBounds = [UIScreen mainScreen].bounds;
+    mWindow = [[UIWindow alloc] initWithFrame:screenBounds];
+    
     [SPAudioEngine start];
-    [SPStage setSupportHighResolutions:YES]; // use the provided hd textures on suitable hardware
+    [SPStage setSupportHighResolutions:YES]; // use @2x textures on suitable hardware
     
-    if ([[UIDevice currentDevice].model rangeOfString:@"iPad"].location == 0)
-        [SPStage setContentScaleFactor:2.0f];
-
+    mSparrowView = [[SPView alloc] initWithFrame:screenBounds];
+    mSparrowView.multipleTouchEnabled = YES;
+    mSparrowView.frameRate = 30;
+    [mWindow addSubview:mSparrowView];
+    
     Game *game = [[Game alloc] init];
-    sparrowView.stage = game;
-    sparrowView.multipleTouchEnabled = YES;
-    sparrowView.frameRate = 30;    
+    mSparrowView.stage = game;
     
-    [sparrowView start];     
-    [window makeKeyAndVisible];
+    [mWindow makeKeyAndVisible];
+    
     [game release];
+    [pool release];
     
-    SP_RELEASE_POOL(pool);
+    return YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application 
 {    
-    [sparrowView stop];
+    [mSparrowView stop];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application 
 {
-	[sparrowView start];
+	[mSparrowView start];
 }
 
 - (void)dealloc 
 {
     [SPAudioEngine stop];
-    [window release];
+    [mWindow release];
     [super dealloc];
 }
 
