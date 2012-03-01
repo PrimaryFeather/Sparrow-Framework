@@ -97,6 +97,35 @@
     [parent release];
 }
 
+- (void)testSetChildIndex
+{
+    SPSprite *parent = [SPSprite sprite];
+    SPSprite *childA = [SPSprite sprite];
+    SPSprite *childB = [SPSprite sprite];
+    SPSprite *childC = [SPSprite sprite];
+    
+    [parent addChild:childA];
+    [parent addChild:childB];
+    [parent addChild:childC];
+    
+    [parent setIndex:0 ofChild:childB];
+    STAssertEquals(childB, [parent childAtIndex:0], @"wrong child order");
+    STAssertEquals(childA, [parent childAtIndex:1], @"wrong child order");
+    STAssertEquals(childC, [parent childAtIndex:2], @"wrong child order");
+    
+    [parent setIndex:1 ofChild:childB];
+    STAssertEquals(childA, [parent childAtIndex:0], @"wrong child order");
+    STAssertEquals(childB, [parent childAtIndex:1], @"wrong child order");
+    STAssertEquals(childC, [parent childAtIndex:2], @"wrong child order");
+    
+    [parent setIndex:2 ofChild:childB];
+    STAssertEquals(childA, [parent childAtIndex:0], @"wrong child order");
+    STAssertEquals(childC, [parent childAtIndex:1], @"wrong child order");
+    STAssertEquals(childB, [parent childAtIndex:2], @"wrong child order");
+    
+    STAssertEquals(3, parent.numChildren, @"wrong child count");
+}
+
 - (void)testWidthAndHeight
 {
     SPSprite *sprite = [[SPSprite alloc] init];

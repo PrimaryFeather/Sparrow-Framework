@@ -122,6 +122,20 @@ static void getChildEventListeners(SPDisplayObject *object, NSString *eventType,
     else                     return index;
 }
 
+- (void)setIndex:(int)index ofChild:(SPDisplayObject *)child
+{
+    int oldIndex = [mChildren indexOfObject:child];
+    if (oldIndex == NSNotFound) 
+        [NSException raise:SP_EXC_INVALID_OPERATION format:@"Not a child of this container"];
+    else
+    {
+        [child retain];
+        [mChildren removeObjectAtIndex:oldIndex];
+        [mChildren insertObject:child atIndex:index];
+        [child release];
+    }
+}
+
 - (void)removeChild:(SPDisplayObject *)child
 {
     int childIndex = [self childIndex:child];

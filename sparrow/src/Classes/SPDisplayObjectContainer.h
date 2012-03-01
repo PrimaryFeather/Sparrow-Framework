@@ -74,6 +74,9 @@
 /// Returns the index of a child within the container.
 - (int)childIndex:(SPDisplayObject *)child;
 
+/// Moves a child to a certain index. Children at and after the replaced position move up.
+- (void)setIndex:(int)index ofChild:(SPDisplayObject *)child;
+
 /// Removes a child from the container. If the object is not a child, nothing happens.
 - (void)removeChild:(SPDisplayObject *)child;
 
