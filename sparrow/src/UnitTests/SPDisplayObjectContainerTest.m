@@ -34,6 +34,7 @@
     int mRemovedFromStage;
     int mEventCount;
     SPSprite *mTestSprite;
+    SPEventDispatcher *mBroadcastTarget;
 }
 
 - (void)addQuadToSprite:(SPSprite*)sprite;
@@ -407,13 +408,13 @@
     STAssertNil([parent childByName:@"ChIlD"], @"return child on wrong name");
 }
 
-- (void)testDispatchEventOnChildren
+- (void)testBroadcastEvent
 {
     SPSprite *parent = [SPSprite sprite];
 
-    SPSprite *child1 = [[SPSprite alloc] init];
-    SPSprite *child2 = [[SPSprite alloc] init];
-    SPSprite *child3 = [[SPSprite alloc] init];
+    SPSprite *child1 = [SPSprite sprite];
+    SPSprite *child2 = [SPSprite sprite];
+    SPSprite *child3 = [SPSprite sprite];
     
     [parent addChild:child1];
     [parent addChild:child2];
@@ -424,18 +425,41 @@
     [child2 addEventListener:@selector(onChildEvent:) atObject:self forType:@"dunno"];
     [child3 addEventListener:@selector(onChildEvent:) atObject:self forType:@"dunno"];
     
-    [child1 release];
-    [child2 release];
-    [child3 release];
-    
     SPEvent *event = [SPEvent eventWithType:@"dunno"];
-    [parent dispatchEventOnChildren:event];
+    [parent broadcastEvent:event];
     
     // event should have dispatched to all 3 children, even if the event listener
     // removes the children from their parent when it reaches child1. Furthermore, it should
     // not crash.
     
     STAssertEquals(3, mEventCount, @"not all children received events!");
+}
+
+- (void)testBroadcastEventTarget
+{
+    SPSprite *parent = [SPSprite sprite];
+    SPSprite *childA = [SPSprite sprite];
+    SPSprite *childA1 = [SPSprite sprite];
+    SPSprite *childA2 = [SPSprite sprite];
+    
+    [parent addChild:childA];
+    [parent addChild:childA1];
+    [parent addChild:childA2];
+    
+    parent.name = @"parent";
+    childA.name = @"childA";
+    childA1.name = @"childA1";
+    childA2.name = @"childA2";
+    
+    [childA2 addEventListener:@selector(onBroadcastEvent:) atObject:self forType:@"test"];
+    [parent broadcastEvent:[SPEvent eventWithType:@"test"]];
+    
+    STAssertEquals(parent, mBroadcastTarget, @"wrong event.target on broadcast");
+}
+
+- (void)onBroadcastEvent:(SPEvent *)event
+{
+    mBroadcastTarget = event.target;
 }
 
 - (void)onChildEvent:(SPEvent *)event

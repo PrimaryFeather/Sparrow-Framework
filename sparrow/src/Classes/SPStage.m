@@ -68,7 +68,7 @@ static NSMutableArray *stages = NULL;
     // dispatch EnterFrameEvent
     SPEnterFrameEvent *enterFrameEvent = [[SPEnterFrameEvent alloc] 
         initWithType:SP_EVENT_TYPE_ENTER_FRAME passedTime:seconds];
-    [self dispatchEventOnChildren:enterFrameEvent];
+    [self broadcastEvent:enterFrameEvent];
     [enterFrameEvent release];
 }
 

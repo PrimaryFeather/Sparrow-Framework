@@ -13,6 +13,7 @@
 #import "SPEnterFrameEvent.h"
 #import "SPDisplayObject_Internal.h"
 #import "SPMacros.h"
+#import "SPEvent_Internal.h"
 
 // --- C functions ---------------------------------------------------------------------------------
 
@@ -74,7 +75,7 @@ static void getChildEventListeners(SPDisplayObject *object, NSString *eventType,
         if (self.stage)
         {
             SPEvent *addedToStageEvent = [[SPEvent alloc] initWithType:SP_EVENT_TYPE_ADDED_TO_STAGE];
-            [child dispatchEventOnChildren:addedToStageEvent];
+            [child broadcastEvent:addedToStageEvent];
             [addedToStageEvent release];
         }
         
@@ -156,7 +157,7 @@ static void getChildEventListeners(SPDisplayObject *object, NSString *eventType,
         if (self.stage)
         {
             SPEvent *remFromStageEvent = [[SPEvent alloc] initWithType:SP_EVENT_TYPE_REMOVED_FROM_STAGE];
-            [child dispatchEventOnChildren:remFromStageEvent];
+            [child broadcastEvent:remFromStageEvent];
             [remFromStageEvent release];
         }        
         
@@ -248,22 +249,17 @@ static void getChildEventListeners(SPDisplayObject *object, NSString *eventType,
         [NSException raise:SP_EXC_INVALID_OPERATION 
                     format:@"Broadcast of bubbling events is prohibited"];
     
-    [self dispatchEventOnChildren:event];
-}
-
-- (void)dispatchEventOnChildren:(SPEvent *)event
-{
     // the event listeners might modify the display tree, which could make the loop crash. 
     // thus, we collect them in a list and iterate over that list instead.
-    
     NSMutableArray *listeners = [[NSMutableArray alloc] init];
-    getChildEventListeners(self, event.type, listeners);        
+    getChildEventListeners(self, event.type, listeners);
+    [event setTarget:self];
     [listeners makeObjectsPerformSelector:@selector(dispatchEvent:) withObject:event];
     [listeners release];
 }
 
 - (void)dealloc 
-{    
+{
     // 'self' is becoming invalid; thus, we have to remove any references to it.    
     [mChildren makeObjectsPerformSelector:@selector(setParent:) withObject:nil];
     [mChildren release];

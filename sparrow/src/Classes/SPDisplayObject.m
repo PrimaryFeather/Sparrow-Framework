@@ -231,6 +231,11 @@
     [super dispatchEvent:event];
 }
 
+- (void)broadcastEvent:(SPEvent *)event
+{
+    [self dispatchEvent:event];
+}
+
 - (float)width
 {
     return [self boundsInSpace:mParent].width; 
