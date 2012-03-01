@@ -184,6 +184,11 @@ static void getChildEventListeners(SPDisplayObject *object, NSString *eventType,
     [mChildren exchangeObjectAtIndex:index1 withObjectAtIndex:index2];
 }
 
+- (void)sortChildren:(NSComparator)comparator
+{
+    [mChildren sortUsingComparator:comparator];
+}
+
 - (void)removeAllChildren
 {
     for (int i=mChildren.count-1; i>=0; --i)

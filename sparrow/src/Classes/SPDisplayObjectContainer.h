@@ -44,6 +44,19 @@
  Especially the `ADDED_TO_STAGE` event is very helpful, as it allows you to automatically execute
  some logic (e.g. start an animation) when an object is rendered the first time.
  
+ *Sorting children*
+ 
+ The `sortChildren:` method allows you to sort the children of a container by a custom criteria. 
+ Below is an example how to depth-sort children by their y-coordinate; this will put objects that
+ are lower on the screen in front of those higher on the screen.
+ 
+	[container sortChildren:^(SPDisplayObject *child1, SPDisplayObject *child2) 
+	{
+	    if (child1.y < child2.y) return NSOrderedAscending;
+	    else if (child1.y > child2.y) return NSOrderedDescending;
+	    else return NSOrderedSame;
+	}];
+ 
 ------------------------------------------------------------------------------------------------- */
 
 @interface SPDisplayObjectContainer : SPDisplayObject <NSFastEnumeration>
@@ -91,6 +104,9 @@
 
 /// Swaps the indexes of two children.
 - (void)swapChildAtIndex:(int)index1 withChildAtIndex:(int)index2;
+
+/// Sorts the children using the given NSComparator block.
+- (void)sortChildren:(NSComparator)comparator;
 
 /// Dispatches an event on all children (recursively). The event must not bubble. */
 - (void)broadcastEvent:(SPEvent *)event;

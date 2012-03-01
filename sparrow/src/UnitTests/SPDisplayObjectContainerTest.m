@@ -403,9 +403,35 @@
     child1.name = @"CHILD";
     child3.name = @"child";
     
-    STAssertEqualObjects(child1, [parent childByName:@"CHILD"], @"wrong child returned");
-    STAssertEqualObjects(child3, [parent childByName:@"child"], @"wrong child returned");
+    STAssertEquals(child1, [parent childByName:@"CHILD"], @"wrong child returned");
+    STAssertEquals(child3, [parent childByName:@"child"], @"wrong child returned");
     STAssertNil([parent childByName:@"ChIlD"], @"return child on wrong name");
+}
+
+- (void)testSortChildren
+{
+    SPSprite *s1 = [SPSprite sprite]; s1.y = 8;
+    SPSprite *s2 = [SPSprite sprite]; s2.y = 3;
+    SPSprite *s3 = [SPSprite sprite]; s3.y = 6;
+    SPSprite *s4 = [SPSprite sprite]; s4.y = 1;
+    
+    SPSprite *parent = [SPSprite sprite];
+    [parent addChild:s1];
+    [parent addChild:s2];
+    [parent addChild:s3];
+    [parent addChild:s4];
+    
+    [parent sortChildren:^(SPDisplayObject *child1, SPDisplayObject *child2) 
+    {
+        if (child1.y < child2.y) return NSOrderedAscending;
+        else if (child1.y > child2.y) return NSOrderedDescending;
+        else return NSOrderedSame;
+    }];
+
+    STAssertEquals(s4, [parent childAtIndex:0], @"incorrect sort");
+    STAssertEquals(s2, [parent childAtIndex:1], @"incorrect sort");
+    STAssertEquals(s3, [parent childAtIndex:2], @"incorrect sort");
+    STAssertEquals(s1, [parent childAtIndex:3], @"incorrect sort");
 }
 
 - (void)testBroadcastEvent
