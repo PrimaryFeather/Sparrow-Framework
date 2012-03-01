@@ -109,6 +109,9 @@ typedef enum
 /// Animates the `scaleX` and `scaleY` properties of an object simultaneously.
 - (void)scaleTo:(float)scale;
 
+/// Animates the `alpha` property.
+- (void)fadeTo:(float)alpha;
+
 /// ----------------
 /// @name Properties
 /// ----------------

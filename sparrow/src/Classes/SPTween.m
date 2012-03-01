@@ -75,6 +75,11 @@ typedef float (*FnPtrTransition) (id, SEL, float);
     [self animateProperty:@"scaleY" targetValue:scale];
 }
 
+- (void)fadeTo:(float)alpha
+{
+    [self animateProperty:@"alpha" targetValue:alpha];
+}
+
 - (void)advanceTime:(double)seconds
 {
     if (seconds == 0.0 || (mLoop == SPLoopTypeNone && mCurrentTime == mTotalTime))
