@@ -172,11 +172,10 @@
         [mContents addChild:mTextField];
     }
 
-    SPRectangle *textBounds = self.textBounds;
-    mTextField.width  = textBounds.width;
-    mTextField.height = textBounds.height;
-    mTextField.x = textBounds.x;
-    mTextField.y = textBounds.y;
+    mTextField.width  = mTextBounds.width;
+    mTextField.height = mTextBounds.height;
+    mTextField.x = mTextBounds.x;
+    mTextField.y = mTextBounds.y;
 }
 
 - (NSString*)text
@@ -193,24 +192,17 @@
 
 - (void)setTextBounds:(SPRectangle *)value
 {
-    [mTextBounds autorelease];
-
-    float scaleX = mBackground.scaleX;
-    float scaleY = mBackground.scaleY;
-            
-    mTextBounds = [[SPRectangle alloc] initWithX:value.x/scaleX y:value.y/scaleY 
-                                           width:value.width/scaleX height:value.height/scaleY];
-    
-    [self createTextField];
+    if (value != mTextBounds)
+    {
+        [mTextBounds release];
+        mTextBounds = [value copy];
+        [self createTextField];
+    }
 }
 
 - (SPRectangle *)textBounds
 {
-    float scaleX = mBackground.scaleX;
-    float scaleY = mBackground.scaleY;
-    
-    return [SPRectangle rectangleWithX:mTextBounds.x*scaleX y:mTextBounds.y*scaleY 
-                                 width:mTextBounds.width*scaleX height:mTextBounds.height*scaleY];
+    return [[mTextBounds copy] autorelease];
 }
 
 - (NSString*)fontName
