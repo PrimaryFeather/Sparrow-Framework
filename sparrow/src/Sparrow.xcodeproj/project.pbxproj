@@ -444,6 +444,8 @@
 		DED85A930FB49E6D000BAA95 /* Internal */ = {
 			isa = PBXGroup;
 			children = (
+				DEDCD3AC0FADEE280022011C /* SPTouchProcessor.h */,
+				DEDCD3AD0FADEE280022011C /* SPTouchProcessor.m */,
 				DEDCD3CF0FADF52B0022011C /* SPTouch_Internal.h */,
 				DEDCD44A0FADFF250022011C /* SPEvent_Internal.h */,
 			);
@@ -453,8 +455,6 @@
 		DED85A940FB49E90000BAA95 /* Internal */ = {
 			isa = PBXGroup;
 			children = (
-				DEDCD3AC0FADEE280022011C /* SPTouchProcessor.h */,
-				DEDCD3AD0FADEE280022011C /* SPTouchProcessor.m */,
 				DEDCD44E0FADFFA40022011C /* SPDisplayObject_Internal.h */,
 				DE2AD849104A84F1001AF0A0 /* SPStage_Internal.h */,
 			);
