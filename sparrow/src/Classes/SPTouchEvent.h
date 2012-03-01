@@ -66,10 +66,10 @@
 /// @name Initializers
 /// ------------------
 
-/// Creates a touch with a set of touches. _Designated Initializer_.
+/// Creates a touch event with a set of touches. _Designated Initializer_.
 - (id)initWithType:(NSString*)type bubbles:(BOOL)bubbles touches:(NSSet*)touches;
 
-/// Creates a touch with a set of touches.
+/// Creates a touch event with a set of touches.
 - (id)initWithType:(NSString*)type touches:(NSSet*)touches;
 
 /// Factory method.
