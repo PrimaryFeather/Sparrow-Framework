@@ -192,17 +192,24 @@
 
 - (void)setTextBounds:(SPRectangle *)value
 {
-    if (value != mTextBounds)
-    {
-        [mTextBounds release];
-        mTextBounds = [value copy];
-        [self createTextField];
-    }
+    [mTextBounds autorelease];
+    
+    float scaleX = mBackground.scaleX;
+    float scaleY = mBackground.scaleY;
+    
+    mTextBounds = [[SPRectangle alloc] initWithX:value.x/scaleX y:value.y/scaleY 
+                                           width:value.width/scaleX height:value.height/scaleY];
+    
+    [self createTextField];
 }
 
 - (SPRectangle *)textBounds
 {
-    return [[mTextBounds copy] autorelease];
+    float scaleX = mBackground.scaleX;
+    float scaleY = mBackground.scaleY;
+    
+    return [SPRectangle rectangleWithX:mTextBounds.x*scaleX y:mTextBounds.y*scaleY 
+                                 width:mTextBounds.width*scaleX height:mTextBounds.height*scaleY];
 }
 
 - (NSString*)fontName
