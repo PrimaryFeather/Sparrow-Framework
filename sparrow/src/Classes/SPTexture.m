@@ -52,7 +52,9 @@ enum PVRPixelType
 	OGL_I_8,
 	OGL_AI_88,
 	OGL_PVRTC2,
-	OGL_PVRTC4
+	OGL_PVRTC4,
+    OGL_BGRA_8888,
+    OGL_A_8
 };
     
 // --- private interface ---------------------------------------------------------------------------
@@ -238,6 +240,15 @@ enum PVRPixelType
             break;
         case OGL_RGBA_8888:
             properties.format = SPTextureFormatRGBA;
+            break;
+        case OGL_A_8:
+            properties.format = SPTextureFormatAlpha;
+            break;
+        case OGL_I_8:
+            properties.format = SPTextureFormatI8;
+            break;
+        case OGL_AI_88:
+            properties.format = SPTextureFormatAI88;
             break;
         case OGL_PVRTC2:
             properties.format = hasAlpha ? SPTextureFormatPvrtcRGBA2 : SPTextureFormatPvrtcRGB2;

@@ -88,6 +88,13 @@
                 glTexFormat = GL_RGBA;
                 glTexType = GL_UNSIGNED_SHORT_4_4_4_4;                    
                 break;
+            case SPTextureFormatAI88:
+                bitsPerPixel = 16;
+                glTexFormat = GL_LUMINANCE_ALPHA;
+                break;
+            case SPTextureFormatI8:
+                bitsPerPixel = 8;
+                glTexFormat = GL_LUMINANCE;
         }
         
         mMipmaps = properties.numMipmaps > 0 || (properties.generateMipmaps && !compressed);
