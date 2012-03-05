@@ -21,6 +21,7 @@ typedef float (*FnPtrTransition) (id, SEL, float);
 @implementation SPTween
 
 @synthesize time = mTotalTime;
+@synthesize currentTime = mCurrentTime;
 @synthesize delay = mDelay;
 @synthesize target = mTarget;
 @synthesize loop = mLoop;

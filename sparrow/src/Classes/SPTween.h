@@ -125,6 +125,9 @@ typedef enum
 /// The total time the tween will take (in seconds).
 @property (nonatomic, readonly) double time;
 
+/// The time that has passed since the tween was started (in seconds).
+@property (nonatomic, readonly) double currentTime;
+
 /// The delay before the tween is started.
 @property (nonatomic, assign)   double delay;
 

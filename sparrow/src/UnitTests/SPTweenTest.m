@@ -71,7 +71,7 @@
     float endY = 200.0f;
     float startAlpha = 1.0f;
     float endAlpha = 0.0f;
-    float totalTime = 2.0f;
+    double totalTime = 2.0;
     
     SPQuad *quad = [SPQuad quadWithWidth:100 height:100];
     quad.x = startX;
@@ -95,6 +95,7 @@
     STAssertEqualsWithAccuracy(startX + (endX-startX)/3.0f, quad.x, E, @"wrong x: %f", quad.x);
     STAssertEqualsWithAccuracy(startY + (endY-startY)/3.0f, quad.y, E, @"wrong y");
     STAssertEqualsWithAccuracy(startAlpha + (endAlpha-startAlpha)/3.0f, quad.alpha, E, @"wrong alpha");
+    STAssertEqualsWithAccuracy(totalTime/3.0, tween.currentTime, E, @"wrong current time");
     STAssertEquals(1, mStartedCount, @"missing start event");
     STAssertEquals(1, mUpdatedCount, @"missing update event");
     STAssertEquals(0, mCompletedCount, @"completed event dispatched too soon");
@@ -103,6 +104,7 @@
     STAssertEqualsWithAccuracy(startX + 2.0f*(endX-startX)/3.0f, quad.x, E, @"wrong x: %f", quad.x);
     STAssertEqualsWithAccuracy(startY + 2.0f*(endY-startY)/3.0f, quad.y, E, @"wrong y");
     STAssertEqualsWithAccuracy(startAlpha + 2.0f*(endAlpha-startAlpha)/3.0f, quad.alpha, E, @"wrong alpha");
+    STAssertEqualsWithAccuracy(2*totalTime/3.0, tween.currentTime, E, @"wrong current time");
     STAssertEquals(1, mStartedCount, @"too many start events dipatched");
     STAssertEquals(2, mUpdatedCount, @"missing update event");
     STAssertEquals(0, mCompletedCount, @"completed event dispatched too soon");
@@ -111,6 +113,7 @@
     STAssertEqualsWithAccuracy(endX, quad.x, E, @"wrong x: %f", quad.x);
     STAssertEqualsWithAccuracy(endY, quad.y, E, @"wrong y");
     STAssertEqualsWithAccuracy(endAlpha, quad.alpha, E, @"wrong alpha");
+    STAssertEqualsWithAccuracy(totalTime, tween.currentTime, E, @"wrong current time");
     STAssertEquals(1, mStartedCount, @"too many start events dispatched");
     STAssertEquals(3, mUpdatedCount, @"missing update event");
     STAssertEquals(1, mCompletedCount, @"missing completed event");
