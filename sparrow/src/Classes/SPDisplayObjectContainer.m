@@ -186,7 +186,7 @@ static void getChildEventListeners(SPDisplayObject *object, NSString *eventType,
 
 - (void)sortChildren:(NSComparator)comparator
 {
-    [mChildren sortUsingComparator:comparator];
+    [mChildren sortWithOptions:NSSortStable usingComparator:comparator];
 }
 
 - (void)removeAllChildren
