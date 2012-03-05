@@ -186,7 +186,11 @@ static void getChildEventListeners(SPDisplayObject *object, NSString *eventType,
 
 - (void)sortChildren:(NSComparator)comparator
 {
-    [mChildren sortWithOptions:NSSortStable usingComparator:comparator];
+    if ([mChildren respondsToSelector:@selector(sortWithOptions:usingComparator:)])
+        [mChildren sortWithOptions:NSSortStable usingComparator:comparator];
+    else
+        [NSException raise:SP_EXC_INVALID_OPERATION 
+                    format:@"sortChildren is only available in iOS 4 and above"];
 }
 
 - (void)removeAllChildren

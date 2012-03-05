@@ -105,7 +105,7 @@
 /// Swaps the indexes of two children.
 - (void)swapChildAtIndex:(int)index1 withChildAtIndex:(int)index2;
 
-/// Sorts the children using the given NSComparator block.
+/// Sorts the children using the given NSComparator block. Only available in iOS 4 and above!
 - (void)sortChildren:(NSComparator)comparator;
 
 /// Dispatches an event on all children (recursively). The event must not bubble. */
