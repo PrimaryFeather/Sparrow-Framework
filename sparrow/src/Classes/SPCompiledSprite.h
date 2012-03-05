@@ -12,6 +12,9 @@
 #import <Foundation/Foundation.h>
 #import "SPSprite.h"
 
+/// Event type for a display object that is being compiled
+#define SP_EVENT_TYPE_COMPILE @"compile"
+
 /** ------------------------------------------------------------------------------------------------
 
  An SPCompiledSprite allows you to optimize the rendering of static parts of your display list.
@@ -28,6 +31,10 @@
     [sprite addChild:object2];
     
     [sprite compile]; // this call is optional, it will be done on rendering automatically.
+ 
+ If a class needs to do something special before it becomes part of a compiled sprite, it can 
+ listen to events with the type `SP_EVENT_TYPE_COMPILE`. Such an event is dispatched on all 
+ children of a compiled sprite before the compilation process begins.
  
 ------------------------------------------------------------------------------------------------- */
 

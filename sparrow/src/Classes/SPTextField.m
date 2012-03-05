@@ -18,6 +18,7 @@
 #import "SPQuad.h"
 #import "SPBitmapFont.h"
 #import "SPStage.h"
+#import "SPCompiledSprite.h"
 
 #import <UIKit/UIKit.h>
 
@@ -71,6 +72,7 @@ static NSMutableDictionary *bitmapFonts = nil;
         [mTextArea release];
         
         mRequiresRedraw = YES;
+        [self addEventListener:@selector(onCompile:) atObject:self forType:SP_EVENT_TYPE_COMPILE];
     }
     return self;
 } 
@@ -94,6 +96,11 @@ static NSMutableDictionary *bitmapFonts = nil;
 - (id)init
 {
     return [self initWithText:@""];
+}
+
+- (void)onCompile:(SPEvent *)event
+{
+    if (mRequiresRedraw) [self redrawContents];
 }
 
 - (void)render:(SPRenderSupport *)support
@@ -332,6 +339,7 @@ static NSMutableDictionary *bitmapFonts = nil;
 
 - (void)dealloc
 {
+    [self removeEventListenersAtObject:self forType:SP_EVENT_TYPE_COMPILE];
     [mText release];
     [mFontName release];
     [super dealloc];
