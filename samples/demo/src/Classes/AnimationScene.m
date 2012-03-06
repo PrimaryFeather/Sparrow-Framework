@@ -53,8 +53,7 @@
     [self addChild:mDelayButton];
     
     // the egg image will be tweened.
-    SPTextureAtlas *atlas = [SPTextureAtlas atlasWithContentsOfFile:@"atlas.xml"]; 
-    mEgg = [[SPImage alloc] initWithTexture:[atlas textureByName:@"egg_opened"]];
+    mEgg = [[SPImage alloc] initWithContentsOfFile:@"sparrow_front.png"];
     [self resetEgg];
     [self addChild:mEgg];
     
@@ -70,7 +69,7 @@
 
 - (void)resetEgg
 {
-    mEgg.x = 20;
+    mEgg.x = 15;
     mEgg.y = 100;
     mEgg.scaleX = mEgg.scaleY = 1.0f;
     mEgg.rotation = 0.0f;
@@ -93,8 +92,8 @@
 
     // you can animate any property as long as it's numeric (float, double, int). 
     // it is animated from it's current value to a target value.    
-    [tween animateProperty:@"x" targetValue:300];
-    [tween animateProperty:@"y" targetValue:360];
+    [tween animateProperty:@"x" targetValue:305];
+    [tween animateProperty:@"y" targetValue:365];
     [tween animateProperty:@"scaleX" targetValue:0.5];
     [tween animateProperty:@"scaleY" targetValue:0.5];
     [tween animateProperty:@"rotation" targetValue:PI_HALF];

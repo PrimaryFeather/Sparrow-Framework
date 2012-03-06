@@ -13,7 +13,7 @@
 {
     SPButton *mStartButton;
     SPTextField *mResultText;
-    SPTextureAtlas *mAtlas;
+    SPTexture *mTexture;
 
     SPSprite *mContainer;
     int mFrameCount;

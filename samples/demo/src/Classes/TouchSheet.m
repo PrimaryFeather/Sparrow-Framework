@@ -26,8 +26,8 @@
     {
         // move quad to center, so that scaling works like expected
         mQuad = [quad retain];
-        mQuad.x = -mQuad.width/2;
-        mQuad.y = -mQuad.height/2;        
+        mQuad.x = (int)mQuad.width/-2;
+        mQuad.y = (int)mQuad.height/-2;        
         [mQuad addEventListener:@selector(onTouchEvent:) atObject:self forType:SP_EVENT_TYPE_TOUCH];
         [self addChild:mQuad];
     }

@@ -31,39 +31,26 @@
 
 - (void)setupScene
 {  
-    NSString *description = [NSString stringWithFormat:@"%@\n%@\n%@",
-                             @"- touch and drag to move the images", 
-                             @"- pinch with 2 fingers to scale and rotate", 
-                             @"- double click brings an image to the front"];
+    NSString *description = @"Touch and drag to move the image, \n"
+                            @"pinch with 2 fingers to scale and rotate.";
     
-    SPTextField *infoText = [SPTextField textFieldWithWidth:300 height:100 
+    SPTextField *infoText = [SPTextField textFieldWithWidth:300 height:64 
                                                        text:description fontName:@"Verdana" 
                                                    fontSize:13 color:0x0];    
     infoText.x = infoText.y = 10;
-    infoText.vAlign = SPVAlignTop;
-    infoText.hAlign = SPHAlignLeft;
     [self addChild:infoText];
-        
-    SPTextureAtlas *atlas = [SPTextureAtlas atlasWithContentsOfFile:@"atlas.xml"];
-    SPImage *eggClosed = [SPImage imageWithTexture:[atlas textureByName:@"egg_closed"]];
-    SPImage *eggOpened = [SPImage imageWithTexture:[atlas textureByName:@"egg_opened"]];
+    
+    SPImage *sparrow = [SPImage imageWithContentsOfFile:@"sparrow_sheet.png"];
     
     // to find out how to react to touch events have a look at the TouchSheet class! 
     // It's part of the demo.
                              
-    TouchSheet *sheet1 = [[TouchSheet alloc] initWithQuad:eggClosed];    
-    sheet1.x = 130;
-    sheet1.y = 200;    
+    TouchSheet *sheet = [[TouchSheet alloc] initWithQuad:sparrow];
+    sheet.x = CENTER_X;
+    sheet.y = CENTER_Y;    
     
-    TouchSheet *sheet2 = [[TouchSheet alloc] initWithQuad:eggOpened];    
-    sheet2.x = 200;
-    sheet2.y = 295; 
-    
-    [self addChild:sheet1];
-    [self addChild:sheet2];  
-    
-    [sheet1 release];
-    [sheet2 release];
+    [self addChild:sheet];
+    [sheet release];
 }
 
 @end

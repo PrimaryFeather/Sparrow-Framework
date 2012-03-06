@@ -32,6 +32,7 @@
         [self addChild:mMainMenu];
         
         SPImage *logo = [SPImage imageWithContentsOfFile:@"logo.png"];
+        logo.y = 5;
         [mMainMenu addChild:logo];
         
         // choose which scenes will be accessible

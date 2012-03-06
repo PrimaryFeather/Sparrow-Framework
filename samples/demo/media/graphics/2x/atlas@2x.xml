@@ -1,17 +1,14 @@
 <TextureAtlas imagePath='atlas@2x.png'>
-  <SubTexture name='egg_opened' x='0' y='0' height='361.0' width='256.0'/>
-  <SubTexture name='egg_closed' x='257' y='0' height='302.0' width='302.0'/>
-  <SubTexture name='walk_03' x='0' y='362' height='301.0' width='174.0'/>
-  <SubTexture name='walk_00' x='0' y='664' height='301.0' width='174.0'/>
-  <SubTexture name='walk_01' x='560' y='0' height='301.0' width='174.0'/>
-  <SubTexture name='walk_02' x='735' y='0' height='301.0' width='174.0'/>
-  <SubTexture name='walk_11' x='257' y='303' height='301.0' width='174.0'/>
-  <SubTexture name='walk_10' x='257' y='605' height='301.0' width='174.0'/>
-  <SubTexture name='walk_05' x='432' y='303' height='301.0' width='174.0'/>
-  <SubTexture name='walk_06' x='607' y='303' height='301.0' width='174.0'/>
-  <SubTexture name='walk_07' x='782' y='303' height='301.0' width='174.0'/>
-  <SubTexture name='walk_08' x='432' y='605' height='301.0' width='174.0'/>
-  <SubTexture name='walk_09' x='607' y='605' height='301.0' width='174.0'/>
-  <SubTexture name='walk_04' x='782' y='605' height='301.0' width='174.0'/>
-  <SubTexture name='benchmark_object' x='910' y='0' height='102.0' width='102.0'/>
+  <SubTexture name='walk_00' x='0' y='0' height='301.0' width='174.0'/>
+  <SubTexture name='walk_01' x='0' y='302' height='301.0' width='174.0'/>
+  <SubTexture name='walk_02' x='0' y='604' height='301.0' width='174.0'/>
+  <SubTexture name='walk_03' x='175' y='0' height='301.0' width='174.0'/>
+  <SubTexture name='walk_04' x='350' y='0' height='301.0' width='174.0'/>
+  <SubTexture name='walk_05' x='525' y='0' height='301.0' width='174.0'/>
+  <SubTexture name='walk_06' x='700' y='0' height='301.0' width='174.0'/>
+  <SubTexture name='walk_07' x='175' y='302' height='301.0' width='174.0'/>
+  <SubTexture name='walk_08' x='175' y='604' height='301.0' width='174.0'/>
+  <SubTexture name='walk_09' x='350' y='302' height='301.0' width='174.0'/>
+  <SubTexture name='walk_10' x='350' y='604' height='301.0' width='174.0'/>
+  <SubTexture name='walk_11' x='525' y='302' height='301.0' width='174.0'/>
 </TextureAtlas>

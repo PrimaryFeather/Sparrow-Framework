@@ -29,7 +29,7 @@
 
 - (void)setupScene
 {
-    NSString *description = @"Touch the screen to draw eggs!";
+    NSString *description = @"Touch the screen to draw sparrows!";
     SPTextField *infoText = [SPTextField textFieldWithWidth:300 height:100 
                                                        text:description fontName:@"Verdana" 
                                                    fontSize:13 color:0x0];    
@@ -39,9 +39,7 @@
     [self addChild:infoText];
     
     // we load the "brush" image (the sparrow egg) from the texture atlas
-    SPTextureAtlas *atlas = [SPTextureAtlas atlasWithContentsOfFile:@"atlas.xml"];     
-    mBrush = [[SPImage alloc] initWithTexture:[atlas textureByName:@"egg_opened"]];
-    mBrush.scaleX = mBrush.scaleY = 0.5f;
+    mBrush = [[SPImage alloc] initWithContentsOfFile:@"benchmark_object.png"];
     
     // the render texture is a dyanmic texture. We will draw the egg on that texture on
     // every touch event.

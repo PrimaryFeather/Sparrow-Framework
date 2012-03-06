@@ -35,7 +35,7 @@
 
     // when the squared distance is smaller than the squared radius, the point is inside
     // the circle
-    float radius = bounds.width / 2; 
+    float radius = bounds.width / 2 * 0.9; 
     if (sqDist < radius * radius) return self;
     else return nil;
 }

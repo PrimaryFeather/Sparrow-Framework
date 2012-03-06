@@ -24,7 +24,7 @@
 {
     if ((self = [super init]))
     {
-        mAtlas = [[SPTextureAtlas alloc] initWithContentsOfFile:@"atlas.xml"];   
+        mTexture = [[SPTexture alloc] initWithContentsOfFile:@"benchmark_object.png"];
         
         // the container will hold all test objects
         mContainer = [[SPSprite alloc] init];
@@ -133,7 +133,7 @@
     
     for (int i=0; i<numObjects; ++i)
     {   
-        SPImage *egg = [[SPImage alloc] initWithTexture:[mAtlas textureByName:@"benchmark_object"]];
+        SPImage *egg = [[SPImage alloc] initWithTexture:mTexture];
         egg.x = [SPUtils randomIntBetweenMin:border andMax:GAME_WIDTH  - border];
         egg.y = [SPUtils randomIntBetweenMin:border andMax:GAME_HEIGHT - border];
         [mContainer addChild:egg];
@@ -146,7 +146,7 @@
     [self removeEventListenersAtObject:self forType:SP_EVENT_TYPE_ENTER_FRAME];
     [mStartButton removeEventListenersAtObject:self forType:SP_EVENT_TYPE_TRIGGERED];
 
-    [mAtlas release];
+    [mTexture release];
     [super dealloc];
 }
 

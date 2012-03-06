@@ -44,6 +44,14 @@
 		DE396AE8104055A100C27DDF /* CustomHitTestScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DE396AE7104055A100C27DDF /* CustomHitTestScene.m */; };
 		DE396AEB104056A500C27DDF /* RoundButton.m in Sources */ = {isa = PBXBuildFile; fileRef = DE396AEA104056A500C27DDF /* RoundButton.m */; };
 		DE5A7ED913805C4500C6CBBC /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DE5A7ED813805C4500C6CBBC /* libz.dylib */; };
+		DE8055B5150632DA006A9426 /* sparrow_front.png in Resources */ = {isa = PBXBuildFile; fileRef = DE8055B4150632DA006A9426 /* sparrow_front.png */; };
+		DE8055B7150632E9006A9426 /* sparrow_front@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE8055B6150632E9006A9426 /* sparrow_front@2x.png */; };
+		DE8055B915064FEA006A9426 /* sparrow_round.png in Resources */ = {isa = PBXBuildFile; fileRef = DE8055B815064FEA006A9426 /* sparrow_round.png */; };
+		DE8055BB15064FF7006A9426 /* sparrow_round@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE8055BA15064FF7006A9426 /* sparrow_round@2x.png */; };
+		DE8055BD1506531B006A9426 /* benchmark_object.png in Resources */ = {isa = PBXBuildFile; fileRef = DE8055BC1506531B006A9426 /* benchmark_object.png */; };
+		DE8055BF15065323006A9426 /* benchmark_object@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE8055BE15065323006A9426 /* benchmark_object@2x.png */; };
+		DEA1573B1505F9030043B724 /* sparrow_sheet.png in Resources */ = {isa = PBXBuildFile; fileRef = DEA1573A1505F9030043B724 /* sparrow_sheet.png */; };
+		DEA1573D1505F90E0043B724 /* sparrow_sheet@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DEA1573C1505F90E0043B724 /* sparrow_sheet@2x.png */; };
 		DEB2D16B1380580800FA7B88 /* TextureScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DEB2D16A1380580800FA7B88 /* TextureScene.m */; };
 		DED0B7F0101CE0A9008D3794 /* TextScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DED0B7EF101CE0A9008D3794 /* TextScene.m */; };
 		DED6FF371041623A001FF6C8 /* AnimationScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DED6FF361041623A001FF6C8 /* AnimationScene.m */; };
@@ -137,6 +145,14 @@
 		DE396AE9104056A500C27DDF /* RoundButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoundButton.h; sourceTree = "<group>"; };
 		DE396AEA104056A500C27DDF /* RoundButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoundButton.m; sourceTree = "<group>"; };
 		DE5A7ED813805C4500C6CBBC /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		DE8055B4150632DA006A9426 /* sparrow_front.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sparrow_front.png; sourceTree = "<group>"; };
+		DE8055B6150632E9006A9426 /* sparrow_front@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sparrow_front@2x.png"; sourceTree = "<group>"; };
+		DE8055B815064FEA006A9426 /* sparrow_round.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sparrow_round.png; sourceTree = "<group>"; };
+		DE8055BA15064FF7006A9426 /* sparrow_round@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sparrow_round@2x.png"; sourceTree = "<group>"; };
+		DE8055BC1506531B006A9426 /* benchmark_object.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = benchmark_object.png; sourceTree = "<group>"; };
+		DE8055BE15065323006A9426 /* benchmark_object@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "benchmark_object@2x.png"; sourceTree = "<group>"; };
+		DEA1573A1505F9030043B724 /* sparrow_sheet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sparrow_sheet.png; sourceTree = "<group>"; };
+		DEA1573C1505F90E0043B724 /* sparrow_sheet@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sparrow_sheet@2x.png"; sourceTree = "<group>"; };
 		DEB2D1691380580800FA7B88 /* TextureScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureScene.h; sourceTree = "<group>"; };
 		DEB2D16A1380580800FA7B88 /* TextureScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextureScene.m; sourceTree = "<group>"; };
 		DED0B7EE101CE0A9008D3794 /* TextScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextScene.h; sourceTree = "<group>"; };
@@ -213,20 +229,24 @@
 		25C23A5411EC631500A25DF7 /* 1x */ = {
 			isa = PBXGroup;
 			children = (
-				DE0456D713880384005FFBCE /* desyrel.fnt */,
-				DE0456D813880385005FFBCE /* desyrel.png */,
-				25C23AFF11EC7FE200A25DF7 /* atlas.xml */,
 				25C23AFE11EC7FE200A25DF7 /* atlas.png */,
+				25C23AFF11EC7FE200A25DF7 /* atlas.xml */,
+				DE8055BC1506531B006A9426 /* benchmark_object.png */,
 				25C23A5511EC631500A25DF7 /* button_back.png */,
 				25C23A5611EC631500A25DF7 /* button_big.png */,
 				25C23A5711EC631500A25DF7 /* button_normal.png */,
 				25C23A5811EC631500A25DF7 /* button_square.png */,
 				25C23A5911EC631500A25DF7 /* Default.png */,
+				DE0456D713880384005FFBCE /* desyrel.fnt */,
+				DE0456D813880385005FFBCE /* desyrel.png */,
 				25C23A5A11EC631500A25DF7 /* Icon.png */,
 				25C23A5B11EC631500A25DF7 /* logo.png */,
 				DE02408F1381B87E008A91B9 /* logo_rect.pvr */,
-				DE0240971381B8E2008A91B9 /* logo_rect_tc.pvr */,
 				DE0240931381B89B008A91B9 /* logo_rect.pvr.gz */,
+				DE0240971381B8E2008A91B9 /* logo_rect_tc.pvr */,
+				DE8055B4150632DA006A9426 /* sparrow_front.png */,
+				DE8055B815064FEA006A9426 /* sparrow_round.png */,
+				DEA1573A1505F9030043B724 /* sparrow_sheet.png */,
 			);
 			name = 1x;
 			path = ../media/graphics/1x;
@@ -235,20 +255,24 @@
 		25C23A6311EC632400A25DF7 /* 2x */ = {
 			isa = PBXGroup;
 			children = (
-				DE0456DF138803E7005FFBCE /* desyrel@2x.fnt */,
-				DE0456E0138803E7005FFBCE /* desyrel@2x.png */,
-				25C23AFB11EC7FC400A25DF7 /* atlas@2x.xml */,
 				25C23AFA11EC7FC400A25DF7 /* atlas@2x.png */,
+				25C23AFB11EC7FC400A25DF7 /* atlas@2x.xml */,
+				DE8055BE15065323006A9426 /* benchmark_object@2x.png */,
 				25C23A6411EC632400A25DF7 /* button_back@2x.png */,
 				25C23A6511EC632400A25DF7 /* button_big@2x.png */,
 				25C23A6611EC632400A25DF7 /* button_normal@2x.png */,
 				25C23A6711EC632400A25DF7 /* button_square@2x.png */,
 				25C23A6811EC632400A25DF7 /* Default@2x.png */,
+				DE0456DF138803E7005FFBCE /* desyrel@2x.fnt */,
+				DE0456E0138803E7005FFBCE /* desyrel@2x.png */,
 				25C23A6911EC632400A25DF7 /* Icon@2x.png */,
 				25C23A6A11EC632400A25DF7 /* logo@2x.png */,
 				DE0240911381B891008A91B9 /* logo_rect@2x.pvr */,
-				DE0240991381B8FA008A91B9 /* logo_rect_tc@2x.pvr */,
 				DE0240951381B8A4008A91B9 /* logo_rect@2x.pvr.gz */,
+				DE0240991381B8FA008A91B9 /* logo_rect_tc@2x.pvr */,
+				DE8055B6150632E9006A9426 /* sparrow_front@2x.png */,
+				DE8055BA15064FF7006A9426 /* sparrow_round@2x.png */,
+				DEA1573C1505F90E0043B724 /* sparrow_sheet@2x.png */,
 			);
 			name = 2x;
 			path = ../media/graphics/2x;
@@ -479,6 +503,14 @@
 				DE0456DA13880385005FFBCE /* desyrel.png in Resources */,
 				DE0456E1138803E7005FFBCE /* desyrel@2x.fnt in Resources */,
 				DE0456E2138803E7005FFBCE /* desyrel@2x.png in Resources */,
+				DEA1573B1505F9030043B724 /* sparrow_sheet.png in Resources */,
+				DEA1573D1505F90E0043B724 /* sparrow_sheet@2x.png in Resources */,
+				DE8055B5150632DA006A9426 /* sparrow_front.png in Resources */,
+				DE8055B7150632E9006A9426 /* sparrow_front@2x.png in Resources */,
+				DE8055B915064FEA006A9426 /* sparrow_round.png in Resources */,
+				DE8055BB15064FF7006A9426 /* sparrow_round@2x.png in Resources */,
+				DE8055BD1506531B006A9426 /* benchmark_object.png in Resources */,
+				DE8055BF15065323006A9426 /* benchmark_object@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -522,7 +554,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -531,7 +563,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
