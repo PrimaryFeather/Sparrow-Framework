@@ -50,6 +50,7 @@
 		DE8055BB15064FF7006A9426 /* sparrow_round@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE8055BA15064FF7006A9426 /* sparrow_round@2x.png */; };
 		DE8055BD1506531B006A9426 /* benchmark_object.png in Resources */ = {isa = PBXBuildFile; fileRef = DE8055BC1506531B006A9426 /* benchmark_object.png */; };
 		DE8055BF15065323006A9426 /* benchmark_object@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE8055BE15065323006A9426 /* benchmark_object@2x.png */; };
+		DE8055D915065ED1006A9426 /* Icon~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = DE8055D815065ED1006A9426 /* Icon~ipad.png */; };
 		DEA1573B1505F9030043B724 /* sparrow_sheet.png in Resources */ = {isa = PBXBuildFile; fileRef = DEA1573A1505F9030043B724 /* sparrow_sheet.png */; };
 		DEA1573D1505F90E0043B724 /* sparrow_sheet@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DEA1573C1505F90E0043B724 /* sparrow_sheet@2x.png */; };
 		DEB2D16B1380580800FA7B88 /* TextureScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DEB2D16A1380580800FA7B88 /* TextureScene.m */; };
@@ -151,6 +152,7 @@
 		DE8055BA15064FF7006A9426 /* sparrow_round@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sparrow_round@2x.png"; sourceTree = "<group>"; };
 		DE8055BC1506531B006A9426 /* benchmark_object.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = benchmark_object.png; sourceTree = "<group>"; };
 		DE8055BE15065323006A9426 /* benchmark_object@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "benchmark_object@2x.png"; sourceTree = "<group>"; };
+		DE8055D815065ED1006A9426 /* Icon~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon~ipad.png"; sourceTree = "<group>"; };
 		DEA1573A1505F9030043B724 /* sparrow_sheet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sparrow_sheet.png; sourceTree = "<group>"; };
 		DEA1573C1505F90E0043B724 /* sparrow_sheet@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sparrow_sheet@2x.png"; sourceTree = "<group>"; };
 		DEB2D1691380580800FA7B88 /* TextureScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureScene.h; sourceTree = "<group>"; };
@@ -240,6 +242,7 @@
 				DE0456D713880384005FFBCE /* desyrel.fnt */,
 				DE0456D813880385005FFBCE /* desyrel.png */,
 				25C23A5A11EC631500A25DF7 /* Icon.png */,
+				DE8055D815065ED1006A9426 /* Icon~ipad.png */,
 				25C23A5B11EC631500A25DF7 /* logo.png */,
 				DE02408F1381B87E008A91B9 /* logo_rect.pvr */,
 				DE0240931381B89B008A91B9 /* logo_rect.pvr.gz */,
@@ -511,6 +514,7 @@
 				DE8055BB15064FF7006A9426 /* sparrow_round@2x.png in Resources */,
 				DE8055BD1506531B006A9426 /* benchmark_object.png in Resources */,
 				DE8055BF15065323006A9426 /* benchmark_object@2x.png in Resources */,
+				DE8055D915065ED1006A9426 /* Icon~ipad.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
