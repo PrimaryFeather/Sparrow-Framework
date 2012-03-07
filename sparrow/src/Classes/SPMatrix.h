@@ -88,12 +88,22 @@
 /// @name Properties
 /// ----------------
 
-/// Matrix component.
+/// The a component of the matrix.
 @property (nonatomic, assign) float a;
+
+/// The b component of the matrix.
 @property (nonatomic, assign) float b;
+
+/// The c component of the matrix.
 @property (nonatomic, assign) float c;
+
+/// The d component of the matrix.
 @property (nonatomic, assign) float d;
+
+/// The tx component of the matrix.
 @property (nonatomic, assign) float tx;
+
+/// The ty component of the matrix.
 @property (nonatomic, assign) float ty;
 
 /// The determinant of the matrix.

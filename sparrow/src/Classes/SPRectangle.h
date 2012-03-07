@@ -65,10 +65,16 @@
 /// @name Properties
 /// ----------------
 
-/// Rectangle component.
+/// The x coordinate of the rectangle.
 @property (nonatomic, assign) float x;
+
+/// The y coordinate of the rectangle.
 @property (nonatomic, assign) float y;
+
+/// The width of the rectangle.
 @property (nonatomic, assign) float width;
+
+/// The height of the rectangle.
 @property (nonatomic, assign) float height;
 
 /// The y coordinate of the rectangle.

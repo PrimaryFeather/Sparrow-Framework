@@ -81,8 +81,10 @@
 /// @name Properties
 /// ----------------
 
-/// Point component.
+/// The x-Coordinate of the point.
 @property (nonatomic, assign) float x;
+
+/// The y-Coordinate of the point.
 @property (nonatomic, assign) float y;
 
 /// The distance to the origin (or the length of the vector).
