@@ -6,6 +6,14 @@
 #import <OpenGLES/ES1/gl.h>
 #import "GameController.h"
 
+
+@interface GameController ()
+
+- (UIInterfaceOrientation)initialInterfaceOrientation;
+
+@end
+
+
 @implementation GameController
 
 - (id)initWithWidth:(float)width height:(float)height
@@ -16,7 +24,7 @@
         float gameHeight = height;
         
         // if we start up in landscape mode, width and height are swapped.
-        UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+        UIInterfaceOrientation orientation = [self initialInterfaceOrientation];
         if (UIInterfaceOrientationIsLandscape(orientation)) SP_SWAP(gameWidth, gameHeight, float);
         
         mGame = [[Game alloc] initWithWidth:gameWidth height:gameHeight];
@@ -38,6 +46,31 @@
 {
     [mGame release];
     [super dealloc];
+}
+
+- (UIInterfaceOrientation)initialInterfaceOrientation
+{
+    // In an iPhone app, the 'statusBarOrientation' has the correct value on Startup; 
+    // unfortunately, that's not the case for an iPad app (for whatever reason). Thus, we read the
+    // value from the app's plist file.
+    
+    NSDictionary *bundleInfo = [[NSBundle mainBundle] infoDictionary];
+    NSString *initialOrientation = [bundleInfo objectForKey:@"UIInterfaceOrientation"];
+    if (initialOrientation)
+    {
+        if ([initialOrientation isEqualToString:@"UIInterfaceOrientationPortrait"])
+            return UIInterfaceOrientationPortrait;
+        else if ([initialOrientation isEqualToString:@"UIInterfaceOrientationPortraitUpsideDown"])
+            return UIInterfaceOrientationPortraitUpsideDown;
+        else if ([initialOrientation isEqualToString:@"UIInterfaceOrientationLandscapeLeft"])
+            return UIInterfaceOrientationLandscapeLeft;
+        else
+            return UIInterfaceOrientationLandscapeRight;
+    }
+    else 
+    {
+        return [[UIApplication sharedApplication] statusBarOrientation];
+    }
 }
 
 - (void)rotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
