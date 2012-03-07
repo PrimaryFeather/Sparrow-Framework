@@ -1,6 +1,39 @@
 Sparrow: Changelog
 ==================
 
+version 1.3 - 2012-03-07
+------------------------
+
+- added support for ARC (automatic reference counting)
+- added support for device modifiers ('~iphone', '~ipad') in image filenames
+- added support for device modifiers in 'scale_textures.rb' script
+- added comprehensive new scaffold project featuring
+  - auto rotation of Sparrow content
+  - auto rotation of UIKit overlay (for iAds, etc.)
+  - very simple support for universal applications
+- added 'BareBone' project, which replaces the old app scaffold
+- added support for new PVR texture types: I8, A8, AI88, RGB888
+- added 'sortChildren' method to SPDisplayObjectContainer
+- added 'currentTime' property to SPTween
+- added 'fadeTo' method to SPTween
+- added 'SP_EVENT_TYPE_COMPILE', dispatched on children when a sprite is compiled
+- added 'broadcastEvent' method to SPDisplayObject
+- added 'setIndex:ofChild:' method to SPDisplayObjectContainer
+- added 'SP_SWAP' macro
+- added 'SP_CLAMP' macro
+- added check for invalid display tree recursion (adding a parent as a child)
+- added more utility methods to point, rectangle and matrix classes
+- added 'stop' method to SPMovieClip
+- updated license to require 'powered by Sparrow' information
+- updated graphics of demo project with new bird style
+- fixed object pooling for iOS 5
+- fixed HD texture loading when SD texture is missing
+- fixed tweening integers to a negative value
+- fixed support of texture frames in bitmap fonts
+- fixed bounds method of empty sprite
+- fixed warnings that appeared in LLVM compiler
+- fixed 'isPlaying' property of movie clip
+
 version 1.2 - 2011-05-22
 ------------------------
 
