@@ -86,6 +86,9 @@
 /// Factory method.
 + (SPQuad*)quadWithWidth:(float)width height:(float)height color:(uint)color;
 
+/// Factory method. Creates a 32x32 quad.
++ (SPQuad*)quad;
+
 /// ----------------
 /// @name Properties
 /// ----------------

@@ -116,4 +116,9 @@
     return [[[SPQuad alloc] initWithWidth:width height:height color:color] autorelease];
 }
 
++ (SPQuad*)quad
+{
+    return [[[SPQuad alloc] init] autorelease];
+}
+
 @end
