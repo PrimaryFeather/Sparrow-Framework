@@ -5,7 +5,7 @@
 #  Sparrow
 #
 #  Created by Daniel Sperl on 09.07.2010
-#  Copyright 2010 Incognitek. All rights reserved.
+#  Copyright 2012 Gamua. All rights reserved.
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the Simplified BSD License.
@@ -82,11 +82,14 @@ else
   File.makedirs target_path
 end
 
+purge_regex = /(#{options.purge_suffix})(~iphone|~ipad)?/
+device_regex = /((~iphone|~ipad)?\.\S+)$/
+
 images.each do |image|
-  extname = File.extname(image.image_filename)
-  basename = File.basename(image.image_filename, extname)
-  basename.gsub!(options.purge_suffix, "") if basename.end_with? options.purge_suffix
-  fullpath = File.join(target_path, basename + options.append_suffix + extname)
+  basename = File.basename image.image_filename
+  basename.gsub!(purge_regex, '\2') # remove suffix, e.g. img@2x~ipad.png -> img~ipad.png
+  basename.gsub!(device_regex, options.append_suffix + '\1')
+  fullpath = File.join(target_path, basename)
   
   image.resize "#{options.scale * 100}%"
   image.append_to_operators 'filter', 'Box' if (options.scale == 0.5 || options.scale == 0.25)  
