@@ -20,7 +20,7 @@
  The SPAVSoundChannel class is a concrete implementation of SPSoundChannel that uses AVAudioPlayer 
  internally. 
  
- Don't create instances of this class manually. Use [SPSound createChannel] instead.
+ Don't create instances of this class manually. Use `[SPSound createChannel]` instead.
  
 ------------------------------------------------------------------------------------------------- */
 

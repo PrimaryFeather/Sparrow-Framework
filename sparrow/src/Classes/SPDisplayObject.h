@@ -42,13 +42,13 @@
  touchable, you can disable the `touchable` property. When it's disabled, neither the object
  nor its children will receive any more touch events.
  
- *Points vs. Pixels*
+ **Points vs. Pixels**
  
  All sizes and distances are measured in points. What this means in pixels depends on the 
  contentScaleFactor of the stage. On a low resolution device (up to iPhone 3GS), one point is one
  pixel. On devices with a retina display, one point may be 2 pixels.
  
- *Transforming coordinates*
+ **Transforming coordinates**
  
  Within the display tree, each object has its own local coordinate system. If you rotate a container,
  you rotate that coordinate system - and thus all the children of the container.
@@ -57,7 +57,7 @@
  That's the purpose of the method `transformationMatrixToSpace:`. It will create a matrix that
  represents the transformation of a point in one coordinate system to another. 
  
- *Subclassing SPDisplayObject*
+ **Subclassing SPDisplayObject**
  
  As SPDisplayObject is an abstract class, you can't instantiate it directly, but have to use one of 
  its subclasses instead. There are already a lot of them available, and most of the time they will

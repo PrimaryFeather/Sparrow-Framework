@@ -32,7 +32,7 @@ typedef enum
  query it for all touches that are currently present on the screen. One SPTouch object contains
  information about a single touch.
  
- *The phase of a touch*
+ **The phase of a touch**
  
  Each touch normally moves through the following phases in its life:
  
@@ -42,7 +42,7 @@ typedef enum
  but you might receive it when another touch does so. Finally, there's the `Cancelled` phase,
  which happens when the system aborts a touch (e.g. because of an AlertBox that pops up).
  
- *The position of a touch*
+ **The position of a touch**
  
  You can get the current and last position on the screen with corresponding properties. However, 
  you'll want to have the position in a different coordinate system most of the time. 

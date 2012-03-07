@@ -13,6 +13,7 @@
 
 @class SPPoolObject;
 
+/// Internal Helper class for `SPPoolObject`.
 @interface SPPoolInfo : NSObject
 {
   @public

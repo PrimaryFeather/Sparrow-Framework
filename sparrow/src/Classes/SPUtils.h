@@ -33,8 +33,8 @@
 /// bundle.
 /// 
 /// @return The path to the scaled resource with idiom suffix; if that does not exist, the path
-///         to the scaled resource without idiom suffix; if that does not exist either, the path
-///         to the unscaled resource (first with, then without idiom). If none of those exist, nil.
+/// to the scaled resource without idiom suffix; if that does not exist either, the path
+/// to the unscaled resource (first with, then without idiom). If none of those exist, nil.
 + (NSString *)absolutePathToFile:(NSString *)path withScaleFactor:(float)factor 
                            idiom:(UIUserInterfaceIdiom)idiom;
 

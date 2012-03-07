@@ -26,7 +26,7 @@
  As this is an abstract class, you can't instantiate it directly, but have to 
  use a subclass instead. The most lightweight container class is SPSprite.
  
- *Adding and removing children*
+ **Adding and removing children**
  
  The class defines methods that allow you to add or remove children. When you add a child, it will
  be added at the foremost position, possibly occluding a child that was added before. You can access
@@ -44,7 +44,7 @@
  Especially the `ADDED_TO_STAGE` event is very helpful, as it allows you to automatically execute
  some logic (e.g. start an animation) when an object is rendered the first time.
  
- *Sorting children*
+ **Sorting children**
  
  The `sortChildren:` method allows you to sort the children of a container by a custom criteria. 
  Below is an example how to depth-sort children by their y-coordinate; this will put objects that

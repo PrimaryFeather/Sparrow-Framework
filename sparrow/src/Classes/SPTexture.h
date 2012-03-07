@@ -35,14 +35,14 @@ typedef void (^SPTextureDrawingBlock)(CGContextRef context);
  A texture stores the information that represents an image. It cannot be displayed directly, 
  but has to be mapped onto a display object. In Sparrow, that display object is `SPImage`.
  
- *Image formats*
+ **Image formats**
  
  Sparrow supports different file formats for textures. The most common formats are `PNG`, which
  contains an alpha channel, and `JPG` (without an alpha channel). You can also load files in 
  the `PVR` format (compressed or uncompressed). That's a special format of the graphics chip of
  iOS devices that is very efficient.
  
- *HD textures*
+ **HD textures**
  
  Furthermore, Sparrow supports development in multiple resolutions, i.e. creating a game
  simultaneously for normal and retina displays. If HD texture support is activated (via
@@ -60,7 +60,7 @@ typedef void (^SPTextureDrawingBlock)(CGContextRef context);
  convention is to add a device modifier (`~ipad` or `~iphone`) to the image name, directly before 
  the file extension (and after the scale modifier, if there is one).
  
- *Drawing API*
+ **Drawing API**
  
  Sparrow lets you create custom graphics directly at run-time by using the `Core Graphics` API.
  You access the drawing API with a special init-method of SPTexture, which takes a `block`-parameter
@@ -76,7 +76,7 @@ typedef void (^SPTextureDrawingBlock)(CGContextRef context);
                        withFont:[UIFont fontWithName:@"Arial" size:25]];
 	    }];
 
- *Texture Frame*
+ **Texture Frame**
  
  The frame property of a texture allows you to define the position where the texture will appear 
  within an `SPImage`. The rectangle is specified in the coordinate system of the texture:

@@ -16,7 +16,7 @@
 
  The SPALSound class is a concrete implementation of SPSound that uses OpenAL internally. 
  
- Don't create instances of this class manually. Use [SPSound initWithContentsOfFile:] instead.
+ Don't create instances of this class manually. Use `[SPSound initWithContentsOfFile:]` instead.
  
 ------------------------------------------------------------------------------------------------- */
 

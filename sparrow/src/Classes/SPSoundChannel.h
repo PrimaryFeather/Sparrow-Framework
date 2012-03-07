@@ -19,7 +19,7 @@
 
  An SPSoundChannel represents an audio source. Use this class to control sound playback.
  
- Sound channels are created with the method [SPSound createChannel]. They allow control over
+ Sound channels are created with the method `[SPSound createChannel]`. They allow control over
  playback (`play`, `pause`, `stop`) and properties as the volume or if the sound should loop.
  
  Furthermore, it will dispatch events of type `SP_EVENT_TYPE_SOUND_COMPLETED` when the sound

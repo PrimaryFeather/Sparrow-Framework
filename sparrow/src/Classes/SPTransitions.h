@@ -39,8 +39,9 @@
  The SPTransitions class contains static methods that define easing functions. Those functions
  will be used by SPTween to execute animations.
  
- Find a visual representation of the transitions at this 
- [link](http://www.sparrow-framework.org/wp-content/uploads/2010/06/transitions.png).
+ Here is a visible representation of the available transformations:
+ 
+ ![](http://gamua.com/img/blog/2010/sparrow-transitions.png)
 
  You can define your own transitions by extending this class. The name of the method you declare 
  acts as the key that is used to identify the transition when you create the tween.
