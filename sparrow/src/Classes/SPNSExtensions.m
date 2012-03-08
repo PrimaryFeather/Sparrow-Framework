@@ -50,6 +50,22 @@
             suffix, [self fullPathExtension]];
 }
 
+- (float)contentScaleFactor
+{
+    NSError *error;
+    NSRange range = NSMakeRange(0, self.length);
+    NSString *regexStr = @"@(\\d+)x(?:~\\w+)?\\.\\S+$";
+    NSRegularExpression *regex = [[NSRegularExpression alloc] 
+                                  initWithPattern:regexStr options:0 error:&error];
+    
+    NSTextCheckingResult *result = [regex firstMatchInString:self options:0 range:range];
+    NSRange resultRange = [result rangeAtIndex:1];
+    [regex release];
+    
+    if (resultRange.length == 0) return 1.0f;
+    else return [[self substringWithRange:resultRange] floatValue];
+}
+
 @end
 
 
@@ -70,7 +86,7 @@
     {
         NSString *suffix = [NSString stringWithFormat:@"@%@x", [NSNumber numberWithFloat:factor]];
         NSString *path = [self pathForResource:[name stringByAppendingSuffixToFilename:suffix]];
-        if (path) return path;        
+        if (path) return path;
     }    
     
     return [self pathForResource:name];

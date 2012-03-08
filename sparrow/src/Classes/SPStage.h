@@ -98,7 +98,7 @@
 + (void)setSupportHighResolutions:(BOOL)hd;
 
 /// Enables support for high resolutions (aka retina displays). If 'doubleOnPad' is true, 
-/// pad devices will use twice the resolution ('@2x' on iPad 1+2).
+/// pad devices will use twice the resolution ('@2x' on iPad 1+2, '@4x' on iPad 3+).
 + (void)setSupportHighResolutions:(BOOL)hd doubleOnPad:(BOOL)pad;
 
 /// Determines if high resolution support is activated.

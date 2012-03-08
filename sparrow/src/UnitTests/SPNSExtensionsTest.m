@@ -97,6 +97,27 @@
     STAssertNotNil(absolutePath, @"path to resource not found");
 }
 
+- (void)testContentScaleFactor
+{
+    NSString *filename = @"/some/folders/filename@2x.png";
+    STAssertEquals(2.0f, [filename contentScaleFactor], @"wrong scale factor");
+    
+    filename = @"/some/folders/filename.png";
+    STAssertEquals(1.0f, [filename contentScaleFactor], @"wrong scale factor");
+    
+    filename = @"/some/folders/filename@4x~ipad.png";
+    STAssertEquals(4.0f, [filename contentScaleFactor], @"wrong scale factor");
+    
+    filename = @"/some/folders/filename@20x~whatever.png";
+    STAssertEquals(20.0f, [filename contentScaleFactor], @"wrong scale factor");
+
+    filename = @"/some/folders/filename@4x_and_more.png";
+    STAssertEquals(1.0f, [filename contentScaleFactor], @"wrong scale factor");
+    
+    filename = @"not a filename";
+    STAssertEquals(1.0f, [filename contentScaleFactor], @"wrong scale factor");
+}
+
 @end
 
 #endif
