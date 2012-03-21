@@ -119,8 +119,11 @@
 }
 
 // Enable this method for the simplest possible universal app support: it will display a black
-// border around the iPhone (640x960) game when it is started on the iPad (768x1024); no need to 
-// modify any coordinates. 
+// border around the iPhone (640x960) game when it is started on the iPad (768x1024). 
+// 
+// You'll also have to update the 'gameWidth' and 'gameHeight' variables at the top of this file: 
+// change their values to '320' and '480', respectively.
+// 
 /*
 - (void)render:(SPRenderSupport *)support
 {
