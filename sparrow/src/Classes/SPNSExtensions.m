@@ -52,6 +52,19 @@
 
 - (float)contentScaleFactor
 {
+    NSString *filename = [self lastPathComponent];
+    NSRange atRange = [filename rangeOfString:@"@"];
+    if (atRange.length == 0) return 1.0f;
+    else
+    {
+        int factor = [[filename substringWithRange:NSMakeRange(atRange.location+1, 1)] intValue];
+        return factor ? factor : 1.0f;
+    }
+    
+    // The code above supports only integer scalefactors. The code below supports any number,
+    // but is dependent on iOS 4.
+    
+    /*
     NSError *error;
     NSRange range = NSMakeRange(0, self.length);
     NSString *regexStr = @"@(\\d+)x(?:~\\w+)?\\.\\S+$";
@@ -64,6 +77,7 @@
     
     if (resultRange.length == 0) return 1.0f;
     else return [[self substringWithRange:resultRange] floatValue];
+    */
 }
 
 @end

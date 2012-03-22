@@ -33,7 +33,7 @@
 /// Creates a string by appending a suffix to a filename in front of its extension.
 - (NSString *)stringByAppendingSuffixToFilename:(NSString *)suffix;
 
-/// Expects the string to be a filename/path and returns the scale factor ('@<factor>x').
+/// Expects the string to be a filename/path and returns the scale factor ('@2x' -> 2).
 - (float)contentScaleFactor;
 
 @end
