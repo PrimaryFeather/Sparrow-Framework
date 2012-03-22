@@ -86,18 +86,10 @@ static void getChildEventListeners(SPDisplayObject *object, NSString *eventType,
 
 - (BOOL)containsChild:(SPDisplayObject *)child
 {
-    if ([self isEqual:child]) return YES; 
-    
-    for (SPDisplayObject *currentChild in mChildren)
+    while (child)
     {
-        if ([currentChild isKindOfClass:[SPDisplayObjectContainer class]])
-        {
-            if ([(SPDisplayObjectContainer *)currentChild containsChild:child]) return YES;
-        }
-        else
-        {
-            if (currentChild == child) return YES;
-        }
+        if (child == self) return YES;
+        else child = child.parent;
     }
     
     return NO;
