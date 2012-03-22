@@ -126,6 +126,15 @@
     STAssertTrue([absolutePath hasSuffix:filename], @"1x fallback resource not found");
 }
 
+- (void)testGetHdTextureFallback
+{
+    NSString *filename = @"image_only_hd.png";
+    
+    // @4x is not available -> @2x should be returned as a fallback
+    NSString *absolutePath = [SPUtils absolutePathToFile:filename withScaleFactor:4.0f];
+    STAssertEquals(2.0f, [absolutePath contentScaleFactor], @"2x fallback not found");
+}
+
 - (void)testOnlyHdTextureAvailable
 {
     NSString *filename = @"image_only_hd.png";
