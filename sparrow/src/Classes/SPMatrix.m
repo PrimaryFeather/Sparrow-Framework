@@ -130,6 +130,12 @@ static void setValues(SPMatrix *matrix, float a, float b, float c, float d, floa
     }
 }
 
+- (NSUInteger)hash
+{
+    // Equality is not transitive in SPMatrix, so we can't compute a good hash function.
+    return 0;
+}
+
 - (NSString *)description
 {
     return [NSString stringWithFormat:@"(a=%f, b=%f, c=%f, d=%f, tx=%f, ty=%f)", 
