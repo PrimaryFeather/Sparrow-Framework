@@ -55,6 +55,7 @@ typedef enum
 {
   @private
     double mTimestamp;
+    int mTouchId;
     float mGlobalX;
     float mGlobalY;
     float mPreviousGlobalX;
@@ -80,6 +81,9 @@ typedef enum
 
 /// The moment the event occurred (in seconds since application start).
 @property (nonatomic, readonly) double timestamp;
+
+/// The touch's unique ID
+@property (nonatomic, readonly) int touchId;
 
 /// The x-position of the touch in screen coordinates
 @property (nonatomic, readonly) float globalX;

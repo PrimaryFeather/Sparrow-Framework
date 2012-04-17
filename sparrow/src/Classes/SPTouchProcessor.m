@@ -87,6 +87,7 @@
             // new touch!
             currentTouch = [SPTouch touch];
             currentTouch.timestamp = touch.timestamp;
+            currentTouch.touchId = mTouchIdCounter++;
             currentTouch.globalX = touch.globalX;
             currentTouch.globalY = touch.globalY;
             currentTouch.previousGlobalX = touch.previousGlobalX;
