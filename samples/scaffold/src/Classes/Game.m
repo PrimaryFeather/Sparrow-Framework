@@ -39,6 +39,9 @@
 {
     // release any resources here
     
+    [Media releaseAtlas];
+    [Media releaseSound];
+    
     [super dealloc];
 }
 
