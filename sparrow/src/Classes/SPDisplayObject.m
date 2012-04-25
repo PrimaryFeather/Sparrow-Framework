@@ -26,7 +26,8 @@
 @synthesize pivotY = mPivotY;
 @synthesize scaleX = mScaleX;
 @synthesize scaleY = mScaleY;
-@synthesize rotation = mRotationZ;
+@synthesize skewX = mSkewX;
+@synthesize skewY = mSkewY;
 @synthesize parent = mParent;
 @synthesize alpha = mAlpha;
 @synthesize visible = mVisible;
@@ -265,12 +266,31 @@
     else                      self.scaleY = 1.0f;
 }
 
-- (void)setRotation:(float)value
+- (void)setSkewX:(float)value
 {
     // clamp between [-180 deg, +180 deg]
     while (value < -PI) value += TWO_PI;
     while (value >  PI) value -= TWO_PI;
-    mRotationZ = value;
+    mSkewX = value;
+}
+
+- (void)setSkewY:(float)value
+{
+    // clamp between [-180 deg, +180 deg]
+    while (value < -PI) value += TWO_PI;
+    while (value >  PI) value -= TWO_PI;
+    mSkewY = value;
+}
+
+- (float)rotation
+{
+    // This is only meaningful if skewX == skewY
+    return mSkewX;
+}
+
+- (void)setRotation:(float)value
+{
+    self.skewX = self.skewY = value;
 }
 
 - (void)setAlpha:(float)value
@@ -299,7 +319,7 @@
     
     if (mPivotX != 0.0f || mPivotY != 0.0f) [matrix translateXBy:-mPivotX yBy:-mPivotY];
     if (mScaleX != 1.0f || mScaleY != 1.0f) [matrix scaleXBy:mScaleX yBy:mScaleY];
-    if (mRotationZ != 0.0f)                 [matrix rotateBy:mRotationZ];
+    if (mSkewX != 0.0f || mSkewY != 0.0f)   [matrix skewXBy:mSkewX yBy:mSkewY];
     if (mX != 0.0f || mY != 0.0f)           [matrix translateXBy:mX yBy:mY];
     
     return [matrix autorelease];

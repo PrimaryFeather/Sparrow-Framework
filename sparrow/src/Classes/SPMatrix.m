@@ -92,12 +92,17 @@ static void setValues(SPMatrix *matrix, float a, float b, float c, float d, floa
     [self scaleXBy:scale yBy:scale];
 }
 
+- (void)skewXBy:(float)skewX yBy:(float)skewY
+{
+    SPMatrix *skewMatrix = [[SPMatrix alloc] initWithA:cosf(skewY) b:sinf(skewY)
+                                                    c:-sinf(skewX) d:cosf(skewX) tx:0 ty:0];
+    [self concatMatrix:skewMatrix];
+    [skewMatrix release];
+}
+
 - (void)rotateBy:(float)angle
 {
-    SPMatrix *rotMatrix = [[SPMatrix alloc] initWithA:cosf(angle) b:sinf(angle)
-                                                    c:-sinf(angle) d:cosf(angle) tx:0 ty:0];
-    [self concatMatrix:rotMatrix];
-    [rotMatrix release];    
+    [self skewXBy:angle yBy:angle];
 }
 
 - (void)identity

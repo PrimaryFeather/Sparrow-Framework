@@ -84,7 +84,8 @@
     float mPivotY;
     float mScaleX;
     float mScaleY;
-    float mRotationZ;
+    float mSkewX;
+    float mSkewY;
     float mAlpha;
     BOOL mVisible;
     BOOL mTouchable;
@@ -152,6 +153,12 @@
 
 /// The rotation of the object in radians. (In Sparrow, all angles are measured in radians.)
 @property (nonatomic, assign) float rotation;
+
+/// The x skew of the object in radians.
+@property (nonatomic, assign) float skewX;
+
+/// The y skew of the object in radians.
+@property (nonatomic, assign) float skewY;
 
 /// The opacity of the object. 0 = transparent, 1 = opaque.
 @property (nonatomic, assign) float alpha;
