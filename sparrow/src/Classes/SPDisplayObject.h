@@ -152,6 +152,10 @@
 @property (nonatomic, assign) float height;
 
 /// The rotation of the object in radians. (In Sparrow, all angles are measured in radians.)
+/// Since a rotation is an x and y skew, setting rotation is equivalent to setting 
+/// skewX and skewY to the same value. If skewX and skewY have different values, the
+/// object is not uniformly rotated, so the value returned by rotation will not be correct
+/// (Sparrow just returns the skewX value).
 @property (nonatomic, assign) float rotation;
 
 /// The x skew of the object in radians.
