@@ -93,14 +93,31 @@
 {
     float x = object.x;
     float y = object.y;
-    float rotation = object.rotation;
+    float skewX = object.skewX;
+    float skewY = object.skewY;
     float scaleX = object.scaleX;
     float scaleY = object.scaleY;
     float pivotX = object.pivotX;
     float pivotY = object.pivotY;
     
     if (x != 0.0f || y != 0.0f)           glTranslatef(x, y, 0.0f);
-    if (rotation != 0.0f)                 glRotatef(SP_R2D(rotation), 0.0f, 0.0f, 1.0f);
+    if (skewX != 0.0f || skewY != 0.0f)
+    {
+        if (skewX == skewY)
+        {
+            glRotatef(SP_R2D(skewX), 0.0f, 0.0f, 1.0f);
+        }
+        else
+        {
+            // matrix in column-major order
+            static GLfloat sSkewMatrix[16] = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1 };
+            sSkewMatrix[0] =  cosf(skewY);
+            sSkewMatrix[1] =  sinf(skewY);
+            sSkewMatrix[4] = -sinf(skewX);
+            sSkewMatrix[5] =  cosf(skewX);
+            glMultMatrixf(sSkewMatrix);
+        }
+    }              
     if (scaleX != 1.0f || scaleY != 1.0f) glScalef(scaleX, scaleY, 1.0f);
     if (pivotX != 0.0f || pivotY != 0.0f) glTranslatef(-pivotX, -pivotY, 0.0f);    
 }
