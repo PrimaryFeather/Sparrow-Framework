@@ -258,6 +258,7 @@
     {
         for (SPSprite *line in lineContainer)
         {
+            if (line.numChildren == 0) continue;
             SPDisplayObject *lastChar = [line childAtIndex:line.numChildren-1];
             float lineWidth = lastChar.x + lastChar.width;
             float widthDiff = containerWidth - lineWidth;
