@@ -65,6 +65,10 @@
 /// Gets the texture coordinates of a vertex.
 - (SPPoint*)texCoordsOfVertex:(int)vertexID;
 
+/// Readjusts the dimensions of the image according to its current texture. Call this method 
+/// to synchronize image and texture size after assigning a texture with a different size.
+- (void)readjustSize;
+
 /// ----------------
 /// @name Properties
 /// ----------------
