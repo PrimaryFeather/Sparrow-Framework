@@ -38,6 +38,13 @@ typedef enum
     SPVAlignBottom
 } SPVAlign;
 
+typedef enum 
+{
+    SPAutoSizeNone = 0,
+    SPAutoSizeSingleLine,
+    SPAutoSizeMultiline
+} SPAutoSize;
+
 /** ------------------------------------------------------------------------------------------------
 
  An SPTextField displays text, either using standard iOS fonts or a custom bitmap font.
@@ -100,6 +107,10 @@ typedef enum
     SPQuad *mHitArea;
     SPQuad *mTextArea;
     SPDisplayObject *mContents;
+    
+    SPAutoSize mAutoSize;
+    float mAutoSizeMaxWidth;
+    float mAutoSizeMaxHeight;
 }
 
 /// ------------------
@@ -161,6 +172,15 @@ typedef enum
 
 /// The vertical alignment of the text.
 @property (nonatomic, assign) SPVAlign vAlign;
+
+/// The auto-size behavior of the text field.
+@property (nonatomic, assign) SPAutoSize autoSize;
+
+/// If autosizing is used, this is the max width of the text field. 0 == no max width.
+@property (nonatomic, assign) float autoSizeMaxWidth;
+
+/// If autosizing is used, this is the max height of the text field. 0 == no max height.
+@property (nonatomic, assign) float autoSizeMaxHeight;
 
 /// Allows displaying a border around the edges of the text field. Useful for visual debugging.
 @property (nonatomic, assign) BOOL border;

@@ -77,9 +77,12 @@
 - (SPBitmapChar *)charByID:(int)charID;
 
 /// Creates a display object that contains the given text by arranging individual chars.
-- (SPDisplayObject *)createDisplayObjectWithWidth:(float)width height:(float)height
+- (SPDisplayObject *)createDisplayObjectWithWidth:(float)width height:(float)height 
                                              text:(NSString *)text fontSize:(float)size color:(uint)color 
                                            hAlign:(SPHAlign)hAlign vAlign:(SPVAlign)vAlign
+                                         autoSize:(SPAutoSize)autoSize 
+                                 autoSizeMaxWidth:(float)autoSizeMaxWidth
+                                autoSizeMaxHeight:(float)autoSizeMaxHeight
                                            border:(BOOL)border kerning:(BOOL)kerning;
 
 /// ----------------
@@ -93,6 +96,6 @@
 @property (nonatomic, readonly) float size;
 
 /// The height of one line in pixels.
-@property (nonatomic, assign)   float lineHeight;
+@property (nonatomic, assign) float lineHeight;
 
 @end
