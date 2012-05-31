@@ -219,7 +219,6 @@
     int lastWhiteSpace = -1;
     int lastCharID = -1;
     float currentX = 0;
-    int currentLineStartIdx = 0;
     
     float totalWidth = 0;
     float totalHeight = 0;
@@ -295,7 +294,6 @@
                 currentLine.y = totalHeight;
                 
                 currentX = 0;
-                currentLineStartIdx = i + 1;
                 lastWhiteSpace = -1;
                 lastCharID = -1;
             }
