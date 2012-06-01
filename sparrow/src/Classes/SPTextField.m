@@ -309,21 +309,31 @@ static NSMutableDictionary *bitmapFonts = nil;
     return [[[SPTextField alloc] initWithText:text] autorelease];
 }
 
-+ (NSString *)registerBitmapFontFromFile:(NSString*)path texture:(SPTexture *)texture
++ (NSString *)registerBitmapFontFromFile:(NSString*)path texture:(SPTexture *)texture name:(NSString *)fontName
 {
     if (!bitmapFonts) bitmapFonts = [[NSMutableDictionary alloc] init];
     
     SPBitmapFont *bitmapFont = [[SPBitmapFont alloc] initWithContentsOfFile:path texture:texture];
-    NSString *fontName = bitmapFont.name;
+    if (!fontName) fontName = bitmapFont.name;
     [bitmapFonts setObject:bitmapFont forKey:fontName];
     [bitmapFont release];
     
     return fontName;
 }
 
++ (NSString *)registerBitmapFontFromFile:(NSString *)path texture:(SPTexture *)texture
+{
+    return [SPTextField registerBitmapFontFromFile:path texture:texture name:nil];
+}
+
++ (NSString *)registerBitmapFontFromFile:(NSString *)path name:(NSString *)fontName
+{
+    return [SPTextField registerBitmapFontFromFile:path texture:nil name:fontName];
+}
+
 + (NSString *)registerBitmapFontFromFile:(NSString *)path
 {
-    return [SPTextField registerBitmapFontFromFile:path texture:nil];
+    return [SPTextField registerBitmapFontFromFile:path texture:nil name:nil];
 }
 
 + (void)unregisterBitmapFont:(NSString *)name
