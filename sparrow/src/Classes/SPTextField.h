@@ -85,7 +85,7 @@ typedef enum
 
 @interface SPTextField : SPDisplayObjectContainer
 {
-  @private
+  @protected
     float mFontSize;
     uint mColor;
     NSString *mText;
