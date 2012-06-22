@@ -80,8 +80,10 @@
 - (void)updateClipping
 {
     SPRectangle *clip = [mClipRectStack lastObject];
-    if (clip != nil) {
-        if (!mScissorTestEnabled) {
+    if (clip != nil)
+    {
+        if (!mScissorTestEnabled)
+        {
             glEnable(GL_SCISSOR_TEST);
             mScissorTestEnabled = YES;
         }
@@ -93,7 +95,9 @@
                   clip.width*scaleFactor,
                   clip.height*scaleFactor);
         
-    } else if (mScissorTestEnabled) {
+    }
+    else if (mScissorTestEnabled)
+    {
         glDisable(GL_SCISSOR_TEST);
         mScissorTestEnabled = NO;
     }
@@ -102,11 +106,10 @@
 - (SPRectangle *)pushClipRect:(SPRectangle *)clipRect
 {
     // intersect with the last pushed clipRect
-    if (mClipRectStack != nil) {
+    if (mClipRectStack != nil)
         clipRect = [clipRect intersectionWithRectangle:[mClipRectStack lastObject]];
-    } else {
+    else
         mClipRectStack = [[NSMutableArray alloc] init];
-    }
     
     [mClipRectStack addObject:clipRect];
     [self updateClipping];
