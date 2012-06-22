@@ -124,6 +124,8 @@
 @property (nonatomic, readonly) int numChildren;
 
 /// The object's clip rect (or nil if there's no clipping)
+/// *Note*: clip rects are axis aligned with the screen, so they
+/// will *not* be rotated or skewed if the DisplayObjectContainer is.
 @property (nonatomic, copy) SPRectangle *clipRect;
 
 
