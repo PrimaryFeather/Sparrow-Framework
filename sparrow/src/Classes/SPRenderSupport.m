@@ -105,11 +105,13 @@
 
 - (SPRectangle *)pushClipRect:(SPRectangle *)clipRect
 {
-    // intersect with the last pushed clipRect
-    if (mClipRectStack != nil)
-        clipRect = [clipRect intersectionWithRectangle:[mClipRectStack lastObject]];
-    else
+    if (mClipRectStack == nil)
         mClipRectStack = [[NSMutableArray alloc] init];
+    else if (mClipRectStack.count > 0)
+    {
+        // intersect with the last pushed clipRect
+        clipRect = [clipRect intersectionWithRectangle:[mClipRectStack lastObject]];
+    }
     
     [mClipRectStack addObject:clipRect];
     [self updateClipping];
