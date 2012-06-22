@@ -63,6 +63,7 @@
 {
   @private
     NSMutableArray *mChildren;
+    SPRectangle *mClipRect;
 }
 
 /// -------------
@@ -111,12 +112,19 @@
 /// Dispatches an event on all children (recursively). The event must not bubble. */
 - (void)broadcastEvent:(SPEvent *)event;
 
+/// Returns the bounds of the container's clipRect in the given coordinate space
+/// (or nil if the container doesn't have a clipRect)
+- (SPRectangle *)clipBoundsInSpace:(SPDisplayObject *)targetCoordinateSpace;
+
 /// ----------------
 /// @name Properties
 /// ----------------
 
 /// The number of children of this container.
 @property (nonatomic, readonly) int numChildren;
+
+/// The object's clip rect (or nil if there's no clipping)
+@property (nonatomic, copy) SPRectangle *clipRect;
 
 
 @end

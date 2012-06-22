@@ -13,10 +13,17 @@
 #import "SPDisplayObject.h"
 #import "SPTexture.h"
 #import "SPMacros.h"
+#import "SPRectangle.h"
+#import "SPStage.h"
 
 #import <OpenGLES/EAGL.h>
 #import <OpenGLES/ES1/gl.h>
 #import <OpenGLES/ES1/glext.h>
+
+
+@interface SPRenderSupport ()
+- (void)updateClipping;
+@end
 
 @implementation SPRenderSupport
 
@@ -36,6 +43,15 @@
     mBoundTextureID = UINT_MAX;
     mPremultipliedAlpha = YES;
     [self bindTexture:nil];
+    [mClipRectStack release];
+    mClipRectStack = nil;
+    [self updateClipping];
+}
+
+- (void)dealloc
+{
+    [mClipRectStack release];
+    [super dealloc];
 }
 
 - (void)bindTexture:(SPTexture *)texture
@@ -59,6 +75,51 @@
 - (uint)convertColor:(uint)color alpha:(float)alpha
 {
     return [SPRenderSupport convertColor:color alpha:alpha premultiplyAlpha:mPremultipliedAlpha];
+}
+
+- (void)updateClipping
+{
+    SPRectangle *clip = [mClipRectStack lastObject];
+    if (clip != nil) {
+        if (!mScissorTestEnabled) {
+            glEnable(GL_SCISSOR_TEST);
+            mScissorTestEnabled = YES;
+        }
+        float scaleFactor = [SPStage contentScaleFactor];
+        float stageHeight = SPStage.mainStage.height;
+        
+        glScissor(clip.x*scaleFactor, 
+                  (stageHeight-clip.y-clip.height)*scaleFactor,
+                  clip.width*scaleFactor,
+                  clip.height*scaleFactor);
+        
+    } else if (mScissorTestEnabled) {
+        glDisable(GL_SCISSOR_TEST);
+        mScissorTestEnabled = NO;
+    }
+}
+
+- (SPRectangle *)pushClipRect:(SPRectangle *)clipRect
+{
+    // intersect with the last pushed clipRect
+    if (mClipRectStack != nil) {
+        clipRect = [clipRect intersectionWithRectangle:[mClipRectStack lastObject]];
+    } else {
+        mClipRectStack = [[NSMutableArray alloc] init];
+    }
+    
+    [mClipRectStack addObject:clipRect];
+    [self updateClipping];
+    
+    // return the intersected clipRect so callers can skip draw calls if the clipping
+    // bounds are empty
+    return clipRect;
+}
+
+- (void)popClipRect
+{
+    [mClipRectStack removeLastObject];
+    [self updateClipping];
 }
 
 + (uint)convertColor:(uint)color alpha:(float)alpha premultiplyAlpha:(BOOL)pma

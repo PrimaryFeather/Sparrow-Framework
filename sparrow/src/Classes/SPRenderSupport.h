@@ -13,6 +13,7 @@
 
 @class SPTexture;
 @class SPDisplayObject;
+@class SPRectangle;
 
 /** ------------------------------------------------------------------------------------------------
 
@@ -31,6 +32,8 @@
   @private
     uint mBoundTextureID;
     BOOL mPremultipliedAlpha;
+    NSMutableArray *mClipRectStack;
+    BOOL mScissorTestEnabled;
 }
 
 /// -------------
@@ -42,6 +45,13 @@
 
 /// Converts color and alpha into the format needed by OpenGL. Premultiplies alpha depending on state.
 - (uint)convertColor:(uint)color alpha:(float)alpha;
+
+/// Pushes a clipping rectangle to the stack, intersecting it with the last pushed clipRect.
+/// Returns the pushed rectangle.
+- (SPRectangle *)pushClipRect:(SPRectangle *)clipRect;
+
+/// Pops the last clipping rectangle that was pushed to the stack.
+- (void)popClipRect;
 
 /// Resets texture binding and alpha settings.
 - (void)reset;

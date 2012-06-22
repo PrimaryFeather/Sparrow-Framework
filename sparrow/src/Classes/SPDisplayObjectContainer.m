@@ -35,6 +35,8 @@ static void getChildEventListeners(SPDisplayObject *object, NSString *eventType,
 
 @implementation SPDisplayObjectContainer
 
+@synthesize clipRect = mClipRect;
+
 - (id)init
 {    
     #if DEBUG    
@@ -196,8 +198,40 @@ static void getChildEventListeners(SPDisplayObject *object, NSString *eventType,
     return [mChildren count];
 }
 
+- (SPRectangle *)clipBoundsInSpace:(SPDisplayObject *)targetCoordinateSpace
+{
+    if (mClipRect == nil) return nil;
+    
+    float minX = FLT_MAX, maxX = -FLT_MAX, minY = FLT_MAX, maxY = -FLT_MAX;
+    SPMatrix *transformationMatrix = [self transformationMatrixToSpace:targetCoordinateSpace];
+    SPPoint *point = [[SPPoint alloc] init];
+    for (int i=0; i<4; ++i)
+    {
+        switch (i) 
+        {
+            case 0: point.x = mClipRect.left; point.y = mClipRect.top; break;
+            case 1: point.x = mClipRect.left; point.y = mClipRect.bottom; break;
+            case 2: point.x = mClipRect.right; point.y = mClipRect.top; break;
+            case 3: point.x = mClipRect.right; point.y = mClipRect.bottom; break;
+        }
+        SPPoint *transformedPoint = [transformationMatrix transformPoint:point];
+        float tfX = transformedPoint.x; 
+        float tfY = transformedPoint.y;
+        minX = MIN(minX, tfX);
+        maxX = MAX(maxX, tfX);
+        minY = MIN(minY, tfY);
+        maxY = MAX(maxY, tfY);
+    }
+    
+    [point release];
+    
+    return [SPRectangle rectangleWithX:minX y:minY width:maxX-minX height:maxY-minY];
+}
+
 - (SPRectangle*)boundsInSpace:(SPDisplayObject*)targetCoordinateSpace
 {    
+    SPRectangle* bounds = nil;
+    
     int numChildren = [mChildren count];
 
     if (numChildren == 0)
@@ -205,12 +239,12 @@ static void getChildEventListeners(SPDisplayObject *object, NSString *eventType,
         SPMatrix *transformationMatrix = [self transformationMatrixToSpace:targetCoordinateSpace];
         SPPoint *point = [SPPoint pointWithX:self.x y:self.y];
         SPPoint *transformedPoint = [transformationMatrix transformPoint:point];
-        return [SPRectangle rectangleWithX:transformedPoint.x y:transformedPoint.y 
+        bounds = [SPRectangle rectangleWithX:transformedPoint.x y:transformedPoint.y 
                                      width:0.0f height:0.0f];
     }
     else if (numChildren == 1)
     {
-        return [[mChildren objectAtIndex:0] boundsInSpace:targetCoordinateSpace];
+        bounds = [[mChildren objectAtIndex:0] boundsInSpace:targetCoordinateSpace];
     }
     else
     {
@@ -223,13 +257,22 @@ static void getChildEventListeners(SPDisplayObject *object, NSString *eventType,
             minY = MIN(minY, childBounds.y);
             maxY = MAX(maxY, childBounds.y + childBounds.height);        
         }    
-        return [SPRectangle rectangleWithX:minX y:minY width:maxX-minX height:maxY-minY];
+        bounds =  [SPRectangle rectangleWithX:minX y:minY width:maxX-minX height:maxY-minY];
     }
+    
+    // if we have a clip rect, intersect it with our bounds
+    if (mClipRect != nil)
+        bounds = [bounds intersectionWithRectangle:[self clipBoundsInSpace:targetCoordinateSpace]];
+    
+    return bounds;
 }
 
 - (SPDisplayObject*)hitTestPoint:(SPPoint*)localPoint forTouch:(BOOL)isTouch
 {
     if (isTouch && (!self.visible || !self.touchable)) 
+        return nil;
+    
+    if (mClipRect != nil && ![mClipRect containsPoint:localPoint])
         return nil;
     
     for (int i=[mChildren count]-1; i>=0; --i) // front to back!
@@ -264,6 +307,7 @@ static void getChildEventListeners(SPDisplayObject *object, NSString *eventType,
     // 'self' is becoming invalid; thus, we have to remove any references to it.    
     [mChildren makeObjectsPerformSelector:@selector(setParent:) withObject:nil];
     [mChildren release];
+    [mClipRect release];
     [super dealloc];
 }
 
