@@ -49,7 +49,7 @@
         else 
         {
             // recycle element, update poolInfo
-            SPPoolObject *object = poolInfo->lastElement;
+            object = poolInfo->lastElement;
             poolInfo->lastElement = object->mPoolPredecessor;
             recycled = YES;
         }
@@ -60,7 +60,6 @@
         // zero out memory. (do not overwrite isa & mPoolPredecessor, thus the offset)
         unsigned int sizeOfFields = sizeof(Class) + sizeof(SPPoolObject *);
         memset((char*)(id)object + sizeOfFields, 0, malloc_size(object) - sizeOfFields);
-        return object;
     }
     
     object->mRetainCount = 1;
