@@ -153,8 +153,9 @@ static void getChildEventListeners(SPDisplayObject *object, NSString *eventType,
             [remFromStageEvent release];
         }        
         
-        [mChildren removeObjectAtIndex:index];
         child.parent = nil; 
+        index = [mChildren indexOfObject:child]; // index might have changed in event handler
+        if (index != NSNotFound) [mChildren removeObjectAtIndex:index];
         
         [child release];
     }
