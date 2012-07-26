@@ -18,6 +18,4 @@
 - (SPDisplayObject *)createRenderedContents;
 - (SPDisplayObject *)createComposedContents;
 
-+ (SPBitmapFont *)getRegisteredBitmapFont:(NSString *)name;
-
 @end

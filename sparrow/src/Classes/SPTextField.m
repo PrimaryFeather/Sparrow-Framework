@@ -260,6 +260,11 @@ static NSMutableDictionary *bitmapFonts = nil;
     }
 }
 
++ (SPBitmapFont *)getRegisteredBitmapFont:(NSString *)name
+{
+    return [bitmapFonts objectForKey:name];
+}
+
 - (void)dealloc
 {
     [self removeEventListenersAtObject:self forType:SP_EVENT_TYPE_COMPILE];
@@ -348,11 +353,6 @@ static NSMutableDictionary *bitmapFonts = nil;
     mTextArea.width = textBounds.width; mTextArea.height = textBounds.height;    
     
     return contents;    
-}
-
-+ (SPBitmapFont *)getRegisteredBitmapFont:(NSString *)name
-{
-    return [bitmapFonts objectForKey:name];
 }
 
 @end
