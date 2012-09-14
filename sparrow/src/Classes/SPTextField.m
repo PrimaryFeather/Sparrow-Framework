@@ -294,8 +294,12 @@ static NSMutableDictionary *bitmapFonts = nil;
     float height = mHitArea.height;    
     float fontSize = mFontSize == SP_NATIVE_FONT_SIZE ? SP_DEFAULT_FONT_SIZE : mFontSize;
     
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 50000
+    NSLineBreakMode lbm = NSLineBreakByTruncatingTail;
+#else
     UILineBreakMode lbm = UILineBreakModeTailTruncation;
-    CGSize textSize = [mText sizeWithFont:[UIFont fontWithName:mFontName size:fontSize] 
+#endif
+    CGSize textSize = [mText sizeWithFont:[UIFont fontWithName:mFontName size:fontSize]
                         constrainedToSize:CGSizeMake(width, height) lineBreakMode:lbm];
     
     float xOffset = 0;
