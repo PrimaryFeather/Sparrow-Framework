@@ -294,7 +294,7 @@ static NSMutableDictionary *bitmapFonts = nil;
     float height = mHitArea.height;    
     float fontSize = mFontSize == SP_NATIVE_FONT_SIZE ? SP_DEFAULT_FONT_SIZE : mFontSize;
     
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 50000
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 60000
     NSLineBreakMode lbm = NSLineBreakByTruncatingTail;
 #else
     UILineBreakMode lbm = UILineBreakModeTailTruncation;
