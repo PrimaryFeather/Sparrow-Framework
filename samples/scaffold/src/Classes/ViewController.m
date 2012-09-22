@@ -54,19 +54,15 @@
     self.view = [[[SPOverlayView alloc] initWithFrame:screenBounds] autorelease];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+- (NSUInteger)supportedInterfaceOrientations
 {
-    NSArray *supportedOrientations = 
-        [[[NSBundle mainBundle] infoDictionary] objectForKey:@"UISupportedInterfaceOrientations"];
-    
-    return ((interfaceOrientation == UIInterfaceOrientationPortrait &&
-             [supportedOrientations containsObject:@"UIInterfaceOrientationPortrait"]) ||
-            (interfaceOrientation == UIInterfaceOrientationLandscapeLeft &&
-             [supportedOrientations containsObject:@"UIInterfaceOrientationLandscapeLeft"]) ||
-            (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown &&
-             [supportedOrientations containsObject:@"UIInterfaceOrientationPortraitUpsideDown"]) ||
-            (interfaceOrientation == UIInterfaceOrientationLandscapeRight &&
-             [supportedOrientations containsObject:@"UIInterfaceOrientationLandscapeRight"]));
+    NSArray *supportedOrientations = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"UISupportedInterfaceOrientations"];
+    NSUInteger returnOrientations;
+    if ([supportedOrientations containsObject:@"UIInterfaceOrientationPortrait"]) returnOrientations |= UIInterfaceOrientationMaskPortrait;
+    if ([supportedOrientations containsObject:@"UIInterfaceOrientationLandscapeLeft"]) returnOrientations |= UIInterfaceOrientationMaskLandscapeLeft;
+    if ([supportedOrientations containsObject:@"UIInterfaceOrientationPortraitUpsideDown"]) returnOrientations |= UIInterfaceOrientationMaskPortraitUpsideDown;
+    if ([supportedOrientations containsObject:@"UIInterfaceOrientationLandscapeRight"]) returnOrientations |= UIInterfaceOrientationMaskLandscapeRight;
+    return returnOrientations;
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation 

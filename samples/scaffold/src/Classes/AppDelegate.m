@@ -26,7 +26,7 @@
     // 'supportHighResolutions' enables retina display support. It will cause '@2x' textures to be 
     // loaded automatically.
     // 
-    // 'doubleOnPad' allows you to handle the iPad as if it were an iPhone with a retina display
+    // 'doubleOnPad' allows you to handle the iPad as if it were an iPhone with a 3.5 inch retina display
     // and a resolution of '384x512' points (half of '768x1024'). It will load '@2x' textures on 
     // iPad 1 & 2. If the iPad has a retina screen, it will load '@4x' textures instead.
     
@@ -38,7 +38,9 @@
     
     BOOL isPad = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
     int width  = isPad ? 384 : 320;
-    int height = isPad ? 512 : 480;
+    
+    // If the screenBounds height is equal to 568 points, the game is running on a 4 inch retina display.
+    int height = isPad ? 512 : screenBounds.size.height == 568 ? 568 : 480;
     
     SPView *sparrowView = [[SPView alloc] initWithFrame:screenBounds];
     sparrowView.multipleTouchEnabled = NO; // enable multitouch here if you need it.
