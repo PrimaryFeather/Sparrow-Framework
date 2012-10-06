@@ -65,6 +65,21 @@
     return returnOrientations;
 }
 
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    NSArray *supportedOrientations =
+    [[[NSBundle mainBundle] infoDictionary] objectForKey:@"UISupportedInterfaceOrientations"];
+    
+    return ((interfaceOrientation == UIInterfaceOrientationPortrait &&
+             [supportedOrientations containsObject:@"UIInterfaceOrientationPortrait"]) ||
+            (interfaceOrientation == UIInterfaceOrientationLandscapeLeft &&
+             [supportedOrientations containsObject:@"UIInterfaceOrientationLandscapeLeft"]) ||
+            (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown &&
+             [supportedOrientations containsObject:@"UIInterfaceOrientationPortraitUpsideDown"]) ||
+            (interfaceOrientation == UIInterfaceOrientationLandscapeRight &&
+             [supportedOrientations containsObject:@"UIInterfaceOrientationLandscapeRight"]));
+}
+
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation 
                                          duration:(NSTimeInterval)duration
 {
