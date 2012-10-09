@@ -10,7 +10,7 @@
 @interface Game ()
 
 - (void)setup;
-- (void)onEggTouched:(SPTouchEvent *)event;
+- (void)onImageTouched:(SPTouchEvent *)event;
 - (void)onResize:(SPResizeEvent *)event;
 
 @end
@@ -71,26 +71,27 @@
     background.x = mGameWidth / 2;
     background.y = mGameHeight / 2;
     [self addChild:background];
-
+    
     
     // Display the Sparrow egg
     
-    SPImage *egg = [[SPImage alloc] initWithTexture:[Media atlasTexture:@"egg"]];
-    egg.pivotX = (int)egg.width / 2;
-    egg.pivotY = (int)egg.height / 2;
-    egg.x = mGameWidth / 2;
-    egg.y = mGameHeight / 2 + 50;
-    [self addChild:egg];
+    SPImage *image = [[SPImage alloc] initWithTexture:[Media atlasTexture:@"sparrow"]];
+    image.pivotX = (int)image.width / 2;
+    image.pivotY = (int)image.height / 2;
+    image.x = mGameWidth / 2;
+    image.y = mGameHeight / 2 + 40;
+    [self addChild:image];
     
-    // play a sound when the egg is touched
-    [egg addEventListener:@selector(onEggTouched:) atObject:self forType:SP_EVENT_TYPE_TOUCH];
+    // play a sound when the image is touched
+    [image addEventListener:@selector(onImageTouched:) atObject:self forType:SP_EVENT_TYPE_TOUCH];
     
     // and animate it a little
-    SPTween *tween = [SPTween tweenWithTarget:egg time:5.0 transition:SP_TRANSITION_EASE_IN_OUT];
-    [tween animateProperty:@"rotation" targetValue:SP_D2R(360)];
-    tween.loop = SPLoopTypeRepeat;
+    SPTween *tween = [SPTween tweenWithTarget:image time:1.5 transition:SP_TRANSITION_EASE_IN_OUT];
+    [tween animateProperty:@"y" targetValue:image.y + 30];
+    [tween animateProperty:@"rotation" targetValue:0.1];
+    tween.loop = SPLoopTypeReverse;
     [[SPStage mainStage].juggler addObject:tween];
-        
+    
     
     // Create a text field
     
@@ -99,7 +100,7 @@
     
     SPTextField *textField = [[SPTextField alloc] initWithWidth:280 height:80 text:text];
     textField.x = (mGameWidth - textField.width) / 2;
-    textField.y = egg.y - 175;
+    textField.y = image.y - 175;
     [self addChild:textField];
     
 
@@ -123,7 +124,7 @@
     // Those lines will then be removed from the project.
     
     [background release];
-    [egg release];
+    [image release];
     [textField release];
     
     
@@ -138,7 +139,7 @@
     // To support the iPad, the minimum "iOS deployment target" is "iOS 3.2".
 }
 
-- (void)onEggTouched:(SPTouchEvent *)event
+- (void)onImageTouched:(SPTouchEvent *)event
 {
     NSSet *touches = [event touchesWithTarget:self andPhase:SPTouchPhaseEnded];
     if ([touches anyObject])
