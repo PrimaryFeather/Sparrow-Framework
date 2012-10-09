@@ -37,10 +37,8 @@
     // a landscape orientation in App-Info.plist.
     
     BOOL isPad = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
-    int width  = isPad ? 384 : 320;
-    
-    // If the screenBounds height is equal to 568 points, the game is running on a 4 inch retina display.
-    int height = isPad ? 512 : screenBounds.size.height == 568 ? 568 : 480;
+    int width  = isPad ? 384 : screenBounds.size.width;
+    int height = isPad ? 512 : screenBounds.size.height;
     
     SPView *sparrowView = [[SPView alloc] initWithFrame:screenBounds];
     sparrowView.multipleTouchEnabled = NO; // enable multitouch here if you need it.
