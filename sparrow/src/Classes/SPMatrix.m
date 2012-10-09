@@ -119,10 +119,10 @@ static void setValues(SPMatrix *matrix, float a, float b, float c, float d, floa
     setValues(self, mD/det, -mB/det, -mC/det, mA/det, (mC*mTy-mD*mTx)/det, (mB*mTx-mA*mTy)/det);
 }
 
-- (BOOL)isEqual:(id)other 
+- (BOOL)isEquivalent:(SPMatrix *)other
 {
     if (other == self) return YES;
-    else if (!other || ![other isKindOfClass:[self class]]) return NO;
+    else if (!other) return NO;
     else 
     {    
         SPMatrix *matrix = (SPMatrix*)other;

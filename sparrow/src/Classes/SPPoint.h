@@ -66,7 +66,7 @@
 - (float)dot:(SPPoint *)other;
 
 /// Compares two points.
-- (BOOL)isEqual:(id)other;
+- (BOOL)isEquivalent:(SPPoint *)other;
 
 /// Calculates the distance between two points.
 + (float)distanceFromPoint:(SPPoint *)p1 toPoint:(SPPoint *)p2;

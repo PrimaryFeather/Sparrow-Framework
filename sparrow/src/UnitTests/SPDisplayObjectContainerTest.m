@@ -231,7 +231,7 @@
     
     SPRectangle *bounds = [spriteA21 boundsInSpace:spriteA11];
     SPRectangle *expectedBounds = [SPRectangle rectangleWithX:-350 y:350 width:100 height:100];
-    STAssertEqualObjects(expectedBounds, bounds, @"wrong bounds: %@", bounds);    
+    STAssertTrue([bounds isEquivalent:expectedBounds], @"wrong bounds: %@", bounds);
     
     // now rotate as well
     
@@ -240,7 +240,7 @@
     
     bounds = [spriteA21 boundsInSpace:spriteA11];
     expectedBounds = [SPRectangle rectangleWithX:0 y:394.974762 width:100 height:100];
-    STAssertEqualObjects(expectedBounds, bounds, @"wrong bounds: %@", bounds);    
+    STAssertTrue([bounds isEquivalent:expectedBounds], @"wrong bounds: %@", bounds);
     
     [root release];
 }

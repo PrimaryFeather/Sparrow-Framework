@@ -110,11 +110,11 @@
     return mX * other->mX + mY * other->mY;
 }
 
-- (BOOL)isEqual:(id)other 
+- (BOOL)isEquivalent:(SPPoint *)other
 {
     if (other == self) return YES;
-    else if (!other || ![other isKindOfClass:[self class]]) return NO;
-    else 
+    else if (!other) return NO;
+    else
     {
         SPPoint *point = (SPPoint*)other;
         return SP_IS_FLOAT_EQUAL(mX, point->mX) && SP_IS_FLOAT_EQUAL(mY, point->mY);    

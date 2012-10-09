@@ -108,6 +108,7 @@
 
 - (void)testIntersectionWithRectangle
 {
+    SPRectangle *expectedRect;
     SPRectangle *rect = [SPRectangle rectangleWithX:-5 y:-10 width:10 height:20];
 
     SPRectangle *overlapRect = [SPRectangle rectangleWithX:-10 y:-15 width:10 height:10];
@@ -116,27 +117,38 @@
     SPRectangle *touchingRect = [SPRectangle rectangleWithX:5 y:0 width:10 height:10];
     SPRectangle *insideRect = [SPRectangle rectangleWithX:0 y:0 width:1 height:2];
     
-    STAssertEqualObjects([SPRectangle rectangleWithX:-5 y:-10 width:5 height:5],
-                         [rect intersectionWithRectangle:overlapRect], @"wrong intersection shape");
-    STAssertEqualObjects(rect, [rect intersectionWithRectangle:identRect], @"wrong intersection shape");
-    STAssertEqualObjects([SPRectangle rectangleWithX:0 y:0 width:0 height:0], 
-                         [rect intersectionWithRectangle:outsideRect], @"intersection should be empty");
-    STAssertEqualObjects([SPRectangle rectangleWithX:5 y:0 width:0 height:10],
-                         [rect intersectionWithRectangle:touchingRect], @"wrong intersection shape");
-    STAssertEqualObjects(insideRect, [rect intersectionWithRectangle:insideRect],
-                         @"wrong intersection shape");
+    expectedRect = [SPRectangle rectangleWithX:-5 y:-10 width:5 height:5];
+    STAssertTrue([[rect intersectionWithRectangle:overlapRect] isEquivalent:expectedRect],
+                  @"wrong intersection shape");
+    
+    expectedRect = rect;
+    STAssertTrue([[rect intersectionWithRectangle:identRect] isEquivalent:expectedRect],
+                 @"wrong intersection shape");
+
+    expectedRect = [SPRectangle rectangleWithX:0 y:0 width:0 height:0];
+    STAssertTrue([[rect intersectionWithRectangle:outsideRect] isEquivalent:expectedRect],
+                 @"intersection should be empty");
+    
+    expectedRect = [SPRectangle rectangleWithX:5 y:0 width:0 height:10];
+    STAssertTrue([[rect intersectionWithRectangle:touchingRect] isEquivalent:expectedRect],
+                 @"wrong intersection shape");
+
+    expectedRect = insideRect;
+    STAssertTrue([[rect intersectionWithRectangle:insideRect] isEquivalent:expectedRect],
+                 @"wrong intersection shape");
 }
 
 - (void)testUniteWithRectangle
 {
+    SPRectangle *expectedRect;
     SPRectangle *rect = [SPRectangle rectangleWithX:-5 y:-10 width:10 height:20];
     
     SPRectangle *topLeftRect = [SPRectangle rectangleWithX:-15 y:-20 width:5 height:5];
     SPRectangle *innerRect = [SPRectangle rectangleWithX:-5 y:-5 width:10 height:10];
     
-    STAssertEqualObjects([SPRectangle rectangleWithX:-15 y:-20 width:20 height:30],
-                         [rect uniteWithRectangle:topLeftRect], @"wrong union");
-    STAssertEqualObjects(rect, [rect uniteWithRectangle:innerRect], @"wrong union");    
+    expectedRect = [SPRectangle rectangleWithX:-15 y:-20 width:20 height:30];
+    STAssertTrue([[rect uniteWithRectangle:topLeftRect] isEquivalent:expectedRect], @"wrong union");
+    STAssertTrue([[rect uniteWithRectangle:innerRect] isEquivalent:rect], @"wrong union");
 }
 
 - (void)testNilArguments
@@ -144,7 +156,8 @@
     SPRectangle *rect = [SPRectangle rectangleWithX:0 y:0 width:10 height:20];
     STAssertFalse([rect intersectsRectangle:nil], @"could not deal with nil argument");
     STAssertNil([rect intersectionWithRectangle:nil], @"could not deal with nil argument");
-    STAssertEqualObjects(rect, [rect uniteWithRectangle:nil], @"could not deal with nil argument");
+
+    STAssertTrue([[rect uniteWithRectangle:nil] isEquivalent:rect], @"could not deal with nil argument");
 }
 
 @end
