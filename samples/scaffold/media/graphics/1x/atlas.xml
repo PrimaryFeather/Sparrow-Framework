@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<TextureAtlas imagePath="atlas.png">
-    <SubTexture name="egg" x="2" y="2" width="128" height="181"/>
+<TextureAtlas imagePath='atlas.png'>
+  <SubTexture name='sparrow' width='263.0' height='162.5' y='0' x='0'/>
 </TextureAtlas>
