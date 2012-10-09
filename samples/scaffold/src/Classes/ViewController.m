@@ -56,12 +56,19 @@
 
 - (NSUInteger)supportedInterfaceOrientations
 {
-    NSArray *supportedOrientations = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"UISupportedInterfaceOrientations"];
+    NSArray *supportedOrientations =
+    [[[NSBundle mainBundle] infoDictionary] objectForKey:@"UISupportedInterfaceOrientations"];
+    
     NSUInteger returnOrientations;
-    if ([supportedOrientations containsObject:@"UIInterfaceOrientationPortrait"]) returnOrientations |= UIInterfaceOrientationMaskPortrait;
-    if ([supportedOrientations containsObject:@"UIInterfaceOrientationLandscapeLeft"]) returnOrientations |= UIInterfaceOrientationMaskLandscapeLeft;
-    if ([supportedOrientations containsObject:@"UIInterfaceOrientationPortraitUpsideDown"]) returnOrientations |= UIInterfaceOrientationMaskPortraitUpsideDown;
-    if ([supportedOrientations containsObject:@"UIInterfaceOrientationLandscapeRight"]) returnOrientations |= UIInterfaceOrientationMaskLandscapeRight;
+    if ([supportedOrientations containsObject:@"UIInterfaceOrientationPortrait"])
+        returnOrientations |= UIInterfaceOrientationMaskPortrait;
+    if ([supportedOrientations containsObject:@"UIInterfaceOrientationLandscapeLeft"])
+        returnOrientations |= UIInterfaceOrientationMaskLandscapeLeft;
+    if ([supportedOrientations containsObject:@"UIInterfaceOrientationPortraitUpsideDown"])
+        returnOrientations |= UIInterfaceOrientationMaskPortraitUpsideDown;
+    if ([supportedOrientations containsObject:@"UIInterfaceOrientationLandscapeRight"])
+        returnOrientations |= UIInterfaceOrientationMaskLandscapeRight;
+    
     return returnOrientations;
 }
 
