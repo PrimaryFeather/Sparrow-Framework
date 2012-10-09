@@ -14,6 +14,7 @@
   @private
     Scene *mCurrentScene;
     SPSprite *mMainMenu;
+    float mOffsetY;
 }
 
 @end
