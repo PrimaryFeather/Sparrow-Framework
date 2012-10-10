@@ -8,10 +8,13 @@ version 1.4 - 2012-10-10
 - added 'fontName' parameter in 'registerBitmapFont' methods (thanks, tconkling!)
 - added iOS 5 rotation code (thanks, Brian!)
 - added support for iOS 5 in demo, scaffold, and barebone projects
+- added support for fractions of SP_NATIVE_FONT_SIZE (e.g. *2, *0.5) for Bitmap Fonts
 - removed override of default architecture for Xcode 4.5 compatibility (thanks, theyonibomber!)
 - optimized 'containsChild:' method
 - optimized matrix rotation method
 - optimized 'removeChildAtIndex:' method (removed obsolete retain/release calls)
+- optimized transformation matrix calculations (matrix is now cached)
+- fixed leftover touches when app moves in background; existing touches are now canceled
 - fixed several warnings that popped up in iOS 6 SDK
 - fixed texture lookup: when 4x is requested but not available, 2x is tried before 1x
 - fixed exception when bitmap text contained two (or more) line feeds
