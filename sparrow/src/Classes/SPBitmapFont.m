@@ -172,8 +172,9 @@
 {    
     SPSprite *lineContainer = [SPSprite sprite];
     
-    if (size == SP_NATIVE_FONT_SIZE) size = mSize;    
-    float scale = size / mSize;    
+    if (size < 0) size *= -mSize;
+    
+    float scale = size / mSize;
     lineContainer.scaleX = lineContainer.scaleY = scale;        
     float containerWidth = width / scale;
     float containerHeight = height / scale;    
