@@ -52,12 +52,15 @@
         mScaleY = 1.0f;
         mVisible = YES;
         mTouchable = YES;
+        mTransformationMatrix = [[SPMatrix alloc] init];
+        mOrientationChanged = NO;
     }
     return self;
 }
 
 - (void)dealloc
 {
+    [mTransformationMatrix release];
     [mName release];
     [super dealloc];
 }
@@ -72,7 +75,7 @@
     [mParent removeChild:self];
 }
 
-- (SPMatrix*)transformationMatrixToSpace:(SPDisplayObject*)targetCoordinateSpace
+- (SPMatrix *)transformationMatrixToSpace:(SPDisplayObject *)targetCoordinateSpace
 {           
     if (targetCoordinateSpace == self)
     {
@@ -169,12 +172,12 @@
     return nil;
 }
 
-- (SPRectangle*)bounds
+- (SPRectangle *)bounds
 {
     return [self boundsInSpace:mParent];
 }
 
-- (SPDisplayObject*)hitTestPoint:(SPPoint*)localPoint forTouch:(BOOL)isTouch
+- (SPDisplayObject *)hitTestPoint:(SPPoint *)localPoint forTouch:(BOOL)isTouch
 {
     // on a touch test, invisible or untouchable objects cause the test to fail
     if (isTouch && (!mVisible || !mTouchable)) return nil;
@@ -184,7 +187,7 @@
     else return nil;
 }
 
-- (SPPoint*)localToGlobal:(SPPoint*)localPoint
+- (SPPoint *)localToGlobal:(SPPoint *)localPoint
 {
     // move up until parent is nil
     SPMatrix *transformationMatrix = [[SPMatrix alloc] init];
@@ -200,7 +203,7 @@
     return globalPoint;
 }
 
-- (SPPoint*)globalToLocal:(SPPoint*)globalPoint
+- (SPPoint *)globalToLocal:(SPPoint *)globalPoint
 {
     // move up until parent is nil, then invert matrix
     SPMatrix *transformationMatrix = [[SPMatrix alloc] init];
@@ -265,12 +268,67 @@
     else                      self.scaleY = 1.0f;
 }
 
+- (void)setX:(float)value
+{
+    if (value != mX)
+    {
+        mX = value;
+        mOrientationChanged = YES;
+    }
+}
+
+- (void)setY:(float)value
+{
+    if (value != mY)
+    {
+        mY = value;
+        mOrientationChanged = YES;
+    }
+}
+
+- (void)setScaleX:(float)value
+{
+    if (value != mScaleX)
+    {
+        mScaleX = value;
+        mOrientationChanged = YES;
+    }
+}
+
+- (void)setScaleY:(float)value
+{
+    if (value != mScaleY)
+    {
+        mScaleY = value;
+        mOrientationChanged = YES;
+    }
+}
+
+- (void)setPivotX:(float)value
+{
+    if (value != mPivotX)
+    {
+        mPivotX = value;
+        mOrientationChanged = YES;
+    }
+}
+
+- (void)setPivotY:(float)value
+{
+    if (value != mPivotY)
+    {
+        mPivotY = value;
+        mOrientationChanged = YES;
+    }
+}
+
 - (void)setRotation:(float)value
 {
     // clamp between [-180 deg, +180 deg]
     while (value < -PI) value += TWO_PI;
     while (value >  PI) value -= TWO_PI;
     mRotationZ = value;
+    mOrientationChanged = YES;
 }
 
 - (void)setAlpha:(float)value
@@ -278,7 +336,7 @@
     mAlpha = MAX(0.0f, MIN(1.0f, value));
 }
 
-- (SPDisplayObject*)root
+- (SPDisplayObject *)root
 {
     SPDisplayObject *currentObject = self;
     while (currentObject->mParent) 
@@ -295,14 +353,18 @@
 
 - (SPMatrix*)transformationMatrix
 {
-    SPMatrix *matrix = [[SPMatrix alloc] init];
+    if (mOrientationChanged)
+    {
+        mOrientationChanged = NO;
+        [mTransformationMatrix identity];
     
-    if (mPivotX != 0.0f || mPivotY != 0.0f) [matrix translateXBy:-mPivotX yBy:-mPivotY];
-    if (mScaleX != 1.0f || mScaleY != 1.0f) [matrix scaleXBy:mScaleX yBy:mScaleY];
-    if (mRotationZ != 0.0f)                 [matrix rotateBy:mRotationZ];
-    if (mX != 0.0f || mY != 0.0f)           [matrix translateXBy:mX yBy:mY];
+        if (mPivotX != 0.0f || mPivotY != 0.0f) [mTransformationMatrix translateXBy:-mPivotX yBy:-mPivotY];
+        if (mScaleX != 1.0f || mScaleY != 1.0f) [mTransformationMatrix scaleXBy:mScaleX yBy:mScaleY];
+        if (mRotationZ != 0.0f)                 [mTransformationMatrix rotateBy:mRotationZ];
+        if (mX != 0.0f || mY != 0.0f)           [mTransformationMatrix translateXBy:mX yBy:mY];
+    }
     
-    return [matrix autorelease];
+    return [[mTransformationMatrix copy] autorelease];
 }
 
 @end
@@ -311,7 +373,7 @@
 
 @implementation SPDisplayObject (Internal)
 
-- (void)setParent:(SPDisplayObjectContainer*)parent 
+- (void)setParent:(SPDisplayObjectContainer *)parent 
 { 
     SPDisplayObject *ancestor = parent;
     while (ancestor != self && ancestor != nil)
