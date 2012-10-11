@@ -23,16 +23,21 @@
 {
     if ((self = [super initWithWidth:width height:height]))
     {
+        // make simple adjustments for iPhone 5+ screens:
+        mOffsetY = (height - 480) / 2;
+        
         // add background image
-        SPImage *background = [SPImage imageWithContentsOfFile:@"Default.png"];
+        SPImage *background = [SPImage imageWithContentsOfFile:@"background.jpg"];
+        background.y = mOffsetY > 0.0f ? 0.0 : -44;
         [self addChild:background];
         
         // this sprite will contain objects that are only visible in the main menu
         mMainMenu = [[SPSprite alloc] init];
+        mMainMenu.y = mOffsetY;
         [self addChild:mMainMenu];
         
         SPImage *logo = [SPImage imageWithContentsOfFile:@"logo.png"];
-        logo.y = 5;
+        logo.y = mOffsetY + 5;
         [mMainMenu addChild:logo];
         
         // choose which scenes will be accessible
@@ -59,7 +64,7 @@
             
             SPButton *button = [SPButton buttonWithUpState:buttonTexture text:sceneTitle];
             button.x = count % 2 == 0 ? 28 : 167;
-            button.y = 150 + (count / 2) * 52 + (count % 2) * 26;    
+            button.y = mOffsetY + 170 + (count / 2) * 52 + (count % 2) * 26;
             button.name = NSStringFromClass(sceneClass);
             [button addEventListener:@selector(onButtonTriggered:) atObject:self 
                              forType:SP_EVENT_TYPE_TRIGGERED];
@@ -84,6 +89,7 @@
     
     // create an instance of that class and add it to the display tree.
     mCurrentScene = [[sceneClass alloc] init];
+    mCurrentScene.y = mOffsetY;
     mMainMenu.visible = NO;
     [self addChild:mCurrentScene];
 }

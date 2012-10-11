@@ -15,6 +15,7 @@
 
 @class SPTexture;
 @class SPQuad;
+@class SPBitmapFont;
 
 #define SP_DEFAULT_FONT_NAME  @"Helvetica"
 #define SP_DEFAULT_FONT_SIZE  14.0f
@@ -85,7 +86,7 @@ typedef enum
 
 @interface SPTextField : SPDisplayObjectContainer
 {
-  @private
+  @protected
     float mFontSize;
     uint mColor;
     NSString *mText;
@@ -130,18 +131,32 @@ typedef enum
 /// @name Methods
 /// -------------
 
+/// Makes a bitmap font available at any text field, manually providing the texture and font name.
+/// 
+/// @return The name of the font that was passed to the method.
++ (NSString *)registerBitmapFontFromFile:(NSString *)path texture:(SPTexture *)texture name:(NSString *)fontName;
+
 /// Makes a bitmap font available at any text field, manually providing the texture.
 /// 
 /// @return The name of the font as defined in the font XML. 
-+ (NSString *)registerBitmapFontFromFile:(NSString*)path texture:(SPTexture *)texture;
++ (NSString *)registerBitmapFontFromFile:(NSString *)path texture:(SPTexture *)texture;
+
+/// Makes a bitmap font available at any text field, using the texture defined in the file,
+/// and manually providing the font name.
+/// 
+/// @return The name of the font that was passed to the method.
++ (NSString *)registerBitmapFontFromFile:(NSString *)path name:(NSString *)fontName;
 
 /// Makes a bitmap font available at any text field, using the texture defined in the file.
 /// 
 /// @return The name of the font as defined in the font XML. 
-+ (NSString *)registerBitmapFontFromFile:(NSString*)path;
++ (NSString *)registerBitmapFontFromFile:(NSString *)path;
 
 /// Releases the bitmap font.
 + (void)unregisterBitmapFont:(NSString *)name;
+
+/// Get the bitmap font that was registered unter a certain name.
++ (SPBitmapFont *)getRegisteredBitmapFont:(NSString *)name;
 
 /// ----------------
 /// @name Properties

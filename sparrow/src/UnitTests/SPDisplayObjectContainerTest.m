@@ -231,7 +231,7 @@
     
     SPRectangle *bounds = [spriteA21 boundsInSpace:spriteA11];
     SPRectangle *expectedBounds = [SPRectangle rectangleWithX:-350 y:350 width:100 height:100];
-    STAssertEqualObjects(expectedBounds, bounds, @"wrong bounds: %@", bounds);    
+    STAssertTrue([bounds isEquivalent:expectedBounds], @"wrong bounds: %@", bounds);
     
     // now rotate as well
     
@@ -240,7 +240,7 @@
     
     bounds = [spriteA21 boundsInSpace:spriteA11];
     expectedBounds = [SPRectangle rectangleWithX:0 y:394.974762 width:100 height:100];
-    STAssertEqualObjects(expectedBounds, bounds, @"wrong bounds: %@", bounds);    
+    STAssertTrue([bounds isEquivalent:expectedBounds], @"wrong bounds: %@", bounds);
     
     [root release];
 }
@@ -496,6 +496,36 @@
         [target.parent removeAllChildren];
     
     ++mEventCount;
+}
+
+- (void)testRemoveWithEventHandler
+{
+    SPSprite *parent = [SPSprite sprite];
+    SPSprite *child0 = [SPSprite sprite];
+    SPSprite *child1 = [SPSprite sprite];
+    SPSprite *child2 = [SPSprite sprite];
+    
+    [parent addChild:child0];
+    [parent addChild:child1];
+    [parent addChild:child2];
+
+    // Remove last child, and in its event listener remove first child.
+    // That must work, even though the child changes its index in the event handler.
+    
+    [child2 addEventListener:@selector(onRemoveChild2:) atObject:self forType:SP_EVENT_TYPE_REMOVED];
+
+    STAssertNoThrow([parent removeChildAtIndex:2], @"exception raised");
+    STAssertNil(child2.parent, @"child 2 not properly removed");
+    STAssertNil(child0.parent, @"child 0 not properly removed");
+    STAssertEquals(child1, [parent childAtIndex:0], @"unexpected child");
+    STAssertEquals(1, parent.numChildren, @"wrong number of children");
+}
+
+- (void)onRemoveChild2:(SPEvent *)event
+{
+    SPSprite *child2 = (SPSprite *)event.target;
+    SPSprite *parent = (SPSprite *)child2.parent;
+    [parent removeChildAtIndex:0];
 }
 
 // STAssertEquals(value, value, message, ...)

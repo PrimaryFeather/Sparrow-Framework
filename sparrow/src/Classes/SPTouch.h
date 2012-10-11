@@ -17,7 +17,7 @@
 /// SPTouchPhase describes the phases in the life-cycle of a touch.
 typedef enum 
 {    
-    SPTouchPhaseBegan,      /// The finger just touched the screen.    
+    SPTouchPhaseBegan = 0,  /// The finger just touched the screen.    
     SPTouchPhaseMoved,      /// The finger moves around.    
     SPTouchPhaseStationary, /// The finger has not moved since the last frame.    
     SPTouchPhaseEnded,      /// The finger was lifted from the screen.    

@@ -65,6 +65,18 @@
     return [SPPoint pointWithX:mTexCoords[vertexID*2] y:mTexCoords[vertexID*2+1]];
 }
 
+- (void)readjustSize
+{
+    SPRectangle *frame = mTexture.frame;    
+    float width  = frame ? frame.width  : mTexture.width;
+    float height = frame ? frame.height : mTexture.height;
+
+    mVertexCoords[2] = width; 
+    mVertexCoords[5] = height; 
+    mVertexCoords[6] = width;
+    mVertexCoords[7] = height;
+}
+
 + (SPImage*)imageWithTexture:(SPTexture*)texture
 {
     return [[[SPImage alloc] initWithTexture:texture] autorelease];

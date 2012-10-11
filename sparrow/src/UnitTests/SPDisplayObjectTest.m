@@ -65,10 +65,10 @@
     SPMatrix *matrix = [sprite transformationMatrixToSpace:child];    
     SPMatrix *expectedMatrix = child.transformationMatrix;
     [expectedMatrix invert];
-    STAssertEqualObjects(expectedMatrix, matrix, @"wrong matrix");
+    STAssertTrue([matrix isEquivalent:expectedMatrix], @"wrong matrix");
 
     matrix = [child transformationMatrixToSpace:sprite];
-    STAssertEqualObjects(child.transformationMatrix, matrix, @"wrong matrix");    
+    STAssertTrue([child.transformationMatrix isEquivalent:matrix], @"wrong matrix");
     
     // more is tested indirectly via 'testBoundsInSpace' in DisplayObjectContainerTest
 }
@@ -87,7 +87,7 @@
     [matrix rotateBy:sprite.rotation];
     [matrix translateXBy:sprite.x yBy:sprite.y];
     
-    STAssertEqualObjects(sprite.transformationMatrix, matrix, @"wrong matrix");
+    STAssertTrue([sprite.transformationMatrix isEquivalent:matrix], @"wrong matrix");
     
     [sprite release];
     [matrix release];
@@ -157,7 +157,7 @@
     SPPoint *localPoint = [SPPoint pointWithX:0 y:0];
     SPPoint *globalPoint = [sprite2 localToGlobal:localPoint];
     SPPoint *expectedPoint = [SPPoint pointWithX:160 y:220];    
-    STAssertEqualObjects(expectedPoint, globalPoint, @"wrong global point:");    
+    STAssertTrue([globalPoint isEquivalent:expectedPoint], @"wrong global point");
     
     [sprite release];
     [sprite2 release];
@@ -192,7 +192,7 @@
     SPPoint *globalPoint = [SPPoint pointWithX:160 y:220];
     SPPoint *localPoint = [sprite2 globalToLocal:globalPoint];
     SPPoint *expectedPoint = [SPPoint pointWithX:0 y:0];    
-    STAssertEqualObjects(expectedPoint, localPoint, @"wrong local point");    
+    STAssertTrue([localPoint isEquivalent:expectedPoint], @"wrong local point");
     
     [sprite release];
     [sprite2 release];
@@ -272,7 +272,7 @@
     
     SPQuad *quad = [SPQuad quadWithWidth:width height:height];
     
-    STAssertEqualObjects(sprite.bounds, quad.bounds, @"Bounds are not equal (no pivot)");
+    STAssertTrue([sprite.bounds isEquivalent:quad.bounds], @"Bounds are not equal (no pivot)");
    
     innerQuad.x = -50;
     quad.pivotX = 50;
@@ -280,22 +280,22 @@
     innerQuad.y = -20;
     quad.pivotY = 20;
     
-    STAssertEqualObjects(sprite.bounds, quad.bounds, @"Bounds are not equal (pivot)");
+    STAssertTrue([sprite.bounds isEquivalent:quad.bounds], @"Bounds are not equal (pivot)");
     
     sprite.rotation = SP_D2R(45);
     quad.rotation = SP_D2R(45);
     
-    STAssertEqualObjects(sprite.bounds, quad.bounds, @"Bounds are not equal (pivot, rotation)");
+    STAssertTrue([sprite.bounds isEquivalent:quad.bounds], @"Bounds are not equal (pivot, rotation)");
 
     sprite.scaleX = 1.5f;
     quad.scaleX = 1.5f;
     
-    STAssertEqualObjects(sprite.bounds, quad.bounds, @"Bounds are not equal (pivot, scaleX");
+    STAssertTrue([sprite.bounds isEquivalent:quad.bounds], @"Bounds are not equal (pivot, scaleX");
     
     sprite.scaleY = 0.6f;
     quad.scaleY = 0.6f;
     
-    STAssertEqualObjects(sprite.bounds, quad.bounds, @"Bounds are not equal (pivot, scaleY");
+    STAssertTrue([sprite.bounds isEquivalent:quad.bounds], @"Bounds are not equal (pivot, scaleY");
 
     sprite.x = 5.0f;
     sprite.y = 20.0f;
@@ -303,7 +303,7 @@
     quad.x = 5.0f;
     quad.y = 20.0f;
     
-    STAssertEqualObjects(sprite.bounds, quad.bounds, @"Bounds are not equal (pivot, translation");
+    STAssertTrue([sprite.bounds isEquivalent:quad.bounds], @"Bounds are not equal (pivot, translation");
 }
  
 - (void)testName

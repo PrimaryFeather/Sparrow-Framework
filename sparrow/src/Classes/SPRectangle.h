@@ -61,6 +61,9 @@
 /// Sets width and height components to zero.
 - (void)setEmpty;
 
+/// Compares two points.
+- (BOOL)isEquivalent:(SPRectangle *)other;
+
 /// ----------------
 /// @name Properties
 /// ----------------

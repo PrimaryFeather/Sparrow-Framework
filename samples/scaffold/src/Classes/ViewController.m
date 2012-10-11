@@ -54,10 +54,28 @@
     self.view = [[[SPOverlayView alloc] initWithFrame:screenBounds] autorelease];
 }
 
+- (NSUInteger)supportedInterfaceOrientations
+{
+    NSArray *supportedOrientations =
+    [[[NSBundle mainBundle] infoDictionary] objectForKey:@"UISupportedInterfaceOrientations"];
+    
+    NSUInteger returnOrientations;
+    if ([supportedOrientations containsObject:@"UIInterfaceOrientationPortrait"])
+        returnOrientations |= UIInterfaceOrientationMaskPortrait;
+    if ([supportedOrientations containsObject:@"UIInterfaceOrientationLandscapeLeft"])
+        returnOrientations |= UIInterfaceOrientationMaskLandscapeLeft;
+    if ([supportedOrientations containsObject:@"UIInterfaceOrientationPortraitUpsideDown"])
+        returnOrientations |= UIInterfaceOrientationMaskPortraitUpsideDown;
+    if ([supportedOrientations containsObject:@"UIInterfaceOrientationLandscapeRight"])
+        returnOrientations |= UIInterfaceOrientationMaskLandscapeRight;
+    
+    return returnOrientations;
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    NSArray *supportedOrientations = 
-        [[[NSBundle mainBundle] infoDictionary] objectForKey:@"UISupportedInterfaceOrientations"];
+    NSArray *supportedOrientations =
+    [[[NSBundle mainBundle] infoDictionary] objectForKey:@"UISupportedInterfaceOrientations"];
     
     return ((interfaceOrientation == UIInterfaceOrientationPortrait &&
              [supportedOrientations containsObject:@"UIInterfaceOrientationPortrait"]) ||

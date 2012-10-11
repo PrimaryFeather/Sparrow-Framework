@@ -40,7 +40,7 @@
     [self release];
     
     NSString *fullPath = [SPUtils absolutePathToFile:path];
-    if (!fullPath) [NSException raise:SP_EXC_FILE_NOT_FOUND format:@"file %@ not found", fullPath];
+    if (!fullPath) [NSException raise:SP_EXC_FILE_NOT_FOUND format:@"file %@ not found", path];
     
     NSString *error = nil;
     
@@ -59,7 +59,7 @@
                                   kAudioFileReadPermission, 0, &fileID);
         if (result != noErr)
         {
-            error = [NSString stringWithFormat:@"could not read audio file (%x)", result];
+            error = [NSString stringWithFormat:@"could not read audio file (%lx)", result];
             break;
         }
         
@@ -68,7 +68,7 @@
         result = AudioFileGetProperty(fileID, kAudioFilePropertyDataFormat, &propertySize, &fileFormat);
         if (result != noErr)
         {
-            error = [NSString stringWithFormat:@"could not read file format info (%x)", result];
+            error = [NSString stringWithFormat:@"could not read file format info (%lx)", result];
             break;
         }
         
@@ -77,7 +77,7 @@
                                       &propertySize, &soundDuration);
         if (result != noErr)
         {
-            error = [NSString stringWithFormat:@"could not read sound duration (%x)", result];
+            error = [NSString stringWithFormat:@"could not read sound duration (%lx)", result];
             break;
         }  
         
@@ -111,7 +111,7 @@
                                       &propertySize, &fileSize);
         if (result != noErr)
         {
-            error = [NSString stringWithFormat:@"could not read sound file size (%x)", result];
+            error = [NSString stringWithFormat:@"could not read sound file size (%lx)", result];
             break;
         }          
         
@@ -132,7 +132,7 @@
         }
         else
         { 
-            error = [NSString stringWithFormat:@"could not read sound data (%x)", result];
+            error = [NSString stringWithFormat:@"could not read sound data (%lx)", result];
             break;
         }
     }

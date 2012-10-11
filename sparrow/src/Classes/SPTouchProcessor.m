@@ -18,6 +18,8 @@
 #import "SPMatrix.h"
 #import "SPDisplayObjectContainer.h"
 
+#import <UIKit/UIKit.h>
+
 #define MULTITAP_TIME 0.25f
 #define MULTITAP_DIST 25
 
@@ -31,6 +33,9 @@
     {
         mRoot = root;
         mCurrentTouches = [[NSMutableSet alloc] initWithCapacity:2];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cancelCurrentTouches:)
+                                              name:UIApplicationWillResignActiveNotification object:nil];
     }
     return self;
 }
@@ -115,8 +120,25 @@
     SP_RELEASE_POOL(pool);
 }
 
+- (void)cancelCurrentTouches:(NSNotification *)notification
+{
+    double now = CACurrentMediaTime();
+    
+    for (SPTouch *touch in mCurrentTouches)
+    {
+        touch.phase = SPTouchPhaseCancelled;
+        touch.timestamp = now;
+    }
+
+    for (SPTouch *touch in mCurrentTouches)
+        [touch.target dispatchEvent:[SPTouchEvent eventWithType:SP_EVENT_TYPE_TOUCH touches:mCurrentTouches]];
+
+    [mCurrentTouches removeAllObjects];
+}
+
 - (void) dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [mCurrentTouches release];
     [super dealloc];
 }

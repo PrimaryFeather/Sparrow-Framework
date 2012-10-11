@@ -58,10 +58,10 @@
 - (void)setA:(float)a b:(float)b c:(float)c d:(float)d tx:(float)tx ty:(float)ty;
 
 /// Compares two matrices.
-- (BOOL)isEqual:(id)other;
+- (BOOL)isEquivalent:(SPMatrix *)other;
 
 /// Concatenates a matrix with the current matrix, combining the geometric effects of the two.
-- (void)concatMatrix:(SPMatrix*)matrix;
+- (void)concatMatrix:(SPMatrix *)matrix;
 
 /// Translates the matrix along the x and y axes.
 - (void)translateXBy:(float)dx yBy:(float)dy;

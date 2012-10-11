@@ -26,9 +26,9 @@
     // 'supportHighResolutions' enables retina display support. It will cause '@2x' textures to be 
     // loaded automatically.
     // 
-    // 'doubleOnPad' allows you to handle the iPad as if it were an iPhone with a retina display
-    // and a resolution of '384x512' points (half of '768x1024'). It will load '@2x' textures on 
-    // iPad 1 & 2. If the iPad has a retina screen, it will load '@4x' textures instead.
+    // 'doubleOnPad' allows you to handle the iPad as if it were an iPhone with a 3.5 inch retina
+    // display and a resolution of '384x512' points (half of '768x1024'). It will load '@2x'
+    // textures on iPad 1 & 2. If the iPad has a retina screen, it will load '@4x' textures instead.
     
     [SPStage setSupportHighResolutions:YES doubleOnPad:YES];
     
@@ -37,8 +37,8 @@
     // a landscape orientation in App-Info.plist.
     
     BOOL isPad = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
-    int width  = isPad ? 384 : 320;
-    int height = isPad ? 512 : 480;
+    int width  = isPad ? 384 : screenBounds.size.width;
+    int height = isPad ? 512 : screenBounds.size.height;
     
     SPView *sparrowView = [[SPView alloc] initWithFrame:screenBounds];
     sparrowView.multipleTouchEnabled = NO; // enable multitouch here if you need it.

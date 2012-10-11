@@ -118,19 +118,22 @@
     }
 }
 
-// Enable this method for the simplest possible universal app support: it will display a black
-// border around the iPhone (640x960) game when it is started on the iPad (768x1024). 
+// Enable this method for the simplest possible universal app support:
+// it will display a black border around the iPhone pixels (640x960) game when it is started
+// on the iPad (768x1024 or 1536*2048).
 // 
 // You'll also have to update the 'gameWidth' and 'gameHeight' variables at the top of this file: 
-// change their values to '320' and '480', respectively.
+// simply hard-code their values to '320' and '480', respectively.
 // 
 /*
 - (void)render:(SPRenderSupport *)support
 {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
+        float scale = [[UIScreen mainScreen] scale];
+        
         glEnable(GL_SCISSOR_TEST);
-        glScissor(64, 32, 640, 960);
+        glScissor(64*scale, 32*scale, 640*scale, 960*scale);
         [super render:support];
         glDisable(GL_SCISSOR_TEST);
     }
@@ -138,5 +141,4 @@
         [super render:support];
 }
 */
-
 @end

@@ -132,10 +132,10 @@
     return mWidth == 0 || mHeight == 0;
 }
 
-- (BOOL)isEqual:(id)other 
+- (BOOL)isEquivalent:(SPRectangle *)other
 {
     if (other == self) return YES;
-    else if (!other || ![other isKindOfClass:[self class]]) return NO;
+    else if (!other) return NO;
     else 
     {
         SPRectangle *rect = (SPRectangle*)other;

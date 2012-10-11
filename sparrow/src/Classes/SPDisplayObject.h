@@ -89,8 +89,10 @@
     float mAlpha;
     BOOL mVisible;
     BOOL mTouchable;
+    BOOL mOrientationChanged;
     
-    SPDisplayObjectContainer *mParent;    
+    SPDisplayObjectContainer *mParent;
+    SPMatrix *mTransformationMatrix;
     double mLastTouchTimestamp;
     NSString *mName;
 }

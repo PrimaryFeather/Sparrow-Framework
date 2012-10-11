@@ -32,10 +32,10 @@
 - (void)testInit
 {
     SPImage *image = [[SPImage alloc] init];
-    STAssertEqualObjects([SPPoint pointWithX:0 y:0], [image texCoordsOfVertex:0], @"wrong tex coords!");
-    STAssertEqualObjects([SPPoint pointWithX:1 y:0], [image texCoordsOfVertex:1], @"wrong tex coords!");    
-    STAssertEqualObjects([SPPoint pointWithX:0 y:1], [image texCoordsOfVertex:2], @"wrong tex coords!");    
-    STAssertEqualObjects([SPPoint pointWithX:1 y:1], [image texCoordsOfVertex:3], @"wrong tex coords!");
+    STAssertTrue([[SPPoint pointWithX:0 y:0] isEquivalent:[image texCoordsOfVertex:0]], @"wrong tex coords!");
+    STAssertTrue([[SPPoint pointWithX:1 y:0] isEquivalent:[image texCoordsOfVertex:1]], @"wrong tex coords!");
+    STAssertTrue([[SPPoint pointWithX:0 y:1] isEquivalent:[image texCoordsOfVertex:2]], @"wrong tex coords!");
+    STAssertTrue([[SPPoint pointWithX:1 y:1] isEquivalent:[image texCoordsOfVertex:3]], @"wrong tex coords!");
     [image release];    
 }
 
@@ -47,10 +47,10 @@
     [image setTexCoords:[SPPoint pointWithX:5 y:6] ofVertex:2];
     [image setTexCoords:[SPPoint pointWithX:7 y:8] ofVertex:3];    
     
-    STAssertEqualObjects([SPPoint pointWithX:1 y:2], [image texCoordsOfVertex:0], @"wrong tex coords!");    
-    STAssertEqualObjects([SPPoint pointWithX:3 y:4], [image texCoordsOfVertex:1], @"wrong tex coords!");    
-    STAssertEqualObjects([SPPoint pointWithX:5 y:6], [image texCoordsOfVertex:2], @"wrong tex coords!");    
-    STAssertEqualObjects([SPPoint pointWithX:7 y:8], [image texCoordsOfVertex:3], @"wrong tex coords!");
+    STAssertTrue([[SPPoint pointWithX:1 y:2] isEquivalent:[image texCoordsOfVertex:0]], @"wrong tex coords!");
+    STAssertTrue([[SPPoint pointWithX:3 y:4] isEquivalent:[image texCoordsOfVertex:1]], @"wrong tex coords!");
+    STAssertTrue([[SPPoint pointWithX:5 y:6] isEquivalent:[image texCoordsOfVertex:2]], @"wrong tex coords!");
+    STAssertTrue([[SPPoint pointWithX:7 y:8] isEquivalent:[image texCoordsOfVertex:3]], @"wrong tex coords!");
     [image release];    
 }
 
