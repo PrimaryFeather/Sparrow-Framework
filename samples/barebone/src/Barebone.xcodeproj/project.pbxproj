@@ -287,6 +287,7 @@
 				GCC_PREFIX_HEADER = "App-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "App-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = Barebone;
 			};
 			name = Debug;
@@ -299,6 +300,7 @@
 				GCC_PREFIX_HEADER = "App-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "App-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = Barebone;
 			};
 			name = Release;

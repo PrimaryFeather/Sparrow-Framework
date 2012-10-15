@@ -574,7 +574,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -583,7 +583,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

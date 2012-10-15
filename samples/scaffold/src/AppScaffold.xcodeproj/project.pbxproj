@@ -427,6 +427,7 @@
 				GCC_PREFIX_HEADER = "App-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "App-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = AppScaffold;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -440,6 +441,7 @@
 				GCC_PREFIX_HEADER = "App-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "App-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = AppScaffold;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
