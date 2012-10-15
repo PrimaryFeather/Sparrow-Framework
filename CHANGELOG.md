@@ -7,7 +7,7 @@ version 1.4 - 2012-10-10
 - added 'readjustSize:' method to SPImage
 - added 'fontName' parameter in 'registerBitmapFont' methods (thanks, tconkling!)
 - added iOS 5 rotation code (thanks, Brian!)
-- added support for iOS 5 in demo, scaffold, and barebone projects
+- added support for iOS 6 in demo, scaffold, and barebone projects
 - added support for fractions of SP_NATIVE_FONT_SIZE (e.g. *2, *0.5) for Bitmap Fonts
 - removed override of default architecture for Xcode 4.5 compatibility (thanks, theyonibomber!)
 - optimized 'containsChild:' method
