@@ -84,7 +84,8 @@
     float mPivotY;
     float mScaleX;
     float mScaleY;
-    float mRotationZ;
+    float mSkewX;
+    float mSkewY;
     float mAlpha;
     BOOL mVisible;
     BOOL mTouchable;
@@ -153,7 +154,17 @@
 @property (nonatomic, assign) float height;
 
 /// The rotation of the object in radians. (In Sparrow, all angles are measured in radians.)
+/// Since a rotation is an x and y skew, setting rotation is equivalent to setting 
+/// skewX and skewY to the same value. If skewX and skewY have different values, the
+/// object is not uniformly rotated, so the value returned by rotation will not be correct
+/// (Sparrow just returns the skewX value).
 @property (nonatomic, assign) float rotation;
+
+/// The x skew of the object in radians.
+@property (nonatomic, assign) float skewX;
+
+/// The y skew of the object in radians.
+@property (nonatomic, assign) float skewY;
 
 /// The opacity of the object. 0 = transparent, 1 = opaque.
 @property (nonatomic, assign) float alpha;

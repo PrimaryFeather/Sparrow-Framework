@@ -26,7 +26,8 @@
 @synthesize pivotY = mPivotY;
 @synthesize scaleX = mScaleX;
 @synthesize scaleY = mScaleY;
-@synthesize rotation = mRotationZ;
+@synthesize skewX = mSkewX;
+@synthesize skewY = mSkewY;
 @synthesize parent = mParent;
 @synthesize alpha = mAlpha;
 @synthesize visible = mVisible;
@@ -266,6 +267,30 @@
     if (actualHeight != 0.0f) self.scaleY = value / actualHeight;
 }
 
+- (void)setSkewX:(float)value
+{
+    // clamp between [-180 deg, +180 deg]
+    while (value < -PI) value += TWO_PI;
+    while (value >  PI) value -= TWO_PI;
+    if (value != mSkewX)
+    {
+        mSkewX = value;
+        mOrientationChanged = YES;
+    }
+}
+
+- (void)setSkewY:(float)value
+{
+    // clamp between [-180 deg, +180 deg]
+    while (value < -PI) value += TWO_PI;
+    while (value >  PI) value -= TWO_PI;
+    if (value != mSkewY)
+    {
+        mSkewY = value;
+        mOrientationChanged = YES;
+    }
+}
+
 - (void)setX:(float)value
 {
     if (value != mX)
@@ -320,13 +345,15 @@
     }
 }
 
+- (float)rotation
+{
+    // This is only meaningful if skewX == skewY
+    return mSkewX;
+}
+
 - (void)setRotation:(float)value
 {
-    // clamp between [-180 deg, +180 deg]
-    while (value < -PI) value += TWO_PI;
-    while (value >  PI) value -= TWO_PI;
-    mRotationZ = value;
-    mOrientationChanged = YES;
+    self.skewX = self.skewY = value;
 }
 
 - (void)setAlpha:(float)value
@@ -355,10 +382,10 @@
     {
         mOrientationChanged = NO;
         [mTransformationMatrix identity];
-    
+        
         if (mPivotX != 0.0f || mPivotY != 0.0f) [mTransformationMatrix translateXBy:-mPivotX yBy:-mPivotY];
         if (mScaleX != 1.0f || mScaleY != 1.0f) [mTransformationMatrix scaleXBy:mScaleX yBy:mScaleY];
-        if (mRotationZ != 0.0f)                 [mTransformationMatrix rotateBy:mRotationZ];
+        if (mSkewX != 0.0f || mSkewY != 0.0f)   [mTransformationMatrix skewXBy:mSkewX yBy:mSkewY];
         if (mX != 0.0f || mY != 0.0f)           [mTransformationMatrix translateXBy:mX yBy:mY];
     }
     

@@ -72,6 +72,9 @@
 /// Applies a uniform scaling transformation to the matrix.
 - (void)scaleBy:(float)scale;
 
+// Applies a skew transformation to the matrix (angle in RAD).
+- (void)skewXBy:(float)skewX yBy:(float)skewY;
+
 /// Applies a rotation on the matrix (angle in RAD).
 - (void)rotateBy:(float)angle;
 
