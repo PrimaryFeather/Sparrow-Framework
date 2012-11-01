@@ -15,7 +15,7 @@
 #import <OpenGLES/ES1/glext.h>
 
 #import "SPDisplayObject.h"
-#import "SPTexture.h"
+#import "SPSubTexture.h"
 #import "SPRenderSupport.h"
 
 typedef void (^SPDrawingBlock)();
@@ -52,12 +52,11 @@ typedef void (^SPDrawingBlock)();
  
 ------------------------------------------------------------------------------------------------- */
 
-@interface SPRenderTexture : SPTexture 
+@interface SPRenderTexture : SPSubTexture
 {
   @private
     GLuint mFramebuffer;
     BOOL   mFramebufferIsActive;
-    SPTexture *mTexture;
     SPRenderSupport *mRenderSupport;    
 }
 
