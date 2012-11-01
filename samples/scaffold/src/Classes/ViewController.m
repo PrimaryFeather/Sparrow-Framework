@@ -59,7 +59,7 @@
     NSArray *supportedOrientations =
     [[[NSBundle mainBundle] infoDictionary] objectForKey:@"UISupportedInterfaceOrientations"];
     
-    NSUInteger returnOrientations;
+    NSUInteger returnOrientations = 0;
     if ([supportedOrientations containsObject:@"UIInterfaceOrientationPortrait"])
         returnOrientations |= UIInterfaceOrientationMaskPortrait;
     if ([supportedOrientations containsObject:@"UIInterfaceOrientationLandscapeLeft"])
