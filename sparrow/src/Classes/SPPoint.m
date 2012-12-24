@@ -95,6 +95,20 @@
     return [result autorelease];
 }
 
+- (SPPoint *)rotateBy:(float)angle originX:(float)xc originY:(float)yc {
+    float xt = mX - xc;
+    float yt = mY - yc;
+    
+    float c = cosf(angle);
+    float s = sinf(angle);
+    
+    float xr = (xt * c - yt * s) + xc;
+    float yr = (xt * s + yt * c) + yc;
+    
+    SPPoint *result = [[SPPoint alloc] initWithX:xr y:yr];
+    return [result autorelease];
+}
+
 - (SPPoint *)normalize
 {
     if (mX == 0 && mY == 0)
