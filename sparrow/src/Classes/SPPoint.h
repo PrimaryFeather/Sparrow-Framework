@@ -56,6 +56,9 @@
 /// Rotates the point by the given angle (in radians, CCW) and returns the resulting point.
 - (SPPoint *)rotateBy:(float)angle;
 
+/// Rotates the point by the given angle (in rad), using an originX and Y (like pivot point) and returns the resulting point.
+- (SPPoint *)rotateBy:(float)angle originX:(float)xc originY:(float)yc;
+
 /// Returns a point that has the same direction but a length of one.
 - (SPPoint *)normalize;
 
