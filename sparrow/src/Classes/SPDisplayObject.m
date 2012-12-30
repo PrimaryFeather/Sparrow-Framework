@@ -322,9 +322,13 @@
 
 - (void)setRotation:(float)value
 {
-    // clamp between [-180 deg, +180 deg]
-    while (value < -PI) value += TWO_PI;
-    while (value >  PI) value -= TWO_PI;
+    // move to equivalent value in range [0 deg, 360 deg] without a loop
+    value = fmod(value, TWO_PI);
+    
+    // move to [-180 deg, +180 deg]
+    if (value < -PI) value += TWO_PI;
+    if (value >  PI) value -= TWO_PI;
+    
     mRotationZ = value;
     mOrientationChanged = YES;
 }
