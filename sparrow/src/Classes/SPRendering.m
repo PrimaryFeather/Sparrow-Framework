@@ -77,7 +77,11 @@
     [support bindTexture:nil];
     
     for (int i=0; i<4; ++i)
-        colors[i] = [support convertColor:mVertexColors[i] alpha:alpha];
+    {
+        uint vertexColor = mVertexColors[i];
+        float vertexAlpha = (vertexColor >> 24) / 255.0f * alpha;
+        colors[i] = [support convertColor:vertexColor alpha:vertexAlpha];
+    }
     
     glEnableClientState(GL_VERTEX_ARRAY);
     glEnableClientState(GL_COLOR_ARRAY);    
@@ -106,7 +110,11 @@
     [mTexture adjustTextureCoordinates:mTexCoords saveAtTarget:texCoords numVertices:4];          
     
     for (int i=0; i<4; ++i)
-        colors[i] = [support convertColor:mVertexColors[i] alpha:alpha];    
+    {
+        uint vertexColor = mVertexColors[i];
+        float vertexAlpha = (vertexColor >> 24) / 255.0f * alpha;
+        colors[i] = [support convertColor:vertexColor alpha:vertexAlpha];
+    }
     
     SPRectangle *frame = mTexture.frame;
     if (frame)

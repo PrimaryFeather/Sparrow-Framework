@@ -80,6 +80,12 @@
 /// Returns the color of a vertex.
 - (uint)colorOfVertex:(int)vertexID;
 
+// Sets the alpha value of a vertex.
+- (void)setAlpha:(float)alpha ofVertex:(int)vertexID;
+
+// Returns the alpha value of a vertex.
+- (float)alphaOfVertex:(int)vertexID;
+
 /// Factory method.
 + (SPQuad*)quadWithWidth:(float)width height:(float)height;
 

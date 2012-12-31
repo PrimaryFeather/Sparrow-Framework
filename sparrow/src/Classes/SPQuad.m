@@ -25,7 +25,8 @@
         mVertexCoords[6] = width;
         mVertexCoords[7] = height;
         
-        self.color = color;
+        mVertexColors[0] = mVertexColors[1] = mVertexColors[2] = mVertexColors[3] =
+            0xff000000 | (color & 0xffffff);
     }
     return self;    
 }
@@ -85,7 +86,7 @@
     if (vertexID < 0 || vertexID > 3)
         [NSException raise:SP_EXC_INDEX_OUT_OF_BOUNDS format:@"invalid vertex id"];
     
-    mVertexColors[vertexID] = color;
+    mVertexColors[vertexID] = (mVertexColors[vertexID] & 0xff000000) | (color & 0xffffff);
 }
 
 - (uint)colorOfVertex:(int)vertexID
@@ -93,7 +94,7 @@
     if (vertexID < 0 || vertexID > 3)
         [NSException raise:SP_EXC_INDEX_OUT_OF_BOUNDS format:@"invalid vertex id"];
     
-    return mVertexColors[vertexID];    
+    return (mVertexColors[vertexID] & 0xffffff);
 }
 
 - (void)setColor:(uint)color
@@ -104,6 +105,21 @@
 - (uint)color
 {
     return [self colorOfVertex:0];
+}
+
+- (void)setAlpha:(float)alpha ofVertex:(int)vertexID
+{
+    if (vertexID < 0 || vertexID > 3)
+        [NSException raise:SP_EXC_INDEX_OUT_OF_BOUNDS format:@"invalid vertex id"];
+
+    unsigned char alphaBytes = (unsigned char)(SP_CLAMP(alpha, 0.0f, 1.0f) * 255.0f);
+    mVertexColors[vertexID] = (alphaBytes << 24) | (mVertexColors[vertexID] & 0xffffff);
+}
+
+- (float)alphaOfVertex:(int)vertexID
+{
+    unsigned char alphaBytes = mVertexColors[vertexID] >> 24;
+    return alphaBytes / 255.0f;
 }
 
 + (SPQuad*)quadWithWidth:(float)width height:(float)height
