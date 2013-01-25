@@ -14,7 +14,7 @@
 {
     if ((self = [super init]))
     {
-        mSparrowView = [sparrowView retain];
+        mSparrowView = sparrowView;
         NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
         
         [nc addObserver:self selector:@selector(onApplicationDidBecomeActive:) 
@@ -31,11 +31,6 @@
     return nil;
 }
 
-- (void)dealloc
-{
-    [mSparrowView release];
-    [super dealloc];
-}
 
 - (void)didReceiveMemoryWarning
 {
@@ -51,7 +46,7 @@
 - (void)loadView
 {
     CGRect screenBounds = [UIScreen mainScreen].bounds;
-    self.view = [[[SPOverlayView alloc] initWithFrame:screenBounds] autorelease];
+    self.view = [[SPOverlayView alloc] initWithFrame:screenBounds];
 }
 
 - (NSUInteger)supportedInterfaceOrientations

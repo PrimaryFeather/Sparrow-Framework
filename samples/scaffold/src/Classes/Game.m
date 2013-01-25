@@ -38,11 +38,8 @@
 - (void)dealloc
 {
     // release any resources here
-    
     [Media releaseAtlas];
     [Media releaseSound];
-    
-    [super dealloc];
 }
 
 - (void)setup
@@ -113,20 +110,6 @@
     // the "App-Info.plist" file and choose any landscape orientation.
     
     [self addEventListener:@selector(onResize:) atObject:self forType:SP_EVENT_TYPE_RESIZE];
-    
-    
-    // We release the objects, because we don't keep any reference to them.
-    // (Their parent display objects will take care of them.)
-    // 
-    // However, if you don't want to bother with memory management, feel free to convert this
-    // project to ARC (Automatic Reference Counting) by clicking on 
-    // "Edit - Refactor - Convert to Objective-C ARC".
-    // Those lines will then be removed from the project.
-    
-    [background release];
-    [image release];
-    [textField release];
-    
     
     // Per default, this project compiles as a universal application. To change that, enter the 
     // project info screen, and in the "Build"-tab, find the setting "Targeted device family".

@@ -8,13 +8,6 @@
 
 @implementation AppDelegate
 
-- (void)dealloc 
-{
-    [mViewController release];
-    [mWindow release];
-    [super dealloc];
-}
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions 
 {
     CGRect screenBounds = [UIScreen mainScreen].bounds;
@@ -47,9 +40,6 @@
     
     GameController *gameController = [[GameController alloc] initWithWidth:width height:height];
     sparrowView.stage = gameController;
-    
-    [gameController release];
-    [sparrowView release];
     
     // ---------------------------------------------------------------------------------------------
     

@@ -21,7 +21,6 @@ static NSMutableDictionary *sounds = NULL;
 
 + (void)releaseAtlas
 {
-    [atlas release];    
     atlas = nil;
 }
 
@@ -58,14 +57,12 @@ static NSMutableDictionary *sounds = NULL;
         {
             SPSound *sound = [[SPSound alloc] initWithContentsOfFile:filename];            
             [sounds setObject:sound forKey:filename];
-            [sound release];
         }
     }
 }
 
 + (void)releaseSound
 {
-    [sounds release];
     sounds = nil;
     
     [SPAudioEngine stop];    
