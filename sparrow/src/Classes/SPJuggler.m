@@ -64,11 +64,6 @@
     [mObjects removeAllObjects];
 }
 
-- (void)removeTweensWithTarget:(id)object
-{
-    [self removeObjectsWithTarget:object];
-}
-
 - (void)removeObjectsWithTarget:(id)object
 {
     SEL targetSel = @selector(target);

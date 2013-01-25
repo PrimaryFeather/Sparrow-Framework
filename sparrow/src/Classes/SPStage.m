@@ -249,19 +249,9 @@ static NSMutableArray *stages = NULL;
     return doubleOnPad;
 }
 
-// DEPRECATED
-+ (void)setContentScaleFactor:(float)value
-{
-    if (value != contentScaleFactor)
-    {
-        contentScaleFactor = value;
-        [SPStage updateNativeViews];
-    }
-}
-
 + (float)contentScaleFactor
 {
-    if (supportHighResolutions && [UIScreen instancesRespondToSelector:@selector(scale)])
+    if (supportHighResolutions)
     {
         if (contentScaleFactor == -1)
         {

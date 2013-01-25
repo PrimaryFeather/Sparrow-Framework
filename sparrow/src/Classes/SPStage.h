@@ -95,10 +95,6 @@
 /// Determines if pad devices use twice the resolution.
 + (BOOL)doubleResolutionsOnPad;
 
-/// Sets the content scale factor, which determines the relationship between points and pixels.
-/// DEPRECATED! Use `doubleResolutionsOnPad` instead.
-+ (void)setContentScaleFactor:(float)value SP_DEPRECATED; 
-
 /// The current content scale factor.
 + (float)contentScaleFactor;
 

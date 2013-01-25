@@ -67,10 +67,6 @@
 /// Removes all objects at once.
 - (void)removeAllObjects;
 
-/// Removes all objects of type `SPTween` that have a certain target.
-/// DEPRECATED! Use `removeObjectsWithTarget` instead.
-- (void)removeTweensWithTarget:(id)object SP_DEPRECATED;
-
 /// Removes all objects with a `target` property referencing a certain object (e.g. tweens or
 /// delayed invocations).
 - (void)removeObjectsWithTarget:(id)object;
