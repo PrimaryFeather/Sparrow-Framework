@@ -76,10 +76,10 @@ typedef enum
 - (id)initWithTarget:(id)target time:(double)time;
 
 /// Factory method.
-+ (SPTween *)tweenWithTarget:(id)target time:(double)time transition:(NSString *)transition;
++ (id)tweenWithTarget:(id)target time:(double)time transition:(NSString *)transition;
 
 /// Factory method.
-+ (SPTween *)tweenWithTarget:(id)target time:(double)time;
++ (id)tweenWithTarget:(id)target time:(double)time;
 
 /// -------------
 /// @name Methods

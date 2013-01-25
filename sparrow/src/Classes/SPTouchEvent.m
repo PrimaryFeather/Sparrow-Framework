@@ -81,9 +81,9 @@
     return touchesFound;    
 }
 
-+ (SPTouchEvent*)eventWithType:(NSString*)type touches:(NSSet*)touches
++ (id)eventWithType:(NSString*)type touches:(NSSet*)touches
 {
-    return [[SPTouchEvent alloc] initWithType:type touches:touches];
+    return [[self alloc] initWithType:type touches:touches];
 }
 
 @end

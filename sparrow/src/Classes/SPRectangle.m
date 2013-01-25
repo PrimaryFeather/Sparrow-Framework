@@ -155,9 +155,9 @@
     return [NSString stringWithFormat:@"(x: %f, y: %f, width: %f, height: %f)", mX, mY, mWidth, mHeight];
 }
 
-+ (SPRectangle*)rectangleWithX:(float)x y:(float)y width:(float)width height:(float)height
++ (id)rectangleWithX:(float)x y:(float)y width:(float)width height:(float)height
 {
-    return [[SPRectangle alloc] initWithX:x y:y width:width height:height];
+    return [[self alloc] initWithX:x y:y width:width height:height];
 }
 
 #pragma mark NSCopying

@@ -14,9 +14,9 @@
 
 @implementation SPSprite
 
-+ (SPSprite*)sprite
++ (id)sprite
 {
-    return [[SPSprite alloc] init];
+    return [[self alloc] init];
 }
 
 @end

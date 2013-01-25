@@ -27,13 +27,13 @@
 - (id)initWithPolarLength:(float)length angle:(float)angle;
 
 /// Factory method.
-+ (SPPoint *)pointWithPolarLength:(float)length angle:(float)angle;
++ (id)pointWithPolarLength:(float)length angle:(float)angle;
 
 /// Factory method.
-+ (SPPoint *)pointWithX:(float)x y:(float)y;
++ (id)pointWithX:(float)x y:(float)y;
 
 /// Factory method.
-+ (SPPoint *)point;
++ (id)point;
 
 /// -------------
 /// @name Methods

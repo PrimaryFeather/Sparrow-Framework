@@ -123,14 +123,14 @@
     // the overhead seems to outweigh the benefit. The "glDrawArrays"-approach is faster here.
 }
 
-+ (SPImage*)imageWithTexture:(SPTexture*)texture
++ (id)imageWithTexture:(SPTexture*)texture
 {
-    return [[SPImage alloc] initWithTexture:texture];
+    return [[self alloc] initWithTexture:texture];
 }
 
-+ (SPImage*)imageWithContentsOfFile:(NSString*)path
++ (id)imageWithContentsOfFile:(NSString*)path
 {
-    return [[SPImage alloc] initWithContentsOfFile:path];
+    return [[self alloc] initWithContentsOfFile:path];
 }
 
 @end

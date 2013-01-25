@@ -50,10 +50,10 @@
 - (id)initWithType:(NSString*)type;
 
 /// Factory method.
-+ (SPEvent*)eventWithType:(NSString*)type bubbles:(BOOL)bubbles;
++ (id)eventWithType:(NSString*)type bubbles:(BOOL)bubbles;
 
 /// Factory method.
-+ (SPEvent*)eventWithType:(NSString*)type;
++ (id)eventWithType:(NSString*)type;
 
 /// -------------
 /// @name Methods

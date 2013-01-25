@@ -124,9 +124,9 @@
     return mBaseTexture.scale;
 }
 
-+ (SPSubTexture*)textureWithRegion:(SPRectangle*)region ofTexture:(SPTexture*)texture
++ (id)textureWithRegion:(SPRectangle*)region ofTexture:(SPTexture*)texture
 {
-    return [[SPSubTexture alloc] initWithRegion:region ofTexture:texture];
+    return [[self alloc] initWithRegion:region ofTexture:texture];
 }
 
 @end

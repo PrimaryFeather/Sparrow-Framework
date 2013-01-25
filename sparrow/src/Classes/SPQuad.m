@@ -151,19 +151,19 @@
     glDisableClientState(GL_COLOR_ARRAY);
 }
 
-+ (SPQuad*)quadWithWidth:(float)width height:(float)height
++ (id)quadWithWidth:(float)width height:(float)height
 {
-    return [[SPQuad alloc] initWithWidth:width height:height];
+    return [[self alloc] initWithWidth:width height:height];
 }
 
-+ (SPQuad*)quadWithWidth:(float)width height:(float)height color:(uint)color
++ (id)quadWithWidth:(float)width height:(float)height color:(uint)color
 {
-    return [[SPQuad alloc] initWithWidth:width height:height color:color];
+    return [[self alloc] initWithWidth:width height:height color:color];
 }
 
-+ (SPQuad*)quad
++ (id)quad
 {
-    return [[SPQuad alloc] init];
+    return [[self alloc] init];
 }
 
 @end

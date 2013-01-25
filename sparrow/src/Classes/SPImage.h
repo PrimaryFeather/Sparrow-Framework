@@ -49,10 +49,10 @@
 - (id)initWithContentsOfFile:(NSString*)path;
 
 /// Factory method.
-+ (SPImage*)imageWithTexture:(SPTexture*)texture;
++ (id)imageWithTexture:(SPTexture*)texture;
 
 /// Factory method.
-+ (SPImage*)imageWithContentsOfFile:(NSString*)path;
++ (id)imageWithContentsOfFile:(NSString*)path;
 
 /// -------------
 /// @name Methods

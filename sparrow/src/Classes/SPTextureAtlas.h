@@ -72,7 +72,7 @@
 - (id)initWithTexture:(SPTexture *)texture;
 
 /// Factory Method.
-+ (SPTextureAtlas *)atlasWithContentsOfFile:(NSString *)path;
++ (id)atlasWithContentsOfFile:(NSString *)path;
 
 /// -------------
 /// @name Methods

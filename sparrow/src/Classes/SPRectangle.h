@@ -26,7 +26,7 @@
 - (id)initWithX:(float)x y:(float)y width:(float)width height:(float)height;
 
 /// Factory method.
-+ (SPRectangle*)rectangleWithX:(float)x y:(float)y width:(float)width height:(float)height;
++ (id)rectangleWithX:(float)x y:(float)y width:(float)width height:(float)height;
 
 /// -------------
 /// @name Methods

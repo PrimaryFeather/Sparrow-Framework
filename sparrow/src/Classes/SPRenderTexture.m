@@ -170,14 +170,14 @@
      }];
 }
 
-+ (SPRenderTexture *)textureWithWidth:(float)width height:(float)height
++ (id)textureWithWidth:(float)width height:(float)height
 {
-    return [[SPRenderTexture alloc] initWithWidth:width height:height];    
+    return [[self alloc] initWithWidth:width height:height];    
 }
 
-+ (SPRenderTexture *)textureWithWidth:(float)width height:(float)height fillColor:(uint)argb
++ (id)textureWithWidth:(float)width height:(float)height fillColor:(uint)argb
 {
-    return [[SPRenderTexture alloc] initWithWidth:width height:height fillColor:argb];
+    return [[self alloc] initWithWidth:width height:height fillColor:argb];
 }
 
 @end

@@ -38,9 +38,9 @@
     return [self initWithType:type bubbles:bubbles passedTime:0.0f];
 }
 
-+ (SPEnterFrameEvent*)eventWithType:(NSString*)type passedTime:(double)seconds
++ (id)eventWithType:(NSString*)type passedTime:(double)seconds
 {
-    return [[SPEnterFrameEvent alloc] initWithType:type passedTime:seconds];
+    return [[self alloc] initWithType:type passedTime:seconds];
 }
 
 @end

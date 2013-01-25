@@ -58,14 +58,14 @@
     mStopsPropagation = YES;
 }
 
-+ (SPEvent*)eventWithType:(NSString*)type bubbles:(BOOL)bubbles
++ (id)eventWithType:(NSString*)type bubbles:(BOOL)bubbles
 {
-    return [[SPEvent alloc] initWithType:type bubbles:bubbles];
+    return [[self alloc] initWithType:type bubbles:bubbles];
 }
 
-+ (SPEvent*)eventWithType:(NSString*)type
++ (id)eventWithType:(NSString*)type
 {
-    return [[SPEvent alloc] initWithType:type];
+    return [[self alloc] initWithType:type];
 }
 
 

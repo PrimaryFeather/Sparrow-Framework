@@ -52,13 +52,13 @@
 - (id)initWithUpState:(SPTexture*)upState;
 
 /// Factory method.
-+ (SPButton*)buttonWithUpState:(SPTexture*)upState downState:(SPTexture*)downState;
++ (id)buttonWithUpState:(SPTexture*)upState downState:(SPTexture*)downState;
 
 /// Factory method.
-+ (SPButton*)buttonWithUpState:(SPTexture*)upState text:(NSString*)text;
++ (id)buttonWithUpState:(SPTexture*)upState text:(NSString*)text;
 
 /// Factory method.
-+ (SPButton*)buttonWithUpState:(SPTexture*)upState;
++ (id)buttonWithUpState:(SPTexture*)upState;
 
 /// ----------------
 /// @name Properties

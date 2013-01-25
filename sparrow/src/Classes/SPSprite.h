@@ -43,6 +43,6 @@
 @interface SPSprite : SPDisplayObjectContainer 
 
 /// Create a new, empty sprite.
-+ (SPSprite*)sprite;
++ (id)sprite;
 
 @end

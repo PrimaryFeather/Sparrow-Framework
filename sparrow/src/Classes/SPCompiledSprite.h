@@ -51,6 +51,6 @@
 - (BOOL)compile;
 
 /// Factory method.
-+ (SPCompiledSprite *)sprite;
++ (id)sprite;
 
 @end

@@ -78,9 +78,9 @@
     return mCurrentTime >= mTotalTime;
 }
 
-+ (SPDelayedInvocation*)invocationWithTarget:(id)target delay:(double)time
++ (id)invocationWithTarget:(id)target delay:(double)time
 {
-    return [[SPDelayedInvocation alloc] initWithTarget:target delay:time];
+    return [[self alloc] initWithTarget:target delay:time];
 }
 
 @end

@@ -121,16 +121,16 @@ typedef void (^SPTextureDrawingBlock)(CGContextRef context);
 - (id)initWithRegion:(SPRectangle*)region ofTexture:(SPTexture*)texture;
 
 /// Factory method.
-+ (SPTexture *)textureWithContentsOfFile:(NSString*)path;
++ (id)textureWithContentsOfFile:(NSString*)path;
 
 /// Factory method.
-+ (SPTexture *)textureWithRegion:(SPRectangle *)region ofTexture:(SPTexture *)texture;
++ (id)textureWithRegion:(SPRectangle *)region ofTexture:(SPTexture *)texture;
 
 /// Factory method.
-+ (SPTexture *)textureWithWidth:(float)width height:(float)height draw:(SPTextureDrawingBlock)drawingBlock;
++ (id)textureWithWidth:(float)width height:(float)height draw:(SPTextureDrawingBlock)drawingBlock;
 
 /// Factory method. Creates an empty (white) texture.
-+ (SPTexture *)emptyTexture;
++ (id)emptyTexture;
 
 /// -------------
 /// @name Methods

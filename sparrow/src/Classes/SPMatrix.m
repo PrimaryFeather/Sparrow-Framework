@@ -142,14 +142,14 @@ static void setValues(SPMatrix *matrix, float a, float b, float c, float d, floa
             mA, mB, mC, mD, mTx, mTy];
 }
 
-+ (SPMatrix*)matrixWithA:(float)a b:(float)b c:(float)c d:(float)d tx:(float)tx ty:(float)ty
++ (id)matrixWithA:(float)a b:(float)b c:(float)c d:(float)d tx:(float)tx ty:(float)ty
 {
-    return [[SPMatrix alloc] initWithA:a b:b c:c d:d tx:tx ty:ty];
+    return [[self alloc] initWithA:a b:b c:c d:d tx:tx ty:ty];
 }
 
-+ (SPMatrix*)matrixWithIdentity
++ (id)matrixWithIdentity
 {
-    return [[SPMatrix alloc] init];
+    return [[self alloc] init];
 }
 
 #pragma mark NSCopying

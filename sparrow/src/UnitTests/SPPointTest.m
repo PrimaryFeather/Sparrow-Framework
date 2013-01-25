@@ -174,7 +174,7 @@
 - (void)testIsOrigin
 {
     SPPoint *point = [SPPoint point];
-    STAssertTrue([SPPoint point].isOrigin, @"point not indicated as being in the origin");
+    STAssertTrue(point.isOrigin, @"point not indicated as being in the origin");
     
     point.x = 1.0f;
     STAssertFalse(point.isOrigin, @"point wrongly indicated as being in the origin");

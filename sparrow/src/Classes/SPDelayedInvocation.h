@@ -33,7 +33,7 @@
 - (id)initWithTarget:(id)target delay:(double)time;
 
 /// Factory method.
-+ (SPDelayedInvocation*)invocationWithTarget:(id)target delay:(double)time;
++ (id)invocationWithTarget:(id)target delay:(double)time;
 
 /// ----------------
 /// @name Properties

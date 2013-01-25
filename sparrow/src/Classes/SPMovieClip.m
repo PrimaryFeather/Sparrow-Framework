@@ -230,14 +230,14 @@
         [NSException raise:SP_EXC_INDEX_OUT_OF_BOUNDS format:@"invalid frame index"];    
 }
 
-+ (SPMovieClip *)movieWithFrame:(SPTexture *)texture fps:(float)fps
++ (id)movieWithFrame:(SPTexture *)texture fps:(float)fps
 {
-    return [[SPMovieClip alloc] initWithFrame:texture fps:fps];
+    return [[self alloc] initWithFrame:texture fps:fps];
 }
 
-+ (SPMovieClip *)movieWithFrames:(NSArray *)textures fps:(float)fps
++ (id)movieWithFrames:(NSArray *)textures fps:(float)fps
 {
-    return [[SPMovieClip alloc] initWithFrames:textures fps:fps];
+    return [[self alloc] initWithFrames:textures fps:fps];
 }
 
 #pragma mark SPAnimatable

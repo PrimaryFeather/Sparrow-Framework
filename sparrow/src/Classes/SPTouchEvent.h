@@ -69,7 +69,7 @@
 - (id)initWithType:(NSString*)type touches:(NSSet*)touches;
 
 /// Factory method.
-+ (SPTouchEvent*)eventWithType:(NSString*)type touches:(NSSet*)touches;
++ (id)eventWithType:(NSString*)type touches:(NSSet*)touches;
 
 /// -------------
 /// @name Methods

@@ -50,10 +50,10 @@
 - (id)initWithFrames:(NSArray *)textures fps:(float)fps;
 
 /// Factory method.
-+ (SPMovieClip *)movieWithFrame:(SPTexture *)texture fps:(float)fps;
++ (id)movieWithFrame:(SPTexture *)texture fps:(float)fps;
 
 /// Factory method.
-+ (SPMovieClip *)movieWithFrames:(NSArray *)textures fps:(float)fps;
++ (id)movieWithFrames:(NSArray *)textures fps:(float)fps;
 
 /// --------------------------------
 /// @name Frame Manipulation Methods

@@ -217,21 +217,21 @@ static NSMutableDictionary *bitmapFonts = nil;
 	}
 }
 
-+ (SPTextField*)textFieldWithWidth:(float)width height:(float)height text:(NSString*)text 
++ (id)textFieldWithWidth:(float)width height:(float)height text:(NSString*)text
                           fontName:(NSString*)name fontSize:(float)size color:(uint)color
 {
-    return [[SPTextField alloc] initWithWidth:width height:height text:text fontName:name 
+    return [[self alloc] initWithWidth:width height:height text:text fontName:name
                                      fontSize:size color:color];
 }
 
-+ (SPTextField*)textFieldWithWidth:(float)width height:(float)height text:(NSString*)text
++ (id)textFieldWithWidth:(float)width height:(float)height text:(NSString*)text
 {
-    return [[SPTextField alloc] initWithWidth:width height:height text:text];
+    return [[self alloc] initWithWidth:width height:height text:text];
 }
 
-+ (SPTextField*)textFieldWithText:(NSString*)text
++ (id)textFieldWithText:(NSString*)text
 {
-    return [[SPTextField alloc] initWithText:text];
+    return [[self alloc] initWithText:text];
 }
 
 + (NSString *)registerBitmapFontFromFile:(NSString*)path texture:(SPTexture *)texture name:(NSString *)fontName

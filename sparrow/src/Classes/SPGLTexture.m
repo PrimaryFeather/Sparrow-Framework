@@ -206,9 +206,9 @@
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, minFilter);
 }
 
-+ (SPGLTexture*)textureWithData:(const void *)imgData properties:(SPTextureProperties)properties
++ (id)textureWithData:(const void *)imgData properties:(SPTextureProperties)properties
 {
-    return [[SPGLTexture alloc] initWithData:imgData properties:properties];
+    return [[self alloc] initWithData:imgData properties:properties];
 }
 
 - (void)dealloc

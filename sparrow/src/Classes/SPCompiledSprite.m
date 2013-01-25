@@ -88,9 +88,9 @@
     return [super init];
 }
 
-+ (SPCompiledSprite *)sprite
++ (id)sprite
 {
-    return [[SPCompiledSprite alloc] init];
+    return [[self alloc] init];
 }
 
 - (void)dealloc

@@ -317,24 +317,24 @@ enum PVRPixelType
     }
 }
 
-+ (SPTexture *)emptyTexture
++ (id)emptyTexture
 {
     return [[SPGLTexture alloc] init];
 }
 
-+ (SPTexture *)textureWithContentsOfFile:(NSString *)path
++ (id)textureWithContentsOfFile:(NSString *)path
 {
-    return [[SPTexture alloc] initWithContentsOfFile:path];
+    return [[self alloc] initWithContentsOfFile:path];
 }
 
-+ (SPTexture *)textureWithRegion:(SPRectangle *)region ofTexture:(SPTexture *)texture
++ (id)textureWithRegion:(SPRectangle *)region ofTexture:(SPTexture *)texture
 {
-    return [[SPTexture alloc] initWithRegion:region ofTexture:texture];
+    return [[self alloc] initWithRegion:region ofTexture:texture];
 }
 
-+ (SPTexture *)textureWithWidth:(float)width height:(float)height draw:(SPTextureDrawingBlock)drawingBlock
++ (id)textureWithWidth:(float)width height:(float)height draw:(SPTextureDrawingBlock)drawingBlock
 {
-    return [[SPTexture alloc] initWithWidth:width height:height draw:drawingBlock];
+    return [[self alloc] initWithWidth:width height:height draw:drawingBlock];
 }
 
 - (void)adjustTextureCoordinates:(const float *)texCoords saveAtTarget:(float *)targetTexCoords 

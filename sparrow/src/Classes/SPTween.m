@@ -185,14 +185,14 @@ typedef float (*FnPtrTransition) (id, SEL, float);
     mDelay = delay;
 }
 
-+ (SPTween*)tweenWithTarget:(id)target time:(double)time transition:(NSString*)transition
++ (id)tweenWithTarget:(id)target time:(double)time transition:(NSString*)transition
 {
-    return [[SPTween alloc] initWithTarget:target time:time transition:transition];
+    return [[self alloc] initWithTarget:target time:time transition:transition];
 }
 
-+ (SPTween*)tweenWithTarget:(id)target time:(double)time
++ (id)tweenWithTarget:(id)target time:(double)time
 {
-    return [[SPTween alloc] initWithTarget:target time:time];
+    return [[self alloc] initWithTarget:target time:time];
 }
 
 @end

@@ -40,10 +40,10 @@
 - (id)init;
 
 /// Factory method.
-+ (SPMatrix*)matrixWithA:(float)a b:(float)b c:(float)c d:(float)d tx:(float)tx ty:(float)ty;
++ (id)matrixWithA:(float)a b:(float)b c:(float)c d:(float)d tx:(float)tx ty:(float)ty;
 
 /// Factory method.
-+ (SPMatrix*)matrixWithIdentity;
++ (id)matrixWithIdentity;
 
 /// -------------
 /// @name Methods

@@ -61,7 +61,7 @@ typedef struct
 - (id)initWithData:(const void *)imgData properties:(SPTextureProperties)properties;
 
 /// Factory method.
-+ (SPGLTexture*)textureWithData:(const void *)imgData properties:(SPTextureProperties)properties;
++ (id)textureWithData:(const void *)imgData properties:(SPTextureProperties)properties;
 
 /// ----------------
 /// @name Properties

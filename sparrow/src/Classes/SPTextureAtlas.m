@@ -173,9 +173,9 @@
     [mTextureFrames  removeObjectForKey:name];
 }
 
-+ (SPTextureAtlas *)atlasWithContentsOfFile:(NSString *)path
++ (id)atlasWithContentsOfFile:(NSString *)path
 {
-    return [[SPTextureAtlas alloc] initWithContentsOfFile:path];
+    return [[self alloc] initWithContentsOfFile:path];
 }
 
 @end

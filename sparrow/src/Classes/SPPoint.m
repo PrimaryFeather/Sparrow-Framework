@@ -136,25 +136,25 @@
                              y:invRatio * p1->mY + ratio * p2->mY];
 }
 
-+ (SPPoint *)pointWithPolarLength:(float)length angle:(float)angle
-{
-    return [[SPPoint alloc] initWithPolarLength:length angle:angle];
-}
-
 + (float)angleBetweenPoint:(SPPoint *)p1 andPoint:(SPPoint *)p2
 {
     float cos = [p1 dot:p2] / (p1.length * p2.length);
     return cos >= 1.0f ? 0.0f : acosf(cos);
 }
 
-+ (SPPoint *)pointWithX:(float)x y:(float)y
++ (id)pointWithPolarLength:(float)length angle:(float)angle
 {
-    return [[SPPoint alloc] initWithX:x y:y];
+    return [[self alloc] initWithPolarLength:length angle:angle];
 }
 
-+ (SPPoint*)point
++ (id)pointWithX:(float)x y:(float)y
 {
-    return [[SPPoint alloc] init];
+    return [[self alloc] initWithX:x y:y];
+}
+
++ (id)point
+{
+    return [[self alloc] init];
 }
 
 #pragma mark NSCopying

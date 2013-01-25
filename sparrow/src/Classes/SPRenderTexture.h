@@ -68,10 +68,10 @@ typedef void (^SPDrawingBlock)();
 - (id)initWithWidth:(float)width height:(float)height fillColor:(uint)argb scale:(float)scale;
 
 /// Factory method.
-+ (SPRenderTexture *)textureWithWidth:(float)width height:(float)height;
++ (id)textureWithWidth:(float)width height:(float)height;
 
 /// Factory method.
-+ (SPRenderTexture *)textureWithWidth:(float)width height:(float)height fillColor:(uint)argb;
++ (id)textureWithWidth:(float)width height:(float)height fillColor:(uint)argb;
 
 /// -------------
 /// @name Methods

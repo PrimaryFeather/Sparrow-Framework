@@ -101,14 +101,14 @@ typedef enum
 - (id)initWithText:(NSString *)text;
 
 /// Factory method.
-+ (SPTextField *)textFieldWithWidth:(float)width height:(float)height text:(NSString*)text 
++ (id)textFieldWithWidth:(float)width height:(float)height text:(NSString*)text
                           fontName:(NSString*)name fontSize:(float)size color:(uint)color;
 
 /// Factory method.
-+ (SPTextField *)textFieldWithWidth:(float)width height:(float)height text:(NSString*)text;
++ (id)textFieldWithWidth:(float)width height:(float)height text:(NSString*)text;
 
 /// Factory method.
-+ (SPTextField *)textFieldWithText:(NSString *)text;
++ (id)textFieldWithText:(NSString *)text;
 
 /// -------------
 /// @name Methods

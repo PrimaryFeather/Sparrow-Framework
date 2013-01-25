@@ -55,7 +55,8 @@
 /// Starts playback of the sound.
 - (void)play;
 
-/// Creates an audio channel that gives you more control over playback. Don't forget to retain it!
+/// Creates an audio channel that gives you more control over playback. Make sure to save
+/// a reference to the returned object, because the sound will immediately stop when it's released.
 - (SPSoundChannel *)createChannel;
 
 /// ----------------

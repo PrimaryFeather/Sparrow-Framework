@@ -283,19 +283,19 @@
     return mBackground.height;
 }
  
-+ (SPButton*)buttonWithUpState:(SPTexture*)upState downState:(SPTexture*)downState
++ (id)buttonWithUpState:(SPTexture*)upState downState:(SPTexture*)downState
 {
-    return [[SPButton alloc] initWithUpState:upState downState:downState];
+    return [[self alloc] initWithUpState:upState downState:downState];
 }
 
-+ (SPButton*)buttonWithUpState:(SPTexture*)upState text:(NSString*)text
++ (id)buttonWithUpState:(SPTexture*)upState text:(NSString*)text
 {
-    return [[SPButton alloc] initWithUpState:upState text:text];
+    return [[self alloc] initWithUpState:upState text:text];
 }
 
-+ (SPButton*)buttonWithUpState:(SPTexture*)upState
++ (id)buttonWithUpState:(SPTexture*)upState
 {
-    return [[SPButton alloc] initWithUpState:upState];
+    return [[self alloc] initWithUpState:upState];
 }
 
 - (void)dealloc

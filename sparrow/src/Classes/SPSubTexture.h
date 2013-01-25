@@ -31,7 +31,7 @@
 - (id)initWithRegion:(SPRectangle*)region ofTexture:(SPTexture*)texture;
 
 /// Factory method.
-+ (SPSubTexture*)textureWithRegion:(SPRectangle*)region ofTexture:(SPTexture*)texture;
++ (id)textureWithRegion:(SPRectangle*)region ofTexture:(SPTexture*)texture;
 
 /// ----------------
 /// @name Properties
