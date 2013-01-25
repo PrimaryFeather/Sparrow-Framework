@@ -140,7 +140,7 @@ static NSMutableDictionary *bitmapFonts = nil;
     {
         mFontName = [fontName copy];
         mRequiresRedraw = YES;        
-        mIsRenderedText = ![bitmapFonts objectForKey:mFontName];
+        mIsRenderedText = !bitmapFonts[mFontName];
     }
 }
 
@@ -224,7 +224,7 @@ static NSMutableDictionary *bitmapFonts = nil;
     
     SPBitmapFont *bitmapFont = [[SPBitmapFont alloc] initWithContentsOfFile:path texture:texture];
     if (!fontName) fontName = bitmapFont.name;
-    [bitmapFonts setObject:bitmapFont forKey:fontName];
+    bitmapFonts[fontName] = bitmapFont;
     
     return fontName;
 }
@@ -254,7 +254,7 @@ static NSMutableDictionary *bitmapFonts = nil;
 
 + (SPBitmapFont *)getRegisteredBitmapFont:(NSString *)name
 {
-    return [bitmapFonts objectForKey:name];
+    return bitmapFonts[name];
 }
 
 - (void)dealloc
@@ -331,7 +331,7 @@ static NSMutableDictionary *bitmapFonts = nil;
 
 - (SPDisplayObject *)createComposedContents
 {
-    SPBitmapFont *bitmapFont = [bitmapFonts objectForKey:mFontName];
+    SPBitmapFont *bitmapFont = bitmapFonts[mFontName];
     if (!bitmapFont)     
         [NSException raise:SP_EXC_INVALID_OPERATION 
                     format:@"bitmap font %@ not registered!", mFontName];       

@@ -55,11 +55,11 @@
     if (textures.count == 0)
         [NSException raise:SP_EXC_INVALID_OPERATION format:@"empty texture array"];
         
-    self = [self initWithFrame:[textures objectAtIndex:0] fps:fps];
+    self = [self initWithFrame:textures[0] fps:fps];
         
     if (self && textures.count > 1)
         for (int i=1; i<textures.count; ++i)
-            [self addFrame:[textures objectAtIndex:i]];
+            [self addFrame:textures[i]];
     
     return self;
 }
@@ -78,7 +78,7 @@
 {
     mTotalDuration += duration;    
     [mFrames addObject:texture];    
-    [mFrameDurations addObject:[NSNumber numberWithDouble:duration]];
+    [mFrameDurations addObject:@(duration)];
     [mSounds addObject:[NSNull null]];        
     return mFrames.count - 1;
 }
@@ -88,7 +88,7 @@
     [self checkIndex:frameID];
     [mFrames insertObject:texture atIndex:frameID];
     [mSounds insertObject:[NSNull null] atIndex:frameID];
-    [mFrameDurations insertObject:[NSNumber numberWithDouble:mDefaultFrameDuration] atIndex:frameID];
+    [mFrameDurations insertObject:@(mDefaultFrameDuration) atIndex:frameID];
     mTotalDuration += mDefaultFrameDuration;    
 }
 
@@ -104,7 +104,7 @@
 - (void)setFrame:(SPTexture *)texture atIndex:(int)frameID
 {
     [self checkIndex:frameID];    
-    [mFrames replaceObjectAtIndex:frameID withObject:texture];    
+    mFrames[frameID] = texture;    
 }
 
 - (void)setSound:(SPSoundChannel *)sound atIndex:(int)frameID
@@ -112,28 +112,28 @@
     [self checkIndex:frameID];
     id soundObject = sound;
     if (!sound) soundObject = [NSNull null];
-    [mSounds replaceObjectAtIndex:frameID withObject:soundObject];    
+    mSounds[frameID] = soundObject;    
 }
 
 - (void)setDuration:(double)duration atIndex:(int)frameID
 {
     [self checkIndex:frameID];
     mTotalDuration -= [self durationAtIndex:frameID];
-    [mFrameDurations replaceObjectAtIndex:frameID withObject:[NSNumber numberWithDouble:duration]];
+    mFrameDurations[frameID] = @(duration);
     mTotalDuration += duration;
 }
 
 - (SPTexture *)frameAtIndex:(int)frameID
 {
     [self checkIndex:frameID];
-    return [mFrames objectAtIndex:frameID];    
+    return mFrames[frameID];    
 }
 
 - (SPSoundChannel *)soundAtIndex:(int)frameID
 {
     [self checkIndex:frameID];
     
-    id sound = [mSounds objectAtIndex:frameID];
+    id sound = mSounds[frameID];
     if ([NSNull class] != [sound class]) return sound;
     else return nil;
 }
@@ -141,7 +141,7 @@
 - (double)durationAtIndex:(int)frameID
 {
     [self checkIndex:frameID];    
-    return [[mFrameDurations objectAtIndex:frameID] doubleValue];
+    return [mFrameDurations[frameID] doubleValue];
 }
 
 - (void)setFps:(float)fps
@@ -183,12 +183,12 @@
 
 - (void)updateCurrentFrame
 {
-    self.texture = [mFrames objectAtIndex:mCurrentFrame];
+    self.texture = mFrames[mCurrentFrame];
 }
 
 - (void)playCurrentSound
 {
-    id sound = [mSounds objectAtIndex:mCurrentFrame];
+    id sound = mSounds[mCurrentFrame];
     if ([NSNull class] != [sound class])                    
         [sound play];
 }
@@ -199,7 +199,7 @@
     mCurrentTime = 0.0;
     
     for (int i=0; i<frameID; ++i)
-        mCurrentTime += [[mFrameDurations objectAtIndex:i] doubleValue];
+        mCurrentTime += [mFrameDurations[i] doubleValue];
     
     [self updateCurrentFrame];
 }

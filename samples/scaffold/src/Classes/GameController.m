@@ -49,7 +49,7 @@
     // value from the app's plist file.
     
     NSDictionary *bundleInfo = [[NSBundle mainBundle] infoDictionary];
-    NSString *initialOrientation = [bundleInfo objectForKey:@"UIInterfaceOrientation"];
+    NSString *initialOrientation = bundleInfo[@"UIInterfaceOrientation"];
     if (initialOrientation)
     {
         if ([initialOrientation isEqualToString:@"UIInterfaceOrientationPortrait"])

@@ -48,7 +48,7 @@
     if (touches.count == 1)
     {                
         // one finger touching -> move
-        SPTouch *touch = [touches objectAtIndex:0];
+        SPTouch *touch = touches[0];
                  
         SPPoint *currentPos = [touch locationInSpace:self.parent];
         SPPoint *previousPos = [touch previousLocationInSpace:self.parent];
@@ -60,8 +60,8 @@
     else if (touches.count >= 2)
     {
         // two fingers touching -> rotate and scale
-        SPTouch *touch1 = [touches objectAtIndex:0];
-        SPTouch *touch2 = [touches objectAtIndex:1];
+        SPTouch *touch1 = touches[0];
+        SPTouch *touch2 = touches[1];
         
         SPPoint *touch1PrevPos = [touch1 previousLocationInSpace:self.parent];
         SPPoint *touch1Pos = [touch1 locationInSpace:self.parent];
@@ -91,7 +91,7 @@
     touches = [[event touchesWithTarget:self andPhase:SPTouchPhaseEnded] allObjects];
     if (touches.count == 1)
     {
-        SPTouch *touch = [touches objectAtIndex:0];
+        SPTouch *touch = touches[0];
         if (touch.tapCount == 2)
         {
             // bring self to front            

@@ -81,7 +81,7 @@
     [self resetEgg];
     
     // get next transition style from array and enqueue it at the end
-    NSString *transition = [mTransitions objectAtIndex:0];
+    NSString *transition = mTransitions[0];
     [mTransitions removeObjectAtIndex:0];
     [mTransitions addObject:transition];
     

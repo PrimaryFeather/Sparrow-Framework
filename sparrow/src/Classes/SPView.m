@@ -81,9 +81,8 @@
     CAEAGLLayer *eaglLayer = (CAEAGLLayer *)self.layer;
     
     eaglLayer.opaque = YES;
-    eaglLayer.drawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:
-        [NSNumber numberWithBool:NO], kEAGLDrawablePropertyRetainedBacking, 
-        kEAGLColorFormatRGBA8, kEAGLDrawablePropertyColorFormat, nil];    
+    eaglLayer.drawableProperties = @{kEAGLDrawablePropertyRetainedBacking: @NO, 
+        kEAGLDrawablePropertyColorFormat: kEAGLColorFormatRGBA8};    
 
     mContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1];    
     

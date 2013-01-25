@@ -56,7 +56,7 @@ static NSMutableDictionary *sounds = NULL;
         if ([[filename pathExtension] isEqualToString: @"caf"])
         {
             SPSound *sound = [[SPSound alloc] initWithContentsOfFile:filename];            
-            [sounds setObject:sound forKey:filename];
+            sounds[filename] = sound;
         }
     }
 }
@@ -70,7 +70,7 @@ static NSMutableDictionary *sounds = NULL;
 
 + (void)playSound:(NSString *)soundName
 {
-    SPSound *sound = [sounds objectForKey:soundName];
+    SPSound *sound = sounds[soundName];
     
     if (sound)
         [sound play];
@@ -80,7 +80,7 @@ static NSMutableDictionary *sounds = NULL;
 
 + (SPSoundChannel *)soundChannel:(NSString *)soundName
 {
-    SPSound *sound = [sounds objectForKey:soundName];
+    SPSound *sound = sounds[soundName];
     
     // sound was not preloaded
     if (!sound)        

@@ -52,7 +52,7 @@
 - (NSUInteger)supportedInterfaceOrientations
 {
     NSArray *supportedOrientations =
-    [[[NSBundle mainBundle] infoDictionary] objectForKey:@"UISupportedInterfaceOrientations"];
+    [[NSBundle mainBundle] infoDictionary][@"UISupportedInterfaceOrientations"];
     
     NSUInteger returnOrientations = 0;
     if ([supportedOrientations containsObject:@"UIInterfaceOrientationPortrait"])
@@ -70,7 +70,7 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     NSArray *supportedOrientations =
-    [[[NSBundle mainBundle] infoDictionary] objectForKey:@"UISupportedInterfaceOrientations"];
+    [[NSBundle mainBundle] infoDictionary][@"UISupportedInterfaceOrientations"];
     
     return ((interfaceOrientation == UIInterfaceOrientationPortrait &&
              [supportedOrientations containsObject:@"UIInterfaceOrientationPortrait"]) ||

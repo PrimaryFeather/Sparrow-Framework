@@ -41,8 +41,7 @@
         [mMainMenu addChild:logo];
         
         // choose which scenes will be accessible
-        NSArray *scenesToCreate = [NSArray arrayWithObjects:
-                                   @"Textures", [TextureScene class],
+        NSArray *scenesToCreate = @[@"Textures", [TextureScene class],
                                    @"Multitouch", [TouchScene class],
                                    @"TextFields", [TextScene class],
                                    @"Animations", [AnimationScene class],
@@ -50,7 +49,7 @@
                                    @"Movie Clip", [MovieScene class],
                                    @"Sound", [SoundScene class],
                                    @"RenderTexture", [RenderTextureScene class],
-                                   @"Benchmark", [BenchmarkScene class], nil];
+                                   @"Benchmark", [BenchmarkScene class]];
         
         SPTexture *buttonTexture = [SPTexture textureWithContentsOfFile:@"button_big.png"];
         int count = 0;
@@ -59,8 +58,8 @@
         // create buttons for each scene
         while (index < scenesToCreate.count)
         {
-            NSString *sceneTitle = [scenesToCreate objectAtIndex:index++];
-            Class sceneClass = [scenesToCreate objectAtIndex:index++];
+            NSString *sceneTitle = scenesToCreate[index++];
+            Class sceneClass = scenesToCreate[index++];
             
             SPButton *button = [SPButton buttonWithUpState:buttonTexture text:sceneTitle];
             button.x = count % 2 == 0 ? 28 : 167;

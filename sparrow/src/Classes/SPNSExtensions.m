@@ -64,6 +64,8 @@
     // The code above supports only integer scalefactors. The code below supports any number,
     // but is dependent on iOS 4.
     
+    // TODO: enable this code
+    
     /*
     NSError *error;
     NSRange range = NSMakeRange(0, self.length);
@@ -98,7 +100,7 @@
 {
     if (factor != 1.0f)
     {
-        NSString *suffix = [NSString stringWithFormat:@"@%@x", [NSNumber numberWithFloat:factor]];
+        NSString *suffix = [NSString stringWithFormat:@"@%@x", @(factor)];
         NSString *path = [self pathForResource:[name stringByAppendingSuffixToFilename:suffix]];
         if (path) return path;
     }    

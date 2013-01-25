@@ -50,13 +50,12 @@
     if (!mKernings)
         mKernings = [[NSMutableDictionary alloc] init];    
 
-	[mKernings setObject:[NSNumber numberWithFloat:amount] 
-                  forKey:[NSNumber numberWithInt:charID]];
+	mKernings[@(charID)] = @(amount);
 }
 
 - (float)kerningToChar:(int)charID
 {
-	NSNumber *amount = (NSNumber *)[mKernings objectForKey:[NSNumber numberWithInt:charID]];
+	NSNumber *amount = (NSNumber *)mKernings[@(charID)];
 	return [amount floatValue];
 }
 

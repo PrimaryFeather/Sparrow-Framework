@@ -114,7 +114,7 @@
                                                             xOffset:xOffset yOffset:yOffset 
                                                            xAdvance:xAdvance];
         
-        [mChars setObject:bitmapChar forKey:[NSNumber numberWithInt:charID]];
+        mChars[@(charID)] = bitmapChar;
     }
 	else if ([elementName isEqualToString:@"kerning"])
 	{
@@ -153,7 +153,7 @@
 
 - (SPBitmapChar *)charByID:(int)charID
 {
-    return (SPBitmapChar *)[mChars objectForKey:[NSNumber numberWithInt:charID]];
+    return (SPBitmapChar *)mChars[@(charID)];
 }
 
 - (SPDisplayObject *)createDisplayObjectWithWidth:(float)width height:(float)height

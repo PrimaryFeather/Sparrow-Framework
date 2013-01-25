@@ -109,7 +109,7 @@
         NSMutableArray *matrices = [[NSMutableArray alloc] initWithObjects:
                                     [SPMatrix matrixWithIdentity], nil];    
         NSMutableArray *textures = [[NSMutableArray alloc] initWithObjects:
-                                    [NSNull null], [NSNumber numberWithInt:0], nil];    
+                                    [NSNull null], @0, nil];    
 
         BOOL success;
         
@@ -305,22 +305,22 @@
         // (textureData contains "texture, vertexCount, texture, vertexCount, etc.")
         
         id texture = image.texture;
-        id lastTexture = [textures objectAtIndex:textures.count-2];
+        id lastTexture = textures[textures.count-2];
         if ([lastTexture isKindOfClass:[NSNull class]]) lastTexture = nil;
         
         uint textureID = [texture textureID];
         uint lastTextureID = [lastTexture textureID];
-        uint lastTextureVertexCount = [[textures lastObject] intValue];
+        int lastTextureVertexCount = [[textures lastObject] intValue];
         
         if (textureID != lastTextureID)
         {
             [textures addObject:texture ? texture : [NSNull null]];
-            [textures addObject:[NSNumber numberWithInt:4]];
+            [textures addObject:@4];
         }
         else
         {
             [textures removeLastObject];
-            [textures addObject:[NSNumber numberWithInt:lastTextureVertexCount + 4]];
+            [textures addObject:@(lastTextureVertexCount + 4)];
         }
         
         float *texCoords = (float *)buffer;
@@ -358,10 +358,10 @@
     
     for (int i=0; i<mTextureSwitches.count; i+=2)
     {
-        int numVertices = [[mTextureSwitches objectAtIndex:i+1] intValue];        
+        int numVertices = [mTextureSwitches[i+1] intValue];        
         if (!numVertices) continue;
         
-        id texture = [mTextureSwitches objectAtIndex:i];
+        id texture = mTextureSwitches[i];
         if ([texture isKindOfClass:[NSNull class]]) texture = nil;
         
         int renderedVertices = (numVertices / 4) * 6;        
@@ -407,10 +407,10 @@
     
     for (int i=0; i<mTextureSwitches.count; i+=2)
     {
-        int numVertices = [[mTextureSwitches objectAtIndex:i+1] intValue];        
+        int numVertices = [mTextureSwitches[i+1] intValue];        
         if (!numVertices) continue;
         
-        id texture = [mTextureSwitches objectAtIndex:i];
+        id texture = mTextureSwitches[i];
         if ([texture isKindOfClass:[NSNull class]]) texture = nil;
         BOOL pma = [texture hasPremultipliedAlpha];              
         

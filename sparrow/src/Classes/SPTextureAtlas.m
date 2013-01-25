@@ -89,17 +89,17 @@
     {
         float scale = mAtlasTexture.scale;
         
-        NSString *name = [attributeDict objectForKey:@"name"];
+        NSString *name = attributeDict[@"name"];
         SPRectangle *frame = nil;
         
-        float x = [[attributeDict objectForKey:@"x"] floatValue] / scale;
-        float y = [[attributeDict objectForKey:@"y"] floatValue] / scale;
-        float width = [[attributeDict objectForKey:@"width"] floatValue] / scale;
-        float height = [[attributeDict objectForKey:@"height"] floatValue] / scale;
-        float frameX = [[attributeDict objectForKey:@"frameX"] floatValue] / scale;
-        float frameY = [[attributeDict objectForKey:@"frameY"] floatValue] / scale;
-        float frameWidth = [[attributeDict objectForKey:@"frameWidth"] floatValue] / scale;
-        float frameHeight = [[attributeDict objectForKey:@"frameHeight"] floatValue] / scale;
+        float x = [attributeDict[@"x"] floatValue] / scale;
+        float y = [attributeDict[@"y"] floatValue] / scale;
+        float width = [attributeDict[@"width"] floatValue] / scale;
+        float height = [attributeDict[@"height"] floatValue] / scale;
+        float frameX = [attributeDict[@"frameX"] floatValue] / scale;
+        float frameY = [attributeDict[@"frameY"] floatValue] / scale;
+        float frameWidth = [attributeDict[@"frameWidth"] floatValue] / scale;
+        float frameHeight = [attributeDict[@"frameHeight"] floatValue] / scale;
         
         if (frameWidth && frameHeight)
             frame = [SPRectangle rectangleWithX:frameX y:frameY width:frameWidth height:frameHeight];
@@ -124,11 +124,11 @@
 
 - (SPTexture *)textureByName:(NSString *)name
 {
-    SPRectangle *region = [mTextureRegions objectForKey:name];
+    SPRectangle *region = mTextureRegions[name];
     if (!region) return nil;    
     
     SPTexture *texture = [SPSubTexture textureWithRegion:region ofTexture:mAtlasTexture];
-    texture.frame = [mTextureFrames objectForKey:name];
+    texture.frame = mTextureFrames[name];
     return texture;
 }
 
@@ -157,8 +157,8 @@
 
 - (void)addRegion:(SPRectangle *)region withName:(NSString *)name frame:(SPRectangle *)frame
 {
-    [mTextureRegions setObject:region forKey:name];    
-    if (frame) [mTextureFrames setObject:frame forKey:name];
+    mTextureRegions[name] = region;    
+    if (frame) mTextureFrames[name] = frame;
 }
 
 - (void)removeRegion:(NSString *)name

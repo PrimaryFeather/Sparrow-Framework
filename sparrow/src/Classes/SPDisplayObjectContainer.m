@@ -91,7 +91,7 @@ static void getChildEventListeners(SPDisplayObject *object, NSString *eventType,
 
 - (SPDisplayObject *)childAtIndex:(int)index
 {
-    return [mChildren objectAtIndex:index];
+    return mChildren[index];
 }
 
 - (SPDisplayObject *)childByName:(NSString *)name
@@ -132,7 +132,7 @@ static void getChildEventListeners(SPDisplayObject *object, NSString *eventType,
 {
     if (index >= 0 && index < [mChildren count])
     {
-        SPDisplayObject *child = [mChildren objectAtIndex:index];
+        SPDisplayObject *child = mChildren[index];
 
         SPEvent *remEvent = [[SPEvent alloc] initWithType:SP_EVENT_TYPE_REMOVED];    
         [child dispatchEvent:remEvent];
@@ -199,7 +199,7 @@ static void getChildEventListeners(SPDisplayObject *object, NSString *eventType,
     }
     else if (numChildren == 1)
     {
-        return [[mChildren objectAtIndex:0] boundsInSpace:targetCoordinateSpace];
+        return [mChildren[0] boundsInSpace:targetCoordinateSpace];
     }
     else
     {
@@ -223,7 +223,7 @@ static void getChildEventListeners(SPDisplayObject *object, NSString *eventType,
     
     for (int i=[mChildren count]-1; i>=0; --i) // front to back!
     {
-        SPDisplayObject *child = [mChildren objectAtIndex:i];
+        SPDisplayObject *child = mChildren[i];
         SPMatrix *transformationMatrix = [self transformationMatrixToSpace:child];
         SPPoint  *transformedPoint = [transformationMatrix transformPoint:localPoint];
         SPDisplayObject *target = [child hitTestPoint:transformedPoint forTouch:isTouch];

@@ -50,7 +50,7 @@
  
     if (factor != 1.0f)
     {
-        NSString *scaleSuffix = [NSString stringWithFormat:@"@%@x", [NSNumber numberWithFloat:factor]];
+        NSString *scaleSuffix = [NSString stringWithFormat:@"@%@x", @(factor)];
         path = [path stringByReplacingOccurrencesOfString:scaleSuffix withString:@""];
         path = [path stringByAppendingSuffixToFilename:scaleSuffix];
     }

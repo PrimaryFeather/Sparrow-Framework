@@ -32,16 +32,16 @@
     // in the "dispatchEvent"-method, which is called far more often than 
     // "add"- and "removeEventListener".    
     
-    NSArray *listeners = [mEventListeners objectForKey:eventType];
+    NSArray *listeners = mEventListeners[eventType];
     if (!listeners)
     {
-        listeners = [[NSArray alloc] initWithObjects:invocation, nil];
-        [mEventListeners setObject:listeners forKey:eventType];
+        listeners = @[invocation];
+        mEventListeners[eventType] = listeners;
     }
     else 
     {
         listeners = [listeners arrayByAddingObject:invocation];
-        [mEventListeners setObject:listeners forKey:eventType];
+        mEventListeners[eventType] = listeners;
     }    
 }
 
@@ -52,7 +52,7 @@
 
 - (void)removeEventListener:(SEL)listener atObject:(id)object forType:(NSString*)eventType
 {
-    NSArray *listeners = [mEventListeners objectForKey:eventType];
+    NSArray *listeners = mEventListeners[eventType];
     if (listeners)
     {
         NSMutableArray *remainingListeners = [[NSMutableArray alloc] init];
@@ -63,7 +63,7 @@
         }
                 
         if (remainingListeners.count == 0) [mEventListeners removeObjectForKey:eventType];
-        else [mEventListeners setObject:remainingListeners forKey:eventType];
+        else mEventListeners[eventType] = remainingListeners;
     }
 }
 
@@ -74,12 +74,12 @@
 
 - (BOOL)hasEventListenerForType:(NSString*)eventType
 {
-    return [mEventListeners objectForKey:eventType] != nil;
+    return mEventListeners[eventType] != nil;
 }
 
 - (void)dispatchEvent:(SPEvent*)event
 {
-    NSMutableArray *listeners = [mEventListeners objectForKey:event.type];   
+    NSMutableArray *listeners = mEventListeners[event.type];   
     if (!event.bubbles && !listeners) return; // no need to do anything.
     
     // if the event already has a current target, it was re-dispatched by user -> we change the
