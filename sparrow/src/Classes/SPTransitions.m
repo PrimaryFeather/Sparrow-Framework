@@ -20,7 +20,6 @@
 
 - (id)init
 {
-    [self release];
     [NSException raise:NSGenericException format:@"Static class - do not initialize!"];        
     return nil;
 }

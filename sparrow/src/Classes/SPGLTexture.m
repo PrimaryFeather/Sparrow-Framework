@@ -198,13 +198,12 @@
 
 + (SPGLTexture*)textureWithData:(const void *)imgData properties:(SPTextureProperties)properties
 {
-    return [[[SPGLTexture alloc] initWithData:imgData properties:properties] autorelease];
+    return [[SPGLTexture alloc] initWithData:imgData properties:properties];
 }
 
 - (void)dealloc
 {     
     glDeleteTextures(1, &mTextureID); 
-    [super dealloc];
 }
 
 @end

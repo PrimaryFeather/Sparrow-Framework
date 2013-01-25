@@ -59,9 +59,6 @@
     [mJuggler advanceTime:0.4]; // 1.6 (start of new tween)
     STAssertTrue(mStartedReached, @"juggler ignored modification made in callback");    
     
-    [mJuggler release];
-    [mQuad release];
-    
     mJuggler = nil;
     mQuad = nil;
 }

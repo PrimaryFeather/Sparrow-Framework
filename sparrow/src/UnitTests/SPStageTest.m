@@ -39,7 +39,6 @@
     STAssertThrows([stage setScaleX:2.0], @"allowed to scale stage");
     STAssertThrows([stage setScaleY:2.0], @"allowed to scale stage");
     STAssertThrows([stage setRotation:PI], @"allowed to rotate stage");
-    [stage release];
 }
 
 @end

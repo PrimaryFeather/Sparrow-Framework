@@ -63,7 +63,7 @@ typedef enum
     float mPreviousGlobalY;    
     int mTapCount;
     SPTouchPhase mPhase;
-    SPDisplayObject *mTarget;
+    SPDisplayObject *__weak mTarget;
 }
 
 /// -------------
@@ -102,6 +102,6 @@ typedef enum
 @property (nonatomic, readonly) SPTouchPhase phase;
 
 /// The display object at which the touch occurred.
-@property (nonatomic, readonly) SPDisplayObject *target;
+@property (weak, nonatomic, readonly) SPDisplayObject *target;
 
 @end

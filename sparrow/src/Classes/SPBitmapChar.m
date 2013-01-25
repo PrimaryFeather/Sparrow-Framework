@@ -25,7 +25,7 @@
 {
     if ((self = [super init]))
     {
-        mTexture = [texture retain];
+        mTexture = texture;
         mCharID = charID;
         mXOffset = xOffset;
         mYOffset = yOffset;
@@ -42,7 +42,6 @@
 
 - (id)init
 {
-    [self release];
     return nil;
 }
 
@@ -64,13 +63,6 @@
 - (SPImage *)createImage
 {
     return [SPImage imageWithTexture:mTexture];
-}
-
-- (void)dealloc
-{
-    [mKernings release];
-    [mTexture release];
-    [super dealloc];
 }
 
 @end

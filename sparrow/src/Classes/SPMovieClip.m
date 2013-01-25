@@ -69,14 +69,6 @@
     return [self initWithFrame:texture fps:10];
 }
 
-- (void)dealloc
-{
-    [mFrames release];
-    [mSounds release];
-    [mFrameDurations release];
-    [super dealloc];
-}
-
 - (int)addFrame:(SPTexture *)texture
 {
     return [self addFrame:texture withDuration:mDefaultFrameDuration];
@@ -228,12 +220,12 @@
 
 + (SPMovieClip *)movieWithFrame:(SPTexture *)texture fps:(float)fps
 {
-    return [[[SPMovieClip alloc] initWithFrame:texture fps:fps] autorelease];
+    return [[SPMovieClip alloc] initWithFrame:texture fps:fps];
 }
 
 + (SPMovieClip *)movieWithFrames:(NSArray *)textures fps:(float)fps
 {
-    return [[[SPMovieClip alloc] initWithFrames:textures fps:fps] autorelease];
+    return [[SPMovieClip alloc] initWithFrames:textures fps:fps];
 }
 
 #pragma mark SPAnimatable

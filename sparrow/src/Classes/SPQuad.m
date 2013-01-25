@@ -74,8 +74,6 @@
             minY = MIN(minY, tfY);
             maxY = MAX(maxY, tfY);
         }
-        
-        [point release];
     }
     
     return [SPRectangle rectangleWithX:minX y:minY width:maxX-minX height:maxY-minY];    
@@ -124,17 +122,17 @@
 
 + (SPQuad*)quadWithWidth:(float)width height:(float)height
 {
-    return [[[SPQuad alloc] initWithWidth:width height:height] autorelease];
+    return [[SPQuad alloc] initWithWidth:width height:height];
 }
 
 + (SPQuad*)quadWithWidth:(float)width height:(float)height color:(uint)color
 {
-    return [[[SPQuad alloc] initWithWidth:width height:height color:color] autorelease];
+    return [[SPQuad alloc] initWithWidth:width height:height color:color];
 }
 
 + (SPQuad*)quad
 {
-    return [[[SPQuad alloc] init] autorelease];
+    return [[SPQuad alloc] init];
 }
 
 @end

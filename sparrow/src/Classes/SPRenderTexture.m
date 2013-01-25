@@ -69,9 +69,7 @@
 
 - (void)dealloc
 {
-    [mRenderSupport release];
     [self destroyFramebuffer];
-    [super dealloc];
 }
 
 - (void)createFramebuffer 
@@ -169,12 +167,12 @@
 
 + (SPRenderTexture *)textureWithWidth:(float)width height:(float)height
 {
-    return [[[SPRenderTexture alloc] initWithWidth:width height:height] autorelease];    
+    return [[SPRenderTexture alloc] initWithWidth:width height:height];    
 }
 
 + (SPRenderTexture *)textureWithWidth:(float)width height:(float)height fillColor:(uint)argb
 {
-    return [[[SPRenderTexture alloc] initWithWidth:width height:height fillColor:argb] autorelease];
+    return [[SPRenderTexture alloc] initWithWidth:width height:height fillColor:argb];
 }
 
 @end

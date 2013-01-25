@@ -45,8 +45,8 @@
 {
     if ((self = [super init]))
     {
-        mUpState = [upState retain];
-        mDownState = [downState retain];
+        mUpState = upState;
+        mDownState = downState;
         mContents = [[SPSprite alloc] init];
         mBackground = [[SPImage alloc] initWithTexture:upState];
         mTextField = nil;
@@ -79,7 +79,7 @@
 
 - (id)init
 {
-    SPTexture *texture = [[[SPGLTexture alloc] init] autorelease];
+    SPTexture *texture = [[SPGLTexture alloc] init];
     return [self initWithUpState:texture];   
 }
 
@@ -145,8 +145,7 @@
 {
     if (upState != mUpState)
     {    
-        [mUpState release];
-        mUpState = [upState retain];
+        mUpState = upState;
         if (!mIsDown) mBackground.texture = upState;
     }
 }
@@ -155,8 +154,7 @@
 {
     if (downState != mDownState)
     {    
-        [mDownState release];
-        mDownState = [downState retain];
+        mDownState = downState;
         if (mIsDown) mBackground.texture = downState;
     }
 }
@@ -192,8 +190,6 @@
 
 - (void)setTextBounds:(SPRectangle *)value
 {
-    [mTextBounds autorelease];
-    
     float scaleX = mBackground.scaleX;
     float scaleY = mBackground.scaleY;
     
@@ -275,29 +271,22 @@
  
 + (SPButton*)buttonWithUpState:(SPTexture*)upState downState:(SPTexture*)downState
 {
-    return [[[SPButton alloc] initWithUpState:upState downState:downState] autorelease];
+    return [[SPButton alloc] initWithUpState:upState downState:downState];
 }
 
 + (SPButton*)buttonWithUpState:(SPTexture*)upState text:(NSString*)text
 {
-    return [[[SPButton alloc] initWithUpState:upState text:text] autorelease];
+    return [[SPButton alloc] initWithUpState:upState text:text];
 }
 
 + (SPButton*)buttonWithUpState:(SPTexture*)upState
 {
-    return [[[SPButton alloc] initWithUpState:upState] autorelease];
+    return [[SPButton alloc] initWithUpState:upState];
 }
 
 - (void)dealloc
 {
     [self removeEventListenersAtObject:self forType:SP_EVENT_TYPE_TOUCH];
-    [mTextBounds release];
-    [mUpState release];
-    [mDownState release];
-    [mBackground release];
-    [mTextField release];
-    [mContents release];
-    [super dealloc];
 }
 
 @end

@@ -22,7 +22,7 @@
 {   
     if ((self = [super initWithType:type bubbles:bubbles]))
     {        
-        mTouches = [touches retain];
+        mTouches = touches;
     }
     return self;
 }
@@ -78,15 +78,9 @@
     return touchesFound;    
 }
 
-- (void)dealloc
-{
-    [mTouches release];
-    [super dealloc];
-}
-
 + (SPTouchEvent*)eventWithType:(NSString*)type touches:(NSSet*)touches
 {
-    return [[[SPTouchEvent alloc] initWithType:type touches:touches] autorelease];
+    return [[SPTouchEvent alloc] initWithType:type touches:touches];
 }
 
 @end

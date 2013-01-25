@@ -120,7 +120,7 @@ typedef enum
 @property (nonatomic, readonly) id target;
 
 /// The transition method used for the animation.
-@property (nonatomic, readonly) NSString *transition;
+@property (weak, nonatomic, readonly) NSString *transition;
 
 /// The total time the tween will take (in seconds).
 @property (nonatomic, readonly) double time;

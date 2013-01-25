@@ -24,7 +24,7 @@
 @interface SPTouchProcessor : NSObject 
 {
   @private
-    SPDisplayObjectContainer *mRoot;
+    SPDisplayObjectContainer *__weak mRoot;
     NSMutableSet *mCurrentTouches;
 }
 
@@ -47,6 +47,6 @@
 /// ----------------
 
 /// The root display container to check for touched targets.
-@property (nonatomic, assign) SPDisplayObjectContainer *root;
+@property (nonatomic, weak) SPDisplayObjectContainer *root;
 
 @end

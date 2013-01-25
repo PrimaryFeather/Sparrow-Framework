@@ -25,7 +25,6 @@
 {
     if ([self isMemberOfClass:[SPSound class]])
     {
-        [self release];
         [NSException raise:SP_EXC_ABSTRACT_CLASS 
                     format:@"Attempting to initialize abstract class SPSound."];        
         return nil;
@@ -36,8 +35,7 @@
 
 - (id)initWithContentsOfFile:(NSString *)path
 {
-    // SPSound is a class factory! We'll return a subclass, thus we don't need 'self' anymore.
-    [self release];
+    // SPSound is a class factory! We'll return a subclass, not self.
     
     NSString *fullPath = [SPUtils absolutePathToFile:path];
     if (!fullPath) [NSException raise:SP_EXC_FILE_NOT_FOUND format:@"file %@ not found", path];
@@ -55,7 +53,7 @@
     {        
         OSStatus result = noErr;        
         
-        result = AudioFileOpenURL((CFURLRef) [NSURL fileURLWithPath:fullPath], 
+        result = AudioFileOpenURL((__bridge CFURLRef) [NSURL fileURLWithPath:fullPath], 
                                   kAudioFileReadPermission, 0, &fileID);
         if (result != noErr)
         {
@@ -187,13 +185,8 @@
 
 + (SPSound *)soundWithContentsOfFile:(NSString *)path
 {
-    return [[[SPSound alloc] initWithContentsOfFile:path] autorelease];
+    return [[SPSound alloc] initWithContentsOfFile:path];
 }
 
-- (void)dealloc
-{
-    [mPlayingChannels release];
-    [super dealloc];
-}
 
 @end

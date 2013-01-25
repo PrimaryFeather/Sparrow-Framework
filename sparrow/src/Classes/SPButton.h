@@ -101,10 +101,10 @@
 @property (nonatomic, assign) uint fontColor;
 
 /// The texture that is displayed when the button is not being touched.
-@property (nonatomic, retain) SPTexture *upState;
+@property (nonatomic, strong) SPTexture *upState;
 
 /// The texture that is displayed while the button is touched.
-@property (nonatomic, retain) SPTexture *downState;
+@property (nonatomic, strong) SPTexture *downState;
 
 /// The bounds of the textfield on the button. Allows moving the text to a custom position.
 @property (nonatomic, copy)   SPRectangle *textBounds;

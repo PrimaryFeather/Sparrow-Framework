@@ -92,7 +92,7 @@
 
 - (SPRectangle*)uniteWithRectangle:(SPRectangle*)rectangle
 {
-    if (!rectangle) return [[self copy] autorelease];
+    if (!rectangle) return [self copy];
     
     float left   = MIN(mX, rectangle->mX);
     float right  = MAX(mX + mWidth, rectangle->mX + rectangle->mWidth);
@@ -151,7 +151,7 @@
 
 + (SPRectangle*)rectangleWithX:(float)x y:(float)y width:(float)width height:(float)height
 {
-    return [[[SPRectangle alloc] initWithX:x y:y width:width height:height] autorelease];
+    return [[SPRectangle alloc] initWithX:x y:y width:width height:height];
 }
 
 #pragma mark NSCopying

@@ -36,7 +36,6 @@
 
 - (id)init
 {
-    [self release];
     return nil;
 }
 
@@ -44,7 +43,7 @@
 {
     if ((self = [super init]))
     {
-        mSound = [sound retain];
+        mSound = sound;
         mVolume = 1.0f;
         mLoop = NO;
         mInterrupted = NO;
@@ -57,7 +56,6 @@
         if (errorCode != AL_NO_ERROR)
         {
             NSLog(@"Could not create OpenAL source (%x)", errorCode);
-            [self release];
             return nil;
         }         
         
@@ -77,8 +75,6 @@
     alSourcei(mSourceID, AL_BUFFER, 0);
     alDeleteSources(1, &mSourceID);
     mSourceID = 0;
-    [mSound release];
-    [super dealloc];
 }
 
 - (void)play
@@ -189,7 +185,6 @@
     {
         SPEvent *event = [[SPEvent alloc] initWithType:SP_EVENT_TYPE_SOUND_COMPLETED];
         [self dispatchEvent:event];
-        [event release];
     }
 }
 

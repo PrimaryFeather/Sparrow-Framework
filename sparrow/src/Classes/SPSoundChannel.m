@@ -18,7 +18,6 @@
 {
     if ([self isMemberOfClass:[SPSoundChannel class]]) 
     {
-        [self release];
         [NSException raise:SP_EXC_ABSTRACT_CLASS 
                     format:@"Attempting to initialize abstract class SPSoundChannel."];        
         return nil;

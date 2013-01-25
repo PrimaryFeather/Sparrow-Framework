@@ -31,7 +31,7 @@ typedef void (*FnPtrSetterUI) (id, SEL, uint);
 {
     if ((self = [super init]))
     {
-        mTarget = [target retain];        
+        mTarget = target;        
         mEndValue = endValue;
         
         mGetter = NSSelectorFromString(name);
@@ -111,12 +111,6 @@ typedef void (*FnPtrSetterUI) (id, SEL, uint);
 - (float)delta
 {
     return mEndValue - mStartValue;
-}
-
-- (void)dealloc
-{
-    [mTarget release];
-    [super dealloc];
 }
 
 @end

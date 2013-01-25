@@ -65,34 +65,29 @@
 
 - (SPPoint *)invert
 {
-    SPPoint *result = [[SPPoint alloc] initWithX:-mX y:-mY];
-    return [result autorelease];
+    return [[SPPoint alloc] initWithX:-mX y:-mY];
 }
 
 - (SPPoint*)addPoint:(SPPoint*)point
 {
-    SPPoint *result = [[SPPoint alloc] initWithX:mX+point->mX y:mY+point->mY];
-    return [result autorelease];
+    return [[SPPoint alloc] initWithX:mX+point->mX y:mY+point->mY];
 }
 
 - (SPPoint*)subtractPoint:(SPPoint*)point
 {
-    SPPoint *result = [[SPPoint alloc] initWithX:mX-point->mX y:mY-point->mY]; 
-    return [result autorelease];
+    return [[SPPoint alloc] initWithX:mX-point->mX y:mY-point->mY];
 }
 
 - (SPPoint *)scaleBy:(float)scalar
 {
-    SPPoint *result = [[SPPoint alloc] initWithX:mX * scalar y:mY * scalar];
-    return [result autorelease];
+    return [[SPPoint alloc] initWithX:mX * scalar y:mY * scalar];
 }
 
 - (SPPoint *)rotateBy:(float)angle  
 {
     float sina = sinf(angle);
     float cosa = cosf(angle);
-    SPPoint *result = [[SPPoint alloc] initWithX:(mX * cosa) - (mY * sina) y:(mX * sina) + (mY * cosa)];
-    return [result autorelease];
+    return [[SPPoint alloc] initWithX:(mX * cosa) - (mY * sina) y:(mX * sina) + (mY * cosa)];
 }
 
 - (SPPoint *)normalize
@@ -101,8 +96,7 @@
         [NSException raise:SP_EXC_INVALID_OPERATION format:@"Cannot normalize point in the origin"];
         
     float inverseLength = 1.0f / self.length;
-    SPPoint *result = [[SPPoint alloc] initWithX:mX * inverseLength y:mY * inverseLength];
-    return [result autorelease];
+    return [[SPPoint alloc] initWithX:mX * inverseLength y:mY * inverseLength];
 }
 
 - (float)dot:(SPPoint *)other
@@ -140,7 +134,7 @@
 
 + (SPPoint *)pointWithPolarLength:(float)length angle:(float)angle
 {
-    return [[[SPPoint alloc] initWithPolarLength:length angle:angle] autorelease];
+    return [[SPPoint alloc] initWithPolarLength:length angle:angle];
 }
 
 + (float)angleBetweenPoint:(SPPoint *)p1 andPoint:(SPPoint *)p2
@@ -151,12 +145,12 @@
 
 + (SPPoint *)pointWithX:(float)x y:(float)y
 {
-    return [[[SPPoint alloc] initWithX:x y:y] autorelease];
+    return [[SPPoint alloc] initWithX:x y:y];
 }
 
 + (SPPoint*)point
 {
-    return [[[SPPoint alloc] init] autorelease];
+    return [[SPPoint alloc] init];
 }
 
 #pragma mark NSCopying

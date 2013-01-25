@@ -79,18 +79,12 @@
 
 + (SPImage*)imageWithTexture:(SPTexture*)texture
 {
-    return [[[SPImage alloc] initWithTexture:texture] autorelease];
+    return [[SPImage alloc] initWithTexture:texture];
 }
 
 + (SPImage*)imageWithContentsOfFile:(NSString*)path
 {
-    return [[[SPImage alloc] initWithContentsOfFile:path] autorelease];
-}
-
-- (void)dealloc
-{
-    [mTexture release];
-    [super dealloc];
+    return [[SPImage alloc] initWithContentsOfFile:path];
 }
 
 @end

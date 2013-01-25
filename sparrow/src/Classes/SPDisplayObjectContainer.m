@@ -42,7 +42,6 @@ static void getChildEventListeners(SPDisplayObject *object, NSString *eventType,
     { 
         [NSException raise:SP_EXC_ABSTRACT_CLASS 
                     format:@"Attempting to instantiate SPDisplayObjectContainer directly."];
-        [self release]; 
         return nil; 
     }    
     #endif
@@ -63,23 +62,18 @@ static void getChildEventListeners(SPDisplayObject *object, NSString *eventType,
 {
     if (index >= 0 && index <= [mChildren count])
     {
-        [child retain];
         [child removeFromParent];
         [mChildren insertObject:child atIndex:MIN(mChildren.count, index)];
         child.parent = self;
         
         SPEvent *addedEvent = [[SPEvent alloc] initWithType:SP_EVENT_TYPE_ADDED];    
         [child dispatchEvent:addedEvent];
-        [addedEvent release];    
         
         if (self.stage)
         {
             SPEvent *addedToStageEvent = [[SPEvent alloc] initWithType:SP_EVENT_TYPE_ADDED_TO_STAGE];
             [child broadcastEvent:addedToStageEvent];
-            [addedToStageEvent release];
         }
-        
-        [child release];
     }
     else [NSException raise:SP_EXC_INDEX_OUT_OF_BOUNDS format:@"Invalid child index"]; 
 }
@@ -122,10 +116,8 @@ static void getChildEventListeners(SPDisplayObject *object, NSString *eventType,
         [NSException raise:SP_EXC_INVALID_OPERATION format:@"Not a child of this container"];
     else
     {
-        [child retain];
         [mChildren removeObjectAtIndex:oldIndex];
         [mChildren insertObject:child atIndex:index];
-        [child release];
     }
 }
 
@@ -144,13 +136,11 @@ static void getChildEventListeners(SPDisplayObject *object, NSString *eventType,
 
         SPEvent *remEvent = [[SPEvent alloc] initWithType:SP_EVENT_TYPE_REMOVED];    
         [child dispatchEvent:remEvent];
-        [remEvent release];    
         
         if (self.stage)
         {
             SPEvent *remFromStageEvent = [[SPEvent alloc] initWithType:SP_EVENT_TYPE_REMOVED_FROM_STAGE];
             [child broadcastEvent:remFromStageEvent];
-            [remFromStageEvent release];
         }        
         
         child.parent = nil; 
@@ -255,20 +245,18 @@ static void getChildEventListeners(SPDisplayObject *object, NSString *eventType,
     getChildEventListeners(self, event.type, listeners);
     [event setTarget:self];
     [listeners makeObjectsPerformSelector:@selector(dispatchEvent:) withObject:event];
-    [listeners release];
 }
 
 - (void)dealloc 
 {
     // 'self' is becoming invalid; thus, we have to remove any references to it.    
     [mChildren makeObjectsPerformSelector:@selector(setParent:) withObject:nil];
-    [mChildren release];
-    [super dealloc];
 }
 
 #pragma mark NSFastEnumeration
 
-- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id *)stackbuf 
+- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state
+                                  objects:(id __unsafe_unretained *)stackbuf
                                     count:(NSUInteger)len
 {
     return [mChildren countByEnumeratingWithState:state objects:stackbuf count:len];

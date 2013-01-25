@@ -20,17 +20,12 @@
 
 - (id)initWithTarget:(id)target delay:(double)time
 {
-    if (!target)
-    {
-        [self release];
-        return nil;
-    }    
-    
-    if ((self = [super init]))
+    if (!target) return nil;
+    else if ((self = [super init]))
     {
         mTotalTime = MAX(0.0001, time); // zero is not allowed
         mCurrentTime = 0;
-        mTarget = [target retain];
+        mTarget = target;
         mInvocations = [[NSMutableSet alloc] init];
     }
     return self;
@@ -38,7 +33,6 @@
 
 - (id)init
 {
-    [self release];
     return nil;
 }
 
@@ -80,14 +74,7 @@
 
 + (SPDelayedInvocation*)invocationWithTarget:(id)target delay:(double)time
 {
-    return [[[SPDelayedInvocation alloc] initWithTarget:target delay:time] autorelease];
-}
-
-- (void)dealloc
-{
-    [mTarget release];
-    [mInvocations release];
-    [super dealloc];
+    return [[SPDelayedInvocation alloc] initWithTarget:target delay:time];
 }
 
 @end

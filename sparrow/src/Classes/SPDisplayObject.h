@@ -90,7 +90,7 @@
     BOOL mTouchable;
     BOOL mOrientationChanged;
     
-    SPDisplayObjectContainer *mParent;
+    SPDisplayObjectContainer *__weak mParent;
     SPMatrix *mTransformationMatrix;
     double mLastTouchTimestamp;
     NSString *mName;
@@ -165,19 +165,19 @@
 @property (nonatomic, assign) BOOL touchable;
 
 /// The bounds of the object relative to the local coordinates of the parent.
-@property (nonatomic, readonly) SPRectangle *bounds;
+@property (weak, nonatomic, readonly) SPRectangle *bounds;
 
 /// The display object container that contains this display object.
-@property (nonatomic, readonly) SPDisplayObjectContainer *parent;
+@property (weak, nonatomic, readonly) SPDisplayObjectContainer *parent;
 
 /// The topmost object in the display tree the object is part of.
-@property (nonatomic, readonly) SPDisplayObject *root;
+@property (weak, nonatomic, readonly) SPDisplayObject *root;
 
 /// The stage the display object is connected to, or nil if it is not connected to a stage.
-@property (nonatomic, readonly) SPStage *stage;
+@property (weak, nonatomic, readonly) SPStage *stage;
 
 /// The transformation matrix of the object relative to its parent.
-@property (nonatomic, readonly) SPMatrix *transformationMatrix;
+@property (weak, nonatomic, readonly) SPMatrix *transformationMatrix;
 
 /// The name of the display object (default: nil). Used by `childByName:` of display object containers.
 @property (nonatomic, copy) NSString *name;

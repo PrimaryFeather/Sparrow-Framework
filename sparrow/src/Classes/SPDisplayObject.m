@@ -38,7 +38,6 @@
     #ifdef DEBUG    
     if ([self isMemberOfClass:[SPDisplayObject class]]) 
     {
-        [self release];
         [NSException raise:SP_EXC_ABSTRACT_CLASS 
                     format:@"Attempting to initialize abstract class SPDisplayObject."];        
         return nil;
@@ -58,12 +57,6 @@
     return self;
 }
 
-- (void)dealloc
-{
-    [mTransformationMatrix release];
-    [mName release];
-    [super dealloc];
-}
 
 - (void)render:(SPRenderSupport*)support
 {
@@ -92,7 +85,7 @@
             [selfMatrix concatMatrix:currentObject.transformationMatrix];
             currentObject = currentObject->mParent;
         }        
-        return [selfMatrix autorelease]; 
+        return selfMatrix; 
     }
     else if (targetCoordinateSpace->mParent == self) // optimization
     {
@@ -160,9 +153,8 @@
     // 4.: Combine the two matrices
     [targetMatrix invert];
     [selfMatrix concatMatrix:targetMatrix];
-    [targetMatrix release];
     
-    return [selfMatrix autorelease];
+    return selfMatrix;
 }
 
 - (SPRectangle*)boundsInSpace:(SPDisplayObject*)targetCoordinateSpace
@@ -199,7 +191,6 @@
     }
     
     SPPoint *globalPoint = [transformationMatrix transformPoint:localPoint];
-    [transformationMatrix release];
     return globalPoint;
 }
 
@@ -216,7 +207,6 @@
     
     [transformationMatrix invert];
     SPPoint *localPoint = [transformationMatrix transformPoint:globalPoint];
-    [transformationMatrix release];
     return localPoint;
 }
 
@@ -366,7 +356,7 @@
         if (mX != 0.0f || mY != 0.0f)           [mTransformationMatrix translateXBy:mX yBy:mY];
     }
     
-    return [[mTransformationMatrix copy] autorelease];
+    return [mTransformationMatrix copy];
 }
 
 @end

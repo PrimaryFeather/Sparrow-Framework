@@ -43,7 +43,7 @@ static NSMutableArray *stages = NULL;
     {
         // Save existing stages to have access to them in "SPStage setSupportHighResolutions:".
         // We use a CFArray to avoid that 'self' is retained -> that would cause a memory leak!
-        if (!stages) stages = (NSMutableArray *)CFArrayCreateMutable(NULL, 0, NULL);
+        if (!stages) stages = (NSMutableArray *)CFBridgingRelease(CFArrayCreateMutable(NULL, 0, NULL));
         [stages addObject:self];
         
         mWidth = width;
@@ -69,7 +69,6 @@ static NSMutableArray *stages = NULL;
     SPEnterFrameEvent *enterFrameEvent = [[SPEnterFrameEvent alloc] 
         initWithType:SP_EVENT_TYPE_ENTER_FRAME passedTime:seconds];
     [self broadcastEvent:enterFrameEvent];
-    [enterFrameEvent release];
 }
 
 - (void)processTouches:(NSSet*)touches
@@ -171,13 +170,9 @@ static NSMutableArray *stages = NULL;
     [SPRectangle purgePool];
     [SPMatrix purgePool];
     
-    [mTouchProcessor release];
-    [mJuggler release];
-    
     [stages removeObject:self];
-    if (stages.count == 0) { [stages release]; stages = NULL; }    
+    if (stages.count == 0) {  stages = NULL; }    
     
-    [super dealloc];
 }
 
 @end

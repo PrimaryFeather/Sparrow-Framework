@@ -76,7 +76,6 @@
             [remainingObjects addObject:currentObject];     
     }
     
-    [mObjects release];
     mObjects = remainingObjects;
 }
 
@@ -89,13 +88,7 @@
 
 + (SPJuggler *)juggler
 {
-    return [[[SPJuggler alloc] init] autorelease];
-}
-
-- (void)dealloc
-{
-    [mObjects release];
-    [super dealloc];
+    return [[SPJuggler alloc] init];
 }
 
 @end

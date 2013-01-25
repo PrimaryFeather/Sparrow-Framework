@@ -49,7 +49,7 @@
     SPTouchProcessor *mTouchProcessor;
     SPJuggler *mJuggler;
     
-    id mNativeView;
+    id __weak mNativeView;
 }
 
 /// --------------------
@@ -87,7 +87,7 @@
 @property (nonatomic, readonly) SPJuggler *juggler;
 
 /// The native view the stage is connected to. Normally an SPView.
-@property (nonatomic, readonly) id nativeView;
+@property (weak, nonatomic, readonly) id nativeView;
 
 @end
 

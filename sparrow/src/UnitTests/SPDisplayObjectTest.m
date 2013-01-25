@@ -45,10 +45,6 @@
     [child addChild:grandChild];
     
     STAssertEqualObjects(root, grandChild.root, @"wrong root");
-    
-    [grandChild release];
-    [child release];
-    [root release];    
 }
 
 - (void)testTransformationMatrixToSpace
@@ -88,9 +84,6 @@
     [matrix translateXBy:sprite.x yBy:sprite.y];
     
     STAssertTrue([sprite.transformationMatrix isEquivalent:matrix], @"wrong matrix");
-    
-    [sprite release];
-    [matrix release];
 }
 
 - (void)testBounds
@@ -111,8 +104,6 @@
     STAssertTrue(SP_IS_FLOAT_EQUAL(0, bounds.y), @"wrong inner bounds.y: %f", bounds.y);
     STAssertTrue(SP_IS_FLOAT_EQUAL(10, bounds.width), @"wrong inner bounds.width: %f", bounds.width);
     STAssertTrue(SP_IS_FLOAT_EQUAL(20, bounds.height), @"wrong innter bounds.height: %f", bounds.height);
-    
-    [quad release];
 }
 
 - (void)testZeroSize
@@ -158,9 +149,6 @@
     SPPoint *globalPoint = [sprite2 localToGlobal:localPoint];
     SPPoint *expectedPoint = [SPPoint pointWithX:160 y:220];    
     STAssertTrue([globalPoint isEquivalent:expectedPoint], @"wrong global point");
-    
-    [sprite release];
-    [sprite2 release];
 }
 
 - (void)testLocalToGlobalWithPivot
@@ -193,9 +181,6 @@
     SPPoint *localPoint = [sprite2 globalToLocal:globalPoint];
     SPPoint *expectedPoint = [SPPoint pointWithX:0 y:0];    
     STAssertTrue([localPoint isEquivalent:expectedPoint], @"wrong local point");
-    
-    [sprite release];
-    [sprite2 release];
 }
 
 - (void)testHitTestPoint
@@ -230,8 +215,6 @@
     quad.touchable = NO;
     STAssertNotNil([quad hitTestPoint:[SPPoint pointWithX:15 y:5] forTouch:NO], 
                 @"hitTest should succeed, this is no touch test");    
-    
-    [quad release];
 }
 
 - (void)testRotation

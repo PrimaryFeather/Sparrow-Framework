@@ -40,8 +40,8 @@
 @interface SPEvent : NSObject
 {
   @private
-    SPEventDispatcher *mTarget;
-    SPEventDispatcher *mCurrentTarget;
+    SPEventDispatcher *__weak mTarget;
+    SPEventDispatcher *__weak mCurrentTarget;
     NSString *mType;
     BOOL mStopsImmediatePropagation;
     BOOL mStopsPropagation;
@@ -85,9 +85,9 @@
 @property (nonatomic, readonly) BOOL bubbles; 
 
 /// The object that dispatched the event.
-@property (nonatomic, readonly) SPEventDispatcher *target; 
+@property (weak, nonatomic, readonly) SPEventDispatcher *target; 
 
 /// The object the event is currently bubbling at.
-@property (nonatomic, readonly) SPEventDispatcher *currentTarget; 
+@property (weak, nonatomic, readonly) SPEventDispatcher *currentTarget; 
 
 @end

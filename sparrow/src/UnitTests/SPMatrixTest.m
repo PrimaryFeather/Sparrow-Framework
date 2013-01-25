@@ -42,12 +42,6 @@
     identMatrix = [[SPMatrix alloc] init];
 }
 
-- (void) tearDown
-{
-    [countMatrix release];
-    [identMatrix release];
-}
-
 - (void)testInit
 {
     BOOL isEqual = [self checkMatrixValues:countMatrix a:1.0f b:2.0f c:3.0f d:4.0f tx:5.0f ty:6.0f];
@@ -61,8 +55,6 @@
     SPMatrix *copy = [countMatrix copy];
     STAssertTrue([countMatrix isEquivalent:copy], @"copy not equal: %@", copy);
     STAssertFalse(countMatrix == copy, @"copy is identical");
-    
-    [copy release];
 }
 
 - (void)testConcatMatrix
@@ -70,7 +62,6 @@
     SPMatrix *copy = [countMatrix copy];
     [copy concatMatrix:identMatrix];
     STAssertTrue([countMatrix isEquivalent:copy], @"multiplication with identity modified matrix");
-    [copy release];
     copy = [identMatrix copy];
     [copy concatMatrix:countMatrix];
     STAssertTrue([countMatrix isEquivalent:copy], @"multiplication with identity modified matrix");
@@ -82,9 +73,6 @@
     [countDownMatrix concatMatrix:countMatrix];
     STAssertTrue([self checkMatrixValues:countDownMatrix a:33 b:50 c:25 d:38 tx:22 ty:32],
                  @"wrong matrix: %@", copy);  
-    
-    [countDownMatrix release];
-    [copy release];
 }
 
 - (void)testInvert
@@ -108,7 +96,6 @@
     SPPoint *tPoint = [identMatrix transformPoint:point];
     STAssertTrue(SP_IS_FLOAT_EQUAL(15, tPoint.x), @"wrong x value: %f", tPoint.x);
     STAssertTrue(SP_IS_FLOAT_EQUAL(27, tPoint.y), @"wrong y value: %f", tPoint.y);    
-    [point release];
 }
 
 - (void)testRotate
@@ -125,8 +112,6 @@
     rPoint = [identMatrix transformPoint:point];
     STAssertTrue(SP_IS_FLOAT_EQUAL(-10, rPoint.x), @"wrong x value: %f", rPoint.x);
     STAssertTrue(SP_IS_FLOAT_EQUAL(-20, rPoint.y), @"wrong y value: %f", rPoint.y);
-    
-    [point release];
 }
 
 - (void)testScale
@@ -136,7 +121,6 @@
     SPPoint *sPoint = [identMatrix transformPoint:point];
     STAssertTrue(SP_IS_FLOAT_EQUAL(20.0f, sPoint.x), @"wrong x value: %f", sPoint.x);
     STAssertTrue(SP_IS_FLOAT_EQUAL(10.0f, sPoint.y), @"wrong y value: %f", sPoint.y);    
-    [point release];
 }
 
 - (void)testConcatenatedTransformations
@@ -148,7 +132,6 @@
     SPPoint *ctPoint = [identMatrix transformPoint:point];
     STAssertTrue(SP_IS_FLOAT_EQUAL(0.0f, ctPoint.x), @"wrong x value: %f", ctPoint.x);
     STAssertTrue(SP_IS_FLOAT_EQUAL(10.0f, ctPoint.y), @"wrong y value: %f", ctPoint.y);    
-    [point release];
 }
 
 - (BOOL)checkMatrixValues:(SPMatrix*)matrix a:(float)a b:(float)b c:(float)c d:(float)d 

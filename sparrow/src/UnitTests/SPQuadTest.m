@@ -48,7 +48,6 @@
     STAssertTrue(SP_IS_FLOAT_EQUAL(width, quad.width), @"wrong width");
     STAssertTrue(SP_IS_FLOAT_EQUAL(height, quad.height), @"wrong height");
     
-    [quad release];
 }
 
 - (void)testWidth
@@ -61,8 +60,6 @@
 
     float expectedWidth = cosf(angle) * (width + height);
     STAssertTrue(SP_IS_FLOAT_EQUAL(expectedWidth, quad.width), @"wrong width: %f", quad.width);
-    
-    [quad release];
 }
 
 - (void)testVertexColorAndAlpha

@@ -9,6 +9,7 @@
 //  it under the terms of the Simplified BSD License.
 //
 
+#import "SPEventDispatcher.h"
 #import "SPEvent.h"
 #import "SPEvent_Internal.h"
 
@@ -51,21 +52,14 @@
 
 + (SPEvent*)eventWithType:(NSString*)type bubbles:(BOOL)bubbles
 {
-    return [[[SPEvent alloc] initWithType:type bubbles:bubbles] autorelease];
+    return [[SPEvent alloc] initWithType:type bubbles:bubbles];
 }
 
 + (SPEvent*)eventWithType:(NSString*)type
 {
-    return [[[SPEvent alloc] initWithType:type] autorelease];
+    return [[SPEvent alloc] initWithType:type];
 }
 
-- (void)dealloc
-{
-    [mType release];
-    [mTarget release];
-    [mCurrentTarget release];
-    [super dealloc];
-}
 
 @end
 
@@ -85,20 +79,14 @@
 
 - (void)setTarget:(SPEventDispatcher*)target
 {
-    if (target != mTarget)
-    {
-        [mTarget release];
-        mTarget = [target retain];
-    }        
+    if (mTarget != target)
+        mTarget = target;
 }
 
 - (void)setCurrentTarget:(SPEventDispatcher*)currentTarget
 {
-    if (currentTarget != mCurrentTarget)
-    {
-        [mCurrentTarget release];
-        mCurrentTarget = [currentTarget retain];
-    }
+    if (mCurrentTarget != currentTarget)
+        mCurrentTarget = currentTarget;
 }
 
 @end

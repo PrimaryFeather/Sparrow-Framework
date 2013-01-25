@@ -24,8 +24,8 @@
 
 @interface SPView ()
 
-@property (nonatomic, retain) NSTimer *timer;
-@property (nonatomic, retain) id displayLink;
+@property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic, strong) id displayLink;
 
 - (void)setup;
 - (void)createFramebuffer;
@@ -127,16 +127,15 @@
 
 - (void)nextFrame
 {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    
-    double now = CACurrentMediaTime();
-    double timePassed = now - mLastFrameTimestamp;
-    [mStage advanceTime:timePassed];
-    mLastFrameTimestamp = now;
-    
-    [self renderStage];
-    
-    [pool release];
+    @autoreleasepool
+    {
+        double now = CACurrentMediaTime();
+        double timePassed = now - mLastFrameTimestamp;
+        [mStage advanceTime:timePassed];
+        mLastFrameTimestamp = now;
+        
+        [self renderStage];
+    }
 }
 
 - (void)renderStage
@@ -235,8 +234,7 @@
     if (mStage != stage)
     {
         mStage.nativeView = nil;
-        [mStage release];
-        mStage = [stage retain];
+        mStage = stage;
         mStage.nativeView = self;        
     }
 }
@@ -271,33 +269,32 @@
 {
     if (self.isStarted && mLastTouchTimestamp != event.timestamp)
     {
-        SP_CREATE_POOL(pool);
-        
-        CGSize viewSize = self.bounds.size;
-        float xConversion = mStage.width / viewSize.width;
-        float yConversion = mStage.height / viewSize.height;
-        
-        // convert to SPTouches and forward to stage
-        NSMutableSet *touches = [NSMutableSet set];        
-        double now = CACurrentMediaTime();
-        for (UITouch *uiTouch in [event touchesForView:self])
+        @autoreleasepool
         {
-            CGPoint location = [uiTouch locationInView:self];            
-            CGPoint previousLocation = [uiTouch previousLocationInView:self];
-            SPTouch *touch = [SPTouch touch];
-            touch.timestamp = now; // timestamp of uiTouch not compatible to Sparrow timestamp
-            touch.globalX = location.x * xConversion;
-            touch.globalY = location.y * yConversion;
-            touch.previousGlobalX = previousLocation.x * xConversion;
-            touch.previousGlobalY = previousLocation.y * yConversion;
-            touch.tapCount = uiTouch.tapCount;
-            touch.phase = (SPTouchPhase) uiTouch.phase;            
-            [touches addObject:touch];
+            CGSize viewSize = self.bounds.size;
+            float xConversion = mStage.width / viewSize.width;
+            float yConversion = mStage.height / viewSize.height;
+            
+            // convert to SPTouches and forward to stage
+            NSMutableSet *touches = [NSMutableSet set];        
+            double now = CACurrentMediaTime();
+            for (UITouch *uiTouch in [event touchesForView:self])
+            {
+                CGPoint location = [uiTouch locationInView:self];            
+                CGPoint previousLocation = [uiTouch previousLocationInView:self];
+                SPTouch *touch = [SPTouch touch];
+                touch.timestamp = now; // timestamp of uiTouch not compatible to Sparrow timestamp
+                touch.globalX = location.x * xConversion;
+                touch.globalY = location.y * yConversion;
+                touch.previousGlobalX = previousLocation.x * xConversion;
+                touch.previousGlobalY = previousLocation.y * yConversion;
+                touch.tapCount = uiTouch.tapCount;
+                touch.phase = (SPTouchPhase) uiTouch.phase;            
+                [touches addObject:touch];
+            }
+            [mStage processTouches:touches];        
+            mLastTouchTimestamp = event.timestamp;
         }
-        [mStage processTouches:touches];        
-        mLastTouchTimestamp = event.timestamp;
-        
-        SP_RELEASE_POOL(pool);
     }    
 }
 
@@ -306,15 +303,10 @@
     if ([EAGLContext currentContext] == mContext) 
         [EAGLContext setCurrentContext:nil];
     
-    [mContext release];
-    [mStage release];   
-    [mRenderSupport release];
     [self destroyFramebuffer];
     
     self.timer = nil;       // invalidates timer    
-    self.displayLink = nil; // invalidates displayLink        
-    
-    [super dealloc];
+    self.displayLink = nil; // invalidates displayLink
 }
 
 @end

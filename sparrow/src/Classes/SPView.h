@@ -63,7 +63,7 @@
 @property (nonatomic, assign) float frameRate;
 
 /// The stage object that will be processed.
-@property (nonatomic, retain) SPStage *stage;
+@property (nonatomic, strong) SPStage *stage;
 
 /// -------------
 /// @name Methods

@@ -79,122 +79,111 @@
 
 + (SPCompiledSprite *)sprite
 {
-    return [[[SPCompiledSprite alloc] init] autorelease];
+    return [[SPCompiledSprite alloc] init];
 }
 
 - (void)dealloc
 {
     free(mCurrentColors);
-    [mTextureSwitches release];
-    [mColorData release];    
     [self deleteBuffers];
-    [super dealloc];
 }
 
 - (BOOL)compile
 {    
-    SP_CREATE_POOL(pool);
-
-    [self deleteBuffers];
-    [mTextureSwitches release];
-    [mColorData release];    
-    
-    free(mCurrentColors);
-    mCurrentColors = nil;
-    
-    // inform all children about upcoming compilation
-    [self broadcastEvent:[SPEvent eventWithType:SP_EVENT_TYPE_COMPILE]];
-    
-    void *scratchBuffer = malloc(MAX(8 * sizeof(float), 4 * sizeof(uint)));    
-    
-    NSMutableData *vertexData   = [[NSMutableData alloc] init];    
-    NSMutableData *colorData    = [[NSMutableData alloc] init];
-    NSMutableData *texCoordData = [[NSMutableData alloc] init];
-    
-    NSMutableArray *matrices = [[NSMutableArray alloc] initWithObjects:
-                                [SPMatrix matrixWithIdentity], nil];    
-    NSMutableArray *textures = [[NSMutableArray alloc] initWithObjects:
-                                [NSNull null], [NSNumber numberWithInt:0], nil];    
-
-    BOOL success;
-    
-    do
+    @autoreleasepool
     {
-        // compilation is done with an alpha of 1.0f, to get unscaled color data
-        float originalAlpha = self.alpha;
-        self.alpha = 1.0f;
+        [self deleteBuffers];
         
-        success = [self processVerticesOfObject:self withMatrices:matrices 
-                                     vertexData:vertexData buffer:scratchBuffer];
-        if (!success) break;
-   
-        success = [self processColorsOfObject:self withAlpha:self.alpha 
-                                    colorData:colorData buffer:scratchBuffer];        
-        if (!success) break;
+        free(mCurrentColors);
+        mCurrentColors = nil;
         
-        success = [self processTexturesOfObject:self withTextures:textures 
-                                   texCoordData:texCoordData buffer:scratchBuffer];
+        // inform all children about upcoming compilation
+        [self broadcastEvent:[SPEvent eventWithType:SP_EVENT_TYPE_COMPILE]];
         
-        self.alpha = originalAlpha;
+        void *scratchBuffer = malloc(MAX(8 * sizeof(float), 4 * sizeof(uint)));    
         
-    } while (NO);
-    
-    if (success)
-    {
-        glGenBuffers(4, &mIndexBuffer);
+        NSMutableData *vertexData   = [[NSMutableData alloc] init];    
+        NSMutableData *colorData    = [[NSMutableData alloc] init];
+        NSMutableData *texCoordData = [[NSMutableData alloc] init];
         
-        int numVertices = [vertexData length] / sizeof(float) / 2; 
-        int numQuads = numVertices / 4;
-        int indexBufferSize = numQuads * 6; // 4 + 2 for degenerate triangles
-        GLushort *indices = malloc(indexBufferSize * sizeof(GLushort));
+        NSMutableArray *matrices = [[NSMutableArray alloc] initWithObjects:
+                                    [SPMatrix matrixWithIdentity], nil];    
+        NSMutableArray *textures = [[NSMutableArray alloc] initWithObjects:
+                                    [NSNull null], [NSNumber numberWithInt:0], nil];    
+
+        BOOL success;
         
-        int pos = 0;
-        for (int i=0; i<numQuads; ++i)
+        do
         {
-            indices[pos++] = (GLushort)(i*4);
-            for (int j=0; j<4; ++j) indices[pos++] = (GLushort)(i*4 + j);
-            indices[pos++] = (GLushort)(i*4 + 3);
+            // compilation is done with an alpha of 1.0f, to get unscaled color data
+            float originalAlpha = self.alpha;
+            self.alpha = 1.0f;
+            
+            success = [self processVerticesOfObject:self withMatrices:matrices 
+                                         vertexData:vertexData buffer:scratchBuffer];
+            if (!success) break;
+   
+            success = [self processColorsOfObject:self withAlpha:self.alpha 
+                                        colorData:colorData buffer:scratchBuffer];        
+            if (!success) break;
+            
+            success = [self processTexturesOfObject:self withTextures:textures 
+                                       texCoordData:texCoordData buffer:scratchBuffer];
+            
+            self.alpha = originalAlpha;
+            
+        } while (NO);
+        
+        if (success)
+        {
+            glGenBuffers(4, &mIndexBuffer);
+            
+            int numVertices = [vertexData length] / sizeof(float) / 2; 
+            int numQuads = numVertices / 4;
+            int indexBufferSize = numQuads * 6; // 4 + 2 for degenerate triangles
+            GLushort *indices = malloc(indexBufferSize * sizeof(GLushort));
+            
+            int pos = 0;
+            for (int i=0; i<numQuads; ++i)
+            {
+                indices[pos++] = (GLushort)(i*4);
+                for (int j=0; j<4; ++j) indices[pos++] = (GLushort)(i*4 + j);
+                indices[pos++] = (GLushort)(i*4 + 3);
+            }
+            
+            // index buffer
+            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mIndexBuffer);
+            glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexBufferSize * sizeof(GLushort), indices, GL_STATIC_DRAW);                
+            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+            free(indices);
+            
+            // vertex buffer
+            glBindBuffer(GL_ARRAY_BUFFER, mVertexBuffer);
+            glBufferData(GL_ARRAY_BUFFER, vertexData.length, vertexData.bytes, GL_STATIC_DRAW);
+
+            // color buffer
+            glBindBuffer(GL_ARRAY_BUFFER, mColorBuffer);
+            glBufferData(GL_ARRAY_BUFFER, colorData.length, colorData.bytes, GL_DYNAMIC_DRAW);
+                    
+            // texture coordinate buffer
+            glBindBuffer(GL_ARRAY_BUFFER, mTexCoordBuffer);
+            glBufferData(GL_ARRAY_BUFFER, texCoordData.length, texCoordData.bytes, GL_STATIC_DRAW);        
+            
+            glBindBuffer(GL_ARRAY_BUFFER, 0);
+        }
+        else
+        {
+            textures = nil;
+            colorData = nil;
         }
         
-        // index buffer
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mIndexBuffer);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexBufferSize * sizeof(GLushort), indices, GL_STATIC_DRAW);                
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-        free(indices);
+        mTextureSwitches = textures;
+        mColorData = colorData;
         
-        // vertex buffer
-        glBindBuffer(GL_ARRAY_BUFFER, mVertexBuffer);
-        glBufferData(GL_ARRAY_BUFFER, vertexData.length, vertexData.bytes, GL_STATIC_DRAW);
-
-        // color buffer
-        glBindBuffer(GL_ARRAY_BUFFER, mColorBuffer);
-        glBufferData(GL_ARRAY_BUFFER, colorData.length, colorData.bytes, GL_DYNAMIC_DRAW);
-                
-        // texture coordinate buffer
-        glBindBuffer(GL_ARRAY_BUFFER, mTexCoordBuffer);
-        glBufferData(GL_ARRAY_BUFFER, texCoordData.length, texCoordData.bytes, GL_STATIC_DRAW);        
+        free(scratchBuffer);    
         
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        return success;
     }
-    else
-    {
-        [textures release];
-        [colorData release];
-        textures = nil;
-        colorData = nil;
-    }
-    
-    mTextureSwitches = textures;
-    mColorData = colorData;
-    
-    [matrices release];
-    [vertexData release];    
-    [texCoordData release];
-    
-    free(scratchBuffer);    
-    
-    SP_RELEASE_POOL(pool);    
-    return success;
 }
 
 - (BOOL)processVerticesOfObject:(SPDisplayObject *)object withMatrices:(NSMutableArray *)matrices

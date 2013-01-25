@@ -11,6 +11,7 @@
 
 #import "SPEventDispatcher.h"
 #import "SPDisplayObject.h"
+#import "SPDisplayObjectContainer.h"
 #import "SPEvent_Internal.h"
 #import "SPMacros.h"
 #import "SPNSExtensions.h"
@@ -36,7 +37,6 @@
     {
         listeners = [[NSArray alloc] initWithObjects:invocation, nil];
         [mEventListeners setObject:listeners forKey:eventType];
-        [listeners release];
     }
     else 
     {
@@ -64,8 +64,6 @@
                 
         if (remainingListeners.count == 0) [mEventListeners removeObjectForKey:eventType];
         else [mEventListeners setObject:remainingListeners forKey:eventType];
-        
-        [remainingListeners release];
     }
 }
 
@@ -90,20 +88,17 @@
     SPEventDispatcher *previousTarget = event.target;
     if (!previousTarget || event.currentTarget) event.target = self;
     
-    [self retain]; // the event listener could release 'self', so we have to make sure that it 
-                   // stays valid while we're here.
-    
-    BOOL stopImmediatePropagation = NO;    
+    BOOL stopImmediatePropagation = NO;
     if (listeners.count != 0)
-    {    
+    {
         event.currentTarget = self;
+        SPEvent *__unsafe_unretained unsafeEvent = event;
         
         // we can enumerate directly over the array, since "add"- and "removeEventListener" won't
         // change it, but instead always create a new array.
-        [listeners retain];
         for (NSInvocation *inv in listeners)
         {
-            [inv setArgument:&event atIndex:2];
+            [inv setArgument:&unsafeEvent atIndex:2];
             [inv invoke];
             if (event.stopsImmediatePropagation) 
             {
@@ -111,7 +106,6 @@
                 break;
             }
         }
-        [listeners release];
     }
     
     if (!stopImmediatePropagation && event.bubbles && !event.stopsPropagation && 
@@ -123,17 +117,6 @@
     }
     
     if (previousTarget) event.target = previousTarget;
-    
-    // we use autorelease instead of release to avoid having to make additional "retain"-calls
-    // in calling methods (like "dispatchEventsOnChildren"). Those methods might be called very
-    // often, so we save some time by avoiding that.
-    [self autorelease];
-}
-
-- (void)dealloc
-{
-    [mEventListeners release];
-    [super dealloc];
 }
 
 @end

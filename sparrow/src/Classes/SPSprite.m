@@ -16,7 +16,7 @@
 
 + (SPSprite*)sprite
 {
-    return [[[SPSprite alloc] init] autorelease];
+    return [[SPSprite alloc] init];
 }
 
 @end

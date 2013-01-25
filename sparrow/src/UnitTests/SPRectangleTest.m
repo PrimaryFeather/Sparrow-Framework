@@ -38,7 +38,6 @@
     STAssertTrue(SP_IS_FLOAT_EQUAL(20, rect.y), @"wrong y");
     STAssertTrue(SP_IS_FLOAT_EQUAL(30, rect.width), @"wrong width");
     STAssertTrue(SP_IS_FLOAT_EQUAL(40, rect.height), @"wrong height");    
-    [rect release];
 }
 
 - (void)testSides

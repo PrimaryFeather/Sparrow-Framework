@@ -44,17 +44,13 @@
     return [transformationMatrix transformPoint:point];
 }
 
-- (void)dealloc
-{
-    [mTarget release];
-    [super dealloc];
-}
-
 @end
 
 // -------------------------------------------------------------------------------------------------
 
 @implementation SPTouch (Internal)
+
+// TODO: why not synthesize these properties?
 
 - (void)setTimestamp:(double)timestamp
 {
@@ -93,16 +89,13 @@
 
 - (void)setTarget:(SPDisplayObject*)target
 {
-    if (target != mTarget)
-    {    
-        [mTarget release];
-        mTarget = [target retain];
-    }
+    if (mTarget != target)
+        mTarget = target;
 }
 
 + (SPTouch*)touch
 {
-    return [[[SPTouch alloc] init] autorelease];
+    return [[SPTouch alloc] init];
 }
 
 @end

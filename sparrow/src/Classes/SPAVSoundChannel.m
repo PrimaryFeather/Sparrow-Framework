@@ -17,7 +17,6 @@
 
 - (id)init
 {
-    [self release];
     return nil;
 }
 
@@ -26,8 +25,8 @@
     if ((self = [super init]))
     {
         mVolume = 1.0f;
-        mSound = [sound retain];
-        mPlayer = [[sound createPlayer] retain];
+        mSound = sound;
+        mPlayer = [sound createPlayer];
         mPlayer.delegate = self;                
         [mPlayer prepareToPlay];
 
@@ -42,9 +41,6 @@
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];    
     mPlayer.delegate = nil;
-    [mPlayer release];
-    [mSound release];
-    [super dealloc];
 }
 
 - (void)play

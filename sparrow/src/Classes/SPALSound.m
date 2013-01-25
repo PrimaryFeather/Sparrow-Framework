@@ -23,7 +23,6 @@
 
 - (id)init
 {
-    [self release];
     return nil;
 }
 
@@ -32,47 +31,33 @@
 {
     if ((self = [super init]))
     {        
-        BOOL success = NO;
-        mDuration = duration;        
+        mDuration = duration;
+        [SPAudioEngine start];
         
-        do
+        ALCcontext *const currentContext = alcGetCurrentContext();
+        if (!currentContext)
         {
-            [SPAudioEngine start];
-            
-            ALCcontext *const currentContext = alcGetCurrentContext();
-            if (!currentContext)
-            {
-                NSLog(@"Could not get current OpenAL context");
-                break;
-            }        
-            
-            ALenum errorCode;
-            
-            alGenBuffers(1, &mBufferID);
-            errorCode = alGetError();
-            if (errorCode != AL_NO_ERROR)
-            {
-                NSLog(@"Could not allocate OpenAL buffer (%x)", errorCode);
-                break;
-            }            
-            
-            int format = (channels > 1) ? AL_FORMAT_STEREO16 : AL_FORMAT_MONO16;
-            
-            alBufferData(mBufferID, format, data, size, frequency);
-            errorCode = alGetError();
-            if (errorCode != AL_NO_ERROR)
-            {
-                NSLog(@"Could not fill OpenAL buffer (%x)", errorCode);
-                break;
-            }
-            
-            success = YES;
-        }
-        while (NO);
+            NSLog(@"Could not get current OpenAL context");
+            return nil;
+        }        
         
-        if (!success)
+        ALenum errorCode;
+        
+        alGenBuffers(1, &mBufferID);
+        errorCode = alGetError();
+        if (errorCode != AL_NO_ERROR)
         {
-            [self release];
+            NSLog(@"Could not allocate OpenAL buffer (%x)", errorCode);
+            return nil;
+        }            
+        
+        int format = (channels > 1) ? AL_FORMAT_STEREO16 : AL_FORMAT_MONO16;
+        
+        alBufferData(mBufferID, format, data, size, frequency);
+        errorCode = alGetError();
+        if (errorCode != AL_NO_ERROR)
+        {
+            NSLog(@"Could not fill OpenAL buffer (%x)", errorCode);
             return nil;
         }
     }
@@ -81,14 +66,13 @@
 
 - (SPSoundChannel *)createChannel
 {
-    return [[[SPALSoundChannel alloc] initWithSound:self] autorelease];
+    return [[SPALSoundChannel alloc] initWithSound:self];
 }
 
 - (void) dealloc
 {
     alDeleteBuffers(1, &mBufferID);
     mBufferID = 0;
-    [super dealloc];
 }
 
 @end

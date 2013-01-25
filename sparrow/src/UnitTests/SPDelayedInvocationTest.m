@@ -18,24 +18,6 @@
 
 // -------------------------------------------------------------------------------------------------
 
-static int dummyDeallocCount = 0;
-
-@interface DummyClass : NSObject
-
-@end
-
-@implementation DummyClass
-
-- (void)dealloc
-{
-    ++dummyDeallocCount;
-    [super dealloc];
-}
-
-@end
-
-// -------------------------------------------------------------------------------------------------
-
 @interface SPDelayedInvocationTest : SenTestCase 
 {
     int mCallCount;
@@ -50,18 +32,11 @@ static int dummyDeallocCount = 0;
 - (void)setUp
 {
     mCallCount = 0;
-    dummyDeallocCount = 0;
 }
 
 - (void)simpleMethod
 {
     ++mCallCount;
-}
-
-- (void)methodWithArgument:(DummyClass *)dummy
-{
-    [dummy description]; // just to check that dummy has not been released
-    ++mCallCount;    
 }
 
 - (void)testSimpleDelay
@@ -83,37 +58,6 @@ static int dummyDeallocCount = 0;
     [delayedInv advanceTime:0.1f];
     STAssertEquals(1, mCallCount, @"Delayed Invocation triggered too often");
     
-    [delayedInv release];
-}
-
-- (void)testDelayWithArguments
-{
-    SP_CREATE_POOL(pool);
-    
-    // test dummy mechanism
-    
-    DummyClass *dummy = [[DummyClass alloc] init];
-    [dummy release];
-    STAssertEquals(1, dummyDeallocCount, @"dummy release not counted");
-    
-    // now test if retain/release cycle of delayed invocation works
-    
-    dummy = [[DummyClass alloc] init];
-    id delayedInv = [[SPDelayedInvocation alloc] initWithTarget:self delay:1.0f];
-    [delayedInv methodWithArgument:dummy];
-    
-    STAssertEquals(0, mCallCount, @"Delayed Invocation triggered too soon");
-    
-    [dummy release];
-    STAssertEquals(1, dummyDeallocCount, @"Argument not retained");
-    
-    [delayedInv advanceTime:1.0f];
-    STAssertEquals(1, mCallCount, @"Delayed Invocation did not trigger");
-    
-    SP_RELEASE_POOL(pool);
-    
-    [delayedInv release];
-    STAssertEquals(2, dummyDeallocCount, @"Argument not released");
 }
 
 @end

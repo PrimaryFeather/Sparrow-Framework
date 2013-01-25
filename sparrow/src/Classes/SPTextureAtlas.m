@@ -36,7 +36,7 @@
     {
         mTextureRegions = [[NSMutableDictionary alloc] init];
         mTextureFrames  = [[NSMutableDictionary alloc] init];
-        mAtlasTexture = [texture retain];
+        mAtlasTexture = texture;
         [self parseAtlasXml:path];
     }
     return self;    
@@ -62,26 +62,22 @@
     if (!path) return;
 
     float scaleFactor = [SPStage contentScaleFactor];
-    mPath = [[SPUtils absolutePathToFile:path withScaleFactor:scaleFactor] retain];    
+    mPath = [SPUtils absolutePathToFile:path withScaleFactor:scaleFactor];    
     if (!mPath) [NSException raise:SP_EXC_FILE_NOT_FOUND format:@"file not found: %@", path];
     
-    SP_CREATE_POOL(pool);
-    
-    NSData *xmlData = [[NSData alloc] initWithContentsOfFile:mPath];
-    NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:xmlData];
-    [xmlData release];
-    
-    xmlParser.delegate = self;    
-    BOOL success = [xmlParser parse];
-    
-    SP_RELEASE_POOL(pool);
-    
-    if (!success)    
-        [NSException raise:SP_EXC_FILE_INVALID 
-                    format:@"could not parse texture atlas %@. Error code: %d, domain: %@", 
-                           path, xmlParser.parserError.code, xmlParser.parserError.domain];
-
-    [xmlParser release];    
+    @autoreleasepool
+    {
+        NSData *xmlData = [[NSData alloc] initWithContentsOfFile:mPath];
+        NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:xmlData];
+        
+        xmlParser.delegate = self;    
+        BOOL success = [xmlParser parse];
+        
+        if (!success)    
+            [NSException raise:SP_EXC_FILE_INVALID 
+                        format:@"could not parse texture atlas %@. Error code: %d, domain: %@", 
+                               path, xmlParser.parserError.code, xmlParser.parserError.domain];
+    }
 }
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName 
@@ -151,7 +147,6 @@
     for (NSString *textureName in textureNames)
         [textures addObject:[self textureByName:textureName]];
     
-    [textureNames release];
     return textures;
 }
 
@@ -174,16 +169,7 @@
 
 + (SPTextureAtlas *)atlasWithContentsOfFile:(NSString *)path
 {
-    return [[[SPTextureAtlas alloc] initWithContentsOfFile:path] autorelease];
-}
-
-- (void)dealloc
-{
-    [mPath release];
-    [mAtlasTexture release];
-    [mTextureRegions release];
-    [mTextureFrames release];
-    [super dealloc];
+    return [[SPTextureAtlas alloc] initWithContentsOfFile:path];
 }
 
 @end

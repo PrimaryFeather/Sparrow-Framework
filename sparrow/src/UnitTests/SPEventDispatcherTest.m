@@ -47,8 +47,6 @@
 
     [dispatcher removeEventListener:@selector(onEvent:) atObject:self forType:EVENT_TYPE];
     STAssertFalse([dispatcher hasEventListenerForType:EVENT_TYPE], @"remove failed");    
-    
-    [dispatcher release];
 }
 
 - (void)testRemoveAllEventListenersOfObject
@@ -59,8 +57,6 @@
     
     [dispatcher removeEventListenersAtObject:self forType:EVENT_TYPE];
     STAssertFalse([dispatcher hasEventListenerForType:EVENT_TYPE], @"remove failed");
-    
-    [dispatcher release];
 }
 
 - (void)testSimpleEvent
@@ -71,7 +67,6 @@
     STAssertEquals(1, mTestCounter, @"event listener not called");    
     
     [dispatcher removeEventListener:@selector(onEvent:) atObject:self forType:EVENT_TYPE];    
-    [dispatcher release];
 }
 
 - (void)testBubblingEvent
@@ -104,10 +99,6 @@
     [sprite2 removeEventListenersAtObject:self forType:EVENT_TYPE];
     [sprite3 removeEventListenersAtObject:self forType:EVENT_TYPE];
     [sprite4 removeEventListenersAtObject:self forType:EVENT_TYPE];
-    [sprite1 release];
-    [sprite2 release];
-    [sprite3 release];
-    [sprite4 release];
 }
 
 - (void)testStopImmediatePropagation
@@ -122,7 +113,6 @@
     STAssertEquals(2, mTestCounter, @"stopEventImmediately did not work correctly");
     
     [sprite removeEventListenersAtObject:self forType:EVENT_TYPE];
-    [sprite release];    
 }
 
 - (void)onEvent:(SPEvent*)event

@@ -30,7 +30,7 @@ typedef float (*FnPtrTransition) (id, SEL, float);
 {
     if ((self = [super init]))
     {
-        mTarget = [target retain];
+        mTarget = target;
         mTotalTime = MAX(0.0001, time); // zero is not allowed
         mCurrentTime = 0;
         mDelay = 0;
@@ -61,7 +61,6 @@ typedef float (*FnPtrTransition) (id, SEL, float);
     SPTweenedProperty *tweenedProp = [[SPTweenedProperty alloc] 
         initWithTarget:mTarget name:property endValue:value];
     [mProperties addObject:tweenedProp];
-    [tweenedProp release];
 }
 
 - (void)moveToX:(float)x y:(float)y
@@ -104,7 +103,6 @@ typedef float (*FnPtrTransition) (id, SEL, float);
     {
         SPEvent *event = [[SPEvent alloc] initWithType:SP_EVENT_TYPE_TWEEN_STARTED];        
         [self dispatchEvent:event];
-        [event release];        
     }   
     
     float ratio = mCurrentTime / mTotalTime;
@@ -128,7 +126,6 @@ typedef float (*FnPtrTransition) (id, SEL, float);
     {
         SPEvent *event = [[SPEvent alloc] initWithType:SP_EVENT_TYPE_TWEEN_UPDATED];
         [self dispatchEvent:event];    
-        [event release];
     }
     
     if (previousTime < mTotalTime && mCurrentTime == mTotalTime)
@@ -152,7 +149,6 @@ typedef float (*FnPtrTransition) (id, SEL, float);
         {
             SPEvent *event = [[SPEvent alloc] initWithType:SP_EVENT_TYPE_TWEEN_COMPLETED];
             [self dispatchEvent:event];
-            [event release];
         }
     }
     
@@ -178,19 +174,12 @@ typedef float (*FnPtrTransition) (id, SEL, float);
 
 + (SPTween*)tweenWithTarget:(id)target time:(double)time transition:(NSString*)transition
 {
-    return [[[SPTween alloc] initWithTarget:target time:time transition:transition] autorelease];
+    return [[SPTween alloc] initWithTarget:target time:time transition:transition];
 }
 
 + (SPTween*)tweenWithTarget:(id)target time:(double)time
 {
-    return [[[SPTween alloc] initWithTarget:target time:time] autorelease];
-}
-
-- (void)dealloc
-{
-    [mTarget release];
-    [mProperties release];
-    [super dealloc];
+    return [[SPTween alloc] initWithTarget:target time:time];
 }
 
 @end

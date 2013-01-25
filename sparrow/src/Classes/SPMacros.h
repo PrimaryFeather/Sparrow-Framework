@@ -52,9 +52,6 @@
 
 // macros
 
-#define SP_CREATE_POOL(pool)        NSAutoreleasePool *(pool) = [[NSAutoreleasePool alloc] init];
-#define SP_RELEASE_POOL(pool)       [(pool) release];
-
 #define SP_R2D(rad)                 ((rad) / PI * 180.0f)
 #define SP_D2R(deg)                 ((deg) / 180.0f * PI)
 

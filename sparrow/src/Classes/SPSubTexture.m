@@ -21,7 +21,7 @@
 {
     if ((self = [super init]))
     {
-        mBaseTexture = [texture retain];
+        mBaseTexture = texture;
         
         // convert region to clipping rectangle (which has values between 0 and 1)        
         self.clipping = [SPRectangle rectangleWithX:region.x/texture.width
@@ -34,18 +34,15 @@
 
 - (id)init
 {
-    [self release];
     return nil;
 }
 
 - (void)setClipping:(SPRectangle *)clipping
 {
-    [mClipping release];
     mClipping = [clipping copy];
     
     // if the base texture is a sub texture as well, calculate clipping 
     // in reference to the root texture         
-    [mRootClipping release];
     mRootClipping = [mClipping copy];
     SPTexture *baseTexture = mBaseTexture;
     while ([baseTexture isKindOfClass:[SPSubTexture class]])
@@ -124,15 +121,7 @@
 
 + (SPSubTexture*)textureWithRegion:(SPRectangle*)region ofTexture:(SPTexture*)texture
 {
-    return [[[SPSubTexture alloc] initWithRegion:region ofTexture:texture] autorelease];
-}
-
-- (void)dealloc
-{
-    [mClipping release];
-    [mRootClipping release];
-    [mBaseTexture release];
-    [super dealloc];
+    return [[SPSubTexture alloc] initWithRegion:region ofTexture:texture];
 }
 
 @end

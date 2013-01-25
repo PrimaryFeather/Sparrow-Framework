@@ -40,18 +40,11 @@
     mP2 = [[SPPoint alloc] initWithX:4 y:1];    
 }
 
-- (void) tearDown
-{
-    [mP1 release];
-    [mP2 release];
-}
-
 - (void)testInit
 {
     SPPoint *point = [[SPPoint alloc] init];
     STAssertEquals(0.0f, point.x, @"x is not zero");
     STAssertEquals(0.0f, point.y, @"y is not zero");
-    [point release];
 }
 
 - (void)testInitWithXandY
@@ -59,7 +52,6 @@
     SPPoint *point = [[SPPoint alloc] initWithX:3 y:4];
     STAssertEquals(3.0f, point.x, @"wrong x value");
     STAssertEquals(4.0f, point.y, @"wrong y value");
-    [point release];
 }
 
 - (void)testLength
@@ -69,7 +61,6 @@
     point.x = 0;
     point.y = 0;
     STAssertEquals(0.0f, point.length, @"wrong length");
-    [point release];    
 }
 
 - (void)testLengthSquared
@@ -96,7 +87,6 @@
     STAssertTrue(SP_IS_FLOAT_EQUAL(-PI/2.0f, point.angle), @"wrong angle: %f", point.angle);
     point.x = 10;
     STAssertTrue(SP_IS_FLOAT_EQUAL(-PI/4.0f, point.angle), @"wrong angle: %f", point.angle);
-    [point release];    
 }
 
 - (void)testAddPoint
@@ -136,7 +126,6 @@
     STAssertTrue(SP_IS_FLOAT_EQUAL(mP1.angle, result.angle), @"wrong angle");
     SPPoint *origin = [[SPPoint alloc] init];
     STAssertThrows([origin normalize], @"origin cannot be normalized!");
-    [origin release];
 }
 
 - (void)testInvert
@@ -170,7 +159,6 @@
     STAssertEquals(mP1.y, result.y, @"wrong y value");
     STAssertFalse(result == mP1, @"object should not be identical");
     STAssertTrue([mP1 isEquivalent:result], @"objects should be equal");
-    [result release];
 }
 
 - (void)testIsEqual
@@ -181,7 +169,6 @@
     p3.x += 0.0000001;
     p3.y -= 0.0000001;
     STAssertTrue([mP1 isEquivalent:p3], @"should be equal, as difference is smaller than epsilon");
-    [p3 release];
 }
 
 - (void)testIsOrigin
@@ -206,8 +193,6 @@
     p3.y = -5;
     distance = [SPPoint distanceFromPoint:p3 toPoint:p4];
     STAssertTrue(SP_IS_FLOAT_EQUAL(10.0f, distance), @"wrong distance");
-    [p3 release];
-    [p4 release];
 }
 
 - (void)testAngleBetweenPoints

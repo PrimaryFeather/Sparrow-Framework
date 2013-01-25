@@ -74,6 +74,6 @@
 /// ----------------
 
 /// The texture that is displayed on the quad.
-@property (nonatomic, retain) SPTexture *texture;
+@property (nonatomic, strong) SPTexture *texture;
 
 @end

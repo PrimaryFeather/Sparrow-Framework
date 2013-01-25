@@ -76,7 +76,6 @@ enum PVRPixelType
 {    
     if ([self isMemberOfClass:[SPTexture class]]) 
     {
-        [self release];
         [NSException raise:SP_EXC_ABSTRACT_CLASS 
                     format:@"Attempting to initialize abstract class SPTexture."];        
         return nil;
@@ -92,7 +91,6 @@ enum PVRPixelType
     
     if (!fullPath)
     {
-        [self release];
         [NSException raise:SP_EXC_FILE_NOT_FOUND format:@"file '%@' not found", path];
     }
     
@@ -109,13 +107,7 @@ enum PVRPixelType
         UIImage *image1 = [[UIImage alloc] initWithData:data];
         UIImage *image2 = [[UIImage alloc] initWithCGImage:image1.CGImage 
                           scale:[fullPath contentScaleFactor] orientation:UIImageOrientationUp];
-        self = [self initWithContentsOfImage:image2];
-        
-        [image2 release];
-        [image1 release];
-        [data release];
-
-        return self;
+        return [self initWithContentsOfImage:image2];
     }
 }
 
@@ -128,7 +120,7 @@ enum PVRPixelType
 - (id)initWithWidth:(float)width height:(float)height scale:(float)scale 
          colorSpace:(SPColorSpace)colorSpace draw:(SPTextureDrawingBlock)drawingBlock
 {
-    [self release]; // class factory - we'll return a subclass!
+    // class factory - we'll return a subclass!
 
     // only textures with sides that are powers of 2 are allowed by OpenGL ES. 
     int legalWidth  = [SPUtils nextPowerOfTwo:width  * scale];
@@ -189,9 +181,7 @@ enum PVRPixelType
     free(imageData);    
     
     SPRectangle *region = [SPRectangle rectangleWithX:0 y:0 width:width height:height];
-    SPTexture *subTexture = [[SPTexture alloc] initWithRegion:region ofTexture:glTexture];
-    [glTexture release];
-    return subTexture;
+    return [[SPTexture alloc] initWithRegion:region ofTexture:glTexture];
 }
 
 - (id)initWithContentsOfImage:(UIImage *)image
@@ -207,77 +197,75 @@ enum PVRPixelType
 
 - (id)initWithContentsOfPvrFile:(NSString *)path gzCompressed:(BOOL)gzCompressed
 {
-    [self release]; // class factory - we'll return a subclass!
+    // class factory - we'll return a subclass!
     
-    SP_CREATE_POOL(pool);
-
-    NSData *fileData = gzCompressed ? [SPTexture decompressPvrFile:path] :
-                                      [NSData dataWithContentsOfFile:path];
-
-    PVRTextureHeader *header = (PVRTextureHeader *)[fileData bytes];    
-    bool hasAlpha = header->alphaBitMask ? YES : NO;
-    
-    SPTextureProperties properties = {
-        .width = header->width,
-        .height = header->height,
-        .numMipmaps = header->numMipmaps,
-        .premultipliedAlpha = NO
-    };
-    
-    switch (header->pfFlags & 0xff)
+    @autoreleasepool
     {
-        case OGL_RGB_565:
-            properties.format = SPTextureFormat565;
-            break;
-        case OGL_RGB_888:
-            properties.format = SPTextureFormat888;
-            break;
-        case OGL_RGBA_5551:
-            properties.format = SPTextureFormat5551;
-            break;
-        case OGL_RGBA_4444:
-            properties.format = SPTextureFormat4444;
-            break;
-        case OGL_RGBA_8888:
-            properties.format = SPTextureFormatRGBA;
-            break;
-        case OGL_A_8:
-            properties.format = SPTextureFormatAlpha;
-            break;
-        case OGL_I_8:
-            properties.format = SPTextureFormatI8;
-            break;
-        case OGL_AI_88:
-            properties.format = SPTextureFormatAI88;
-            break;
-        case OGL_PVRTC2:
-            properties.format = hasAlpha ? SPTextureFormatPvrtcRGBA2 : SPTextureFormatPvrtcRGB2;
-            break;
-        case OGL_PVRTC4:
-            properties.format = hasAlpha ? SPTextureFormatPvrtcRGBA4 : SPTextureFormatPvrtcRGB4;
-            break;
-        default: 
-            [NSException raise:SP_EXC_FILE_INVALID format:@"Unsupported PVR image format"];
-            return nil;
-    }
+        NSData *fileData = gzCompressed ? [SPTexture decompressPvrFile:path] :
+                                          [NSData dataWithContentsOfFile:path];
 
-    void *imageData = (unsigned char *)header + header->headerSize;
-    SPGLTexture *glTexture = [[SPGLTexture alloc] initWithData:imageData properties:properties];
-    glTexture.scale = [path contentScaleFactor];
-    
-    SP_RELEASE_POOL(pool);
-    
-    return glTexture;
+        PVRTextureHeader *header = (PVRTextureHeader *)[fileData bytes];    
+        bool hasAlpha = header->alphaBitMask ? YES : NO;
+        
+        SPTextureProperties properties = {
+            .width = header->width,
+            .height = header->height,
+            .numMipmaps = header->numMipmaps,
+            .premultipliedAlpha = NO
+        };
+        
+        switch (header->pfFlags & 0xff)
+        {
+            case OGL_RGB_565:
+                properties.format = SPTextureFormat565;
+                break;
+            case OGL_RGB_888:
+                properties.format = SPTextureFormat888;
+                break;
+            case OGL_RGBA_5551:
+                properties.format = SPTextureFormat5551;
+                break;
+            case OGL_RGBA_4444:
+                properties.format = SPTextureFormat4444;
+                break;
+            case OGL_RGBA_8888:
+                properties.format = SPTextureFormatRGBA;
+                break;
+            case OGL_A_8:
+                properties.format = SPTextureFormatAlpha;
+                break;
+            case OGL_I_8:
+                properties.format = SPTextureFormatI8;
+                break;
+            case OGL_AI_88:
+                properties.format = SPTextureFormatAI88;
+                break;
+            case OGL_PVRTC2:
+                properties.format = hasAlpha ? SPTextureFormatPvrtcRGBA2 : SPTextureFormatPvrtcRGB2;
+                break;
+            case OGL_PVRTC4:
+                properties.format = hasAlpha ? SPTextureFormatPvrtcRGBA4 : SPTextureFormatPvrtcRGB4;
+                break;
+            default: 
+                [NSException raise:SP_EXC_FILE_INVALID format:@"Unsupported PVR image format"];
+                return nil;
+        }
+
+        void *imageData = (unsigned char *)header + header->headerSize;
+        SPGLTexture *glTexture = [[SPGLTexture alloc] initWithData:imageData properties:properties];
+        glTexture.scale = [path contentScaleFactor];
+        return glTexture;
+    }
 }
 
 - (id)initWithRegion:(SPRectangle*)region ofTexture:(SPTexture*)texture
 {
-    [self release]; // class factory - we'll return a subclass!
+    // class factory - we'll return a subclass!
     
     if (region.x == 0.0f && region.y == 0.0f && 
         region.width == texture.width && region.height == texture.height)
     {
-        return [texture retain];
+        return texture;
     }
     else
     {
@@ -285,11 +273,6 @@ enum PVRPixelType
     }
 }
 
-- (void)dealloc
-{
-    [mFrame release];
-    [super dealloc];
-}
 
 + (NSData *)decompressPvrFile:(NSString *)path
 { 
@@ -333,22 +316,22 @@ enum PVRPixelType
 
 + (SPTexture *)emptyTexture
 {
-    return [[[SPGLTexture alloc] init] autorelease];
+    return [[SPGLTexture alloc] init];
 }
 
 + (SPTexture *)textureWithContentsOfFile:(NSString *)path
 {
-    return [[[SPTexture alloc] initWithContentsOfFile:path] autorelease];
+    return [[SPTexture alloc] initWithContentsOfFile:path];
 }
 
 + (SPTexture *)textureWithRegion:(SPRectangle *)region ofTexture:(SPTexture *)texture
 {
-    return [[[SPTexture alloc] initWithRegion:region ofTexture:texture] autorelease];
+    return [[SPTexture alloc] initWithRegion:region ofTexture:texture];
 }
 
 + (SPTexture *)textureWithWidth:(float)width height:(float)height draw:(SPTextureDrawingBlock)drawingBlock
 {
-    return [[[SPTexture alloc] initWithWidth:width height:height draw:drawingBlock] autorelease];
+    return [[SPTexture alloc] initWithWidth:width height:height draw:drawingBlock];
 }
 
 - (void)adjustTextureCoordinates:(const float *)texCoords saveAtTarget:(float *)targetTexCoords 
