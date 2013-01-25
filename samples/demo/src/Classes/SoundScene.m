@@ -23,11 +23,11 @@
         // Create music channel:
         
         SPSound *music = [SPSound soundWithContentsOfFile:@"music.aifc"];        
-        mMusicChannel = [[music createChannel] retain];
+        mMusicChannel = [music createChannel];
         mMusicChannel.loop = YES;
         
         SPSound *sound = [SPSound soundWithContentsOfFile:@"sound0.caf"];
-        mSoundChannel = [[sound createChannel] retain];
+        mSoundChannel = [sound createChannel];
         [mSoundChannel addEventListener:@selector(onSoundCompleted:) atObject:self
                                 forType:SP_EVENT_TYPE_SOUND_COMPLETED];
         
@@ -216,9 +216,6 @@
     // necessary. But it's a good habit to stop any sound before releasing it (see above.)
     [mMusicChannel stop];
     
-    [mSoundChannel release];
-    [mMusicChannel release];    
-    [super dealloc];
 }
 
 @end

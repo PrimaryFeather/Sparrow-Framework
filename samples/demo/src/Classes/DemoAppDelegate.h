@@ -15,8 +15,8 @@
     SPView *mSparrowView;
 }
 
-@property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) IBOutlet SPView *sparrowView;
+@property (nonatomic, strong) IBOutlet UIWindow *window;
+@property (nonatomic, strong) IBOutlet SPView *sparrowView;
 
 @end
 

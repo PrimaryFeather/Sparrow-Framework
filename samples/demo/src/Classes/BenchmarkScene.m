@@ -31,7 +31,6 @@
         mContainer.touchable = NO; // we do not need touch events on the test objects -- thus, 
                                    // it is more efficient to disable them.
         [self addChild:mContainer atIndex:0];        
-        [mContainer release];
         
         SPTexture *buttonTexture = [SPTexture textureWithContentsOfFile:@"button_normal.png"];
         
@@ -43,7 +42,6 @@
         mStartButton.x = 160 - (int)(mStartButton.width / 2);
         mStartButton.y = 20;
         [self addChild:mStartButton];
-        [mStartButton release];        
         
         mStarted = NO;
         
@@ -137,7 +135,6 @@
         egg.x = [SPUtils randomIntBetweenMin:border andMax:GAME_WIDTH  - border];
         egg.y = [SPUtils randomIntBetweenMin:border andMax:GAME_HEIGHT - border];
         [mContainer addChild:egg];
-        [egg release];
     }
 }
 
@@ -145,9 +142,6 @@
 {
     [self removeEventListenersAtObject:self forType:SP_EVENT_TYPE_ENTER_FRAME];
     [mStartButton removeEventListenersAtObject:self forType:SP_EVENT_TYPE_TRIGGERED];
-
-    [mTexture release];
-    [super dealloc];
 }
 
 @end

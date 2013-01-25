@@ -50,7 +50,6 @@
     button.y = CENTER_Y - (int)button.height / 2;
     
     [self addChild:button];
-    [button release];    
 }
     
 @end

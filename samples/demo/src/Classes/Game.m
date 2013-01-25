@@ -97,16 +97,8 @@
 - (void)onSceneClosing:(SPEvent *)event
 {
     [mCurrentScene removeFromParent];
-    [mCurrentScene release];
     mCurrentScene = nil;
     mMainMenu.visible = YES;
-}
-
-- (void)dealloc
-{
-    [mMainMenu release]; // automatically releases all children   
-    [mCurrentScene release];
-    [super dealloc];
 }
 
 @end

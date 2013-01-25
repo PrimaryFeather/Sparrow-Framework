@@ -50,7 +50,6 @@
     sheet.y = CENTER_Y;    
     
     [self addChild:sheet];
-    [sheet release];
 }
 
 @end

@@ -68,7 +68,7 @@
     fontTF.color = 0x0;
     [self addChild:fontTF];
     
-    // Bitmap fonts!
+    // Bitmap fonts
     
     // First, you will need to create a bitmap font texture.
     //
@@ -102,7 +102,6 @@
     // when you are done with it, you should unregister your bitmap font. 
     // (Only if you no longer need it!)
     [SPTextField unregisterBitmapFont:@"Desyrel"];
-    [super dealloc];
 }
 
 @end

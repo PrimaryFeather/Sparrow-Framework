@@ -23,7 +23,6 @@
         [mBackButton addEventListener:@selector(onBackButtonTriggered:) atObject:self 
                               forType:SP_EVENT_TYPE_TRIGGERED];
         [self addChild:mBackButton];
-        [mBackButton release];
     }
     return self;
 }

@@ -75,11 +75,4 @@
     } 
 }
 
-- (void)dealloc
-{
-    [mRenderTexture release];
-    [mBrush release];
-    [super dealloc];
-}
-
 @end

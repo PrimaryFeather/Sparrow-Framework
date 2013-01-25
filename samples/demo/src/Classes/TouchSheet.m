@@ -25,7 +25,7 @@
     if ((self = [super init]))
     {
         // move quad to center, so that scaling works like expected
-        mQuad = [quad retain];
+        mQuad = quad;
         mQuad.x = (int)mQuad.width/-2;
         mQuad.y = (int)mQuad.height/-2;        
         [mQuad addEventListener:@selector(onTouchEvent:) atObject:self forType:SP_EVENT_TYPE_TOUCH];
@@ -37,7 +37,7 @@
 - (id)init
 {
     // the designated initializer of the base class should always be overridden -- we do that here.
-    SPQuad *quad = [[[SPQuad alloc] init] autorelease];
+    SPQuad *quad = [[SPQuad alloc] init];
     return [self initWithQuad:quad];
 }
 
@@ -96,10 +96,8 @@
         {
             // bring self to front            
             SPDisplayObjectContainer *parent = self.parent;
-            [self retain];
             [parent removeChild:self];
             [parent addChild:self];
-            [self release];
         }
     }    
 }
@@ -108,8 +106,6 @@
 {
     // event listeners should always be removed to avoid memory leaks!
     [mQuad removeEventListenersAtObject:self forType:SP_EVENT_TYPE_TOUCH];
-    [mQuad release];
-    [super dealloc];
 }
 
 @end

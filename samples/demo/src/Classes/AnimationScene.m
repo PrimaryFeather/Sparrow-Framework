@@ -157,12 +157,6 @@
 {
     [mStartButton removeEventListenersAtObject:self forType:SP_EVENT_TYPE_TRIGGERED];
     [mDelayButton removeEventListenersAtObject:self forType:SP_EVENT_TYPE_TRIGGERED];
-    [mStartButton release];
-    [mDelayButton release];    
-    [mEgg release];
-    [mTransitionLabel release];  
-    [mTransitions release];
-    [super dealloc];
 }
 
 @end

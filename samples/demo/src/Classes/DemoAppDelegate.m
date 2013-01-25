@@ -28,27 +28,27 @@ void onUncaughtException(NSException *exception)
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions 
 {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    NSSetUncaughtExceptionHandler(&onUncaughtException);     
-    
-    CGRect screenBounds = [UIScreen mainScreen].bounds;
-    mWindow = [[UIWindow alloc] initWithFrame:screenBounds];
-    
-    [SPAudioEngine start];
-    [SPStage setSupportHighResolutions:YES]; // use @2x textures on suitable hardware
-    
-    mSparrowView = [[SPView alloc] initWithFrame:screenBounds];
-    mSparrowView.multipleTouchEnabled = YES;
-    mSparrowView.frameRate = 30;
-    [mWindow addSubview:mSparrowView];
-    
-    Game *game = [[Game alloc] init];
-    mSparrowView.stage = game;
-    
-    [mWindow makeKeyAndVisible];
-    
-    [game release];
-    [pool release];
+    @autoreleasepool
+    {
+        NSSetUncaughtExceptionHandler(&onUncaughtException);     
+        
+        CGRect screenBounds = [UIScreen mainScreen].bounds;
+        mWindow = [[UIWindow alloc] initWithFrame:screenBounds];
+        
+        [SPAudioEngine start];
+        [SPStage setSupportHighResolutions:YES]; // use @2x textures on suitable hardware
+        
+        mSparrowView = [[SPView alloc] initWithFrame:screenBounds];
+        mSparrowView.multipleTouchEnabled = YES;
+        mSparrowView.frameRate = 30;
+        [mWindow addSubview:mSparrowView];
+        
+        Game *game = [[Game alloc] init];
+        mSparrowView.stage = game;
+        
+        [mWindow makeKeyAndVisible];
+        
+    }
     
     return YES;
 }
@@ -66,8 +66,6 @@ void onUncaughtException(NSException *exception)
 - (void)dealloc 
 {
     [SPAudioEngine stop];
-    [mWindow release];
-    [super dealloc];
 }
 
 - (void)applicationDidReceiveMemoryWarning:(UIApplication *)application
