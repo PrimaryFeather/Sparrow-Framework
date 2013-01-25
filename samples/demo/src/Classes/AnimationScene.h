@@ -10,12 +10,5 @@
 #import "Scene.h"
 
 @interface AnimationScene : Scene
-{
-    SPButton *mStartButton;
-    SPButton *mDelayButton;
-    SPImage *mEgg;
-    SPTextField *mTransitionLabel;
-    NSMutableArray *mTransitions;
-}
 
 @end

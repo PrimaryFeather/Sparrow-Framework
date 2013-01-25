@@ -20,12 +20,7 @@
  
 ------------------------------------------------------------------------------------------------- */
 
-@interface SPALSound : SPSound 
-{
-  @private
-    uint mBufferID;
-    double mDuration;
-}
+@interface SPALSound : SPSound
 
 /// --------------------
 /// @name Initialization

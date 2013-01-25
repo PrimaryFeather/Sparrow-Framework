@@ -39,18 +39,6 @@
 ------------------------------------------------------------------------------------------------- */
 
 @interface SPStage : SPDisplayObjectContainer
-{
-  @private
-    float mWidth;
-    float mHeight;
-    uint  mColor;
- 
-    // helpers
-    SPTouchProcessor *mTouchProcessor;
-    SPJuggler *mJuggler;
-    
-    id __weak mNativeView;
-}
 
 /// --------------------
 /// @name Initialization

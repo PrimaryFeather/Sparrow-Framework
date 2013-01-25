@@ -24,6 +24,10 @@
 #define MULTITAP_DIST 25
 
 @implementation SPTouchProcessor
+{
+    SPDisplayObjectContainer *__weak mRoot;
+    NSMutableSet *mCurrentTouches;
+}
 
 @synthesize root = mRoot;
 

@@ -27,7 +27,6 @@
 
 @interface SPTweenTest : SenTestCase 
 {
-  @private
     int mStartedCount;
     int mUpdatedCount;
     int mCompletedCount;

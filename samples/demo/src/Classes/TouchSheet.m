@@ -19,6 +19,9 @@
 // --- class implementation ------------------------------------------------------------------------
 
 @implementation TouchSheet
+{
+    SPQuad *mQuad;
+}
 
 - (id)initWithQuad:(SPQuad*)quad
 {

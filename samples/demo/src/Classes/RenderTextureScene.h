@@ -10,9 +10,5 @@
 #import "Scene.h"
 
 @interface RenderTextureScene : Scene 
-{     
-    SPRenderTexture *mRenderTexture;
-    SPImage *mBrush;
-}
 
 @end

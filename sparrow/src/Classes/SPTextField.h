@@ -85,23 +85,6 @@ typedef enum
 ------------------------------------------------------------------------------------------------- */
 
 @interface SPTextField : SPDisplayObjectContainer
-{
-  @protected
-    float mFontSize;
-    uint mColor;
-    NSString *mText;
-    NSString *mFontName;    
-    SPHAlign mHAlign;
-    SPVAlign mVAlign;
-    BOOL mBorder;    
-    BOOL mRequiresRedraw;
-    BOOL mIsRenderedText;
-	BOOL mKerning;
-    
-    SPQuad *mHitArea;
-    SPQuad *mTextArea;
-    SPDisplayObject *mContents;
-}
 
 /// ------------------
 /// @name Initializers

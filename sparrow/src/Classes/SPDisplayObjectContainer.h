@@ -60,10 +60,6 @@
 ------------------------------------------------------------------------------------------------- */
 
 @interface SPDisplayObjectContainer : SPDisplayObject <NSFastEnumeration>
-{
-  @private
-    NSMutableArray *mChildren;
-}
 
 /// -------------
 /// @name Methods

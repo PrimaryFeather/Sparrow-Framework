@@ -11,6 +11,11 @@
 #define FONTNAME @"Helvetica-Bold"
 
 @implementation SoundScene
+{
+    SPSoundChannel *mMusicChannel;
+    SPSoundChannel *mSoundChannel;
+    SPButton *mChannelButton;
+}
 
 - (id)init
 {

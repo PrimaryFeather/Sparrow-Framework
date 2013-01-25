@@ -44,20 +44,7 @@
  
 ------------------------------------------------------------------------------------------------- */
 
-#ifdef __IPHONE_4_0
 @interface SPBitmapFont : NSObject <NSXMLParserDelegate>
-#else
-@interface SPBitmapFont : NSObject
-#endif
-{
-  @private
-    SPTexture *mFontTexture;
-    NSString *mName;
-    NSString *mPath;
-    NSMutableDictionary *mChars;    
-    float mSize;
-    float mLineHeight;
-}
 
 /// ------------------
 /// @name Initializers

@@ -13,6 +13,12 @@
 
 
 @implementation SPDelayedInvocation
+{
+    id mTarget;
+    NSMutableSet *mInvocations;
+    double mTotalTime;
+    double mCurrentTime;
+}
 
 @synthesize totalTime = mTotalTime;
 @synthesize currentTime = mCurrentTime;

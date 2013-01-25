@@ -25,13 +25,6 @@
 ------------------------------------------------------------------------------------------------- */
 
 @interface SPAVSoundChannel : SPSoundChannel <AVAudioPlayerDelegate> 
-{
-  @private
-    SPAVSound *mSound;
-    AVAudioPlayer *mPlayer;
-    BOOL mPaused;
-    float mVolume;
-}
 
 /// ------------------
 /// @name Initializers

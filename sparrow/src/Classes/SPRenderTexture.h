@@ -53,12 +53,6 @@ typedef void (^SPDrawingBlock)();
 ------------------------------------------------------------------------------------------------- */
 
 @interface SPRenderTexture : SPSubTexture
-{
-  @private
-    GLuint mFramebuffer;
-    BOOL   mFramebufferIsActive;
-    SPRenderSupport *mRenderSupport;    
-}
 
 /// ------------------
 /// @name Initializers

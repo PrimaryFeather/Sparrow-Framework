@@ -9,11 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "Sparrow.h"
 
-@interface TouchSheet : SPSprite 
-{
-  @private
-    SPQuad *mQuad;
-}
+@interface TouchSheet : SPSprite
 
 - (id)initWithQuad:(SPQuad*)quad; // designated initializer
 

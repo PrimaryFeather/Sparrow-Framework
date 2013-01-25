@@ -71,6 +71,17 @@
 // --- class implementation ------------------------------------------------------------------------
 
 @implementation SPCompiledSprite
+{
+    NSArray *mTextureSwitches;
+    NSMutableData *mColorData;
+    uint *mCurrentColors;
+    BOOL mAlphaChanged;
+    
+    uint mIndexBuffer;
+    uint mVertexBuffer;
+    uint mColorBuffer;
+    uint mTexCoordBuffer;
+}
 
 - (id)init
 {

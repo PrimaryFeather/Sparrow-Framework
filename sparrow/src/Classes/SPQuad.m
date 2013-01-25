@@ -13,6 +13,11 @@
 #import "SPRectangle.h"
 #import "SPMacros.h"
 #import "SPPoint.h"
+#import "SPRenderSupport.h"
+
+#import <OpenGLES/EAGL.h>
+#import <OpenGLES/ES1/gl.h>
+#import <OpenGLES/ES1/glext.h>
 
 @implementation SPQuad
 
@@ -118,6 +123,32 @@
 {
     unsigned char alphaBytes = mVertexColors[vertexID] >> 24;
     return alphaBytes / 255.0f;
+}
+
+- (void)render:(SPRenderSupport *)support
+{
+    static uint colors[4];
+    float alpha = self.alpha;
+    
+    [support bindTexture:nil];
+    
+    for (int i=0; i<4; ++i)
+    {
+        uint vertexColor = mVertexColors[i];
+        float vertexAlpha = (vertexColor >> 24) / 255.0f * alpha;
+        colors[i] = [support convertColor:vertexColor alpha:vertexAlpha];
+    }
+    
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glEnableClientState(GL_COLOR_ARRAY);
+    
+    glVertexPointer(2, GL_FLOAT, 0, mVertexCoords);
+    glColorPointer(4, GL_UNSIGNED_BYTE, 0, colors);
+    
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    
+    glDisableClientState(GL_VERTEX_ARRAY);
+    glDisableClientState(GL_COLOR_ARRAY);
 }
 
 + (SPQuad*)quadWithWidth:(float)width height:(float)height

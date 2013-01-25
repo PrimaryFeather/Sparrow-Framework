@@ -13,6 +13,9 @@
 
 
 @implementation SPEnterFrameEvent
+{
+    double mPassedTime;
+}
 
 @synthesize passedTime = mPassedTime;
 

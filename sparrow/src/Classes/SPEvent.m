@@ -14,6 +14,14 @@
 #import "SPEvent_Internal.h"
 
 @implementation SPEvent
+{
+    SPEventDispatcher *__weak mTarget;
+    SPEventDispatcher *__weak mCurrentTarget;
+    NSString *mType;
+    BOOL mStopsImmediatePropagation;
+    BOOL mStopsPropagation;
+    BOOL mBubbles;
+}
 
 @synthesize target = mTarget;
 @synthesize currentTarget = mCurrentTarget;

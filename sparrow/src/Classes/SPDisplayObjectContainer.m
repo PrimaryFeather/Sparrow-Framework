@@ -14,6 +14,11 @@
 #import "SPDisplayObject_Internal.h"
 #import "SPMacros.h"
 #import "SPEvent_Internal.h"
+#import "SPRenderSupport.h"
+
+#import <OpenGLES/EAGL.h>
+#import <OpenGLES/ES1/gl.h>
+#import <OpenGLES/ES1/glext.h>
 
 // --- C functions ---------------------------------------------------------------------------------
 
@@ -34,6 +39,9 @@ static void getChildEventListeners(SPDisplayObject *object, NSString *eventType,
 // --- class implementation ------------------------------------------------------------------------
 
 @implementation SPDisplayObjectContainer
+{
+    NSMutableArray *mChildren;
+}
 
 - (id)init
 {    
@@ -251,6 +259,28 @@ static void getChildEventListeners(SPDisplayObject *object, NSString *eventType,
 {
     // 'self' is becoming invalid; thus, we have to remove any references to it.    
     [mChildren makeObjectsPerformSelector:@selector(setParent:) withObject:nil];
+}
+
+- (void)render:(SPRenderSupport *)support
+{
+    float alpha = self.alpha;
+    
+    for (SPDisplayObject *child in mChildren)
+    {
+        float childAlpha = child.alpha;
+        if (childAlpha != 0.0f && child.visible)
+        {
+            glPushMatrix();
+            
+            [SPRenderSupport transformMatrixForObject:child];
+            
+            child.alpha *= alpha;
+            [child render:support];
+            child.alpha = childAlpha;
+            
+            glPopMatrix();
+        }
+    }
 }
 
 #pragma mark NSFastEnumeration

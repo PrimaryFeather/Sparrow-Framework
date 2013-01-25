@@ -51,11 +51,6 @@
 #ifndef DISABLE_MEMORY_POOLING
 
 @interface SPPoolObject : NSObject 
-{
-  @private
-    SPPoolObject *mPoolPredecessor;
-    uint mRetainCount;
-}
 
 /// The pool info structure needed to access the pool. Needs to be implemented in any inheriting class.
 + (SPPoolInfo *)poolInfo;

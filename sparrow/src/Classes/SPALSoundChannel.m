@@ -30,6 +30,16 @@
 // --- class implementation ------------------------------------------------------------------------
 
 @implementation SPALSoundChannel
+{
+    SPALSound *mSound;
+    uint mSourceID;
+    float mVolume;
+    BOOL mLoop;
+    
+    double mStartMoment;
+    double mPauseMoment;
+    BOOL mInterrupted;
+}
 
 @synthesize volume = mVolume;
 @synthesize loop = mLoop;

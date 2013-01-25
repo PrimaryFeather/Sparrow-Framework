@@ -16,6 +16,11 @@
 #import "SPEnterFrameEvent.h"
 #import "SPTouchProcessor.h"
 #import "SPJuggler.h"
+#import "SPRenderSupport.h"
+
+#import <OpenGLES/EAGL.h>
+#import <OpenGLES/ES1/gl.h>
+#import <OpenGLES/ES1/glext.h>
 
 #import <UIKit/UIKit.h>
 #import <UIKit/UIDevice.h>
@@ -30,6 +35,17 @@ static NSMutableArray *stages = NULL;
 // --- class implementation ------------------------------------------------------------------------
 
 @implementation SPStage
+{
+    float mWidth;
+    float mHeight;
+    uint  mColor;
+    
+    // helpers
+    SPTouchProcessor *mTouchProcessor;
+    SPJuggler *mJuggler;
+    
+    id __weak mNativeView;
+}
 
 @synthesize width = mWidth;
 @synthesize height = mHeight;
@@ -92,6 +108,18 @@ static NSMutableArray *stages = NULL;
             target = self;
     }
     return target;
+}
+
+- (void)render:(SPRenderSupport *)support
+{
+    [SPRenderSupport clearWithColor:mColor alpha:1.0f];
+    [SPRenderSupport setupOrthographicRenderingWithLeft:0 right:mWidth bottom:mHeight top:0];
+    
+    [super render:support];
+    
+    #if DEBUG
+    [SPRenderSupport checkForOpenGLError];
+    #endif
 }
 
 + (SPStage *)mainStage

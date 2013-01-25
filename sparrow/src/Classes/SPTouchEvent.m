@@ -15,6 +15,9 @@
 #import "SPEvent_Internal.h"
 
 @implementation SPTouchEvent
+{
+    NSSet *mTouches;
+}
 
 @synthesize touches = mTouches;
 

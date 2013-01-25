@@ -21,13 +21,7 @@
  
 ------------------------------------------------------------------------------------------------- */
 
-@interface SPSubTexture : SPTexture 
-{
-  @private
-    SPTexture *mBaseTexture;
-    SPRectangle *mClipping;
-    SPRectangle *mRootClipping;
-}
+@interface SPSubTexture : SPTexture
 
 /// ------------------
 /// @name Initializers

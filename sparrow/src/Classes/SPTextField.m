@@ -28,6 +28,22 @@ static NSMutableDictionary *bitmapFonts = nil;
 // --- class implementation ------------------------------------------------------------------------
 
 @implementation SPTextField
+{
+    float mFontSize;
+    uint mColor;
+    NSString *mText;
+    NSString *mFontName;
+    SPHAlign mHAlign;
+    SPVAlign mVAlign;
+    BOOL mBorder;
+    BOOL mRequiresRedraw;
+    BOOL mIsRenderedText;
+	BOOL mKerning;
+    
+    SPQuad *mHitArea;
+    SPQuad *mTextArea;
+    SPDisplayObject *mContents;
+}
 
 @synthesize text = mText;
 @synthesize fontName = mFontName;

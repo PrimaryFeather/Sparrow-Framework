@@ -9,6 +9,9 @@
 #import "MovieScene.h"
 
 @implementation MovieScene
+{
+    SPMovieClip *mMovie;
+}
 
 - (id)init
 {

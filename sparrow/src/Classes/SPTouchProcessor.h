@@ -22,11 +22,6 @@
 ------------------------------------------------------------------------------------------------- */
 
 @interface SPTouchProcessor : NSObject 
-{
-  @private
-    SPDisplayObjectContainer *__weak mRoot;
-    NSMutableSet *mCurrentTouches;
-}
 
 /// ------------------
 /// @name Initializers

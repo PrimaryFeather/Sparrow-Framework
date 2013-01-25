@@ -13,6 +13,12 @@
 #import "SPMacros.h"
 
 @implementation SPRectangle
+{
+    float mX;
+    float mY;
+    float mWidth;
+    float mHeight;
+}
 
 @synthesize x = mX;
 @synthesize y = mY;

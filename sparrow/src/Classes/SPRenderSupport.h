@@ -26,12 +26,7 @@
  
 ------------------------------------------------------------------------------------------------- */
 
-@interface SPRenderSupport : NSObject 
-{
-  @private
-    uint mBoundTextureID;
-    BOOL mPremultipliedAlpha;
-}
+@interface SPRenderSupport : NSObject
 
 /// -------------
 /// @name Methods

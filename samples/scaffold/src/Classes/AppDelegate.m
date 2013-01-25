@@ -7,6 +7,10 @@
 #import "ViewController.h"
 
 @implementation AppDelegate
+{
+    UIWindow *mWindow;
+    UIViewController *mViewController;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions 
 {

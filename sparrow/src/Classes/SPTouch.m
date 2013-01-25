@@ -15,6 +15,16 @@
 #import "SPPoint.h"
 
 @implementation SPTouch
+{
+    double mTimestamp;
+    float mGlobalX;
+    float mGlobalY;
+    float mPreviousGlobalX;
+    float mPreviousGlobalY;
+    int mTapCount;
+    SPTouchPhase mPhase;
+    SPDisplayObject *__weak mTarget;
+}
 
 @synthesize timestamp = mTimestamp;
 @synthesize globalX = mGlobalX;

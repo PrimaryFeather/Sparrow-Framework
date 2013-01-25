@@ -19,6 +19,10 @@
 #import <OpenGLES/ES1/glext.h>
 
 @implementation SPRenderSupport
+{
+    uint mBoundTextureID;
+    BOOL mPremultipliedAlpha;
+}
 
 @synthesize usingPremultipliedAlpha = mPremultipliedAlpha;
 

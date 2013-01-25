@@ -10,17 +10,5 @@
 #import "Scene.h"
 
 @interface BenchmarkScene : Scene
-{
-    SPButton *mStartButton;
-    SPTextField *mResultText;
-    SPTexture *mTexture;
-
-    SPSprite *mContainer;
-    int mFrameCount;
-    double mElapsed; 
-    BOOL mStarted;
-    int mFailCount;
-    int mWaitFrames;
-}
 
 @end

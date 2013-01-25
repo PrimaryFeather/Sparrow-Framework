@@ -6,6 +6,11 @@
 #import "SPResizeEvent.h"
 
 @implementation SPResizeEvent
+{
+    float mWidth;
+    float mHeight;
+    double mAnimationTime;
+}
 
 @synthesize width = mWidth;
 @synthesize height = mHeight;

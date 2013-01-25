@@ -28,11 +28,6 @@
 ------------------------------------------------------------------------------------------------- */
 
 @interface SPMatrix : SPPoolObject <NSCopying>
-{
-  @private
-    float mA, mB, mC, mD;
-    float mTx, mTy;
-}
 
 /// -----------------
 /// @name Intializers

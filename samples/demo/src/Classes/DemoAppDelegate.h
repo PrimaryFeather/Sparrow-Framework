@@ -10,10 +10,6 @@
 #import "Sparrow.h"
 
 @interface DemoAppDelegate : NSObject <UIApplicationDelegate> 
-{
-    UIWindow *mWindow;
-    SPView *mSparrowView;
-}
 
 @property (nonatomic, strong) IBOutlet UIWindow *window;
 @property (nonatomic, strong) IBOutlet SPView *sparrowView;

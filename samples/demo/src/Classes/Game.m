@@ -18,6 +18,11 @@
 #import "RenderTextureScene.h"
 
 @implementation Game
+{
+    Scene *mCurrentScene;
+    SPSprite *mMainMenu;
+    float mOffsetY;
+}
 
 - (id)initWithWidth:(float)width height:(float)height
 {

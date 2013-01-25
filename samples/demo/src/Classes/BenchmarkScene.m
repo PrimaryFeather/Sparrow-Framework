@@ -19,6 +19,18 @@
 #define WAIT_TIME 0.1f
 
 @implementation BenchmarkScene
+{
+    SPButton *mStartButton;
+    SPTextField *mResultText;
+    SPTexture *mTexture;
+    
+    SPSprite *mContainer;
+    int mFrameCount;
+    double mElapsed;
+    BOOL mStarted;
+    int mFailCount;
+    int mWaitFrames;
+}
 
 - (id)init
 {

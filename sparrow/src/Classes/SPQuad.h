@@ -53,9 +53,8 @@
  
 ------------------------------------------------------------------------------------------------- */
 
-@interface SPQuad : SPDisplayObject 
+@interface SPQuad : SPDisplayObject
 {
-  @protected
     float mVertexCoords[8];
     uint mVertexColors[4];
 }

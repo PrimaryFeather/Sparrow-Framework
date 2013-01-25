@@ -9,6 +9,9 @@
 #import "GameController.h"
 
 @implementation ViewController
+{
+    SPView *mSparrowView;
+}
 
 - (id)initWithSparrowView:(SPView *)sparrowView
 {

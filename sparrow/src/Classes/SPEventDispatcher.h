@@ -50,11 +50,7 @@
  
 ------------------------------------------------------------------------------------------------- */
 
-@interface SPEventDispatcher : NSObject 
-{
-  @private
-    NSMutableDictionary *mEventListeners;
-}
+@interface SPEventDispatcher : NSObject
 
 /// -------------
 /// @name Methods

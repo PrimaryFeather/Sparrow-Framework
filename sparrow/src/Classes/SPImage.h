@@ -34,7 +34,6 @@
 
 @interface SPImage : SPQuad 
 {
-  @protected
     SPTexture *mTexture;
     float mTexCoords[8];
 }

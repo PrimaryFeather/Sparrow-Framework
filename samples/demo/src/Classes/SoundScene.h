@@ -11,10 +11,5 @@
 #import "Scene.h"
 
 @interface SoundScene : Scene <AVAudioPlayerDelegate> 
-{
-    SPSoundChannel *mMusicChannel;
-    SPSoundChannel *mSoundChannel;
-    SPButton *mChannelButton;
-}
 
 @end

@@ -9,6 +9,9 @@
 #import "Scene.h"
 
 @implementation Scene
+{
+    SPButton *mBackButton;
+}
 
 - (id)init
 {

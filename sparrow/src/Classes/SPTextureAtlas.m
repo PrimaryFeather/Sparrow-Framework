@@ -29,6 +29,12 @@
 // --- class implementation ------------------------------------------------------------------------
 
 @implementation SPTextureAtlas
+{
+    SPTexture *mAtlasTexture;
+    NSString *mPath;
+    NSMutableDictionary *mTextureRegions;
+    NSMutableDictionary *mTextureFrames;
+}
 
 - (id)initWithContentsOfFile:(NSString *)path texture:(SPTexture *)texture
 {

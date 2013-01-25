@@ -53,18 +53,7 @@ typedef enum
  
 ------------------------------------------------------------------------------------------------- */
 
-@interface SPTouch : NSObject 
-{
-  @private
-    double mTimestamp;
-    float mGlobalX;
-    float mGlobalY;
-    float mPreviousGlobalX;
-    float mPreviousGlobalY;    
-    int mTapCount;
-    SPTouchPhase mPhase;
-    SPDisplayObject *__weak mTarget;
-}
+@interface SPTouch : NSObject
 
 /// -------------
 /// @name Methods

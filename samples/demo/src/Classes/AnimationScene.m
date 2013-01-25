@@ -17,6 +17,13 @@
 @end
 
 @implementation AnimationScene
+{
+    SPButton *mStartButton;
+    SPButton *mDelayButton;
+    SPImage *mEgg;
+    SPTextField *mTransitionLabel;
+    NSMutableArray *mTransitions;
+}
 
 - (id)init
 {

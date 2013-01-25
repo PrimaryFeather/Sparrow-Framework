@@ -37,10 +37,6 @@
 ------------------------------------------------------------------------------------------------- */
 
 @interface SPSound : NSObject 
-{
-  @private
-    NSMutableSet *mPlayingChannels;
-}
 
 /// ------------------
 /// @name Initializers

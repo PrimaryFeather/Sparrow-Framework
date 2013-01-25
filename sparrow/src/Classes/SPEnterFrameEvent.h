@@ -26,10 +26,6 @@
 ------------------------------------------------------------------------------------------------- */
 
 @interface SPEnterFrameEvent : SPEvent
-{
-  @private 
-    double mPassedTime;
-}
 
 /// ------------------
 /// @name Initializers

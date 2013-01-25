@@ -24,17 +24,6 @@
 ------------------------------------------------------------------------------------------------- */
 
 @interface SPALSoundChannel : SPSoundChannel
-{
-  @private
-    SPALSound *mSound;
-    uint mSourceID;
-    float mVolume;
-    BOOL mLoop;
-    
-    double mStartMoment;
-    double mPauseMoment;
-    BOOL mInterrupted;
-}
 
 /// ------------------
 /// @name Initializers

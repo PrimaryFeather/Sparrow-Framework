@@ -26,6 +26,18 @@
 // --- class implementation ------------------------------------------------------------------------
 
 @implementation SPMovieClip
+{
+    NSMutableArray *mFrames;
+    NSMutableArray *mSounds;
+    NSMutableArray *mFrameDurations;
+    
+    double mDefaultFrameDuration;
+    double mTotalDuration;
+    double mCurrentTime;
+    BOOL mLoop;
+    BOOL mPlaying;
+    int mCurrentFrame;
+}
 
 @synthesize loop = mLoop;
 @synthesize isPlaying = mPlaying;

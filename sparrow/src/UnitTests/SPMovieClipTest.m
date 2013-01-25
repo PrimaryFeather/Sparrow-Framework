@@ -23,7 +23,6 @@
 
 @interface SPMovieClipTest : SenTestCase 
 {
-  @private
     int mCompletedCount;
 }
 @end

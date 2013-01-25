@@ -18,6 +18,10 @@
 #define W 1
 
 @implementation SPMatrix
+{
+    float mA, mB, mC, mD;
+    float mTx, mTy;
+}
 
 @synthesize a=mA, b=mB, c=mC, d=mD, tx=mTx, ty=mTy;
 

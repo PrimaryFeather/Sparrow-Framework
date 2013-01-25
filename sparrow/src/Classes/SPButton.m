@@ -31,6 +31,20 @@
 // --- class implementation ------------------------------------------------------------------------
 
 @implementation SPButton
+{
+    SPTexture *mUpState;
+    SPTexture *mDownState;
+    
+    SPSprite *mContents;
+    SPImage *mBackground;
+    SPTextField *mTextField;
+    SPRectangle *mTextBounds;
+    
+    float mScaleWhenDown;
+    float mAlphaWhenDisabled;
+    BOOL mEnabled;
+    BOOL mIsDown;
+}
 
 @synthesize scaleWhenDown = mScaleWhenDown;
 @synthesize alphaWhenDisabled = mAlphaWhenDisabled;

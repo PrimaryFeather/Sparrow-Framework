@@ -24,6 +24,11 @@
 @end
 
 @implementation SPRenderTexture
+{
+    GLuint mFramebuffer;
+    BOOL   mFramebufferIsActive;
+    SPRenderSupport *mRenderSupport;
+}
 
 - (id)initWithWidth:(float)width height:(float)height fillColor:(uint)argb scale:(float)scale
 {

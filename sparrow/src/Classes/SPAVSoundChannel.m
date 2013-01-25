@@ -14,6 +14,12 @@
 #import "SPMacros.h"
 
 @implementation SPAVSoundChannel
+{
+    SPAVSound *mSound;
+    AVAudioPlayer *mPlayer;
+    BOOL mPaused;
+    float mVolume;
+}
 
 - (id)init
 {

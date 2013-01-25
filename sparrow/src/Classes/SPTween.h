@@ -62,20 +62,6 @@ typedef enum
 ------------------------------------------------------------------------------------------------- */
 
 @interface SPTween : SPEventDispatcher <SPAnimatable>
-{
-  @private
-    id mTarget;    
-    SEL mTransition;
-    IMP mTransitionFunc;    
-    NSMutableArray *mProperties;
-    
-    double mTotalTime;
-    double mCurrentTime;
-    double mDelay;
-    
-    SPLoopType mLoop;
-    int mLoopCount;
-}
 
 /// ------------------
 /// @name Initializers

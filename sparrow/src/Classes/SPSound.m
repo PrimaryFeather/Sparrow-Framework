@@ -20,6 +20,9 @@
 #import <AudioToolbox/AudioToolbox.h> 
 
 @implementation SPSound
+{
+    NSMutableSet *mPlayingChannels;
+}
 
 - (id)init
 {

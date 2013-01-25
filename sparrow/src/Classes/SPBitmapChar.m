@@ -13,6 +13,14 @@
 #import "SPTexture.h"
 
 @implementation SPBitmapChar
+{
+    SPTexture *mTexture;
+    int mCharID;
+    float mXOffset;
+    float mYOffset;
+    float mXAdvance;
+    NSMutableDictionary *mKernings;
+}
 
 @synthesize charID = mCharID;
 @synthesize xOffset = mXOffset;

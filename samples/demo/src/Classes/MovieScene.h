@@ -10,8 +10,5 @@
 #import "Scene.h"
 
 @interface MovieScene : Scene 
-{
-    SPMovieClip *mMovie;
-}
 
 @end

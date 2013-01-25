@@ -9,6 +9,12 @@
 //  it under the terms of the Simplified BSD License.
 //
 
+#import <Availability.h>
+
+#ifndef __IPHONE_5_0
+#warning "This project uses features only available in iOS SDK 5.0 and later."
+#endif
+
 #define SPARROW_VERSION @"1.4"
 
 #import "SPNSExtensions.h"

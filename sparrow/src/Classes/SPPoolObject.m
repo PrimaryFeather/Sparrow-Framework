@@ -27,6 +27,10 @@
 #ifndef DISABLE_MEMORY_POOLING
 
 @implementation SPPoolObject
+{
+    SPPoolObject *mPoolPredecessor;
+    uint mRetainCount;
+}
 
 + (id)allocWithZone:(NSZone *)zone
 {

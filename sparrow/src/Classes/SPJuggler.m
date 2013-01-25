@@ -14,6 +14,10 @@
 #import "SPDelayedInvocation.h"
 
 @implementation SPJuggler
+{
+    NSMutableArray *mObjects;
+    double mElapsedTime;
+}
 
 @synthesize elapsedTime = mElapsedTime;
 

@@ -14,9 +14,5 @@
 // when that button was hit. All scenes inherit from this class.
 
 @interface Scene : SPSprite
-{
-  @private
-    SPButton *mBackButton;
-}
 
 @end

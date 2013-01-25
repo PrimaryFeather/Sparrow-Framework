@@ -75,26 +75,7 @@
  
 ------------------------------------------------------------------------------------------------- */
 
-@interface SPDisplayObject : SPEventDispatcher 
-{
-  @private
-    float mX;
-    float mY;
-    float mPivotX;
-    float mPivotY;
-    float mScaleX;
-    float mScaleY;
-    float mRotationZ;
-    float mAlpha;
-    BOOL mVisible;
-    BOOL mTouchable;
-    BOOL mOrientationChanged;
-    
-    SPDisplayObjectContainer *__weak mParent;
-    SPMatrix *mTransformationMatrix;
-    double mLastTouchTimestamp;
-    NSString *mName;
-}
+@interface SPDisplayObject : SPEventDispatcher
 
 /// -------------
 /// @name Methods

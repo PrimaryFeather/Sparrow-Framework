@@ -18,6 +18,10 @@
 #define SQ(x) ((x)*(x))
 
 @implementation SPPoint
+{
+    float mX;
+    float mY;
+}
 
 @synthesize x = mX;
 @synthesize y = mY;

@@ -17,6 +17,16 @@
 #import <OpenGLES/ES1/glext.h>
 
 @implementation SPGLTexture
+{
+    uint mTextureID;
+    float mWidth;
+    float mHeight;
+    float mScale;
+    BOOL mRepeat;
+    BOOL mPremultipliedAlpha;
+    BOOL mMipmaps;
+    SPTextureFilter mFilter;
+}
 
 @synthesize textureID = mTextureID;
 @synthesize repeat = mRepeat;

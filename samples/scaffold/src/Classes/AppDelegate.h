@@ -5,11 +5,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate> 
-{
-  @private 
-    UIWindow *mWindow;
-    UIViewController *mViewController;
-}
+@interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @end

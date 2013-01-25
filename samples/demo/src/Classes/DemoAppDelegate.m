@@ -22,6 +22,10 @@ void onUncaughtException(NSException *exception)
 // ---
 
 @implementation DemoAppDelegate
+{
+    UIWindow *mWindow;
+    SPView *mSparrowView;
+}
 
 @synthesize window = mWindow;
 @synthesize sparrowView = mSparrowView;

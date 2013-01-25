@@ -39,18 +39,6 @@
 ------------------------------------------------------------------------------------------------- */
 
 @interface SPCompiledSprite : SPSprite
-{
-  @private
-    NSArray *mTextureSwitches;    
-    NSMutableData *mColorData;
-    uint *mCurrentColors;
-    BOOL mAlphaChanged;
-    
-    uint mIndexBuffer;
-    uint mVertexBuffer;
-    uint mColorBuffer;
-    uint mTexCoordBuffer;
-}
 
 /// -------------
 /// @name Methods

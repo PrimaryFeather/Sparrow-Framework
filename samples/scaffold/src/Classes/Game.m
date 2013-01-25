@@ -19,6 +19,10 @@
 // --- class implementation ------------------------------------------------------------------------
 
 @implementation Game
+{
+    float mGameWidth;
+    float mGameHeight;
+}
 
 @synthesize gameWidth  = mGameWidth;
 @synthesize gameHeight = mGameHeight;

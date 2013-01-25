@@ -23,11 +23,6 @@
  */
 
 @interface SPAVSound : SPSound 
-{
-  @private
-    NSData *mSoundData;
-    double mDuration;
-}
 
 /// --------------------
 /// @name Initialization

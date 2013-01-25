@@ -24,13 +24,6 @@
 
 
 @interface SPDelayedInvocation : NSObject <SPAnimatable>
-{
-  @private
-    id mTarget;
-    NSMutableSet *mInvocations;
-    double mTotalTime;
-    double mCurrentTime;
-}
 
 /// ------------------
 /// @name Initializers

@@ -17,6 +17,10 @@
 #import <OpenAL/alc.h>
 
 @implementation SPALSound
+{
+    uint mBufferID;
+    double mDuration;
+}
 
 @synthesize duration = mDuration;
 @synthesize bufferID = mBufferID;

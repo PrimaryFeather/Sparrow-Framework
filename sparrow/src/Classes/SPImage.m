@@ -13,6 +13,11 @@
 #import "SPPoint.h"
 #import "SPTexture.h"
 #import "SPGLTexture.h"
+#import "SPRenderSupport.h"
+
+#import <OpenGLES/EAGL.h>
+#import <OpenGLES/ES1/gl.h>
+#import <OpenGLES/ES1/glext.h>
 
 @implementation SPImage
 
@@ -75,6 +80,47 @@
     mVertexCoords[5] = height; 
     mVertexCoords[6] = width;
     mVertexCoords[7] = height;
+}
+
+- (void)render:(SPRenderSupport *)support
+{
+    static float texCoords[8];
+    static uint colors[4];
+    float alpha = self.alpha;
+    
+    [support bindTexture:mTexture];
+    [mTexture adjustTextureCoordinates:mTexCoords saveAtTarget:texCoords numVertices:4];
+    
+    for (int i=0; i<4; ++i)
+    {
+        uint vertexColor = mVertexColors[i];
+        float vertexAlpha = (vertexColor >> 24) / 255.0f * alpha;
+        colors[i] = [support convertColor:vertexColor alpha:vertexAlpha];
+    }
+    
+    SPRectangle *frame = mTexture.frame;
+    if (frame)
+    {
+        glTranslatef(-frame.x, -frame.y, 0.0f);
+        glScalef(mTexture.width / frame.width, mTexture.height / frame.height, 1.0f);
+    }
+    
+    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glEnableClientState(GL_COLOR_ARRAY);
+    
+    glTexCoordPointer(2, GL_FLOAT, 0, texCoords);
+    glVertexPointer(2, GL_FLOAT, 0, mVertexCoords);
+    glColorPointer(4, GL_UNSIGNED_BYTE, 0, colors);
+    
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    
+    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+    glDisableClientState(GL_VERTEX_ARRAY);
+    glDisableClientState(GL_COLOR_ARRAY);
+    
+    // Rendering was tested with vertex buffers, too -- but for simple quads and images like these,
+    // the overhead seems to outweigh the benefit. The "glDrawArrays"-approach is faster here.
 }
 
 + (SPImage*)imageWithTexture:(SPTexture*)texture

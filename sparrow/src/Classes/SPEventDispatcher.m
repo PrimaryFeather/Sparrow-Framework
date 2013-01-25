@@ -17,6 +17,9 @@
 #import "SPNSExtensions.h"
 
 @implementation SPEventDispatcher
+{
+    NSMutableDictionary *mEventListeners;
+}
 
 - (void)addEventListener:(SEL)listener atObject:(id)object forType:(NSString*)eventType 
             retainObject:(BOOL)doRetain

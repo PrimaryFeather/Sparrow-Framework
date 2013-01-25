@@ -37,6 +37,14 @@
 // --- class implementation ------------------------------------------------------------------------
 
 @implementation SPBitmapFont
+{
+    SPTexture *mFontTexture;
+    NSString *mName;
+    NSString *mPath;
+    NSMutableDictionary *mChars;
+    float mSize;
+    float mLineHeight;
+}
 
 @synthesize name = mName;
 @synthesize lineHeight = mLineHeight;

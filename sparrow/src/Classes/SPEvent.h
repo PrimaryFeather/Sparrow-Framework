@@ -38,15 +38,6 @@
 ------------------------------------------------------------------------------------------------- */
 
 @interface SPEvent : NSObject
-{
-  @private
-    SPEventDispatcher *__weak mTarget;
-    SPEventDispatcher *__weak mCurrentTarget;
-    NSString *mType;
-    BOOL mStopsImmediatePropagation;
-    BOOL mStopsPropagation;
-    BOOL mBubbles;
-}
 
 /// ------------------
 /// @name Initializers

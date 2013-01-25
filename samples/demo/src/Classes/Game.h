@@ -10,11 +10,5 @@
 #import "Scene.h"
 
 @interface Game : SPStage
-{
-  @private
-    Scene *mCurrentScene;
-    SPSprite *mMainMenu;
-    float mOffsetY;
-}
 
 @end

@@ -17,6 +17,10 @@
 @end
 
 @implementation RenderTextureScene
+{
+    SPRenderTexture *mRenderTexture;
+    SPImage *mBrush;
+}
 
 - (id)init
 {

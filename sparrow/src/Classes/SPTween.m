@@ -19,6 +19,19 @@
 typedef float (*FnPtrTransition) (id, SEL, float);
 
 @implementation SPTween
+{
+    id mTarget;
+    SEL mTransition;
+    IMP mTransitionFunc;
+    NSMutableArray *mProperties;
+    
+    double mTotalTime;
+    double mCurrentTime;
+    double mDelay;
+    
+    SPLoopType mLoop;
+    int mLoopCount;
+}
 
 @synthesize time = mTotalTime;
 @synthesize currentTime = mCurrentTime;

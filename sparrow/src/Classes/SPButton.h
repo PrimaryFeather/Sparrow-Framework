@@ -37,21 +37,6 @@
 ------------------------------------------------------------------------------------------------- */
 
 @interface SPButton : SPDisplayObjectContainer
-{
-  @private    
-    SPTexture *mUpState;
-    SPTexture *mDownState;
-    
-    SPSprite *mContents;
-    SPImage *mBackground;
-    SPTextField *mTextField;
-    SPRectangle *mTextBounds;
-  
-    float mScaleWhenDown;
-    float mAlphaWhenDisabled;
-    BOOL mEnabled;
-    BOOL mIsDown;
-}
 
 /// ------------------
 /// @name Initializers

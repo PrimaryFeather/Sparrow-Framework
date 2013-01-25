@@ -7,6 +7,10 @@
 #import "Game.h" 
 
 @implementation AppDelegate
+{
+    UIWindow *mWindow;
+    SPView *mSparrowView;
+}
 
 - (id)init
 {

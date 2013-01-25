@@ -20,6 +20,8 @@
 #import "SPTouch_Internal.h"
 #import "SPRenderSupport.h"
 
+#define REFRESH_RATE 60
+
 // --- private interface ---------------------------------------------------------------------------
 
 @interface SPView ()
@@ -40,8 +42,25 @@
 // --- class implementation ------------------------------------------------------------------------
 
 @implementation SPView
-
-#define REFRESH_RATE 60
+{
+    int mWidth;
+    int mHeight;
+    
+    SPStage *mStage;
+    SPRenderSupport *mRenderSupport;
+    
+    EAGLContext *mContext;
+    GLuint mRenderbuffer;
+    GLuint mFramebuffer;
+    
+    float mFrameRate;
+    NSTimer *mTimer;
+    id mDisplayLink;
+    BOOL mDisplayLinkSupported;
+    
+    double mLastFrameTimestamp;
+    double mLastTouchTimestamp;
+}
 
 @synthesize stage = mStage;
 @synthesize timer = mTimer;

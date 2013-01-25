@@ -13,6 +13,11 @@
 #import "SPRectangle.h"
 
 @implementation SPSubTexture
+{
+    SPTexture *mBaseTexture;
+    SPRectangle *mClipping;
+    SPRectangle *mRootClipping;
+}
 
 @synthesize baseTexture = mBaseTexture;
 @synthesize clipping = mClipping;

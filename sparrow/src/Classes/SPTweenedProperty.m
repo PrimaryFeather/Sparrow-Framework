@@ -21,8 +21,20 @@ typedef void (*FnPtrSetterF)  (id, SEL, float);
 typedef void (*FnPtrSetterD)  (id, SEL, double);
 typedef void (*FnPtrSetterI)  (id, SEL, int);
 typedef void (*FnPtrSetterUI) (id, SEL, uint);
- 
+
 @implementation SPTweenedProperty
+{
+    id  mTarget;
+    
+    SEL mGetter;
+    IMP mGetterFunc;
+    SEL mSetter;
+    IMP mSetterFunc;
+    
+    float mStartValue;
+    float mEndValue;
+    char  mNumericType;
+}
 
 @synthesize startValue = mStartValue;
 @synthesize endValue = mEndValue;

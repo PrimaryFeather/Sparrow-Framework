@@ -52,17 +52,6 @@ typedef struct
 ------------------------------------------------------------------------------------------------- */
 
 @interface SPGLTexture : SPTexture
-{
-  @private
-    uint mTextureID;
-    float mWidth;
-    float mHeight;
-    float mScale;
-    BOOL mRepeat;
-    BOOL mPremultipliedAlpha;
-    BOOL mMipmaps;
-    SPTextureFilter mFilter;
-}
 
 /// ------------------
 /// @name Initializers

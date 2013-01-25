@@ -21,19 +21,6 @@
 ------------------------------------------------------------------------------------------------- */
 
 @interface SPTweenedProperty : NSObject
-{
-  @private
-    id  mTarget;
-    
-    SEL mGetter;
-    IMP mGetterFunc;    
-    SEL mSetter;    
-    IMP mSetterFunc;
-
-    float mStartValue;
-    float mEndValue;
-    char  mNumericType;
-}
 
 /// ------------------
 /// @name Initializers

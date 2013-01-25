@@ -31,26 +31,6 @@
 ------------------------------------------------------------------------------------------------- */
 
 @interface SPView : UIView
-{ 
-  @private  
-    int mWidth;
-    int mHeight;
-    
-    SPStage *mStage;
-    SPRenderSupport *mRenderSupport;
-    
-    EAGLContext *mContext;    
-    GLuint mRenderbuffer;
-    GLuint mFramebuffer;    
-    
-    float mFrameRate;
-    NSTimer *mTimer;
-    id mDisplayLink;
-    BOOL mDisplayLinkSupported;        
-    
-    double mLastFrameTimestamp;
-    double mLastTouchTimestamp;
-}
 
 /// ----------------
 /// @name Properties

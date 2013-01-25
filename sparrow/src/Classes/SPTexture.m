@@ -69,6 +69,9 @@ enum PVRPixelType
 // --- class implementation ------------------------------------------------------------------------
 
 @implementation SPTexture
+{
+    SPRectangle *mFrame;
+}
 
 @synthesize frame = mFrame;
 

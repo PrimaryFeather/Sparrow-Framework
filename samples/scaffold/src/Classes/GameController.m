@@ -15,6 +15,9 @@
 
 
 @implementation GameController
+{
+    Game *mGame;
+}
 
 - (id)initWithWidth:(float)width height:(float)height
 {

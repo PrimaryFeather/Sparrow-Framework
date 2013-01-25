@@ -38,19 +38,6 @@
 ------------------------------------------------------------------------------------------------- */
  
 @interface SPMovieClip : SPImage <SPAnimatable>
-{
-  @private
-    NSMutableArray *mFrames;
-    NSMutableArray *mSounds;
-    NSMutableArray *mFrameDurations;
-    
-    double mDefaultFrameDuration;
-    double mTotalDuration;
-    double mCurrentTime;
-    BOOL mLoop;
-    BOOL mPlaying;
-    int mCurrentFrame;
-}
 
 /// ------------------
 /// @name Initializers

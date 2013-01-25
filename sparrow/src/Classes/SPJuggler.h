@@ -46,11 +46,6 @@
 ------------------------------------------------------------------------------------------------- */
 
 @interface SPJuggler : NSObject <SPAnimatable>
-{
-  @private
-    NSMutableArray *mObjects;
-    double mElapsedTime;
-}
 
 /// ------------------
 /// @name Initializers

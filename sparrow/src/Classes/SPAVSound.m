@@ -14,6 +14,10 @@
 #import "SPUtils.h"
 
 @implementation SPAVSound
+{
+    NSData *mSoundData;
+    double mDuration;
+}
 
 @synthesize duration = mDuration;
 

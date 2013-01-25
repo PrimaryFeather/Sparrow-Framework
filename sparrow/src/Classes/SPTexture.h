@@ -96,10 +96,6 @@ typedef void (^SPTextureDrawingBlock)(CGContextRef context);
 ------------------------------------------------------------------------------------------------- */
 
 @interface SPTexture : NSObject
-{
-  @private 
-    SPRectangle *mFrame;
-}
 
 /// ------------------
 /// @name Initializers
