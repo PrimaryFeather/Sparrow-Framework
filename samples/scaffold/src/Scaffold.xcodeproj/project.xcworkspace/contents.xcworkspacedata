@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:AppScaffold.xcodeproj">
+      location = "self:Scaffold.xcodeproj">
    </FileRef>
 </Workspace>
