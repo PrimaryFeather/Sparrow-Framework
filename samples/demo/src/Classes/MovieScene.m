@@ -53,12 +53,12 @@
 
 - (void)onAddedToStage:(SPEvent *)event
 {
-    [[SPSparrow juggler] addObject:mMovie];
+    [Sparrow.juggler addObject:mMovie];
 }
 
 - (void)onRemovedFromStage:(SPEvent *)event
 {
-    [[SPSparrow juggler] removeObject:mMovie];
+    [Sparrow.juggler removeObject:mMovie];
 }
 
 @end

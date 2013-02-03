@@ -13,7 +13,7 @@
 #import "SPViewController.h"
 #import "SPJuggler.h"
 
-@interface SPSparrow : NSObject
+@interface Sparrow : NSObject
 
 + (SPViewController *)currentController;
 + (SPJuggler *)juggler;

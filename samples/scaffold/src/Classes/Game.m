@@ -91,7 +91,7 @@
     [tween animateProperty:@"y" targetValue:image.y + 30];
     [tween animateProperty:@"rotation" targetValue:0.1];
     tween.loop = SPLoopTypeReverse;
-    [[SPSparrow juggler] addObject:tween];
+    [Sparrow.juggler addObject:tween];
     
 
     // The controller autorotates the game to all supported device orientations. 
@@ -117,8 +117,8 @@
 
 - (void)updateLocations
 {
-    int gameWidth  = [SPSparrow stage].width;
-    int gameHeight = [SPSparrow stage].height;
+    int gameWidth  = Sparrow.stage.width;
+    int gameHeight = Sparrow.stage.height;
     
     mContents.x = (int) (gameWidth  - mContents.width)  / 2;
     mContents.y = (int) (gameHeight - mContents.height) / 2;

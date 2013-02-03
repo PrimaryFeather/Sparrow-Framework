@@ -9,11 +9,11 @@
 //  it under the terms of the Simplified BSD License.
 //
 
-#import "SPSparrow.h"
+#import "SparrowClass.h"
 
 static SPViewController *controller = nil;
 
-@implementation SPSparrow
+@implementation Sparrow
 
 - (id)init
 {

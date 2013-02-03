@@ -52,4 +52,4 @@
 #import "SPAudioEngine.h"
 #import "SPSound.h"
 #import "SPSoundChannel.h"
-#import "SPSparrow.h"
+#import "SparrowClass.h"

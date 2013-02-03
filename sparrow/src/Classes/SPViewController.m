@@ -12,7 +12,7 @@
 #import "SPViewController.h"
 #import "SPTouchProcessor.h"
 #import "SPRenderSupport.h"
-#import "SPSparrow_Internal.h"
+#import "SparrowClass_Internal.h"
 #import "SPTouch_Internal.h"
 #import "SPEnterFrameEvent.h"
 #import "SPResizeEvent.h"
@@ -65,7 +65,7 @@
         if (!mContext || ![EAGLContext setCurrentContext:mContext])
             NSLog(@"Could not create render context");
         
-        [SPSparrow setCurrentController:self];
+        [Sparrow setCurrentController:self];
     }
     
     return self;
@@ -153,7 +153,7 @@
             [self createRoot];
         }
         
-        [SPSparrow setCurrentController:self];
+        [Sparrow setCurrentController:self];
         [EAGLContext setCurrentContext:mContext];
         [mStage render:mSupport];
     }
@@ -165,7 +165,7 @@
     {
         double passedTime = self.timeSinceLastUpdate;
         
-        [SPSparrow setCurrentController:self];
+        [Sparrow setCurrentController:self];
         [mJuggler advanceTime:passedTime];
         
         SPEnterFrameEvent *enterFrameEvent =

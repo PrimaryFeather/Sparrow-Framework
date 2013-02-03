@@ -20,7 +20,7 @@
 #import "SPBitmapFont.h"
 #import "SPStage.h"
 #import "SPCompiledSprite.h"
-#import "SPSparrow.h"
+#import "SparrowClass.h"
 
 #import <UIKit/UIKit.h>
 
@@ -322,7 +322,7 @@ static NSMutableDictionary *bitmapFonts = nil;
     mTextArea.height = textSize.height;
     
     SPTexture *texture = [[SPTexture alloc] initWithWidth:width height:height
-                                                    scale:[SPSparrow contentScaleFactor]
+                                                    scale:Sparrow.contentScaleFactor
                                                colorSpace:SPColorSpaceAlpha
                                                      draw:^(CGContextRef context)
       {

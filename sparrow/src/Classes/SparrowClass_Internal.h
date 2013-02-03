@@ -9,9 +9,9 @@
 //  it under the terms of the Simplified BSD License.
 //
 
-#import "SPSparrow.h"
+#import "SparrowClass.h"
 
-@interface SPSparrow (Internal)
+@interface Sparrow (Internal)
 
 + (void)setCurrentController:(SPViewController *)controller;
 

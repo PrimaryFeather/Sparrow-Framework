@@ -29,7 +29,7 @@
     if ((self = [super init]))
     {
         // make simple adjustments for iPhone 5+ screens:
-        mOffsetY = ([SPSparrow stage].height - 480) / 2;
+        mOffsetY = (Sparrow.stage.height - 480) / 2;
         
         // add background image
         SPImage *background = [SPImage imageWithContentsOfFile:@"background.jpg"];
