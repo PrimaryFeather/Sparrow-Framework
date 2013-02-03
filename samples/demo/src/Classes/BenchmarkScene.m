@@ -71,7 +71,7 @@
     
     if (mFrameCount % mWaitFrames == 0)
     {
-        float targetFPS = self.stage.frameRate;
+        float targetFPS = [SPSparrow currentController].framesPerSecond;
         float realFPS = mWaitFrames / mElapsed;
         
         if (ceilf(realFPS) >= targetFPS)
@@ -119,12 +119,14 @@
     mStarted = NO;
     mStartButton.visible = YES;
     
+    int frameRate = [SPSparrow currentController].framesPerSecond;
+    
     NSLog(@"benchmark complete!");
-    NSLog(@"fps: %.1f", self.stage.frameRate);
+    NSLog(@"fps: %d", frameRate);
     NSLog(@"number of objects: %d", mContainer.numChildren);
     
-    NSString *resultString = [NSString stringWithFormat:@"Result:\n%d objects\nwith %.0f fps", 
-                              mContainer.numChildren, self.stage.frameRate]; 
+    NSString *resultString = [NSString stringWithFormat:@"Result:\n%d objects\nwith %d fps", 
+                              mContainer.numChildren, frameRate];
     
     mResultText = [SPTextField textFieldWithWidth:250 height:200 text:resultString];
     mResultText.fontSize = 30;

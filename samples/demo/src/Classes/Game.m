@@ -24,12 +24,12 @@
     float mOffsetY;
 }
 
-- (id)initWithWidth:(float)width height:(float)height
+- (id)init
 {
-    if ((self = [super initWithWidth:width height:height]))
+    if ((self = [super init]))
     {
         // make simple adjustments for iPhone 5+ screens:
-        mOffsetY = (height - 480) / 2;
+        mOffsetY = ([SPSparrow stage].height - 480) / 2;
         
         // add background image
         SPImage *background = [SPImage imageWithContentsOfFile:@"background.jpg"];
@@ -47,14 +47,14 @@
         
         // choose which scenes will be accessible
         NSArray *scenesToCreate = @[@"Textures", [TextureScene class],
-                                   @"Multitouch", [TouchScene class],
-                                   @"TextFields", [TextScene class],
-                                   @"Animations", [AnimationScene class],
-                                   @"Custom hit-test", [CustomHitTestScene class],
-                                   @"Movie Clip", [MovieScene class],
-                                   @"Sound", [SoundScene class],
-                                   @"RenderTexture", [RenderTextureScene class],
-                                   @"Benchmark", [BenchmarkScene class]];
+                                    @"Multitouch", [TouchScene class],
+                                    @"TextFields", [TextScene class],
+                                    @"Animations", [AnimationScene class],
+                                    @"Custom hit-test", [CustomHitTestScene class],
+                                    @"Movie Clip", [MovieScene class],
+                                    @"Sound", [SoundScene class],
+                                    @"RenderTexture", [RenderTextureScene class],
+                                    @"Benchmark", [BenchmarkScene class]];
         
         SPTexture *buttonTexture = [SPTexture textureWithContentsOfFile:@"button_big.png"];
         int count = 0;

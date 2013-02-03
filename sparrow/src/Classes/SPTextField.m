@@ -20,6 +20,7 @@
 #import "SPBitmapFont.h"
 #import "SPStage.h"
 #import "SPCompiledSprite.h"
+#import "SPSparrow.h"
 
 #import <UIKit/UIKit.h>
 
@@ -321,23 +322,23 @@ static NSMutableDictionary *bitmapFonts = nil;
     mTextArea.height = textSize.height;
     
     SPTexture *texture = [[SPTexture alloc] initWithWidth:width height:height
-                                                    scale:[SPStage contentScaleFactor]
+                                                    scale:[SPSparrow contentScaleFactor]
                                                colorSpace:SPColorSpaceAlpha
                                                      draw:^(CGContextRef context)
-                          {
-                              if (mBorder)
-                              {
-                                  CGContextSetGrayStrokeColor(context, 1.0f, 1.0f);
-                                  CGContextSetLineWidth(context, 1.0f);
-                                  CGContextStrokeRect(context, CGRectMake(0.5f, 0.5f, width-1, height-1));
-                              }
-                              
-                              CGContextSetGrayFillColor(context, 1.0f, 1.0f);        
-                              
-                              [mText drawInRect:CGRectMake(0, yOffset, width, height)
-                                       withFont:[UIFont fontWithName:mFontName size:fontSize] 
-                                  lineBreakMode:lbm alignment:(UITextAlignment)mHAlign];
-                          }];
+      {
+          if (mBorder)
+          {
+              CGContextSetGrayStrokeColor(context, 1.0f, 1.0f);
+              CGContextSetLineWidth(context, 1.0f);
+              CGContextStrokeRect(context, CGRectMake(0.5f, 0.5f, width-1, height-1));
+          }
+          
+          CGContextSetGrayFillColor(context, 1.0f, 1.0f);        
+          
+          [mText drawInRect:CGRectMake(0, yOffset, width, height)
+                   withFont:[UIFont fontWithName:mFontName size:fontSize] 
+              lineBreakMode:lbm alignment:(UITextAlignment)mHAlign];
+      }];
     
     SPImage *image = [SPImage imageWithTexture:texture];
     image.color = mColor;

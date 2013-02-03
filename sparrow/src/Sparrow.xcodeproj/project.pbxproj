@@ -48,7 +48,6 @@
 		DE611375134F8F6C00AB742E /* SPAudioEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = DEE63A4B11AED38100D60321 /* SPAudioEngine.h */; settings = {ATTRIBUTES = (); }; };
 		DE611376134F8F6C00AB742E /* SPSound.h in Headers */ = {isa = PBXBuildFile; fileRef = DEE63A4D11AED38100D60321 /* SPSound.h */; settings = {ATTRIBUTES = (); }; };
 		DE611377134F8F6C00AB742E /* SPSoundChannel.h in Headers */ = {isa = PBXBuildFile; fileRef = DEE63A4F11AED38100D60321 /* SPSoundChannel.h */; settings = {ATTRIBUTES = (); }; };
-		DE611378134F8F6C00AB742E /* SPView.h in Headers */ = {isa = PBXBuildFile; fileRef = DEC2B6790F6D4CE90063AB1D /* SPView.h */; settings = {ATTRIBUTES = (); }; };
 		DE611379134F8F6C00AB742E /* SPEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = DEE593D10FA6116B00E3AEFC /* SPEvent.h */; settings = {ATTRIBUTES = (); }; };
 		DE61137A134F8F6C00AB742E /* SPEventDispatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = DEC2B6800F6D51430063AB1D /* SPEventDispatcher.h */; settings = {ATTRIBUTES = (); }; };
 		DE61137B134F8F6C00AB742E /* SPTouch.h in Headers */ = {isa = PBXBuildFile; fileRef = DEE4449C0FABA7860085D36D /* SPTouch.h */; settings = {ATTRIBUTES = (); }; };
@@ -83,6 +82,16 @@
 		DE61139A134F8FBD00AB742E /* SPNSExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = DE68EA150FBB5660004DBC95 /* SPNSExtensions.h */; settings = {ATTRIBUTES = (); }; };
 		DE61139B134F8FBD00AB742E /* SPPoolObject.h in Headers */ = {isa = PBXBuildFile; fileRef = DED9B51B10629D9F00989853 /* SPPoolObject.h */; settings = {ATTRIBUTES = (); }; };
 		DE61139C134F8FD400AB742E /* Sparrow.h in Headers */ = {isa = PBXBuildFile; fileRef = DEEA9402101E44F10071DD21 /* Sparrow.h */; settings = {ATTRIBUTES = (); }; };
+		DE85778E16B58E4B00725EC0 /* SPSparrow.h in Headers */ = {isa = PBXBuildFile; fileRef = DE85778C16B58E4B00725EC0 /* SPSparrow.h */; };
+		DE85778F16B58E4B00725EC0 /* SPSparrow.m in Sources */ = {isa = PBXBuildFile; fileRef = DE85778D16B58E4B00725EC0 /* SPSparrow.m */; };
+		DE8E6A7E16B4303E007EE8BA /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE8E6A7D16B4303E007EE8BA /* GLKit.framework */; };
+		DE8E6A8216B430C4007EE8BA /* SPViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = DE8E6A8016B430C4007EE8BA /* SPViewController.h */; };
+		DE8E6A8316B430C4007EE8BA /* SPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE8E6A8116B430C4007EE8BA /* SPViewController.m */; };
+		DE8E6AA616B46C65007EE8BA /* SPSparrow_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = DE8E6AA516B46C65007EE8BA /* SPSparrow_Internal.h */; };
+		DEAAF3D716BC0D21004EB9D5 /* SPResizeEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = DEAAF3D516BC0D21004EB9D5 /* SPResizeEvent.h */; };
+		DEAAF3D816BC0D21004EB9D5 /* SPResizeEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = DEAAF3D616BC0D21004EB9D5 /* SPResizeEvent.m */; };
+		DEAAF3DB16BC0E46004EB9D5 /* SPOverlayView.h in Headers */ = {isa = PBXBuildFile; fileRef = DEAAF3D916BC0E46004EB9D5 /* SPOverlayView.h */; };
+		DEAAF3DC16BC0E46004EB9D5 /* SPOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = DEAAF3DA16BC0E46004EB9D5 /* SPOverlayView.m */; };
 		DEB5142C14F1848B00066104 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEB5142B14F1848B00066104 /* SenTestingKit.framework */; };
 		DEC734811386BC1400234D95 /* SPTextureAtlas.h in Headers */ = {isa = PBXBuildFile; fileRef = DECF84260FF619150026A4ED /* SPTextureAtlas.h */; settings = {ATTRIBUTES = (); }; };
 		DEC734AA1386C02600234D95 /* SPTextureAtlas.m in Sources */ = {isa = PBXBuildFile; fileRef = DECF84270FF619150026A4ED /* SPTextureAtlas.m */; };
@@ -119,7 +128,6 @@
 		DEF1736111B075BC00A11DD7 /* SPAVSoundChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = DEF1735F11B075BC00A11DD7 /* SPAVSoundChannel.m */; };
 		DEF8F2D312E1CDF40043D2F8 /* SPPoolObjectTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DEF8F2CE12E1CCF50043D2F8 /* SPPoolObjectTest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		DEFE4BCE101B31DF00E22471 /* SPTransitions.m in Sources */ = {isa = PBXBuildFile; fileRef = DED859440FB883EE00D3D7D2 /* SPTransitions.m */; };
-		DEFE4BD1101B31DF00E22471 /* SPView.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC2B67A0F6D4CE90063AB1D /* SPView.m */; };
 		DEFE4BD2101B31DF00E22471 /* SPEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = DEE593D20FA6116B00E3AEFC /* SPEvent.m */; };
 		DEFE4BD3101B31DF00E22471 /* SPEventDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC2B6810F6D51430063AB1D /* SPEventDispatcher.m */; };
 		DEFE4BD4101B31DF00E22471 /* SPTouch.m in Sources */ = {isa = PBXBuildFile; fileRef = DEE4449D0FABA7860085D36D /* SPTouch.m */; };
@@ -171,7 +179,6 @@
 		DE1F9446104704440084D470 /* SPJugglerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPJugglerTest.m; sourceTree = "<group>"; };
 		DE20D9C910713B0C006658C9 /* SPRenderSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPRenderSupport.h; sourceTree = "<group>"; };
 		DE20D9CA10713B0C006658C9 /* SPRenderSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPRenderSupport.m; sourceTree = "<group>"; };
-		DE2AD849104A84F1001AF0A0 /* SPStage_Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPStage_Internal.h; sourceTree = "<group>"; };
 		DE2CC35F11EF75B600439B43 /* SPCompiledSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPCompiledSprite.h; sourceTree = "<group>"; };
 		DE2CC36011EF75B600439B43 /* SPCompiledSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPCompiledSprite.m; sourceTree = "<group>"; };
 		DE2ED8040F6D52080012B6BA /* SPDisplayObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPDisplayObject.h; sourceTree = "<group>"; };
@@ -210,13 +217,21 @@
 		DE7044750FB62080007F5ECC /* SPTween.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPTween.h; sourceTree = "<group>"; };
 		DE7044760FB62080007F5ECC /* SPTween.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPTween.m; sourceTree = "<group>"; };
 		DE75E8660FBDC57E00C64495 /* SPTweenTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPTweenTest.m; sourceTree = "<group>"; };
+		DE85778C16B58E4B00725EC0 /* SPSparrow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPSparrow.h; sourceTree = "<group>"; };
+		DE85778D16B58E4B00725EC0 /* SPSparrow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPSparrow.m; sourceTree = "<group>"; };
+		DE8E6A7D16B4303E007EE8BA /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		DE8E6A8016B430C4007EE8BA /* SPViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPViewController.h; sourceTree = "<group>"; };
+		DE8E6A8116B430C4007EE8BA /* SPViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPViewController.m; sourceTree = "<group>"; };
+		DE8E6AA516B46C65007EE8BA /* SPSparrow_Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPSparrow_Internal.h; sourceTree = "<group>"; };
 		DE8F1E2D0F7C1F3A0085E9E4 /* SPMatrixTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPMatrixTest.m; sourceTree = "<group>"; };
 		DE9CF1EB0FED3128008A32FF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		DEAAF3D516BC0D21004EB9D5 /* SPResizeEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPResizeEvent.h; sourceTree = "<group>"; };
+		DEAAF3D616BC0D21004EB9D5 /* SPResizeEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPResizeEvent.m; sourceTree = "<group>"; };
+		DEAAF3D916BC0E46004EB9D5 /* SPOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPOverlayView.h; sourceTree = "<group>"; };
+		DEAAF3DA16BC0E46004EB9D5 /* SPOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPOverlayView.m; sourceTree = "<group>"; };
 		DEABCF5B0F7AE187003B6C9D /* SPPointTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPPointTest.m; sourceTree = "<group>"; };
 		DEB21CF80F93C9780080D5C2 /* SPDisplayObjectContainerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPDisplayObjectContainerTest.m; sourceTree = "<group>"; };
 		DEB5142B14F1848B00066104 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		DEC2B6790F6D4CE90063AB1D /* SPView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPView.h; sourceTree = "<group>"; };
-		DEC2B67A0F6D4CE90063AB1D /* SPView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPView.m; sourceTree = "<group>"; };
 		DEC2B6800F6D51430063AB1D /* SPEventDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPEventDispatcher.h; sourceTree = "<group>"; };
 		DEC2B6810F6D51430063AB1D /* SPEventDispatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPEventDispatcher.m; sourceTree = "<group>"; };
 		DEC54F6211B7765500E439B0 /* SPMovieClipTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPMovieClipTest.m; sourceTree = "<group>"; };
@@ -267,7 +282,7 @@
 		DEEA5745138791AB0030A901 /* pvrtc_image@2x.pvr */ = {isa = PBXFileReference; lastKnownFileType = file; path = "pvrtc_image@2x.pvr"; sourceTree = "<group>"; };
 		DEEA9335101E32A30071DD21 /* UnitTest.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTest.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEEA937F101E3BA20071DD21 /* UnitTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
-		DEEA9402101E44F10071DD21 /* Sparrow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sparrow.h; sourceTree = "<group>"; };
+		DEEA9402101E44F10071DD21 /* Sparrow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Sparrow.h; path = Classes/Sparrow.h; sourceTree = "<group>"; };
 		DEED1737108A50000071438F /* SPTweenedProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPTweenedProperty.h; sourceTree = "<group>"; };
 		DEED1738108A50000071438F /* SPTweenedProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPTweenedProperty.m; sourceTree = "<group>"; };
 		DEEEB8C80FAA2C300059D72B /* SPEnterFrameEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPEnterFrameEvent.h; sourceTree = "<group>"; };
@@ -310,6 +325,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE5A7ED613805C2B00C6CBBC /* libz.dylib in Frameworks */,
+				DE8E6A7E16B4303E007EE8BA /* GLKit.framework in Frameworks */,
 				DED8B48711B0827E00A1766C /* Foundation.framework in Frameworks */,
 				DED8B48811B0827E00A1766C /* CoreGraphics.framework in Frameworks */,
 				DED8B48911B0827E00A1766C /* QuartzCore.framework in Frameworks */,
@@ -334,7 +350,6 @@
 				DEE968F51086553D001D57E9 /* Textures */,
 				DEE202BD0FBDAD2900B8A467 /* Animation */,
 				DE469D310F93870A00F56E91 /* Utils */,
-				DEEA9402101E44F10071DD21 /* Sparrow.h */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -353,6 +368,7 @@
 			children = (
 				DEABCDE80F7ABE71003B6C9D /* UnitTests */,
 				080E96DDFE201D6D7F000001 /* Classes */,
+				DEEA9402101E44F10071DD21 /* Sparrow.h */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
@@ -373,6 +389,7 @@
 			isa = PBXGroup;
 			children = (
 				DE5A7ED513805C2B00C6CBBC /* libz.dylib */,
+				DE8E6A7D16B4303E007EE8BA /* GLKit.framework */,
 				DEB5142B14F1848B00066104 /* SenTestingKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				DE9CF1EB0FED3128008A32FF /* CoreGraphics.framework */,
@@ -415,6 +432,14 @@
 			name = Utils;
 			sourceTree = "<group>";
 		};
+		DE85779116B58EDF00725EC0 /* Internal */ = {
+			isa = PBXGroup;
+			children = (
+				DE8E6AA516B46C65007EE8BA /* SPSparrow_Internal.h */,
+			);
+			name = Internal;
+			sourceTree = "<group>";
+		};
 		DEABCDE80F7ABE71003B6C9D /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -455,7 +480,6 @@
 			isa = PBXGroup;
 			children = (
 				DEDCD44E0FADFFA40022011C /* SPDisplayObject_Internal.h */,
-				DE2AD849104A84F1001AF0A0 /* SPStage_Internal.h */,
 				228579B4157957450086CC08 /* SPTextField_Internal.h */,
 			);
 			name = Internal;
@@ -503,6 +527,8 @@
 				DEE444A90FABABBB0085D36D /* SPTouchEvent.m */,
 				DEEEB8C80FAA2C300059D72B /* SPEnterFrameEvent.h */,
 				DEEEB8C90FAA2C300059D72B /* SPEnterFrameEvent.m */,
+				DEAAF3D516BC0D21004EB9D5 /* SPResizeEvent.h */,
+				DEAAF3D616BC0D21004EB9D5 /* SPResizeEvent.m */,
 			);
 			name = Events;
 			sourceTree = "<group>";
@@ -510,8 +536,13 @@
 		DEDCD3CE0FADF2100022011C /* System */ = {
 			isa = PBXGroup;
 			children = (
-				DEC2B6790F6D4CE90063AB1D /* SPView.h */,
-				DEC2B67A0F6D4CE90063AB1D /* SPView.m */,
+				DE85779116B58EDF00725EC0 /* Internal */,
+				DE85778C16B58E4B00725EC0 /* SPSparrow.h */,
+				DE85778D16B58E4B00725EC0 /* SPSparrow.m */,
+				DE8E6A8016B430C4007EE8BA /* SPViewController.h */,
+				DE8E6A8116B430C4007EE8BA /* SPViewController.m */,
+				DEAAF3D916BC0E46004EB9D5 /* SPOverlayView.h */,
+				DEAAF3DA16BC0E46004EB9D5 /* SPOverlayView.m */,
 			);
 			name = System;
 			sourceTree = "<group>";
@@ -638,7 +669,6 @@
 				DE611375134F8F6C00AB742E /* SPAudioEngine.h in Headers */,
 				DE611376134F8F6C00AB742E /* SPSound.h in Headers */,
 				DE611377134F8F6C00AB742E /* SPSoundChannel.h in Headers */,
-				DE611378134F8F6C00AB742E /* SPView.h in Headers */,
 				DE611379134F8F6C00AB742E /* SPEvent.h in Headers */,
 				DE61137A134F8F6C00AB742E /* SPEventDispatcher.h in Headers */,
 				DE61137B134F8F6C00AB742E /* SPTouch.h in Headers */,
@@ -675,6 +705,11 @@
 				DE61139C134F8FD400AB742E /* Sparrow.h in Headers */,
 				DEC734811386BC1400234D95 /* SPTextureAtlas.h in Headers */,
 				228579B6157957450086CC08 /* SPTextField_Internal.h in Headers */,
+				DE8E6A8216B430C4007EE8BA /* SPViewController.h in Headers */,
+				DE8E6AA616B46C65007EE8BA /* SPSparrow_Internal.h in Headers */,
+				DE85778E16B58E4B00725EC0 /* SPSparrow.h in Headers */,
+				DEAAF3D716BC0D21004EB9D5 /* SPResizeEvent.h in Headers */,
+				DEAAF3DB16BC0E46004EB9D5 /* SPOverlayView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -828,7 +863,6 @@
 				DEFE4BD4101B31DF00E22471 /* SPTouch.m in Sources */,
 				DEFE4BD5101B31DF00E22471 /* SPTouchEvent.m in Sources */,
 				DEFE4BD6101B31DF00E22471 /* SPEnterFrameEvent.m in Sources */,
-				DEFE4BD1101B31DF00E22471 /* SPView.m in Sources */,
 				DEFE4BCE101B31DF00E22471 /* SPTransitions.m in Sources */,
 				DE019C391026360B00ECB0AC /* SPTween.m in Sources */,
 				DE019C3A1026361200ECB0AC /* SPDelayedInvocation.m in Sources */,
@@ -850,6 +884,10 @@
 				DEE6516B11F9DF200065207E /* SPCompiledSprite.m in Sources */,
 				DE13D18C12AADBF6000C77E6 /* SPRenderTexture.m in Sources */,
 				DE33072612D2EBCD009CC5E7 /* SPUtils.m in Sources */,
+				DE8E6A8316B430C4007EE8BA /* SPViewController.m in Sources */,
+				DE85778F16B58E4B00725EC0 /* SPSparrow.m in Sources */,
+				DEAAF3D816BC0D21004EB9D5 /* SPResizeEvent.m in Sources */,
+				DEAAF3DC16BC0E46004EB9D5 /* SPOverlayView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -112,7 +112,7 @@
     // animate the object. 
     // There is a default juggler at the stage, but you can create your own jugglers, as well.
     // That way, you can group animations into logical parts.    
-    [self.stage.juggler addObject:tween];
+    [[SPSparrow juggler] addObject:tween];
     
     // show which tweening function is used
     mTransitionLabel.text = transition;
@@ -120,7 +120,7 @@
     SPTween *hideTween = [SPTween tweenWithTarget:mTransitionLabel time:3.0f 
                                        transition:SP_TRANSITION_EASE_IN];
     [hideTween animateProperty:@"alpha" targetValue:0.0f];
-    [self.stage.juggler addObject:hideTween];
+    [[SPSparrow juggler] addObject:hideTween];
 }
 
 - (void)onTweenComplete:(SPEvent*)event
@@ -146,8 +146,10 @@
     // the method you would like to call on this proxy object instead of the real method target.
     // In this sample, [self colorizeEgg:] will be called after the specified delay.
     
-    [[self.stage.juggler delayInvocationAtTarget:self byTime:1.0f] colorizeEgg:YES];
-    [[self.stage.juggler delayInvocationAtTarget:self byTime:2.0f] colorizeEgg:NO];    
+    SPJuggler *juggler = [SPSparrow juggler];
+    
+    [[juggler delayInvocationAtTarget:self byTime:1.0f] colorizeEgg:YES];
+    [[juggler delayInvocationAtTarget:self byTime:2.0f] colorizeEgg:NO];
 }
 
 - (void)colorizeEgg:(BOOL)colorize

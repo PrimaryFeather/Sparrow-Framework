@@ -24,59 +24,38 @@ void onUncaughtException(NSException *exception)
 @implementation DemoAppDelegate
 {
     UIWindow *mWindow;
-    SPView *mSparrowView;
+    SPViewController *mViewController;
 }
-
-@synthesize window = mWindow;
-@synthesize sparrowView = mSparrowView;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions 
 {
-    @autoreleasepool
+    NSSetUncaughtExceptionHandler(&onUncaughtException);
+    
+    CGRect screenBounds = [UIScreen mainScreen].bounds;
+    mWindow = [[UIWindow alloc] initWithFrame:screenBounds];
+    
+    [SPAudioEngine start];
+    
+    mViewController = [[SPViewController alloc] init];
+    mViewController.multitouchEnabled = YES;
+    [mViewController startWithRoot:[Game class] supportHighResolutions:YES doubleOnPad:YES];
+    
+    [mWindow setRootViewController:mViewController];
+    [mWindow makeKeyAndVisible];
+    
+    // What follows is a very simply approach to support the iPad:
+    // we just center the stage on the screen!
+    //
+    // (Beware: to support autorotation, this would need a little more work.)
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
-        NSSetUncaughtExceptionHandler(&onUncaughtException);     
-        
-        CGRect screenBounds = [UIScreen mainScreen].bounds;
-        mWindow = [[UIWindow alloc] initWithFrame:screenBounds];
-        
-        [SPAudioEngine start];
-        [SPStage setSupportHighResolutions:YES]; // use @2x textures on suitable hardware
-        
-        mSparrowView = [[SPView alloc] initWithFrame:screenBounds];
-        mSparrowView.multipleTouchEnabled = YES;
-        mSparrowView.frameRate = 30;
-        [mWindow addSubview:mSparrowView];
-        
-        Game *game = [[Game alloc] init];
-        mSparrowView.stage = game;
-        
-        [mWindow makeKeyAndVisible];
-        
+        mViewController.view.frame = CGRectMake(64, 32, 640, 960);
+        mViewController.stage.width = 320;
+        mViewController.stage.height = 480;
     }
     
     return YES;
-}
-
-- (void)applicationWillResignActive:(UIApplication *)application 
-{    
-    [mSparrowView stop];
-}
-
-- (void)applicationDidBecomeActive:(UIApplication *)application 
-{
-	[mSparrowView start];
-}
-
-- (void)dealloc 
-{
-    [SPAudioEngine stop];
-}
-
-- (void)applicationDidReceiveMemoryWarning:(UIApplication *)application
-{
-    [SPPoint purgePool];
-    [SPRectangle purgePool];
-    [SPMatrix purgePool];    
 }
 
 @end

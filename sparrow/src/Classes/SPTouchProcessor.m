@@ -51,74 +51,71 @@
 
 - (void)processTouches:(NSSet*)touches
 {
-    @autoreleasepool
+    NSMutableSet *processedTouches = [[NSMutableSet alloc] init];
+    
+    // process new touches
+    for (SPTouch *touch in touches)
     {
-        NSMutableSet *processedTouches = [[NSMutableSet alloc] init];
+        SPTouch *currentTouch = nil;
         
-        // process new touches
-        for (SPTouch *touch in touches)
+        for (SPTouch *existingTouch in mCurrentTouches)
         {
-            SPTouch *currentTouch = nil;
+            if (existingTouch.phase == SPTouchPhaseEnded || existingTouch.phase == SPTouchPhaseCancelled)
+                continue;
             
-            for (SPTouch *existingTouch in mCurrentTouches)
+            if ((existingTouch.globalX == touch.previousGlobalX &&
+                 existingTouch.globalY == touch.previousGlobalY) ||
+                (existingTouch.globalX == touch.globalX &&
+                 existingTouch.globalY == touch.globalY))
             {
-                if (existingTouch.phase == SPTouchPhaseEnded || existingTouch.phase == SPTouchPhaseCancelled)
-                    continue;
+                // existing touch; update values
+                existingTouch.timestamp = touch.timestamp;
+                existingTouch.previousGlobalX = touch.previousGlobalX;
+                existingTouch.previousGlobalY = touch.previousGlobalY;
+                existingTouch.globalX = touch.globalX;
+                existingTouch.globalY = touch.globalY;
+                existingTouch.phase = touch.phase;
+                existingTouch.tapCount = touch.tapCount;
                 
-                if ((existingTouch.globalX == touch.previousGlobalX &&
-                     existingTouch.globalY == touch.previousGlobalY) ||
-                    (existingTouch.globalX == touch.globalX &&
-                     existingTouch.globalY == touch.globalY))
+                if (!existingTouch.target.stage)
                 {
-                    // existing touch; update values
-                    existingTouch.timestamp = touch.timestamp;
-                    existingTouch.previousGlobalX = touch.previousGlobalX;
-                    existingTouch.previousGlobalY = touch.previousGlobalY;
-                    existingTouch.globalX = touch.globalX;
-                    existingTouch.globalY = touch.globalY;
-                    existingTouch.phase = touch.phase;
-                    existingTouch.tapCount = touch.tapCount;
-                    
-                    if (!existingTouch.target.stage)
-                    {
-                        // target could have been removed from stage -> find new target in that case
-                        SPPoint *touchPosition = [SPPoint pointWithX:touch.globalX y:touch.globalY];
-                        existingTouch.target = [mRoot hitTestPoint:touchPosition forTouch:YES];       
-                    }
-                    
-                    currentTouch = existingTouch;
-                    break;
+                    // target could have been removed from stage -> find new target in that case
+                    SPPoint *touchPosition = [SPPoint pointWithX:touch.globalX y:touch.globalY];
+                    existingTouch.target = [mRoot hitTestPoint:touchPosition forTouch:YES];       
                 }
+                
+                currentTouch = existingTouch;
+                break;
             }
-            
-            if (!currentTouch)
-            {
-                // new touch!
-                currentTouch = [SPTouch touch];
-                currentTouch.timestamp = touch.timestamp;
-                currentTouch.globalX = touch.globalX;
-                currentTouch.globalY = touch.globalY;
-                currentTouch.previousGlobalX = touch.previousGlobalX;
-                currentTouch.previousGlobalY = touch.previousGlobalY;
-                currentTouch.phase = touch.phase;
-                currentTouch.tapCount = touch.tapCount;
-                SPPoint *touchPosition = [SPPoint pointWithX:touch.globalX y:touch.globalY];
-                currentTouch.target = [mRoot hitTestPoint:touchPosition forTouch:YES];
-            }
-            
-            [processedTouches addObject:currentTouch];
         }
         
-        // dispatch events         
-        for (SPTouch *touch in processedTouches)
-        {       
-            SPTouchEvent *touchEvent = [[SPTouchEvent alloc] initWithType:SP_EVENT_TYPE_TOUCH 
-                                                                  touches:processedTouches];
-            [touch.target dispatchEvent:touchEvent];
+        if (!currentTouch)
+        {
+            // new touch!
+            currentTouch = [SPTouch touch];
+            currentTouch.timestamp = touch.timestamp;
+            currentTouch.globalX = touch.globalX;
+            currentTouch.globalY = touch.globalY;
+            currentTouch.previousGlobalX = touch.previousGlobalX;
+            currentTouch.previousGlobalY = touch.previousGlobalY;
+            currentTouch.phase = touch.phase;
+            currentTouch.tapCount = touch.tapCount;
+            SPPoint *touchPosition = [SPPoint pointWithX:touch.globalX y:touch.globalY];
+            currentTouch.target = [mRoot hitTestPoint:touchPosition forTouch:YES];
         }
         
-        mCurrentTouches = processedTouches;
+        [processedTouches addObject:currentTouch];
     }
+    
+    // dispatch events         
+    for (SPTouch *touch in processedTouches)
+    {       
+        SPTouchEvent *touchEvent = [[SPTouchEvent alloc] initWithType:SP_EVENT_TYPE_TOUCH 
+                                                              touches:processedTouches];
+        [touch.target dispatchEvent:touchEvent];
+    }
+    
+    mCurrentTouches = processedTouches;
 }
 
 - (void)cancelCurrentTouches:(NSNotification *)notification

@@ -14,6 +14,7 @@
 #import "SPMacros.h"
 #import "SPUtils.h"
 #import "SPStage.h"
+#import "SPSparrow.h"
 
 @interface SPRenderTexture ()
 
@@ -59,7 +60,7 @@
 
 - (id)initWithWidth:(float)width height:(float)height fillColor:(uint)argb
 {
-    return [self initWithWidth:width height:height fillColor:argb scale:[SPStage contentScaleFactor]];
+    return [self initWithWidth:width height:height fillColor:argb scale:[SPSparrow contentScaleFactor]];
 }
 
 - (id)initWithWidth:(float)width height:(float)height

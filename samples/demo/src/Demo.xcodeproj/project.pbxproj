@@ -39,6 +39,7 @@
 		DE18FE3711B0839E00D01F04 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE18FE3611B0839E00D01F04 /* AVFoundation.framework */; };
 		DE396AE8104055A100C27DDF /* CustomHitTestScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DE396AE7104055A100C27DDF /* CustomHitTestScene.m */; };
 		DE396AEB104056A500C27DDF /* RoundButton.m in Sources */ = {isa = PBXBuildFile; fileRef = DE396AEA104056A500C27DDF /* RoundButton.m */; };
+		DE3DD90816B5C12000ECA3F5 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE3DD90716B5C12000ECA3F5 /* GLKit.framework */; };
 		DE5A7ED913805C4500C6CBBC /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DE5A7ED813805C4500C6CBBC /* libz.dylib */; };
 		DE8055B5150632DA006A9426 /* sparrow_front.png in Resources */ = {isa = PBXBuildFile; fileRef = DE8055B4150632DA006A9426 /* sparrow_front.png */; };
 		DE8055B7150632E9006A9426 /* sparrow_front@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE8055B6150632E9006A9426 /* sparrow_front@2x.png */; };
@@ -56,6 +57,7 @@
 		DEA1573B1505F9030043B724 /* sparrow_sheet.png in Resources */ = {isa = PBXBuildFile; fileRef = DEA1573A1505F9030043B724 /* sparrow_sheet.png */; };
 		DEA1573D1505F90E0043B724 /* sparrow_sheet@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DEA1573C1505F90E0043B724 /* sparrow_sheet@2x.png */; };
 		DEB2D16B1380580800FA7B88 /* TextureScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DEB2D16A1380580800FA7B88 /* TextureScene.m */; };
+		DEB796D316BEAE3F0082D612 /* Default-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = DEB796D216BEAE3F0082D612 /* Default-Portrait~ipad.png */; };
 		DED0B7F0101CE0A9008D3794 /* TextScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DED0B7EF101CE0A9008D3794 /* TextScene.m */; };
 		DED6FF371041623A001FF6C8 /* AnimationScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DED6FF361041623A001FF6C8 /* AnimationScene.m */; };
 		DEDF882612ABED67005DEAE8 /* RenderTextureScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DEDF882512ABED67005DEAE8 /* RenderTextureScene.m */; };
@@ -143,6 +145,7 @@
 		DE396AE7104055A100C27DDF /* CustomHitTestScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomHitTestScene.m; sourceTree = "<group>"; };
 		DE396AE9104056A500C27DDF /* RoundButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoundButton.h; sourceTree = "<group>"; };
 		DE396AEA104056A500C27DDF /* RoundButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoundButton.m; sourceTree = "<group>"; };
+		DE3DD90716B5C12000ECA3F5 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		DE5A7ED813805C4500C6CBBC /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		DE8055B4150632DA006A9426 /* sparrow_front.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sparrow_front.png; sourceTree = "<group>"; };
 		DE8055B6150632E9006A9426 /* sparrow_front@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sparrow_front@2x.png"; sourceTree = "<group>"; };
@@ -161,6 +164,7 @@
 		DEA1573C1505F90E0043B724 /* sparrow_sheet@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sparrow_sheet@2x.png"; sourceTree = "<group>"; };
 		DEB2D1691380580800FA7B88 /* TextureScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureScene.h; sourceTree = "<group>"; };
 		DEB2D16A1380580800FA7B88 /* TextureScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextureScene.m; sourceTree = "<group>"; };
+		DEB796D216BEAE3F0082D612 /* Default-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait~ipad.png"; sourceTree = "<group>"; };
 		DED0B7EE101CE0A9008D3794 /* TextScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextScene.h; sourceTree = "<group>"; };
 		DED0B7EF101CE0A9008D3794 /* TextScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextScene.m; sourceTree = "<group>"; };
 		DED6FF351041623A001FF6C8 /* AnimationScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationScene.h; sourceTree = "<group>"; };
@@ -197,6 +201,7 @@
 			files = (
 				DE08354913869D9A00023C9E /* libSparrow.a in Frameworks */,
 				DE5A7ED913805C4500C6CBBC /* libz.dylib in Frameworks */,
+				DE3DD90816B5C12000ECA3F5 /* GLKit.framework in Frameworks */,
 				DEF171F611B010E500A11DD7 /* CoreGraphics.framework in Frameworks */,
 				DEF171F811B010E500A11DD7 /* Foundation.framework in Frameworks */,
 				DEF171FA11B010E500A11DD7 /* OpenAL.framework in Frameworks */,
@@ -320,6 +325,7 @@
 			children = (
 				DE08354813869D9A00023C9E /* libSparrow.a */,
 				DE5A7ED813805C4500C6CBBC /* libz.dylib */,
+				DE3DD90716B5C12000ECA3F5 /* GLKit.framework */,
 				DEF1721711B0110200A11DD7 /* AudioToolbox.framework */,
 				DEF171F511B010E500A11DD7 /* CoreGraphics.framework */,
 				DEF171F711B010E500A11DD7 /* Foundation.framework */,
@@ -391,11 +397,12 @@
 		DE91024816242E21001FD950 /* system */ = {
 			isa = PBXGroup;
 			children = (
+				DEB796D216BEAE3F0082D612 /* Default-Portrait~ipad.png */,
+				DE91023A16242BFE001FD950 /* Default-568h@2x.png */,
 				DE91024616242DF8001FD950 /* Default@2x.png */,
 				DE91024416242DF5001FD950 /* Default.png */,
 				DE91024216242DE1001FD950 /* Icon@2x.png */,
 				DE91024016242DD9001FD950 /* Icon.png */,
-				DE91023A16242BFE001FD950 /* Default-568h@2x.png */,
 			);
 			name = system;
 			sourceTree = "<group>";
@@ -531,6 +538,7 @@
 				DE91024316242DE1001FD950 /* Icon@2x.png in Resources */,
 				DE91024516242DF5001FD950 /* Default.png in Resources */,
 				DE91024716242DF8001FD950 /* Default@2x.png in Resources */,
+				DEB796D316BEAE3F0082D612 /* Default-Portrait~ipad.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -576,7 +584,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -586,7 +594,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

@@ -23,7 +23,6 @@
 		DE0C7111162417B800357F6E /* Icon@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = DE0C7110162417B800357F6E /* Icon@2x~ipad.png */; };
 		DE115961162320F100A25086 /* background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DE115960162320F100A25086 /* background.jpg */; };
 		DE115963162320F800A25086 /* background@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DE115962162320F800A25086 /* background@2x.jpg */; };
-		DE1FBDFD14F831A300E86642 /* SPResizeEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = DE1FBDFC14F831A300E86642 /* SPResizeEvent.m */; };
 		DE3F093811B7B9DC009D4DB0 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE3F093711B7B9DC009D4DB0 /* AVFoundation.framework */; };
 		DE3F093A11B7B9DC009D4DB0 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE3F093911B7B9DC009D4DB0 /* AudioToolbox.framework */; };
 		DE3F097811B7BABD009D4DB0 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE3F097711B7BABD009D4DB0 /* OpenAL.framework */; };
@@ -31,7 +30,6 @@
 		DE4A3D7F10FFB08B00FDA492 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE4A3D7E10FFB08B00FDA492 /* QuartzCore.framework */; };
 		DE4A3DB910FFB0FE00FDA492 /* libSparrow.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE4A3DB010FFB0DB00FDA492 /* libSparrow.a */; };
 		DE4A3DE510FFB2AF00FDA492 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = DE4A3DE410FFB2AF00FDA492 /* Game.m */; };
-		DE4F80C714E1481C00655D44 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE4F80C614E1481B00655D44 /* ViewController.m */; };
 		DE4F80D614E153E600655D44 /* Media.m in Sources */ = {isa = PBXBuildFile; fileRef = DE4F80D514E153E600655D44 /* Media.m */; };
 		DE4F80E814E1541400655D44 /* sound.caf in Resources */ = {isa = PBXBuildFile; fileRef = DE4F80DB14E1541400655D44 /* sound.caf */; };
 		DE4F80E914E1541400655D44 /* atlas.png in Resources */ = {isa = PBXBuildFile; fileRef = DE4F80DE14E1541400655D44 /* atlas.png */; };
@@ -39,8 +37,7 @@
 		DE4F80ED14E1541400655D44 /* atlas@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE4F80E314E1541400655D44 /* atlas@2x.png */; };
 		DE4F80EE14E1541400655D44 /* atlas@2x.xml in Resources */ = {isa = PBXBuildFile; fileRef = DE4F80E414E1541400655D44 /* atlas@2x.xml */; };
 		DE5C4E6E138ED109004892CA /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DE5C4E6D138ED109004892CA /* libz.dylib */; };
-		DE88295114ECF12000773036 /* GameController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE88295014ECF11F00773036 /* GameController.m */; };
-		DECF454814F2E527006A4287 /* SPOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = DECF454714F2E527006A4287 /* SPOverlayView.m */; };
+		DEAAF3DF16BC114D004EB9D5 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEAAF3DE16BC114D004EB9D5 /* GLKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,8 +85,6 @@
 		DE0C7110162417B800357F6E /* Icon@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x~ipad.png"; sourceTree = "<group>"; };
 		DE115960162320F100A25086 /* background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background.jpg; sourceTree = "<group>"; };
 		DE115962162320F800A25086 /* background@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background@2x.jpg"; sourceTree = "<group>"; };
-		DE1FBDFB14F831A300E86642 /* SPResizeEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPResizeEvent.h; sourceTree = "<group>"; };
-		DE1FBDFC14F831A300E86642 /* SPResizeEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPResizeEvent.m; sourceTree = "<group>"; };
 		DE3F093711B7B9DC009D4DB0 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		DE3F093911B7B9DC009D4DB0 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		DE3F097711B7BABD009D4DB0 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
@@ -98,8 +93,6 @@
 		DE4A3DA210FFB0D400FDA492 /* Sparrow.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Sparrow.xcodeproj; sourceTree = SPARROW_SRC; };
 		DE4A3DE310FFB2AF00FDA492 /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
 		DE4A3DE410FFB2AF00FDA492 /* Game.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Game.m; sourceTree = "<group>"; };
-		DE4F80C514E1481B00655D44 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		DE4F80C614E1481B00655D44 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		DE4F80D414E153E600655D44 /* Media.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Media.h; sourceTree = "<group>"; };
 		DE4F80D514E153E600655D44 /* Media.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Media.m; sourceTree = "<group>"; };
 		DE4F80DB14E1541400655D44 /* sound.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sound.caf; sourceTree = "<group>"; };
@@ -108,10 +101,7 @@
 		DE4F80E314E1541400655D44 /* atlas@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "atlas@2x.png"; sourceTree = "<group>"; };
 		DE4F80E414E1541400655D44 /* atlas@2x.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "atlas@2x.xml"; sourceTree = "<group>"; };
 		DE5C4E6D138ED109004892CA /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		DE88294F14ECF11F00773036 /* GameController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameController.h; sourceTree = "<group>"; };
-		DE88295014ECF11F00773036 /* GameController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameController.m; sourceTree = "<group>"; };
-		DECF454614F2E527006A4287 /* SPOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPOverlayView.h; sourceTree = "<group>"; };
-		DECF454714F2E527006A4287 /* SPOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPOverlayView.m; sourceTree = "<group>"; };
+		DEAAF3DE16BC114D004EB9D5 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +111,7 @@
 			files = (
 				DE4A3DB910FFB0FE00FDA492 /* libSparrow.a in Frameworks */,
 				DE5C4E6E138ED109004892CA /* libz.dylib in Frameworks */,
+				DEAAF3DF16BC114D004EB9D5 /* GLKit.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
@@ -138,12 +129,9 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				DECF454314F2E45A006A4287 /* Support */,
 				DE4F80D714E153EA00655D44 /* Game */,
 				1D3623240D0F684500981E51 /* AppDelegate.h */,
 				1D3623250D0F684500981E51 /* AppDelegate.m */,
-				DE4F80C514E1481B00655D44 /* ViewController.h */,
-				DE4F80C614E1481B00655D44 /* ViewController.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -193,6 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				DE5C4E6D138ED109004892CA /* libz.dylib */,
+				DEAAF3DE16BC114D004EB9D5 /* GLKit.framework */,
 				DE3F093711B7B9DC009D4DB0 /* AVFoundation.framework */,
 				DE3F093911B7B9DC009D4DB0 /* AudioToolbox.framework */,
 				DE3F097711B7BABD009D4DB0 /* OpenAL.framework */,
@@ -233,8 +222,6 @@
 		DE4F80D714E153EA00655D44 /* Game */ = {
 			isa = PBXGroup;
 			children = (
-				DE88294F14ECF11F00773036 /* GameController.h */,
-				DE88295014ECF11F00773036 /* GameController.m */,
 				DE4A3DE310FFB2AF00FDA492 /* Game.h */,
 				DE4A3DE410FFB2AF00FDA492 /* Game.m */,
 				DE4F80D414E153E600655D44 /* Media.h */,
@@ -280,17 +267,6 @@
 				DE115962162320F800A25086 /* background@2x.jpg */,
 			);
 			path = 2x;
-			sourceTree = "<group>";
-		};
-		DECF454314F2E45A006A4287 /* Support */ = {
-			isa = PBXGroup;
-			children = (
-				DECF454614F2E527006A4287 /* SPOverlayView.h */,
-				DECF454714F2E527006A4287 /* SPOverlayView.m */,
-				DE1FBDFB14F831A300E86642 /* SPResizeEvent.h */,
-				DE1FBDFC14F831A300E86642 /* SPResizeEvent.m */,
-			);
-			name = Support;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -398,11 +374,7 @@
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,
 				DE4A3DE510FFB2AF00FDA492 /* Game.m in Sources */,
-				DE4F80C714E1481C00655D44 /* ViewController.m in Sources */,
 				DE4F80D614E153E600655D44 /* Media.m in Sources */,
-				DE88295114ECF12000773036 /* GameController.m in Sources */,
-				DECF454814F2E527006A4287 /* SPOverlayView.m in Sources */,
-				DE1FBDFD14F831A300E86642 /* SPResizeEvent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -16,7 +16,7 @@
 #import "SPGLTexture.h"
 #import "SPRectangle.h"
 #import "SPUtils.h"
-#import "SPStage.h"
+#import "SPSparrow.h"
 
 // --- private interface ---------------------------------------------------------------------------
 
@@ -67,7 +67,7 @@
 {
     if (!path) return;
 
-    float scaleFactor = [SPStage contentScaleFactor];
+    float scaleFactor = [SPSparrow contentScaleFactor];
     mPath = [SPUtils absolutePathToFile:path withScaleFactor:scaleFactor];    
     if (!mPath) [NSException raise:SP_EXC_FILE_NOT_FOUND format:@"file not found: %@", path];
     

@@ -1,6 +1,12 @@
 //
 //  SPResizeEvent.h
-//  AppScaffold
+//  Sparrow
+//
+//  Created by Daniel Sperl on 01.10.2012.
+//  Copyright 2012 Gamua. All rights reserved.
+//
+//  This program is free software; you can redistribute it and/or modify
+//  it under the terms of the Simplified BSD License.
 //
 
 #import "SPEvent.h"

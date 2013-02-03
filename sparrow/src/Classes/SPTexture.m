@@ -17,6 +17,7 @@
 #import "SPSubTexture.h"
 #import "SPNSExtensions.h"
 #import "SPStage.h"
+#import "SPSparrow.h"
 
 #import <zlib.h>
 
@@ -89,7 +90,7 @@ enum PVRPixelType
 
 - (id)initWithContentsOfFile:(NSString *)path
 {
-    float contentScaleFactor = [SPStage contentScaleFactor];
+    float contentScaleFactor = [SPSparrow contentScaleFactor];
     NSString *fullPath = [SPUtils absolutePathToFile:path withScaleFactor:contentScaleFactor];
     
     if (!fullPath)
@@ -116,7 +117,7 @@ enum PVRPixelType
 
 - (id)initWithWidth:(float)width height:(float)height draw:(SPTextureDrawingBlock)drawingBlock
 {
-    return [self initWithWidth:width height:height scale:[SPStage contentScaleFactor]
+    return [self initWithWidth:width height:height scale:[SPSparrow contentScaleFactor]
                     colorSpace:SPColorSpaceRGBA draw:drawingBlock];
 }
 

@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "Scene.h"
 
-@interface Game : SPStage
+@interface Game : SPSprite
 
 @end

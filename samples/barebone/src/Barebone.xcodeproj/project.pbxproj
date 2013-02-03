@@ -20,6 +20,7 @@
 		DE4A3DB910FFB0FE00FDA492 /* libSparrow.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE4A3DB010FFB0DB00FDA492 /* libSparrow.a */; };
 		DE4A3DE510FFB2AF00FDA492 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = DE4A3DE410FFB2AF00FDA492 /* Game.m */; };
 		DE5C4E6E138ED109004892CA /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DE5C4E6D138ED109004892CA /* libz.dylib */; };
+		DE8E6AA416B441A6007EE8BA /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE8E6AA316B441A6007EE8BA /* GLKit.framework */; };
 		DE91027C16244E60001FD950 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE91027B16244E60001FD950 /* Default-568h@2x.png */; };
 		DE91027E16244F0C001FD950 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = DE91027D16244F0C001FD950 /* Default.png */; };
 		DE91028016244F74001FD950 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE91027F16244F74001FD950 /* Default@2x.png */; };
@@ -68,6 +69,7 @@
 		DE4A3DE310FFB2AF00FDA492 /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
 		DE4A3DE410FFB2AF00FDA492 /* Game.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Game.m; sourceTree = "<group>"; };
 		DE5C4E6D138ED109004892CA /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		DE8E6AA316B441A6007EE8BA /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		DE91027B16244E60001FD950 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		DE91027D16244F0C001FD950 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		DE91027F16244F74001FD950 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 			files = (
 				DE4A3DB910FFB0FE00FDA492 /* libSparrow.a in Frameworks */,
 				DE5C4E6E138ED109004892CA /* libz.dylib in Frameworks */,
+				DE8E6AA416B441A6007EE8BA /* GLKit.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
@@ -150,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				DE5C4E6D138ED109004892CA /* libz.dylib */,
+				DE8E6AA316B441A6007EE8BA /* GLKit.framework */,
 				DE3F093711B7B9DC009D4DB0 /* AVFoundation.framework */,
 				DE3F093911B7B9DC009D4DB0 /* AudioToolbox.framework */,
 				DE3F097711B7BABD009D4DB0 /* OpenAL.framework */,
@@ -288,8 +292,9 @@
 				GCC_PREFIX_HEADER = "App-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "App-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = Barebone;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -302,8 +307,9 @@
 				GCC_PREFIX_HEADER = "App-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "App-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = Barebone;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

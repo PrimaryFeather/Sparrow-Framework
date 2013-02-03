@@ -47,55 +47,11 @@
 /// Initializes a stage with a certain size in points.
 - (id)initWithWidth:(float)width height:(float)height;
 
-/// Dispatches an enter frame event on all children and advances the juggler.
-- (void)advanceTime:(double)seconds;
-
-/// Process a new set up touches. Dispatches touch events on affected children.
-- (void)processTouches:(NSSet*)touches;
-
-/// -------------
-/// @name Methods
-/// -------------
-
-/// Returns the first available stage instance. (In most cases, there is only one stage, anyway.)
-+ (SPStage *)mainStage;
-
 /// ----------------
 /// @name Properties
 /// ----------------
 
-/// The requested number of frames per second. Must be a divisor of 60 (like 30, 20, 15, 12, 10, etc.).
-/// The actual frame rate might be lower if there is too much to process.
-@property (nonatomic, assign)   float frameRate;
-
 /// The background color of the stage. Default: black.
-@property (nonatomic, assign)   uint color;
-
-/// A juggler that is automatically advanced once per frame.
-@property (nonatomic, readonly) SPJuggler *juggler;
-
-/// The native view the stage is connected to. Normally an SPView.
-@property (weak, nonatomic, readonly) id nativeView;
-
-@end
-
-
-@interface SPStage (HDSupport)
-
-/// Enables support for high resolutions (aka retina displays).
-+ (void)setSupportHighResolutions:(BOOL)hd;
-
-/// Enables support for high resolutions (aka retina displays). If 'doubleOnPad' is true, 
-/// pad devices will use twice the resolution ('@2x' on iPad 1+2, '@4x' on iPad 3+).
-+ (void)setSupportHighResolutions:(BOOL)hd doubleOnPad:(BOOL)pad;
-
-/// Determines if high resolution support is activated.
-+ (BOOL)supportHighResolutions;
-
-/// Determines if pad devices use twice the resolution.
-+ (BOOL)doubleResolutionsOnPad;
-
-/// The current content scale factor.
-+ (float)contentScaleFactor;
+@property (nonatomic, assign) uint color;
 
 @end

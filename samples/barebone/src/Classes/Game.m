@@ -7,11 +7,11 @@
 
 @implementation Game
 
-- (id)initWithWidth:(float)width height:(float)height
+- (id)init
 {
-    if ((self = [super initWithWidth:width height:height]))
+    if ((self = [super init]))
     {
-        // this is where the code of your game will start. 
+        // This is where the code of your game will start;
         // in this sample, we add just a simple quad to see if it works.
         
         SPQuad *quad = [SPQuad quadWithWidth:100 height:100];
@@ -20,7 +20,8 @@
         quad.y = 50;
         [self addChild:quad];
         
-        // Per default, this project compiles as an iPhone application. To change that, enter the 
+        
+        // Per default, this project compiles as an universal application. To change that, enter the
         // project info screen, and in the "Build"-tab, find the setting "Targeted device family".
         //
         // Now Choose:  
@@ -28,9 +29,10 @@
         //   * iPad        -> iPad only App
         //   * iPhone/iPad -> Universal App  
         // 
-        // If you want to support the iPad, you have to change the "iOS deployment target" setting
-        // to "iOS 3.2" (or "iOS 4.2", if it is available.)
+        // The "iOS deployment target" setting must be at least "iOS 5.0" for Sparrow 2.
+        // Always used the latest available version as the base SDK.
     }
     return self;
 }
+
 @end
