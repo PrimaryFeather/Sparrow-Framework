@@ -46,30 +46,20 @@
     if (!fullPath)
         [NSException raise:SP_EXC_FILE_NOT_FOUND format:@"file '%@' not found", path];
     
-    if ([[path lowercaseString] hasSuffix:@".pvr.gz"])
+    NSError *error = NULL;
+    NSData *data = [NSData dataWithUncompressedContentsOfFile:fullPath];
+    NSDictionary *options = @{ GLKTextureLoaderGenerateMipmaps: @(mipmaps) };
+    GLKTextureInfo *info = [GLKTextureLoader textureWithContentsOfData:data
+                                                               options:options error:&error];
+    
+    if (!info)
     {
-        [NSException raise:SP_EXC_INVALID_OPERATION format:@"Sorry, 'pvr.gz' textures are "
-            @"no longer supported in Sparrow 2. If this feature is (really!) important for you, "
-            @"please create a ticket on GitHub."];
-        
+        [NSException raise:SP_EXC_FILE_INVALID
+                    format:@"Error loading texture: %@", [error localizedDescription]];
         return nil;
     }
-    else
-    {
-        NSError *error = NULL;
-        NSDictionary *options = @{ GLKTextureLoaderGenerateMipmaps: @(mipmaps) };
-        GLKTextureInfo *info = [GLKTextureLoader textureWithContentsOfFile:fullPath
-                                                                   options:options error:&error];
-        
-        if (!info)
-        {
-            [NSException raise:SP_EXC_FILE_INVALID
-                        format:@"Error loading texture: %@", [error localizedDescription]];
-            return nil;
-        }
-        
-        return [[SPGLTexture alloc] initWithTextureInfo:info scale:[fullPath contentScaleFactor]];
-    }
+    
+    return [[SPGLTexture alloc] initWithTextureInfo:info scale:[fullPath contentScaleFactor]];
 }
 
 /// Initializes an empty texture with a certain size (in points).

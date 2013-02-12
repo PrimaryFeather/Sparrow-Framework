@@ -130,12 +130,14 @@ typedef void (^SPTextureDrawingBlock)(CGContextRef context);
 
 /// Initializes a texture with the contents of a file (supported formats: png, jpg, pvr);
 /// no mip maps will be created. Sparrow will automatically pick the optimal file for the current
-/// system, using standard iOS naming conventions ("@2x", "~ipad" etc).
+/// system, using standard iOS naming conventions ("@2x", "~ipad" etc). If the file name ends with
+/// ".gz", the file will be uncompressed automatically.
 - (id)initWithContentsOfFile:(NSString *)path;
 
 /// Initializes a texture with the contents of a file (supported formats: png, jpg, pvr). Sparrow
 /// will automatically pick the optimal file for the current system, using standard iOS naming
-/// conventions ("@2x", "~ipad" etc).
+/// conventions ("@2x", "~ipad" etc). If the file name ends with ".gz", the file will be
+/// uncompressed automatically.
 - (id)initWithContentsOfFile:(NSString *)path generateMipmaps:(BOOL)mipmaps;
 
 /// Initializes a texture with the contents of a UIImage; no mip maps will be created. The texture
