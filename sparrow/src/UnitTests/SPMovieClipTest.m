@@ -164,8 +164,8 @@
 
 - (void)testChangeFps
 {
-    NSArray *frames = [NSArray arrayWithObjects:[[SPTexture alloc] init], [[SPTexture alloc] init],
-                       [[SPTexture alloc] init], nil];
+    NSArray *frames = @[[[SPTexture alloc] init], [[SPTexture alloc] init],
+                        [[SPTexture alloc] init]];
         
     SPMovieClip *movie = [SPMovieClip movieWithFrames:frames fps:4.0f];    
     STAssertEquals(4.0f, movie.fps, @"wrong fps");
@@ -192,8 +192,8 @@
     float fps = 4.0f;
     double frameDuration = 1.0 / fps;
     
-    NSArray *frames = [NSArray arrayWithObjects:[[SPTexture alloc] init], [[SPTexture alloc] init],
-                       [[SPTexture alloc] init], [[SPTexture alloc] init], nil];
+    NSArray *frames = @[[[SPTexture alloc] init], [[SPTexture alloc] init],
+                        [[SPTexture alloc] init], [[SPTexture alloc] init]];
     int numFrames = frames.count;
     
     SPMovieClip *movie = [SPMovieClip movieWithFrames:frames fps:fps];    
