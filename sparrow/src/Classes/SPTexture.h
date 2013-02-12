@@ -46,7 +46,7 @@ typedef void (^SPTextureDrawingBlock)(CGContextRef context);
  
  Furthermore, Sparrow supports development in multiple resolutions, i.e. creating a game
  simultaneously for normal and retina displays. If HD texture support is activated (via
- `[SPStage setSupportHighResolutions:]`) and you load a texture like this:
+ `[SPViewController startWithRoot:supportHighResolutions:]`) and you load a texture like this:
  
     [[SPTexture alloc] initWithContentsOfFile:@"image.png"];
   
@@ -81,13 +81,15 @@ typedef void (^SPTextureDrawingBlock)(CGContextRef context);
  The frame property of a texture allows you to define the position where the texture will appear 
  within an `SPImage`. The rectangle is specified in the coordinate system of the texture:
  
-	texture.frame = [SPRectangle rectangleWithX:-10 y:-10 width:30 height:30];
+    SPTexture *baseTexture = [SPTexture textureWithContentsOfFile:@"10x10.png"];
+	SPRectangle *frame = [SPRectangle rectangleWithX:-10 y:-10 width:30 height:30];
+    SPTexture *texture = [SPTexture textureWithRegion:nil frame:frame ofTexture:baseTexture];
 	SPImage *image = [SPImage imageWithTexture:texture];
  
  This code would create an image with a size of 30x30, with the texture placed at x=10, y=10 within 
- that image (assuming that the texture has a width and height of 10 pixels, it would appear in the
- middle of the image). This is especially useful when a texture has transparent areas at its sides. 
- It is then possible to crop the texture (removing the transparent edges) and make up for that 
+ that image (assuming that the base texture has a width and height of 10 pixels, it would appear in
+ the middle of the image). This is especially useful when a texture has transparent areas at its
+ sides. It is then possible to crop the texture (removing the transparent edges) and make up for that 
  by specifying a frame. 
  
  The texture class itself does not make any use of the frame data. It's up to classes that use
@@ -101,24 +103,57 @@ typedef void (^SPTextureDrawingBlock)(CGContextRef context);
 /// @name Initializers
 /// ------------------
 
-/// Initializes a texture with a certain size (in points) and a block containing Core Graphics commands. 
-/// The texture will have the current scale factor of the stage and an RGBA color space.
+/// Initializes an empty texture with a certain size (in points).
+- (id)initWithWidth:(float)width height:(float)height;
+
+/// Initializes a texture with a certain size (in points), as well as a block containing Core
+/// Graphics commands. The texture will have the current scale factor of the stage and an RGBA
+/// color space; no mip maps will be created.
 - (id)initWithWidth:(float)width height:(float)height draw:(SPTextureDrawingBlock)drawingBlock;
 
-/// Initializes a texture with size and color properties, as well as a block containing 
-/// Core Graphics commands.
-- (id)initWithWidth:(float)width height:(float)height scale:(float)scale 
+/// Initializes a texture with a certain size (in points), as well as a block containing Core
+/// Graphics commands. The texture will have the current scale factor of the stage and an RGBA
+/// color space.
+- (id)initWithWidth:(float)width height:(float)height generateMipmaps:(BOOL)mipmaps
+               draw:(SPTextureDrawingBlock)drawingBlock;
+
+/// Initializes a texture with a certain size (in points) and colorspace, as well as a block
+/// containing Core Graphics commands. The texture will have the current scale factor of the stage.
+- (id)initWithWidth:(float)width height:(float)height generateMipmaps:(BOOL)mipmaps
          colorSpace:(SPColorSpace)colorSpace draw:(SPTextureDrawingBlock)drawingBlock;
 
-/// Initializes a texture with the contents of a file. Recommended formats: png, jpg, pvr.
+/// Initializes a texture with a certain size (in points) and colorspace, as well as a block
+/// containing Core Graphics commands.
+- (id)initWithWidth:(float)width height:(float)height generateMipmaps:(BOOL)mipmaps
+         colorSpace:(SPColorSpace)colorSpace scale:(float)scale
+               draw:(SPTextureDrawingBlock)drawingBlock;
+
+/// Initializes a texture with the contents of a file (supported formats: png, jpg, pvr);
+/// no mip maps will be created. Sparrow will automatically pick the optimal file for the current
+/// system, using standard iOS naming conventions ("@2x", "~ipad" etc).
 - (id)initWithContentsOfFile:(NSString *)path;
 
-/// Initializes a texture with the contents of a UIImage.
+/// Initializes a texture with the contents of a file (supported formats: png, jpg, pvr). Sparrow
+/// will automatically pick the optimal file for the current system, using standard iOS naming
+/// conventions ("@2x", "~ipad" etc).
+- (id)initWithContentsOfFile:(NSString *)path generateMipmaps:(BOOL)mipmaps;
+
+/// Initializes a texture with the contents of a UIImage; no mip maps will be created. The texture
+/// will have the same scale factor as the image.
 - (id)initWithContentsOfImage:(UIImage *)image;
+
+/// Initializes a texture with the contents of a UIImage. The texture will have the same scale
+/// factor as the image.
+- (id)initWithContentsOfImage:(UIImage *)image generateMipmaps:(BOOL)mipmaps;
 
 /// Initializes a texture with a region (in points) of another texture. The new texture will 
 /// reference the base texture; no data is duplicated.
 - (id)initWithRegion:(SPRectangle*)region ofTexture:(SPTexture*)texture;
+
+/// Initializes a texture with a region (in points) of another texture, as well as a frame rectangle
+/// that makes up for trimmed parts (see class description). The new texture will reference the base
+/// texture; no data is duplicated.
+- (id)initWithRegion:(SPRectangle*)region frame:(SPRectangle *)frame ofTexture:(SPTexture*)texture;
 
 /// Factory method.
 + (id)textureWithContentsOfFile:(NSString*)path;
@@ -128,9 +163,6 @@ typedef void (^SPTextureDrawingBlock)(CGContextRef context);
 
 /// Factory method.
 + (id)textureWithWidth:(float)width height:(float)height draw:(SPTextureDrawingBlock)drawingBlock;
-
-/// Factory method. Creates an empty (white) texture.
-+ (id)emptyTexture;
 
 /// -------------
 /// @name Methods
@@ -153,22 +185,22 @@ typedef void (^SPTextureDrawingBlock)(CGContextRef context);
 /// The OpenGL texture ID.
 @property (nonatomic, readonly) uint textureID;
 
-/// Indicates if the texture should repeat like a wallpaper or stretch the outermost pixels.
-/// Note: this makes sense only in textures with sidelengths that are powers of two and that are
-/// not loaded from a texture atlas (i.e. no subtextures). (Default: `NO`)
-@property (nonatomic, assign) BOOL repeat;
-
-/// The filter type influences how the texture appears when it is scaled up or down. 
-/// (Default: `SPTextureFilterBilinear`)
-@property (nonatomic, assign) SPTextureFilter filter;
-
 /// Indicates if the alpha values are premultiplied into the RGB values.
-@property (nonatomic, readonly) BOOL hasPremultipliedAlpha;
+@property (nonatomic, readonly) BOOL premultipliedAlpha;
 
 /// The scale factor, which influences `width` and `height` properties.
 @property (nonatomic, readonly) float scale;
 
 /// The frame indicates how the texture should be displayed within an image. (Default: `nil`)
-@property (nonatomic, copy) SPRectangle *frame;
+@property (nonatomic, readonly) SPRectangle *frame;
+
+/// Indicates if the texture should repeat like a wallpaper or stretch the outermost pixels.
+/// Note: this makes sense only in textures with sidelengths that are powers of two and that are
+/// not loaded from a texture atlas (i.e. no subtextures). (Default: `NO`)
+@property (nonatomic, assign) BOOL repeat;
+
+/// The filter type influences how the texture appears when it is scaled up or down.
+/// (Default: `SPTextureFilterBilinear`)
+@property (nonatomic, assign) SPTextureFilter filter;
 
 @end

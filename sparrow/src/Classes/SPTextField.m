@@ -300,11 +300,11 @@ static NSMutableDictionary *bitmapFonts = nil;
     float height = mHitArea.height;    
     float fontSize = mFontSize == SP_NATIVE_FONT_SIZE ? SP_DEFAULT_FONT_SIZE : mFontSize;
     
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 60000
+  #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 60000
     NSLineBreakMode lbm = NSLineBreakByTruncatingTail;
-#else
+  #else
     UILineBreakMode lbm = UILineBreakModeTailTruncation;
-#endif
+  #endif
     CGSize textSize = [mText sizeWithFont:[UIFont fontWithName:mFontName size:fontSize]
                         constrainedToSize:CGSizeMake(width, height) lineBreakMode:lbm];
     
@@ -321,8 +321,7 @@ static NSMutableDictionary *bitmapFonts = nil;
     mTextArea.width = textSize.width; 
     mTextArea.height = textSize.height;
     
-    SPTexture *texture = [[SPTexture alloc] initWithWidth:width height:height
-                                                    scale:Sparrow.contentScaleFactor
+    SPTexture *texture = [[SPTexture alloc] initWithWidth:width height:height generateMipmaps:YES
                                                colorSpace:SPColorSpaceAlpha
                                                      draw:^(CGContextRef context)
       {

@@ -27,11 +27,15 @@
 /// @name Initializers
 /// ------------------
 
+/// Initializes a subtexture with a region (in points) of another texture, using a frame rectangle
+/// to place the texture within an image. _Designated Initializer_.
+- (id)initWithRegion:(SPRectangle *)region frame:(SPRectangle *)frame ofTexture:(SPTexture *)texture;
+
 /// Initializes a subtexture with a region (in points) of another texture.
-- (id)initWithRegion:(SPRectangle*)region ofTexture:(SPTexture*)texture;
+- (id)initWithRegion:(SPRectangle *)region ofTexture:(SPTexture *)texture;
 
 /// Factory method.
-+ (id)textureWithRegion:(SPRectangle*)region ofTexture:(SPTexture*)texture;
++ (id)textureWithRegion:(SPRectangle *)region ofTexture:(SPTexture *)texture;
 
 /// ----------------
 /// @name Properties
@@ -41,6 +45,6 @@
 @property (nonatomic, readonly) SPTexture *baseTexture;
 
 /// The clipping rectangle, which is the region provided on initialization, scaled into [0.0, 1.0].
-@property (nonatomic, copy) SPRectangle *clipping;
+@property (nonatomic, readonly) SPRectangle *clipping;
 
 @end

@@ -1,14 +1,17 @@
-<TextureAtlas imagePath='atlas@2x.png'>
-  <SubTexture name='walk_00' x='0' y='0' height='301.0' width='174.0'/>
-  <SubTexture name='walk_01' x='0' y='302' height='301.0' width='174.0'/>
-  <SubTexture name='walk_02' x='0' y='604' height='301.0' width='174.0'/>
-  <SubTexture name='walk_03' x='175' y='0' height='301.0' width='174.0'/>
-  <SubTexture name='walk_04' x='350' y='0' height='301.0' width='174.0'/>
-  <SubTexture name='walk_05' x='525' y='0' height='301.0' width='174.0'/>
-  <SubTexture name='walk_06' x='700' y='0' height='301.0' width='174.0'/>
-  <SubTexture name='walk_07' x='175' y='302' height='301.0' width='174.0'/>
-  <SubTexture name='walk_08' x='175' y='604' height='301.0' width='174.0'/>
-  <SubTexture name='walk_09' x='350' y='302' height='301.0' width='174.0'/>
-  <SubTexture name='walk_10' x='350' y='604' height='301.0' width='174.0'/>
-  <SubTexture name='walk_11' x='525' y='302' height='301.0' width='174.0'/>
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://texturepacker.com-->
+<!-- $TexturePacker:SmartUpdate:235edc6ec77cd5d3542a8a480f4acd0e$ -->
+<TextureAtlas imagePath="atlas@2x.png">
+    <SubTexture name="walk_00" x="148" y="2" width="150" height="283" frameX="-4" frameY="-15" frameWidth="174" frameHeight="301"/>
+    <SubTexture name="walk_01" x="434" y="2" width="164" height="257" frameX="-3" frameY="-30" frameWidth="174" frameHeight="301"/>
+    <SubTexture name="walk_02" x="374" y="570" width="120" height="269" frameX="-35" frameY="-18" frameWidth="174" frameHeight="301"/>
+    <SubTexture name="walk_03" x="280" y="570" width="92" height="273" frameX="-32" frameY="-14" frameWidth="174" frameHeight="301"/>
+    <SubTexture name="walk_04" x="300" y="2" width="132" height="281" frameX="-18" frameY="-6" frameWidth="174" frameHeight="301"/>
+    <SubTexture name="walk_05" x="2" y="600" width="146" height="287" frameX="-8" frameY="0" frameWidth="174" frameHeight="301"/>
+    <SubTexture name="walk_06" x="228" y="287" width="148" height="281" frameX="-9" frameY="-15" frameWidth="174" frameHeight="301"/>
+    <SubTexture name="walk_07" x="378" y="285" width="162" height="265" frameX="-1" frameY="-34" frameWidth="174" frameHeight="301"/>
+    <SubTexture name="walk_08" x="150" y="592" width="128" height="283" frameX="-29" frameY="-16" frameWidth="174" frameHeight="301"/>
+    <SubTexture name="walk_09" x="138" y="303" width="88" height="287" frameX="-36" frameY="-12" frameWidth="174" frameHeight="301"/>
+    <SubTexture name="walk_10" x="2" y="303" width="134" height="295" frameX="-16" frameY="-5" frameWidth="174" frameHeight="301"/>
+    <SubTexture name="walk_11" x="2" y="2" width="144" height="299" frameX="-9" frameY="0" frameWidth="174" frameHeight="301"/>
 </TextureAtlas>

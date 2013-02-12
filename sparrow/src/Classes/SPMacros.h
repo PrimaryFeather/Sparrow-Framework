@@ -49,6 +49,7 @@
 #define SP_EXC_INVALID_OPERATION    @"InvalidOperation"
 #define SP_EXC_FILE_NOT_FOUND       @"FileNotFound"
 #define SP_EXC_FILE_INVALID         @"FileInvalid"
+#define SP_EXC_DATA_INVALID         @"DataInvalid"
 
 // macros
 

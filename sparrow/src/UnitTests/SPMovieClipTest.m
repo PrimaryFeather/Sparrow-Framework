@@ -46,10 +46,10 @@
     float fps = 4.0;
     double frameDuration = 1.0 / fps;
     
-    SPTexture *frame0 = [SPTexture emptyTexture];
-    SPTexture *frame1 = [SPTexture emptyTexture];
-    SPTexture *frame2 = [SPTexture emptyTexture];
-    SPTexture *frame3 = [SPTexture emptyTexture];
+    SPTexture *frame0 = [[SPTexture alloc] init];
+    SPTexture *frame1 = [[SPTexture alloc] init];
+    SPTexture *frame2 = [[SPTexture alloc] init];
+    SPTexture *frame3 = [[SPTexture alloc] init];
     
     SPMovieClip *movie = [SPMovieClip movieWithFrame:frame0 fps:fps];    
     
@@ -122,10 +122,10 @@
     float fps = 4.0;
     double frameDuration = 1.0 / fps;
     
-    SPTexture *frame0 = [SPTexture emptyTexture];
-    SPTexture *frame1 = [SPTexture emptyTexture];
-    SPTexture *frame2 = [SPTexture emptyTexture];
-    SPTexture *frame3 = [SPTexture emptyTexture];
+    SPTexture *frame0 = [[SPTexture alloc] init];
+    SPTexture *frame1 = [[SPTexture alloc] init];
+    SPTexture *frame2 = [[SPTexture alloc] init];
+    SPTexture *frame3 = [[SPTexture alloc] init];
     
     SPMovieClip *movie = [SPMovieClip movieWithFrame:frame0 fps:fps];
     
@@ -164,8 +164,8 @@
 
 - (void)testChangeFps
 {
-    NSArray *frames = [NSArray arrayWithObjects:[SPTexture emptyTexture], [SPTexture emptyTexture],
-                       [SPTexture emptyTexture], nil];
+    NSArray *frames = [NSArray arrayWithObjects:[[SPTexture alloc] init], [[SPTexture alloc] init],
+                       [[SPTexture alloc] init], nil];
         
     SPMovieClip *movie = [SPMovieClip movieWithFrames:frames fps:4.0f];    
     STAssertEquals(4.0f, movie.fps, @"wrong fps");
@@ -192,8 +192,8 @@
     float fps = 4.0f;
     double frameDuration = 1.0 / fps;
     
-    NSArray *frames = [NSArray arrayWithObjects:[SPTexture emptyTexture], [SPTexture emptyTexture],
-                       [SPTexture emptyTexture], [SPTexture emptyTexture], nil];
+    NSArray *frames = [NSArray arrayWithObjects:[[SPTexture alloc] init], [[SPTexture alloc] init],
+                       [[SPTexture alloc] init], [[SPTexture alloc] init], nil];
     int numFrames = frames.count;
     
     SPMovieClip *movie = [SPMovieClip movieWithFrames:frames fps:fps];    

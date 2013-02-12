@@ -45,7 +45,7 @@
 - (void)bindTexture:(SPTexture *)texture
 {
     uint newTextureID = texture.textureID;
-    BOOL newPMA = texture.hasPremultipliedAlpha;
+    BOOL newPMA = texture.premultipliedAlpha;
     
     if (newTextureID != mBoundTextureID)
         glBindTexture(GL_TEXTURE_2D, newTextureID);        

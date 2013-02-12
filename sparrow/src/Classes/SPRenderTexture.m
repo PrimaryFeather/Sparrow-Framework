@@ -36,23 +36,20 @@
     int legalWidth  = [SPUtils nextPowerOfTwo:width  * scale];
     int legalHeight = [SPUtils nextPowerOfTwo:height * scale];
     
-    SPTextureProperties properties = {
-        .format = SPTextureFormatRGBA,
-        .width  = legalWidth,
-        .height = legalHeight,
-        .generateMipmaps = NO,
-        .premultipliedAlpha = NO
-    };
-    
     SPRectangle *region = [SPRectangle rectangleWithX:0 y:0 width:width height:height];
-    SPGLTexture *glTexture = [SPGLTexture textureWithData:NULL properties:properties];
-    glTexture.scale = scale;
-    
+    SPGLTexture *glTexture = [[SPGLTexture alloc] initWithData:NULL
+                                                         width:legalWidth
+                                                        height:legalHeight
+                                               generateMipmaps:NO
+                                                    colorSpace:SPColorSpaceRGBA
+                                                         scale:scale
+                                            premultipliedAlpha:NO];
+
     if ((self = [super initWithRegion:region ofTexture:glTexture]))
     {
         mRenderSupport = [[SPRenderSupport alloc] init];
         
-        [self createFramebuffer];        
+        [self createFramebuffer];
         [self clearWithColor:argb alpha:SP_COLOR_PART_ALPHA(argb)];
     }
     return self;

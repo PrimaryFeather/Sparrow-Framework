@@ -423,7 +423,7 @@
         
         id texture = mTextureSwitches[i];
         if ([texture isKindOfClass:[NSNull class]]) texture = nil;
-        BOOL pma = [texture hasPremultipliedAlpha];              
+        BOOL pma = [texture premultipliedAlpha];
         
         for (int i=0; i<numVertices; ++i)
         {

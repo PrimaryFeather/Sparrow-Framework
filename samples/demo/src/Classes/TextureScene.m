@@ -64,10 +64,13 @@
         // compress a PVR texture with gzip to save space, e.g.:
         // gzip texture.pvr (-> creates texture.pvr.gz)
         
+        // Sorry: this feature is currently not supported!
+        /*
         SPImage *logoPvrGz = [SPImage imageWithContentsOfFile:@"logo_rect.pvr.gz"];
         logoPvrGz.x = 96;
         logoPvrGz.y = 260;
         [self addChild:logoPvrGz];
+        */
         
         // pvr texture
         //

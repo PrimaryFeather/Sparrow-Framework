@@ -130,12 +130,11 @@
 
 - (SPTexture *)textureByName:(NSString *)name
 {
+    SPRectangle *frame  = mTextureFrames[name];
     SPRectangle *region = mTextureRegions[name];
-    if (!region) return nil;    
     
-    SPTexture *texture = [SPSubTexture textureWithRegion:region ofTexture:mAtlasTexture];
-    texture.frame = mTextureFrames[name];
-    return texture;
+    if (region) return [[SPTexture alloc] initWithRegion:region frame:frame ofTexture:mAtlasTexture];
+    else        return nil;
 }
 
 - (NSArray *)texturesStartingWith:(NSString *)name

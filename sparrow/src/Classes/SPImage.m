@@ -14,6 +14,7 @@
 #import "SPTexture.h"
 #import "SPGLTexture.h"
 #import "SPRenderSupport.h"
+#import "SPMacros.h"
 
 #import <OpenGLES/EAGL.h>
 #import <OpenGLES/ES1/gl.h>
@@ -49,8 +50,7 @@
 
 - (id)initWithWidth:(float)width height:(float)height
 {
-    SPTextureProperties properties = { .width = width, .height = height };
-    return [self initWithTexture:[SPGLTexture textureWithData:NULL properties:properties]];
+    return [self initWithTexture:[SPTexture textureWithWidth:width height:height draw:NULL]];
 }
 
 - (void)setTexCoords:(SPPoint*)coords ofVertex:(int)vertexID

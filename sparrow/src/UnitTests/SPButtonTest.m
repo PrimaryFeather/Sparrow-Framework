@@ -31,7 +31,7 @@
 
 - (void)testTextBounds
 {
-    SPTexture *texture = [SPTexture emptyTexture];
+    SPTexture *texture = [[SPTexture alloc] init];
     SPButton *button = [SPButton buttonWithUpState:texture text:@"x"];
     
     STAssertEquals(0.0f, button.textBounds.x, @"wrong initial textBounds.x");

@@ -17,22 +17,33 @@
     SPTexture *mBaseTexture;
     SPRectangle *mClipping;
     SPRectangle *mRootClipping;
+    SPRectangle *mFrame;
 }
 
 @synthesize baseTexture = mBaseTexture;
 @synthesize clipping = mClipping;
+@synthesize frame = mFrame;
 
 - (id)initWithRegion:(SPRectangle*)region ofTexture:(SPTexture*)texture
+{
+    return [self initWithRegion:region frame:nil ofTexture:texture];
+}
+
+- (id)initWithRegion:(SPRectangle *)region frame:(SPRectangle *)frame ofTexture:(SPTexture *)texture
 {
     if ((self = [super init]))
     {
         mBaseTexture = texture;
+        mFrame = [frame copy];
         
-        // convert region to clipping rectangle (which has values between 0 and 1)        
-        self.clipping = [SPRectangle rectangleWithX:region.x/texture.width
-                                                  y:region.y/texture.height
-                                              width:region.width/texture.width
-                                             height:region.height/texture.height];               
+        // convert region to clipping rectangle (which has values between 0 and 1)
+        if (region)
+            self.clipping = [SPRectangle rectangleWithX:region.x/texture.width
+                                                      y:region.y/texture.height
+                                                  width:region.width/texture.width
+                                                 height:region.height/texture.height];
+        else
+            self.clipping = [SPRectangle rectangleWithX:0.0f y:0.0f width:1.0f height:1.0f];
     }
     return self;
 }
@@ -44,7 +55,8 @@
 
 - (void)setClipping:(SPRectangle *)clipping
 {
-    mClipping = [clipping copy];
+    // private method! Only called via the constructor - thus we don't need to create a copy.
+    mClipping = clipping;
     
     // if the base texture is a sub texture as well, calculate clipping 
     // in reference to the root texture         
@@ -114,9 +126,9 @@
     mBaseTexture.filter = value;
 }
 
-- (BOOL)hasPremultipliedAlpha
+- (BOOL)premultipliedAlpha
 {
-    return mBaseTexture.hasPremultipliedAlpha;
+    return mBaseTexture.premultipliedAlpha;
 }
 
 - (float)scale
