@@ -79,7 +79,7 @@ if images.count == 0
   puts "No images found!"
   exit
 else
-  File.makedirs target_path
+  FileUtils.makedirs target_path
 end
 
 purge_regex = /(#{options.purge_suffix})(~iphone|~ipad)?/
