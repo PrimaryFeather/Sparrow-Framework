@@ -86,8 +86,8 @@
     // no control over the image name, so we assign the scale factor directly.
     
     float scale = Sparrow.contentScaleFactor;
-    NSURL *url = scale == 1.0f ? [NSURL URLWithString:@"http://i.imgur.com/MjBUmP1.png"] :
-                                 [NSURL URLWithString:@"http://i.imgur.com/tWCQ8I1.png"];
+    NSURL *url = scale == 1.0f ? [NSURL URLWithString:@"http://i.imgur.com/24mT16x.png"] :
+                                 [NSURL URLWithString:@"http://i.imgur.com/kE2Bqnk.png"];
     
     [SPTexture loadTextureFromURL:url generateMipmaps:NO scale:scale
                        onComplete:^(SPTexture *texture, NSError *outError)
