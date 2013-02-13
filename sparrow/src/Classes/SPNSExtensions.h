@@ -33,6 +33,9 @@
 /// Creates a string by appending a suffix to a filename in front of its extension.
 - (NSString *)stringByAppendingSuffixToFilename:(NSString *)suffix;
 
+/// Creates a string by appending a scale suffix (e.g. `@2x`) to a filename in front of its extension.
+- (NSString *)stringByAppendingScaleSuffixToFilename:(float)scale;
+
 /// Expects the string to be a filename/path and returns the scale factor ('@2x' -> 2).
 - (float)contentScaleFactor;
 

@@ -184,6 +184,11 @@
     return [[self alloc] initWithContentsOfFile:path];
 }
 
++ (id)textureWithContentsOfFile:(NSString*)path generateMipmaps:(BOOL)mipmaps
+{
+    return [[self alloc] initWithContentsOfFile:path generateMipmaps:mipmaps];
+}
+
 + (id)textureWithRegion:(SPRectangle *)region ofTexture:(SPTexture *)texture
 {
     return [[self alloc] initWithRegion:region ofTexture:texture];
@@ -253,6 +258,85 @@
 - (SPRectangle *)frame
 {
     return nil;
+}
+
+#pragma mark - Asynchronous Texture Loading
+
++ (void)loadTextureFromFile:(NSString *)path onComplete:(SPTextureLoadingBlock)callback
+{
+    return [self loadTextureFromFile:path generateMipmaps:NO onComplete:callback];
+}
+
++ (void)loadTextureFromFile:(NSString *)path generateMipmaps:(BOOL)mipmaps
+                 onComplete:(SPTextureLoadingBlock)callback
+{
+    float contentScaleFactor = Sparrow.contentScaleFactor;
+    NSString *fullPath = [SPUtils absolutePathToFile:path withScaleFactor:contentScaleFactor];
+    float actualScaleFactor = [fullPath contentScaleFactor];
+    
+    if (!fullPath)
+        [NSException raise:SP_EXC_FILE_NOT_FOUND format:@"file '%@' not found", path];
+    
+    NSDictionary *options = @{ GLKTextureLoaderGenerateMipmaps: @(mipmaps) };
+    EAGLSharegroup *sharegroup = Sparrow.currentController.context.sharegroup;
+    GLKTextureLoader *loader = [[GLKTextureLoader alloc] initWithSharegroup:sharegroup];
+
+    [loader textureWithContentsOfFile:fullPath options:options queue:NULL
+                    completionHandler:^(GLKTextureInfo *info, NSError *outError)
+     {
+         SPTexture *texture = nil;
+         
+         if (!outError)
+             texture = [[SPGLTexture alloc] initWithTextureInfo:info scale:actualScaleFactor];
+         
+         callback(texture, outError);
+     }];
+}
+
++ (void)loadTextureFromURL:(NSURL *)url onComplete:(SPTextureLoadingBlock)callback
+{
+    return [self loadTextureFromURL:url generateMipmaps:NO onComplete:callback];
+}
+
++ (void)loadTextureFromURL:(NSURL *)url generateMipmaps:(BOOL)mipmaps
+                onComplete:(SPTextureLoadingBlock)callback
+{
+    float scale = [[url path] contentScaleFactor];
+    return [self loadTextureFromURL:url generateMipmaps:mipmaps scale:scale onComplete:callback];
+}
+
++ (void)loadTextureFromURL:(NSURL *)url generateMipmaps:(BOOL)mipmaps scale:(float)scale
+                onComplete:(SPTextureLoadingBlock)callback
+{
+    NSDictionary *options = @{ GLKTextureLoaderGenerateMipmaps: @(mipmaps) };
+    EAGLSharegroup *sharegroup = Sparrow.currentController.context.sharegroup;
+    GLKTextureLoader *loader = [[GLKTextureLoader alloc] initWithSharegroup:sharegroup];
+    
+    [loader textureWithContentsOfURL:url options:options queue:NULL
+                   completionHandler:^(GLKTextureInfo *info, NSError *outError)
+     {
+         SPTexture *texture = nil;
+         
+         if (!outError)
+             texture = [[SPGLTexture alloc] initWithTextureInfo:info scale:scale];
+         
+         callback(texture, outError);
+     }];
+}
+
++ (void)loadTextureFromSuffixedURL:(NSURL *)url onComplete:(SPTextureLoadingBlock)callback
+{
+    return [self loadTextureFromSuffixedURL:url generateMipmaps:NO onComplete:callback];
+}
+
++ (void)loadTextureFromSuffixedURL:(NSURL *)url generateMipmaps:(BOOL)mipmaps
+                        onComplete:(SPTextureLoadingBlock)callback
+{
+    float scale = Sparrow.contentScaleFactor;
+    NSString *suffixedString = [[url absoluteString] stringByAppendingScaleSuffixToFilename:scale];
+    NSURL *suffixedURL = [NSURL URLWithString:suffixedString];
+    return [self loadTextureFromURL:suffixedURL generateMipmaps:mipmaps scale:scale
+                         onComplete:callback];
 }
 
 @end

@@ -25,6 +25,7 @@
 @property (nonatomic, readonly) SPDisplayObject *root;
 @property (nonatomic, readonly) SPStage *stage;
 @property (nonatomic, readonly) SPJuggler *juggler;
+@property (nonatomic, readonly) EAGLContext *context;
 
 @property (nonatomic, assign) BOOL multitouchEnabled;
 @property (nonatomic, readonly) BOOL supportHighResolutions;

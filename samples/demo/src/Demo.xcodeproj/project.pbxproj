@@ -33,6 +33,7 @@
 		DE0456DA13880385005FFBCE /* desyrel.png in Resources */ = {isa = PBXBuildFile; fileRef = DE0456D813880385005FFBCE /* desyrel.png */; };
 		DE0456E1138803E7005FFBCE /* desyrel@2x.fnt in Resources */ = {isa = PBXBuildFile; fileRef = DE0456DF138803E7005FFBCE /* desyrel@2x.fnt */; };
 		DE0456E2138803E7005FFBCE /* desyrel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE0456E0138803E7005FFBCE /* desyrel@2x.png */; };
+		DE04EA5F16CA965E00B828E8 /* AsyncTextureScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DE04EA5E16CA965E00B828E8 /* AsyncTextureScene.m */; };
 		DE061A2A119D799900DFF25D /* MovieScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DE061A29119D799900DFF25D /* MovieScene.m */; };
 		DE08354913869D9A00023C9E /* libSparrow.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE08354813869D9A00023C9E /* libSparrow.a */; };
 		DE0F755910641630004F2821 /* BenchmarkScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DE0F755810641630004F2821 /* BenchmarkScene.m */; };
@@ -41,6 +42,8 @@
 		DE396AEB104056A500C27DDF /* RoundButton.m in Sources */ = {isa = PBXBuildFile; fileRef = DE396AEA104056A500C27DDF /* RoundButton.m */; };
 		DE3DD90816B5C12000ECA3F5 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE3DD90716B5C12000ECA3F5 /* GLKit.framework */; };
 		DE5A7ED913805C4500C6CBBC /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DE5A7ED813805C4500C6CBBC /* libz.dylib */; };
+		DE5C626F16CBE1EF00999006 /* async_local.png in Resources */ = {isa = PBXBuildFile; fileRef = DE5C626E16CBE1EF00999006 /* async_local.png */; };
+		DE5C627216CBE1F800999006 /* async_local@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE5C627116CBE1F800999006 /* async_local@2x.png */; };
 		DE8055B5150632DA006A9426 /* sparrow_front.png in Resources */ = {isa = PBXBuildFile; fileRef = DE8055B4150632DA006A9426 /* sparrow_front.png */; };
 		DE8055B7150632E9006A9426 /* sparrow_front@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE8055B6150632E9006A9426 /* sparrow_front@2x.png */; };
 		DE8055B915064FEA006A9426 /* sparrow_round.png in Resources */ = {isa = PBXBuildFile; fileRef = DE8055B815064FEA006A9426 /* sparrow_round.png */; };
@@ -134,6 +137,8 @@
 		DE0456D813880385005FFBCE /* desyrel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = desyrel.png; sourceTree = "<group>"; };
 		DE0456DF138803E7005FFBCE /* desyrel@2x.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "desyrel@2x.fnt"; sourceTree = "<group>"; };
 		DE0456E0138803E7005FFBCE /* desyrel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "desyrel@2x.png"; sourceTree = "<group>"; };
+		DE04EA5D16CA965E00B828E8 /* AsyncTextureScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncTextureScene.h; sourceTree = "<group>"; };
+		DE04EA5E16CA965E00B828E8 /* AsyncTextureScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncTextureScene.m; sourceTree = "<group>"; };
 		DE061A28119D799900DFF25D /* MovieScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieScene.h; sourceTree = "<group>"; };
 		DE061A29119D799900DFF25D /* MovieScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieScene.m; sourceTree = "<group>"; };
 		DE08353913869D8100023C9E /* Sparrow.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Sparrow.xcodeproj; path = ../../../sparrow/src/Sparrow.xcodeproj; sourceTree = "<group>"; };
@@ -147,6 +152,8 @@
 		DE396AEA104056A500C27DDF /* RoundButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoundButton.m; sourceTree = "<group>"; };
 		DE3DD90716B5C12000ECA3F5 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		DE5A7ED813805C4500C6CBBC /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		DE5C626E16CBE1EF00999006 /* async_local.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = async_local.png; sourceTree = "<group>"; };
+		DE5C627116CBE1F800999006 /* async_local@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "async_local@2x.png"; sourceTree = "<group>"; };
 		DE8055B4150632DA006A9426 /* sparrow_front.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sparrow_front.png; sourceTree = "<group>"; };
 		DE8055B6150632E9006A9426 /* sparrow_front@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sparrow_front@2x.png"; sourceTree = "<group>"; };
 		DE8055B815064FEA006A9426 /* sparrow_round.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sparrow_round.png; sourceTree = "<group>"; };
@@ -240,6 +247,7 @@
 		25C23A5411EC631500A25DF7 /* 1x */ = {
 			isa = PBXGroup;
 			children = (
+				DE5C626E16CBE1EF00999006 /* async_local.png */,
 				25C23AFE11EC7FE200A25DF7 /* atlas.png */,
 				25C23AFF11EC7FE200A25DF7 /* atlas.xml */,
 				DE91023C16242DA1001FD950 /* background.jpg */,
@@ -265,6 +273,7 @@
 		25C23A6311EC632400A25DF7 /* 2x */ = {
 			isa = PBXGroup;
 			children = (
+				DE5C627116CBE1F800999006 /* async_local@2x.png */,
 				25C23AFA11EC7FC400A25DF7 /* atlas@2x.png */,
 				25C23AFB11EC7FC400A25DF7 /* atlas@2x.xml */,
 				DE91023E16242DA8001FD950 /* background@2x.jpg */,
@@ -350,26 +359,28 @@
 		DE396AE41040555100C27DDF /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				DEB2D1691380580800FA7B88 /* TextureScene.h */,
-				DEB2D16A1380580800FA7B88 /* TextureScene.m */,
-				DEFE4CEC101B684B00E22471 /* TouchScene.h */,
-				DEFE4CED101B684B00E22471 /* TouchScene.m */,
-				DED0B7EE101CE0A9008D3794 /* TextScene.h */,
-				DED0B7EF101CE0A9008D3794 /* TextScene.m */,
-				DE396AE6104055A100C27DDF /* CustomHitTestScene.h */,
-				DE396AE7104055A100C27DDF /* CustomHitTestScene.m */,
 				DED6FF351041623A001FF6C8 /* AnimationScene.h */,
 				DED6FF361041623A001FF6C8 /* AnimationScene.m */,
+				DE04EA5D16CA965E00B828E8 /* AsyncTextureScene.h */,
+				DE04EA5E16CA965E00B828E8 /* AsyncTextureScene.m */,
 				DE0F755710641630004F2821 /* BenchmarkScene.h */,
 				DE0F755810641630004F2821 /* BenchmarkScene.m */,
+				DE396AE6104055A100C27DDF /* CustomHitTestScene.h */,
+				DE396AE7104055A100C27DDF /* CustomHitTestScene.m */,
 				DE061A28119D799900DFF25D /* MovieScene.h */,
 				DE061A29119D799900DFF25D /* MovieScene.m */,
-				DEF1726711B017AA00A11DD7 /* SoundScene.h */,
-				DEF1726811B017AA00A11DD7 /* SoundScene.m */,
 				DEDF882412ABED67005DEAE8 /* RenderTextureScene.h */,
 				DEDF882512ABED67005DEAE8 /* RenderTextureScene.m */,
 				DEE71E6A14E02E0700210256 /* Scene.h */,
 				DEE71E6B14E02E0700210256 /* Scene.m */,
+				DEF1726711B017AA00A11DD7 /* SoundScene.h */,
+				DEF1726811B017AA00A11DD7 /* SoundScene.m */,
+				DED0B7EE101CE0A9008D3794 /* TextScene.h */,
+				DED0B7EF101CE0A9008D3794 /* TextScene.m */,
+				DEB2D1691380580800FA7B88 /* TextureScene.h */,
+				DEB2D16A1380580800FA7B88 /* TextureScene.m */,
+				DEFE4CEC101B684B00E22471 /* TouchScene.h */,
+				DEFE4CED101B684B00E22471 /* TouchScene.m */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -539,6 +550,8 @@
 				DE91024516242DF5001FD950 /* Default.png in Resources */,
 				DE91024716242DF8001FD950 /* Default@2x.png in Resources */,
 				DEB796D316BEAE3F0082D612 /* Default-Portrait~ipad.png in Resources */,
+				DE5C626F16CBE1EF00999006 /* async_local.png in Resources */,
+				DE5C627216CBE1F800999006 /* async_local@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -564,6 +577,7 @@
 				DEDF882612ABED67005DEAE8 /* RenderTextureScene.m in Sources */,
 				DEB2D16B1380580800FA7B88 /* TextureScene.m in Sources */,
 				DEE71E6C14E02E0700210256 /* Scene.m in Sources */,
+				DE04EA5F16CA965E00B828E8 /* AsyncTextureScene.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

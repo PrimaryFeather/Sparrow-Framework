@@ -14,6 +14,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 @class SPRectangle;
+@class SPTexture;
 
 typedef enum 
 {
@@ -29,6 +30,7 @@ typedef enum
 } SPTextureFilter;
 
 typedef void (^SPTextureDrawingBlock)(CGContextRef context);
+typedef void (^SPTextureLoadingBlock)(SPTexture *texture, NSError *outError);
 
 /** ------------------------------------------------------------------------------------------------
 
@@ -161,6 +163,9 @@ typedef void (^SPTextureDrawingBlock)(CGContextRef context);
 + (id)textureWithContentsOfFile:(NSString*)path;
 
 /// Factory method.
++ (id)textureWithContentsOfFile:(NSString*)path generateMipmaps:(BOOL)mipmaps;
+
+/// Factory method.
 + (id)textureWithRegion:(SPRectangle *)region ofTexture:(SPTexture *)texture;
 
 /// Factory method.
@@ -173,6 +178,44 @@ typedef void (^SPTextureDrawingBlock)(CGContextRef context);
 /// Converts texture coordinates into the format required for rendering.
 - (void)adjustTextureCoordinates:(const float *)texCoords saveAtTarget:(float *)targetTexCoords 
                      numVertices:(int)numVertices;
+
+/** @name Loading Textures asynchronously */
+
+/// Loads a texture asynchronously from a local file and executes a callback block when it's
+/// finished. No mip maps will be created.
++ (void)loadTextureFromFile:(NSString *)path onComplete:(SPTextureLoadingBlock)callback;
+
+/// Loads a texture asynchronously from a local file and executes a callback block when it's
+/// finished.
++ (void)loadTextureFromFile:(NSString *)path generateMipmaps:(BOOL)mipmaps
+                 onComplete:(SPTextureLoadingBlock)callback;
+
+/// Loads a texture asynchronously from an URL and executes a callback block when it's finished.
+/// The url will be used exactly as it is passed; no mip maps are created. The scale factor will
+/// be parsed from the file name (default: 1).
++ (void)loadTextureFromURL:(NSURL *)url onComplete:(SPTextureLoadingBlock)callback;
+
+/// Loads a texture asynchronously from an URL and executes a callback block when it's finished.
+/// The url will be used exactly as it is passed; the scale factor will be parsed from the file name
+/// (default: 1).
++ (void)loadTextureFromURL:(NSURL *)url generateMipmaps:(BOOL)mipmaps
+                onComplete:(SPTextureLoadingBlock)callback;
+
+/// Loads a texture asynchronously from an URL and executes a callback block when it's finished.
+/// The url will be used exactly as it is passed (i.e. no scale factor suffix will be added).
++ (void)loadTextureFromURL:(NSURL *)url generateMipmaps:(BOOL)mipmaps scale:(float)scale
+                onComplete:(SPTextureLoadingBlock)callback;
+
+/// Loads a texture asynchronously from an URL and executes a callback block when it's finished.
+/// The method adds a suffix with the current scale factor to the url (e.g. `@2x`). If that resource
+/// is not found, the method will fail. No mip maps are created.
++ (void)loadTextureFromSuffixedURL:(NSURL *)url onComplete:(SPTextureLoadingBlock)callback;
+
+/// Loads a texture asynchronously from an URL and executes a callback block when it's finished.
+/// The method adds a suffix with the current scale factor to the url (e.g. `@2x`). If that resource
+/// is not found, the method will fail.
++ (void)loadTextureFromSuffixedURL:(NSURL *)url generateMipmaps:(BOOL)mipmaps
+                        onComplete:(SPTextureLoadingBlock)callback;
 
 /// ----------------
 /// @name Properties

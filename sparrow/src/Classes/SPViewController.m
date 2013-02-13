@@ -47,6 +47,7 @@
 @synthesize stage = mStage;
 @synthesize juggler = mJuggler;
 @synthesize root = mRoot;
+@synthesize context = mContext;
 @synthesize supportHighResolutions = mSupportHighResolutions;
 @synthesize doubleResolutionOnPad = mDoubleResolutionOnPad;
 @synthesize contentScaleFactor = mContentScaleFactor;

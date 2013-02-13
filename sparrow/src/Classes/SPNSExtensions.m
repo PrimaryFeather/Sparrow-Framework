@@ -65,6 +65,20 @@ static char encodingTable[64] = {
             suffix, [self fullPathExtension]];
 }
 
+- (NSString *)stringByAppendingScaleSuffixToFilename:(float)scale
+{
+    NSString *result = self;
+    
+    if (scale != 1.0f)
+    {
+        NSString *scaleSuffix = [NSString stringWithFormat:@"@%@x", @(scale)];
+        result = [result stringByReplacingOccurrencesOfString:scaleSuffix withString:@""];
+        result = [result stringByAppendingSuffixToFilename:scaleSuffix];
+    }
+    
+    return result;
+}
+
 - (float)contentScaleFactor
 {
     NSString *filename = [self lastPathComponent];

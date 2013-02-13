@@ -8,6 +8,7 @@
 
 #import "Game.h"
 #import "TextureScene.h"
+#import "AsyncTextureScene.h"
 #import "TouchScene.h"
 #import "TextScene.h"
 #import "AnimationScene.h"
@@ -47,6 +48,7 @@
         
         // choose which scenes will be accessible
         NSArray *scenesToCreate = @[@"Textures", [TextureScene class],
+                                    @"Async Textures", [AsyncTextureScene class],
                                     @"Multitouch", [TouchScene class],
                                     @"TextFields", [TextScene class],
                                     @"Animations", [AnimationScene class],
@@ -68,8 +70,12 @@
             
             SPButton *button = [SPButton buttonWithUpState:buttonTexture text:sceneTitle];
             button.x = count % 2 == 0 ? 28 : 167;
-            button.y = mOffsetY + 170 + (count / 2) * 52 + (count % 2) * 26;
+            button.y = mOffsetY + 170 + (count / 2) * 52;
             button.name = NSStringFromClass(sceneClass);
+            
+            if (scenesToCreate.count % 2 != 0 && count % 2 == 1)
+                button.y += 26;
+            
             [button addEventListener:@selector(onButtonTriggered:) atObject:self 
                              forType:SP_EVENT_TYPE_TRIGGERED];
             [mMainMenu addChild:button];
