@@ -57,20 +57,20 @@
     STAssertFalse(countMatrix == copy, @"copy is identical");
 }
 
-- (void)testConcatMatrix
+- (void)testAppendMatrix
 {
     SPMatrix *copy = [countMatrix copy];
-    [copy concatMatrix:identMatrix];
+    [copy appendMatrix:identMatrix];
     STAssertTrue([countMatrix isEquivalent:copy], @"multiplication with identity modified matrix");
     copy = [identMatrix copy];
-    [copy concatMatrix:countMatrix];
+    [copy appendMatrix:countMatrix];
     STAssertTrue([countMatrix isEquivalent:copy], @"multiplication with identity modified matrix");
     
     SPMatrix *countDownMatrix = [[SPMatrix alloc] initWithA:9 b:8 c:7 d:6 tx:5 ty:4];
-    [copy concatMatrix:countDownMatrix];
+    [copy appendMatrix:countDownMatrix];
     STAssertTrue([self checkMatrixValues:copy a:23 b:20 c:55 d:48 tx:92 ty:80], 
                  @"wrong matrix: %@", copy);
-    [countDownMatrix concatMatrix:countMatrix];
+    [countDownMatrix appendMatrix:countMatrix];
     STAssertTrue([self checkMatrixValues:countDownMatrix a:33 b:50 c:25 d:38 tx:22 ty:32],
                  @"wrong matrix: %@", copy);  
 }

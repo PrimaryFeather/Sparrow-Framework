@@ -16,6 +16,8 @@
 #import "SPMacros.h"
 #import "SPTouchEvent.h"
 
+float square(float value) { return value * value; }
+
 // --- class implementation ------------------------------------------------------------------------
 
 @implementation SPDisplayObject
@@ -26,7 +28,9 @@
     float mPivotY;
     float mScaleX;
     float mScaleY;
-    float mRotationZ;
+    float mSkewX;
+    float mSkewY;
+    float mRotation;
     float mAlpha;
     BOOL mVisible;
     BOOL mTouchable;
@@ -44,7 +48,9 @@
 @synthesize pivotY = mPivotY;
 @synthesize scaleX = mScaleX;
 @synthesize scaleY = mScaleY;
-@synthesize rotation = mRotationZ;
+@synthesize skewX  = mSkewX;
+@synthesize skewY  = mSkewY;
+@synthesize rotation = mRotation;
 @synthesize parent = mParent;
 @synthesize alpha = mAlpha;
 @synthesize visible = mVisible;
@@ -75,7 +81,6 @@
     return self;
 }
 
-
 - (void)render:(SPRenderSupport*)support
 {
     // override in subclass
@@ -100,20 +105,20 @@
         SPDisplayObject *currentObject = self;
         while (currentObject)
         {
-            [selfMatrix concatMatrix:currentObject.transformationMatrix];
+            [selfMatrix appendMatrix:currentObject.transformationMatrix];
             currentObject = currentObject->mParent;
         }        
         return selfMatrix; 
     }
     else if (targetCoordinateSpace->mParent == self) // optimization
     {
-        SPMatrix *targetMatrix = targetCoordinateSpace.transformationMatrix;
+        SPMatrix *targetMatrix = [targetCoordinateSpace.transformationMatrix copy];
         [targetMatrix invert];
         return targetMatrix;
     }
     else if (mParent == targetCoordinateSpace) // optimization
     {        
-        return self.transformationMatrix;
+        return [self.transformationMatrix copy];
     }
     
     // 1.: Find a common parent of self and the target coordinate space.
@@ -155,7 +160,7 @@
     currentObject = self;    
     while (currentObject != commonParent)
     {
-        [selfMatrix concatMatrix:currentObject.transformationMatrix];
+        [selfMatrix appendMatrix:currentObject.transformationMatrix];
         currentObject = currentObject->mParent;
     }
     
@@ -164,13 +169,13 @@
     currentObject = targetCoordinateSpace;
     while (currentObject && currentObject != commonParent)
     {
-        [targetMatrix concatMatrix:currentObject.transformationMatrix];
+        [targetMatrix appendMatrix:currentObject.transformationMatrix];
         currentObject = currentObject->mParent;
     }    
     
     // 4.: Combine the two matrices
     [targetMatrix invert];
-    [selfMatrix concatMatrix:targetMatrix];
+    [selfMatrix appendMatrix:targetMatrix];
     
     return selfMatrix;
 }
@@ -204,7 +209,7 @@
     SPDisplayObject *currentObject = self;    
     while (currentObject)
     {
-        [transformationMatrix concatMatrix:currentObject.transformationMatrix];
+        [transformationMatrix appendMatrix:currentObject.transformationMatrix];
         currentObject = [currentObject parent];
     }
     
@@ -219,7 +224,7 @@
     SPDisplayObject *currentObject = self;    
     while (currentObject)
     {
-        [transformationMatrix concatMatrix:currentObject.transformationMatrix];
+        [transformationMatrix appendMatrix:currentObject.transformationMatrix];
         currentObject = [currentObject parent];
     }
     
@@ -310,6 +315,24 @@
     }
 }
 
+- (void)setSkewX:(float)value
+{
+    if (value != mSkewX)
+    {
+        mSkewX = value;
+        mOrientationChanged = YES;
+    }
+}
+
+- (void)setSkewY:(float)value
+{
+    if (value != mSkewY)
+    {
+        mSkewY = value;
+        mOrientationChanged = YES;
+    }
+}
+
 - (void)setPivotX:(float)value
 {
     if (value != mPivotX)
@@ -337,7 +360,7 @@
     if (value < -PI) value += TWO_PI;
     if (value >  PI) value -= TWO_PI;
     
-    mRotationZ = value;
+    mRotation = value;
     mOrientationChanged = YES;
 }
 
@@ -368,13 +391,59 @@
         mOrientationChanged = NO;
         [mTransformationMatrix identity];
     
-        if (mPivotX != 0.0f || mPivotY != 0.0f) [mTransformationMatrix translateXBy:-mPivotX yBy:-mPivotY];
         if (mScaleX != 1.0f || mScaleY != 1.0f) [mTransformationMatrix scaleXBy:mScaleX yBy:mScaleY];
-        if (mRotationZ != 0.0f)                 [mTransformationMatrix rotateBy:mRotationZ];
+        if (mSkewX  != 1.0f || mSkewY  != 1.0f) [mTransformationMatrix skewXBy:mSkewX yBy:mSkewY];
+        if (mRotation != 0.0f)                 [mTransformationMatrix rotateBy:mRotation];
         if (mX != 0.0f || mY != 0.0f)           [mTransformationMatrix translateXBy:mX yBy:mY];
+        
+        if (mPivotX != 0.0 || mPivotY != 0.0)
+        {
+            // prepend pivot transformation
+            mTransformationMatrix.tx = mX - mTransformationMatrix.a * mPivotX
+                                          - mTransformationMatrix.c * mPivotY;
+            mTransformationMatrix.ty = mY - mTransformationMatrix.b * mPivotX
+                                          - mTransformationMatrix.d * mPivotY;
+        }
     }
     
-    return [mTransformationMatrix copy];
+    return mTransformationMatrix;
+}
+
+- (void)setTransformationMatrix:(SPMatrix *)matrix
+{
+    mOrientationChanged = NO;
+    [mTransformationMatrix copyFromMatrix:matrix];
+    
+    mX = matrix.tx;
+    mY = matrix.ty;
+    
+    mScaleX = sqrtf(square(matrix.a) + square(matrix.b));
+    mSkewY  = acosf(matrix.a / mScaleX);
+    
+    if (!SP_IS_FLOAT_EQUAL(matrix.b, mScaleX * sinf(mSkewY)))
+    {
+        mScaleX *= -1.0f;
+        mSkewY = acosf(matrix.a / mScaleX);
+    }
+    
+    mScaleY = sqrtf(square(matrix.c) + square(matrix.d));
+    mSkewX  = acosf(matrix.d / mScaleY);
+    
+    if (!SP_IS_FLOAT_EQUAL(matrix.c, -mScaleY * sinf(mSkewX)))
+    {
+        mScaleY *= -1.0f;
+        mSkewX = acosf(matrix.d / mScaleY);
+    }
+    
+    if (SP_IS_FLOAT_EQUAL(mSkewX, mSkewY))
+    {
+        mRotation = mSkewX;
+        mSkewX = mSkewY = 0.0f;
+    }
+    else
+    {
+        mRotation = 0.0f;
+    }
 }
 
 @end

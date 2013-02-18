@@ -156,7 +156,18 @@
         
         [Sparrow setCurrentController:self];
         [EAGLContext setCurrentContext:mContext];
+        
+        glDisable(GL_CULL_FACE);
+        glDisable(GL_LIGHTING);
+        glDisable(GL_DEPTH_TEST);
+        glEnable(GL_TEXTURE_2D);
+        glEnable(GL_BLEND);
+        
         [mStage render:mSupport];
+        
+        #if DEBUG
+        [SPRenderSupport checkForOpenGLError];
+        #endif
     }
 }
 

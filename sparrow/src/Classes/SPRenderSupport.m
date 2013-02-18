@@ -22,6 +22,13 @@
 {
     uint mBoundTextureID;
     BOOL mPremultipliedAlpha;
+    
+    SPMatrix *mProjectionMatrix;
+    SPMatrix *mModelViewMatrix;
+    SPMatrix *mMvpMatrix;
+    NSMutableArray *mMatrixStack;
+    int mMatrixStackSize;
+    float *mGLMatrix;
 }
 
 @synthesize usingPremultipliedAlpha = mPremultipliedAlpha;
@@ -30,16 +37,31 @@
 {
     if ((self = [super init]))
     {
-        [self reset];
+        mProjectionMatrix = [[SPMatrix alloc] init];
+        mModelViewMatrix  = [[SPMatrix alloc] init];
+        mMvpMatrix        = [[SPMatrix alloc] init];
+        mGLMatrix = calloc(16, sizeof(float));
+        
+        mMatrixStack = [[NSMutableArray alloc] initWithCapacity:16];
+        mMatrixStackSize = 0;
+        
+        [self loadIdentity];
+        [self setupOrthographicProjectionWithX:0 y:0 width:320 height:480];
     }
     return self;
 }
 
-- (void)reset
+- (void)dealloc
+{
+    free(mGLMatrix);
+}
+
+- (void)nextFrame
 {
     mBoundTextureID = UINT_MAX;
     mPremultipliedAlpha = YES;
     [self bindTexture:nil];
+    [self resetMatrix];
 }
 
 - (void)bindTexture:(SPTexture *)texture
@@ -93,45 +115,70 @@
     glClear(GL_COLOR_BUFFER_BIT);
 }
 
-+ (void)transformMatrixForObject:(SPDisplayObject *)object
-{
-    float x = object.x;
-    float y = object.y;
-    float rotation = object.rotation;
-    float scaleX = object.scaleX;
-    float scaleY = object.scaleY;
-    float pivotX = object.pivotX;
-    float pivotY = object.pivotY;
-    
-    if (x != 0.0f || y != 0.0f)           glTranslatef(x, y, 0.0f);
-    if (rotation != 0.0f)                 glRotatef(SP_R2D(rotation), 0.0f, 0.0f, 1.0f);
-    if (scaleX != 1.0f || scaleY != 1.0f) glScalef(scaleX, scaleY, 1.0f);
-    if (pivotX != 0.0f || pivotY != 0.0f) glTranslatef(-pivotX, -pivotY, 0.0f);    
-}
-
-+ (void)setupOrthographicRenderingWithLeft:(float)left right:(float)right 
-                                    bottom:(float)bottom top:(float)top
-{
-    glDisable(GL_CULL_FACE);
-    glDisable(GL_LIGHTING);
-    glDisable(GL_DEPTH_TEST);
-    
-    glEnable(GL_TEXTURE_2D);
-    glEnable(GL_BLEND);
-    
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glOrthof(left, right, bottom, top, -1.0f, 1.0f);
-    
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();  
-}
-
 + (uint)checkForOpenGLError
 {
     GLenum error = glGetError();
     if (error != 0) NSLog(@"Warning: There was an OpenGL error: #%d", error);
     return error;
+}
+
+#pragma mark - matrix manipulation
+
+- (void)loadIdentity
+{
+    [mModelViewMatrix identity];
+}
+
+- (void)resetMatrix
+{
+    mMatrixStackSize = 0;
+    [self loadIdentity];
+}
+
+- (void)pushMatrix
+{
+    if (mMatrixStack.count < mMatrixStackSize + 1)
+        [mMatrixStack addObject:[SPMatrix matrixWithIdentity]];
+    
+    SPMatrix *currentMatrix = mMatrixStack[mMatrixStackSize++];
+    [currentMatrix copyFromMatrix:mModelViewMatrix];
+}
+
+- (void)popMatrix
+{
+    SPMatrix *currentMatrix = mMatrixStack[--mMatrixStackSize];
+    [mModelViewMatrix copyFromMatrix:currentMatrix];
+}
+
+- (void)setupOrthographicProjectionWithX:(float)x y:(float)y
+                                   width:(float)width height:(float)height
+{
+    [mProjectionMatrix setA:2.0f/width b:0.0f c:0.0f d:-2.0f/height
+                         tx:-(2.0f*x + width ) / width
+                         ty: (2.0f*y + height) / height];
+    
+    float glMatrix[16];
+    [mProjectionMatrix copyToGLMatrix:glMatrix];
+    
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glLoadMatrixf(glMatrix);
+    
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+}
+
+- (void)prependMatrix:(SPMatrix *)matrix
+{
+    [mModelViewMatrix prependMatrix:matrix];
+}
+
+- (void)uploadMatrix
+{
+    [mModelViewMatrix copyToGLMatrix:mGLMatrix];
+    
+    glMatrixMode(GL_MODELVIEW);
+    glLoadMatrixf(mGLMatrix);
 }
 
 @end

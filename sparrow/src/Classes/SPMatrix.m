@@ -13,10 +13,6 @@
 #import "SPPoint.h"
 #import "SPMacros.h"
 
-#define U 0
-#define V 0
-#define W 1
-
 @implementation SPMatrix
 {
     float mA, mB, mC, mD;
@@ -65,14 +61,24 @@ static void setValues(SPMatrix *matrix, float a, float b, float c, float d, floa
     return mA * mD - mC * mB;
 }
 
-- (void)concatMatrix:(SPMatrix*)matrix
+- (void)appendMatrix:(SPMatrix*)lhs
 {
-    setValues(self, matrix->mA * mA  + matrix->mC * mB, 
-                    matrix->mB * mA  + matrix->mD * mB, 
-                    matrix->mA * mC  + matrix->mC * mD,
-                    matrix->mB * mC  + matrix->mD * mD,
-                    matrix->mA * mTx + matrix->mC * mTy + matrix->mTx * W,
-                    matrix->mB * mTx + matrix->mD * mTy + matrix->mTy * W);
+    setValues(self, lhs->mA * mA  + lhs->mC * mB, 
+                    lhs->mB * mA  + lhs->mD * mB, 
+                    lhs->mA * mC  + lhs->mC * mD,
+                    lhs->mB * mC  + lhs->mD * mD,
+                    lhs->mA * mTx + lhs->mC * mTy + lhs->mTx,
+                    lhs->mB * mTx + lhs->mD * mTy + lhs->mTy);
+}
+
+- (void)prependMatrix:(SPMatrix *)rhs
+{
+    setValues(self, mA * rhs->mA + mC * rhs->mB,
+                    mB * rhs->mA + mD * rhs->mB,
+                    mA * rhs->mC + mC * rhs->mD,
+                    mB * rhs->mC + mD * rhs->mD,
+                    mTx + mA * rhs->mTx + mC * rhs->mTy,
+                    mTy + mB * rhs->mTx + mD * rhs->mTy);
 }
 
 - (void)translateXBy:(float)dx yBy:(float)dy
@@ -106,6 +112,21 @@ static void setValues(SPMatrix *matrix, float a, float b, float c, float d, floa
                     mTx*cos - mTy * sin, mTx*sin + mTy*cos);
 }
 
+- (void)skewXBy:(float)sx yBy:(float)sy
+{
+    float sinX = sinf(sx);
+    float cosX = cosf(sx);
+    float sinY = sinf(sy);
+    float cosY = cosf(sy);
+    
+    setValues(self, mA  * cosY - mB  * sinX,
+                    mA  * sinY + mB  * cosX,
+                    mC  * cosY - mD  * sinX,
+                    mC  * sinY + mD  * cosX,
+                    mTx * cosY - mTy * sinX,
+                    mTx * sinY + mTy * cosX);
+}
+
 - (void)identity
 {
     setValues(self, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f);
@@ -121,6 +142,25 @@ static void setValues(SPMatrix *matrix, float a, float b, float c, float d, floa
 {
     float det = self.determinant;
     setValues(self, mD/det, -mB/det, -mC/det, mA/det, (mC*mTy-mD*mTx)/det, (mB*mTx-mA*mTy)/det);
+}
+
+- (void)copyFromMatrix:(SPMatrix *)matrix
+{
+    setValues(self, matrix->mA, matrix->mB, matrix->mC, matrix->mD, matrix->mTx, matrix->mTy);
+}
+
+- (void)copyToGLMatrix:(float *)matrix
+{
+    memset(matrix, 0, 16 * sizeof(float));
+    
+    matrix[0] = mA;
+    matrix[1] = mB;
+    matrix[4] = mC;
+    matrix[5] = mD;
+    matrix[10] = 1.0f;
+    matrix[12] = mTx;
+    matrix[13] = mTy;
+    matrix[15] = 1.0f;
 }
 
 - (BOOL)isEquivalent:(SPMatrix *)other

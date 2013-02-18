@@ -86,6 +86,29 @@
     STAssertTrue([sprite.transformationMatrix isEquivalent:matrix], @"wrong matrix");
 }
 
+- (void)testSetTransformationMatrix
+{
+    float x = 50;
+    float y = 100;
+    float scaleX = 0.5f;
+    float scaleY = 1.5f;
+    float rotation = PI / 4.0f;
+    
+    SPMatrix *matrix = [[SPMatrix alloc] init];
+    [matrix scaleXBy:scaleX yBy:scaleY];
+    [matrix rotateBy:rotation];
+    [matrix translateXBy:x yBy:y];
+    
+    SPSprite *sprite = [[SPSprite alloc] init];
+    sprite.transformationMatrix = matrix;
+    
+    STAssertEqualsWithAccuracy(x, sprite.x, E, @"wrong x coord");
+    STAssertEqualsWithAccuracy(y, sprite.y, E, @"wrong y coord");
+    STAssertEqualsWithAccuracy(scaleX, sprite.scaleX, E, @"wrong scaleX");
+    STAssertEqualsWithAccuracy(scaleY, sprite.scaleY, E, @"wrong scaleY");
+    STAssertEqualsWithAccuracy(rotation, sprite.rotation, E, @"wrong rotation");
+}
+
 - (void)testBounds
 {
     SPQuad *quad = [[SPQuad alloc] initWithWidth:10 height:20];

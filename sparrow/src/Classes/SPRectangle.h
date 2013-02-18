@@ -49,10 +49,13 @@
 
 /// Adds two rectangles together to create a new Rectangle object (by filling in the space between 
 /// the two rectangles).
-- (SPRectangle*)uniteWithRectangle:(SPRectangle*)rectangle; 
+- (SPRectangle*)uniteWithRectangle:(SPRectangle*)rectangle;
 
 /// Sets width and height components to zero.
 - (void)setEmpty;
+
+/// Copies the values from another rectangle into the current rectangle.
+- (void)copyFromRectangle:(SPRectangle *)rectangle;
 
 /// Compares two points.
 - (BOOL)isEquivalent:(SPRectangle *)other;

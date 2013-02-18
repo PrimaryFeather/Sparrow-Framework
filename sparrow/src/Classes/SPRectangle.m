@@ -112,6 +112,14 @@
     mX = mY = mWidth = mHeight = 0;
 }
 
+- (void)copyFromRectangle:(SPRectangle *)rectangle
+{
+    mX = rectangle->mX;
+    mY = rectangle->mY;
+    mWidth = rectangle->mWidth;
+    mHeight = rectangle->mHeight;
+}
+
 - (float)top { return mY; }
 - (void)setTop:(float)value { mY = value; }
 

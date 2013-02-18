@@ -179,7 +179,9 @@ typedef void (^SPTextureLoadingBlock)(SPTexture *texture, NSError *outError);
 - (void)adjustTextureCoordinates:(const float *)texCoords saveAtTarget:(float *)targetTexCoords 
                      numVertices:(int)numVertices;
 
-/** @name Loading Textures asynchronously */
+/// -------------------------------------
+/// @name Loading Textures asynchronously
+/// -------------------------------------
 
 /// Loads a texture asynchronously from a local file and executes a callback block when it's
 /// finished. No mip maps will be created.

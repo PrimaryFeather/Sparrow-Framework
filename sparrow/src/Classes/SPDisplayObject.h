@@ -127,6 +127,12 @@
 /// The vertical scale factor. "1" means no scale, negative values flip the object.
 @property (nonatomic, assign) float scaleY;
 
+/// The horizontal skew angle in radians.
+@property (nonatomic, assign) float skewX;
+
+/// The vertical skew angle in radians.
+@property (nonatomic, assign) float skewY;
+
 /// The width of the object in points.
 @property (nonatomic, assign) float width;
 
@@ -158,7 +164,8 @@
 @property (weak, nonatomic, readonly) SPStage *stage;
 
 /// The transformation matrix of the object relative to its parent.
-@property (weak, nonatomic, readonly) SPMatrix *transformationMatrix;
+/// @returns CAUTION: not a copy, but the actual object!
+@property (nonatomic, copy) SPMatrix *transformationMatrix;
 
 /// The name of the display object (default: nil). Used by `childByName:` of display object containers.
 @property (nonatomic, copy) NSString *name;

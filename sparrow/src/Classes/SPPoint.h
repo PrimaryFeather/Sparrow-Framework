@@ -57,11 +57,14 @@
 /// Returns a point that is the inverse (negation) of this point.
 - (SPPoint *)invert;
 
-/// Returns the dot-product of this and the given point.
+/// Returns the dot-product of self and the given point.
 - (float)dot:(SPPoint *)other;
 
 /// Compares two points.
 - (BOOL)isEquivalent:(SPPoint *)other;
+
+/// Copies the values from another point into the current point.
+- (void)copyFromPoint:(SPPoint *)point;
 
 /// Calculates the distance between two points.
 + (float)distanceFromPoint:(SPPoint *)p1 toPoint:(SPPoint *)p2;

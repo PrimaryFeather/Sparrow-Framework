@@ -209,7 +209,7 @@
         for (SPDisplayObject *child in (SPDisplayObjectContainer *)object)
         {
             SPMatrix *childMatrix = child.transformationMatrix;
-            [childMatrix concatMatrix:currentMatrix];
+            [childMatrix appendMatrix:currentMatrix];
             [matrices addObject:childMatrix];
             
             success = [self processVerticesOfObject:child withMatrices:matrices vertexData:vertexData

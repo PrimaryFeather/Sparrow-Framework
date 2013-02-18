@@ -124,11 +124,8 @@
         
         // prepare viewport and OpenGL matrices
         glViewport(0, 0, width * scale, height * scale);
-        [SPRenderSupport setupOrthographicRenderingWithLeft:0 right:width
-                                                     bottom:0 top:height];
-        
-        // reset texture binding
-        [mRenderSupport reset];
+        [mRenderSupport setupOrthographicProjectionWithX:0 y:0 width:width height:height];
+        [mRenderSupport nextFrame];
     }    
    
     block();
@@ -148,7 +145,7 @@
      {
          glPushMatrix();
          
-         [SPRenderSupport transformMatrixForObject:object];         
+         [mRenderSupport prependMatrix:object.transformationMatrix];
          [object render:mRenderSupport];
          
          glPopMatrix();

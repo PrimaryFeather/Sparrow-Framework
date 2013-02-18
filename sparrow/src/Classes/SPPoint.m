@@ -108,6 +108,12 @@
     return mX * other->mX + mY * other->mY;
 }
 
+- (void)copyFromPoint:(SPPoint *)point
+{
+    mX = point->mX;
+    mY = point->mY;
+}
+
 - (BOOL)isEquivalent:(SPPoint *)other
 {
     if (other == self) return YES;

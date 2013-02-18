@@ -98,6 +98,8 @@
         colors[i] = [support convertColor:vertexColor alpha:vertexAlpha];
     }
     
+    // TODO: move frame adjustments into "adjustVertexCoordinates" method.
+    
     SPRectangle *frame = mTexture.frame;
     if (frame)
     {

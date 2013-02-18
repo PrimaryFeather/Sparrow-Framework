@@ -270,15 +270,15 @@ static void getChildEventListeners(SPDisplayObject *object, NSString *eventType,
         float childAlpha = child.alpha;
         if (childAlpha != 0.0f && child.visible)
         {
-            glPushMatrix();
-            
-            [SPRenderSupport transformMatrixForObject:child];
+            [support pushMatrix];
+            [support prependMatrix:child.transformationMatrix];
+            [support uploadMatrix];
             
             child.alpha *= alpha;
             [child render:support];
             child.alpha = childAlpha;
             
-            glPopMatrix();
+            [support popMatrix];
         }
     }
 }

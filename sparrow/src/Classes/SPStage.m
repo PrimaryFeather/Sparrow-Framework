@@ -66,13 +66,9 @@
 - (void)render:(SPRenderSupport *)support
 {
     [SPRenderSupport clearWithColor:mColor alpha:1.0f];
-    [SPRenderSupport setupOrthographicRenderingWithLeft:0 right:mWidth bottom:mHeight top:0];
+    [support setupOrthographicProjectionWithX:0 y:0 width:mWidth height:mHeight];
     
     [super render:support];
-    
-    #if DEBUG
-    [SPRenderSupport checkForOpenGLError];
-    #endif
 }
 
 - (void)setX:(float)value

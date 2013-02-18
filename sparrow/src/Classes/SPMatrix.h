@@ -55,14 +55,25 @@
 /// Compares two matrices.
 - (BOOL)isEquivalent:(SPMatrix *)other;
 
-/// Concatenates a matrix with the current matrix, combining the geometric effects of the two.
-- (void)concatMatrix:(SPMatrix *)matrix;
+/// Appends the matrix by multiplying another matrix by the current matrix.
+- (void)appendMatrix:(SPMatrix *)lhs;
+
+/// Prepends a matrix by multiplying the current matrix by another matrix.
+- (void)prependMatrix:(SPMatrix *)rhs;
 
 /// Translates the matrix along the x and y axes.
 - (void)translateXBy:(float)dx yBy:(float)dy;
 
 /// Applies a scaling transformation to the matrix.
 - (void)scaleXBy:(float)sx yBy:(float)sy;
+
+/// Appends a skew transformation to a matrix (angles in radians).
+/// The skew matrix has the following form:
+///
+/// 	| cos(skewY)  -sin(skewX)  0 |
+/// 	| sin(skewY)   cos(skewX)  0 |
+/// 	|     0            0       1 |
+- (void)skewXBy:(float)sx yBy:(float)sy;
 
 /// Applies a uniform scaling transformation to the matrix.
 - (void)scaleBy:(float)scale;
@@ -75,6 +86,13 @@
 
 /// Performs the opposite transformation of the matrix.
 - (void)invert;
+
+// Copies all of the matrix data from the source object into the calling Matrix object.
+- (void)copyFromMatrix:(SPMatrix *)matrix;
+
+/// Copies all of the matrix data to a 3D OpenGL matrix (an array of 16 floats,
+/// where every four elements is a column of a 4x4 matrix).
+- (void)copyToGLMatrix:(float *)matrix;
 
 /// Applies the geometric transformation represented by the matrix to the specified point.
 - (SPPoint*)transformPoint:(SPPoint*)point;
