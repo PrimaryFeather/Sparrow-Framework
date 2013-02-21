@@ -72,9 +72,15 @@
 
 - (id)initWithTextureInfo:(GLKTextureInfo *)info scale:(float)scale
 {
+    return [self initWithTextureInfo:info scale:scale
+                  premultipliedAlpha:info.alphaState == GLKTextureInfoAlphaStatePremultiplied];
+}
+
+- (id)initWithTextureInfo:(GLKTextureInfo *)info scale:(float)scale premultipliedAlpha:(BOOL)pma;
+{
     return [self initWithName:info.name width:info.width height:info.height
                    containsMipmaps:info.containsMipmaps scale:scale
-                premultipliedAlpha:info.alphaState == GLKTextureInfoAlphaStatePremultiplied];
+                premultipliedAlpha:pma];
 }
 
 - (id)initWithTextureInfo:(GLKTextureInfo *)info

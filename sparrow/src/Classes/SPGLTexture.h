@@ -47,6 +47,11 @@
 /// Initializes a texture with a GLKit texture info object and a certain scale factor.
 - (id)initWithTextureInfo:(GLKTextureInfo *)info scale:(float)scale;
 
+/// Initializes a texture with a GLKit texture info object and a certain scale factor.
+/// Since the `alphaState` of the texture info only indicates if the alpha value was multiplied
+/// during the loading process (not the actual state), you can override that value.
+- (id)initWithTextureInfo:(GLKTextureInfo *)info scale:(float)scale premultipliedAlpha:(BOOL)pma;
+
 /// Initializes a texture with a GLKit texture info object and a scale factor of 1.
 - (id)initWithTextureInfo:(GLKTextureInfo *)info;
 

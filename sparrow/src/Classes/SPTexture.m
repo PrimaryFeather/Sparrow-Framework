@@ -41,6 +41,13 @@
 
 - (id)initWithContentsOfFile:(NSString *)path generateMipmaps:(BOOL)mipmaps
 {
+    BOOL isPVR = [SPTexture isPVRFile:path];
+    return [self initWithContentsOfFile:path generateMipmaps:mipmaps premultipliedAlpha:!isPVR];
+}
+
+- (id)initWithContentsOfFile:(NSString *)path generateMipmaps:(BOOL)mipmaps
+          premultipliedAlpha:(BOOL)pma
+{
     float contentScaleFactor = Sparrow.contentScaleFactor;
     NSString *fullPath = [SPUtils absolutePathToFile:path withScaleFactor:contentScaleFactor];
     
@@ -49,7 +56,8 @@
     
     NSError *error = NULL;
     NSData *data = [NSData dataWithUncompressedContentsOfFile:fullPath];
-    NSDictionary *options = @{ GLKTextureLoaderGenerateMipmaps: @(mipmaps) };
+    NSDictionary *options = [SPTexture optionsForPath:path mipmaps:mipmaps pma:pma];
+    
     GLKTextureInfo *info = [GLKTextureLoader textureWithContentsOfData:data
                                                                options:options error:&error];
     
@@ -67,7 +75,8 @@
                            @"are powers of two."];
     }
     
-    return [[SPGLTexture alloc] initWithTextureInfo:info scale:[fullPath contentScaleFactor]];
+    return [[SPGLTexture alloc] initWithTextureInfo:info scale:[fullPath contentScaleFactor]
+                                 premultipliedAlpha:pma];
 }
 
 - (id)initWithWidth:(float)width height:(float)height
@@ -242,15 +251,46 @@
     return nil;
 }
 
++ (NSDictionary *)optionsForPath:(NSString *)path mipmaps:(BOOL)mipmaps pma:(BOOL)pma
+{
+    // This is a workaround for a nasty bug in the iOS 6 simulators :|
+    
+    NSDictionary *options = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                             @(mipmaps), GLKTextureLoaderGenerateMipmaps, nil];
+    
+    #if TARGET_IPHONE_SIMULATOR
+    NSString *osVersion = [[UIDevice currentDevice] systemVersion];
+    if ([osVersion isEqualToString:@"6.0"] || [osVersion isEqualToString:@"6.1"])
+    {
+        BOOL usePma = pma && ![self isPVRFile:path];
+        [options setValue:@(usePma) forKey:GLKTextureLoaderApplyPremultiplication];
+    }
+    #endif
+    
+    return options;
+}
+
++ (BOOL)isPVRFile:(NSString *)path
+{
+    return [path hasSuffix:@".pvr"] || [path hasSuffix:@".pvr.gz"];
+}
+
 #pragma mark - Asynchronous Texture Loading
 
 + (void)loadFromFile:(NSString *)path onComplete:(SPTextureLoadingBlock)callback
 {
-    return [self loadFromFile:path generateMipmaps:NO onComplete:callback];
+    [self loadFromFile:path generateMipmaps:NO onComplete:callback];
 }
 
 + (void)loadFromFile:(NSString *)path generateMipmaps:(BOOL)mipmaps
           onComplete:(SPTextureLoadingBlock)callback
+{
+    BOOL isPVR = [SPTexture isPVRFile:path];
+    [self loadFromFile:path generateMipmaps:mipmaps premultipliedAlpha:!isPVR onComplete:callback];
+}
+
++ (void)loadFromFile:(NSString *)path generateMipmaps:(BOOL)mipmaps premultipliedAlpha:(BOOL)pma
+          onComplete:(SPTextureLoadingBlock)callback;
 {
     float contentScaleFactor = Sparrow.contentScaleFactor;
     NSString *fullPath = [SPUtils absolutePathToFile:path withScaleFactor:contentScaleFactor];
@@ -259,7 +299,7 @@
     if (!fullPath)
         [NSException raise:SP_EXC_FILE_NOT_FOUND format:@"file '%@' not found", path];
     
-    NSDictionary *options = @{ GLKTextureLoaderGenerateMipmaps: @(mipmaps) };
+    NSDictionary *options = [SPTexture optionsForPath:path mipmaps:mipmaps pma:pma];
     EAGLSharegroup *sharegroup = Sparrow.currentController.context.sharegroup;
     GLKTextureLoader *loader = [[GLKTextureLoader alloc] initWithSharegroup:sharegroup];
 
@@ -269,7 +309,8 @@
          SPTexture *texture = nil;
          
          if (!outError)
-             texture = [[SPGLTexture alloc] initWithTextureInfo:info scale:actualScaleFactor];
+             texture = [[SPGLTexture alloc] initWithTextureInfo:info scale:actualScaleFactor
+                                             premultipliedAlpha:pma];
          
          callback(texture, outError);
      }];
@@ -277,14 +318,14 @@
 
 + (void)loadFromURL:(NSURL *)url onComplete:(SPTextureLoadingBlock)callback
 {
-    return [self loadFromURL:url generateMipmaps:NO onComplete:callback];
+    [self loadFromURL:url generateMipmaps:NO onComplete:callback];
 }
 
 + (void)loadFromURL:(NSURL *)url generateMipmaps:(BOOL)mipmaps
          onComplete:(SPTextureLoadingBlock)callback
 {
     float scale = [[url path] contentScaleFactor];
-    return [self loadFromURL:url generateMipmaps:mipmaps scale:scale onComplete:callback];
+    [self loadFromURL:url generateMipmaps:mipmaps scale:scale onComplete:callback];
 }
 
 + (void)loadFromURL:(NSURL *)url generateMipmaps:(BOOL)mipmaps scale:(float)scale
@@ -308,7 +349,7 @@
 
 + (void)loadFromSuffixedURL:(NSURL *)url onComplete:(SPTextureLoadingBlock)callback
 {
-    return [self loadFromSuffixedURL:url generateMipmaps:NO onComplete:callback];
+    [self loadFromSuffixedURL:url generateMipmaps:NO onComplete:callback];
 }
 
 + (void)loadFromSuffixedURL:(NSURL *)url generateMipmaps:(BOOL)mipmaps
@@ -317,8 +358,7 @@
     float scale = Sparrow.contentScaleFactor;
     NSString *suffixedString = [[url absoluteString] stringByAppendingScaleSuffixToFilename:scale];
     NSURL *suffixedURL = [NSURL URLWithString:suffixedString];
-    return [self loadFromURL:suffixedURL generateMipmaps:mipmaps scale:scale
-                         onComplete:callback];
+    [self loadFromURL:suffixedURL generateMipmaps:mipmaps scale:scale onComplete:callback];
 }
 
 @end
