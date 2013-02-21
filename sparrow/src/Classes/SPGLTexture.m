@@ -13,13 +13,9 @@
 #import "SPMacros.h"
 #import "SPRectangle.h"
 
-#import <GLKit/GLKit.h>
-#import <OpenGLES/ES1/gl.h>
-#import <OpenGLES/ES1/glext.h>
-
 @implementation SPGLTexture
 {
-    uint mTextureID;
+    uint mName;
     float mWidth;
     float mHeight;
     float mScale;
@@ -29,18 +25,18 @@
     SPTextureFilter mFilter;
 }
 
-@synthesize textureID = mTextureID;
+@synthesize name = mName;
 @synthesize repeat = mRepeat;
 @synthesize premultipliedAlpha = mPremultipliedAlpha;
 @synthesize scale = mScale;
 @synthesize filter = mFilter;
 
-- (id)initWithTextureID:(uint)textureID width:(float)width height:(float)height
+- (id)initWithName:(uint)name width:(float)width height:(float)height
         containsMipmaps:(BOOL)mipmaps scale:(float)scale premultipliedAlpha:(BOOL)pma
 {
     if ((self = [super init]))
     {
-        mTextureID = textureID;
+        mName = name;
         mWidth = width;
         mHeight = height;
         mMipmaps = mipmaps;
@@ -55,29 +51,30 @@
 }
 
 - (id)initWithData:(const void *)imgData width:(float)width height:(float)height
-   generateMipmaps:(BOOL)mipmaps colorSpace:(SPColorSpace)colorSpace
-             scale:(float)scale premultipliedAlpha:(BOOL)pma
+   generateMipmaps:(BOOL)mipmaps scale:(float)scale premultipliedAlpha:(BOOL)pma
 {
     GLenum glTexType = GL_UNSIGNED_BYTE;
-    GLenum glTexFormat = colorSpace == SPColorSpaceRGBA ? GL_RGBA : GL_ALPHA;
-    GLuint textureID;
+    GLenum glTexFormat = GL_RGBA;
+    GLuint glTexName;
     
-    glGenTextures(1, &textureID);
-    glBindTexture(GL_TEXTURE_2D, textureID);
-    
-    glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, mipmaps);
+    glGenTextures(1, &glTexName);
+    glBindTexture(GL_TEXTURE_2D, glTexName);
     glTexImage2D(GL_TEXTURE_2D, 0, glTexFormat, width, height, 0, glTexFormat, glTexType, imgData);
+    
+    if (mipmaps)
+        glGenerateMipmap(GL_TEXTURE_2D);
+    
     glBindTexture(GL_TEXTURE_2D, 0);
 
-    return [self initWithTextureID:textureID width:width height:height containsMipmaps:mipmaps
+    return [self initWithName:glTexName width:width height:height containsMipmaps:mipmaps
                              scale:scale premultipliedAlpha:pma];
 }
 
 - (id)initWithTextureInfo:(GLKTextureInfo *)info scale:(float)scale
 {
-    return [self initWithTextureID:info.name width:info.width height:info.height
+    return [self initWithName:info.name width:info.width height:info.height
                    containsMipmaps:info.containsMipmaps scale:scale
-                premultipliedAlpha:(info.alphaState == GLKTextureInfoAlphaStatePremultiplied)];
+                premultipliedAlpha:info.alphaState == GLKTextureInfoAlphaStatePremultiplied];
 }
 
 - (id)initWithTextureInfo:(GLKTextureInfo *)info
@@ -87,7 +84,7 @@
 
 - (id)init
 {
-    return [self initWithData:NULL width:32 height:32 generateMipmaps:NO colorSpace:SPColorSpaceRGBA
+    return [self initWithData:NULL width:32 height:32 generateMipmaps:NO
                         scale:1.0f premultipliedAlpha:NO];
 }
 
@@ -104,7 +101,7 @@
 - (void)setRepeat:(BOOL)value
 {
     mRepeat = value;
-    glBindTexture(GL_TEXTURE_2D, mTextureID);    
+    glBindTexture(GL_TEXTURE_2D, mName);    
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, mRepeat ? GL_REPEAT : GL_CLAMP_TO_EDGE);     
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, mRepeat ? GL_REPEAT : GL_CLAMP_TO_EDGE); 
 }
@@ -112,7 +109,7 @@
 - (void)setFilter:(SPTextureFilter)filterType
 {
     mFilter = filterType;
-    glBindTexture(GL_TEXTURE_2D, mTextureID); 
+    glBindTexture(GL_TEXTURE_2D, mName); 
     
     int magFilter, minFilter;
     
@@ -138,7 +135,7 @@
 
 - (void)dealloc
 {     
-    glDeleteTextures(1, &mTextureID); 
+    glDeleteTextures(1, &mName); 
 }
 
 @end

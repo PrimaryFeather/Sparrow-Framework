@@ -10,7 +10,9 @@
 //
 
 #import "SPSubTexture.h"
+#import "SPVertexData.h"
 #import "SPRectangle.h"
+#import "SPMacros.h"
 
 @implementation SPSubTexture
 {
@@ -76,18 +78,40 @@
     } 
 }
 
-- (void)adjustTextureCoordinates:(const float *)texCoords saveAtTarget:(float *)targetTexCoords 
-                     numVertices:(int)numVertices
-{    
+- (void)adjustVertexData:(SPVertexData *)vertexData atIndex:(int)index numVertices:(int)count
+{
+    if (mFrame)
+    {
+        if (count != 4)
+            [NSException raise:SP_EXC_INVALID_OPERATION
+                        format:@"Textures with a frame can only be used on quads"];
+        
+        float deltaRight  = mFrame.width  + mFrame.x - self.width;
+        float deltaBottom = mFrame.height + mFrame.y - self.height;
+        
+        vertexData.vertices[index].position.x -= mFrame.x;
+        vertexData.vertices[index].position.y -= mFrame.y;
+        
+        vertexData.vertices[index+1].position.x -= deltaRight;
+        vertexData.vertices[index+1].position.y -= mFrame.y;
+
+        vertexData.vertices[index+2].position.x -= mFrame.x;
+        vertexData.vertices[index+2].position.y -= deltaBottom;
+        
+        vertexData.vertices[index+3].position.x -= deltaRight;
+        vertexData.vertices[index+3].position.y -= deltaBottom;
+    }
+    
     float clipX = mRootClipping.x;
     float clipY = mRootClipping.y;
     float clipWidth = mRootClipping.width;
     float clipHeight = mRootClipping.height;
     
-    for (int i=0; i<numVertices; ++i)
+    for (int i=index; i<index+count; ++i)
     {
-        targetTexCoords[2*i]   = clipX + texCoords[2*i]   * clipWidth; 
-        targetTexCoords[2*i+1] = clipY + texCoords[2*i+1] * clipHeight;        
+        GLKVector2 texCoords = vertexData.vertices[i].texCoords;
+        vertexData.vertices[i].texCoords.x = clipX + texCoords.x * clipWidth;
+        vertexData.vertices[i].texCoords.y = clipY + texCoords.y * clipHeight;
     }
 }
 
@@ -101,9 +125,9 @@
     return mBaseTexture.height * mClipping.height;
 }
 
-- (uint)textureID
+- (uint)name
 {
-    return mBaseTexture.textureID;
+    return mBaseTexture.name;
 }
 
 - (void)setRepeat:(BOOL)value

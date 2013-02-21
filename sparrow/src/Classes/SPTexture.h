@@ -15,12 +15,7 @@
 
 @class SPRectangle;
 @class SPTexture;
-
-typedef enum 
-{
-    SPColorSpaceRGBA,
-    SPColorSpaceAlpha
-} SPColorSpace;
+@class SPVertexData;
 
 typedef enum 
 {
@@ -109,26 +104,19 @@ typedef void (^SPTextureLoadingBlock)(SPTexture *texture, NSError *outError);
 - (id)initWithWidth:(float)width height:(float)height;
 
 /// Initializes a texture with a certain size (in points), as well as a block containing Core
-/// Graphics commands. The texture will have the current scale factor of the stage and an RGBA
-/// color space; no mip maps will be created.
+/// Graphics commands. The texture will have the current scale factor of the stage; no mipmaps
+/// will be created.
 - (id)initWithWidth:(float)width height:(float)height draw:(SPTextureDrawingBlock)drawingBlock;
 
 /// Initializes a texture with a certain size (in points), as well as a block containing Core
-/// Graphics commands. The texture will have the current scale factor of the stage and an RGBA
-/// color space.
+/// Graphics commands. The texture will have the current scale factor of the stage.
 - (id)initWithWidth:(float)width height:(float)height generateMipmaps:(BOOL)mipmaps
                draw:(SPTextureDrawingBlock)drawingBlock;
 
-/// Initializes a texture with a certain size (in points) and colorspace, as well as a block
-/// containing Core Graphics commands. The texture will have the current scale factor of the stage.
+/// Initializes a texture with a certain size (in points), as well as a block containing Core
+/// Graphics commands.
 - (id)initWithWidth:(float)width height:(float)height generateMipmaps:(BOOL)mipmaps
-         colorSpace:(SPColorSpace)colorSpace draw:(SPTextureDrawingBlock)drawingBlock;
-
-/// Initializes a texture with a certain size (in points) and colorspace, as well as a block
-/// containing Core Graphics commands.
-- (id)initWithWidth:(float)width height:(float)height generateMipmaps:(BOOL)mipmaps
-         colorSpace:(SPColorSpace)colorSpace scale:(float)scale
-               draw:(SPTextureDrawingBlock)drawingBlock;
+              scale:(float)scale draw:(SPTextureDrawingBlock)drawingBlock;
 
 /// Initializes a texture with the contents of a file (supported formats: png, jpg, pvr);
 /// no mip maps will be created. Sparrow will automatically pick the optimal file for the current
@@ -175,9 +163,9 @@ typedef void (^SPTextureLoadingBlock)(SPTexture *texture, NSError *outError);
 /// @name Methods
 /// -------------
 
-/// Converts texture coordinates into the format required for rendering.
-- (void)adjustTextureCoordinates:(const float *)texCoords saveAtTarget:(float *)targetTexCoords 
-                     numVertices:(int)numVertices;
+/// Converts texture coordinates and vertex positions of raw vertex data into the format
+/// required for rendering.
+- (void)adjustVertexData:(SPVertexData *)vertexData atIndex:(int)index numVertices:(int)count;
 
 /// -------------------------------------
 /// @name Loading Textures asynchronously
@@ -229,8 +217,8 @@ typedef void (^SPTextureLoadingBlock)(SPTexture *texture, NSError *outError);
 /// The height of the image in points.
 @property (nonatomic, readonly) float height;
 
-/// The OpenGL texture ID.
-@property (nonatomic, readonly) uint textureID;
+/// The OpenGL texture identifier.
+@property (nonatomic, readonly) uint name;
 
 /// Indicates if the alpha values are premultiplied into the RGB values.
 @property (nonatomic, readonly) BOOL premultipliedAlpha;

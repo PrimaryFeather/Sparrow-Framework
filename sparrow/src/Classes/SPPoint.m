@@ -114,6 +114,11 @@
     mY = point->mY;
 }
 
+- (GLKVector2)convertToGLKVector
+{
+    return GLKVector2Make(mX, mY);
+}
+
 - (BOOL)isEquivalent:(SPPoint *)other
 {
     if (other == self) return YES;

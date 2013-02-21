@@ -19,6 +19,9 @@
 /// Finds the next power of two equal to or above the specified number.
 + (int)nextPowerOfTwo:(int)number;
 
+/// Checks if a number is a power of two.
++ (BOOL)isPowerOfTwo:(int)number;
+
 /// Returns a random integer number between `minValue` (inclusive) and `maxValue` (exclusive).
 + (int)randomIntBetweenMin:(int)minValue andMax:(int)maxValue;
 

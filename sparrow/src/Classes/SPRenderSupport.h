@@ -15,6 +15,7 @@
 
 @class SPTexture;
 @class SPDisplayObject;
+@class SPQuad;
 
 /** ------------------------------------------------------------------------------------------------
 
@@ -34,17 +35,11 @@
 /// @name Methods
 /// -------------
 
-/// Binds a texture if it is not already bound. Pass `nil` to unbind any texture.
-- (void)bindTexture:(SPTexture *)texture;
-
-/// Converts color and alpha into the format needed by OpenGL. Premultiplies alpha depending on state.
-- (uint)convertColor:(uint)color alpha:(float)alpha;
-
 /// Resets matrix stack and blend mode.
 - (void)nextFrame;
 
-/// Converts color and alpha into the format needed by OpenGL, optionally premultiplying alpha values.
-+ (uint)convertColor:(uint)color alpha:(float)alpha premultiplyAlpha:(BOOL)pma;
+/// Renders a quad using the current MVP matrix.
+- (void)renderQuad:(SPQuad *)quad parentAlpha:(float)parentAlpha texture:(SPTexture *)texture;
 
 /// Clears OpenGL's color buffer.
 + (void)clearWithColor:(uint)color alpha:(float)alpha;
@@ -72,11 +67,8 @@
 - (void)prependMatrix:(SPMatrix *)matrix;
 
 /// Sets up the projection matrix for ortographic 2D rendering.
-- (void)setupOrthographicProjectionWithX:(float)x y:(float)y
-                                   width:(float)width height:(float)height;
-
-/// Uploads the modelview matrix to OpenGL. Call before rendering!
-- (void)uploadMatrix;
+- (void)setupOrthographicProjectionWithLeft:(float)left right:(float)right
+                                        top:(float)top bottom:(float)bottom;
 
 /// ----------------
 /// @name Properties
@@ -96,5 +88,6 @@
 /// Returns the current projection matrix.
 /// CAUTION: Use with care! Each call returns the same instance.
 @property (nonatomic, readonly) SPMatrix *projectionMatrix;
+
 
 @end

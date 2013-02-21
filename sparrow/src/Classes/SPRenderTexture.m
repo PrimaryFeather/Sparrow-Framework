@@ -41,7 +41,6 @@
                                                          width:legalWidth
                                                         height:legalHeight
                                                generateMipmaps:NO
-                                                    colorSpace:SPColorSpaceRGBA
                                                          scale:scale
                                             premultipliedAlpha:NO];
 
@@ -83,7 +82,7 @@
     
     // attach renderbuffer
     glFramebufferTexture2DOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_TEXTURE_2D, 
-                              self.baseTexture.textureID, 0);
+                              self.baseTexture.name, 0);
     
     if (glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES) != GL_FRAMEBUFFER_COMPLETE_OES)
         NSLog(@"failed to create frame buffer for render texture");
@@ -111,7 +110,7 @@
     {
         mFramebufferIsActive = YES;
         
-        // remember standard frame buffer        
+        // remember standard frame buffer
         glGetIntegerv(GL_FRAMEBUFFER_BINDING_OES, &stdFramebuffer);
         
         // switch to the texture's framebuffer for rendering
@@ -124,10 +123,10 @@
         
         // prepare viewport and OpenGL matrices
         glViewport(0, 0, width * scale, height * scale);
-        [mRenderSupport setupOrthographicProjectionWithX:0 y:0 width:width height:height];
+        [mRenderSupport setupOrthographicProjectionWithLeft:0 right:width top:height bottom:0];
         [mRenderSupport nextFrame];
-    }    
-   
+    }
+    
     block();
     
     if (stdFramebuffer != -1)
@@ -143,12 +142,12 @@
 {
     [self renderToFramebuffer:^
      {
-         glPushMatrix();
+         [mRenderSupport pushMatrix];
          
          [mRenderSupport prependMatrix:object.transformationMatrix];
          [object render:mRenderSupport];
          
-         glPopMatrix();
+         [mRenderSupport popMatrix];
      }];
 }
 

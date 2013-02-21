@@ -10,6 +10,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <GLKit/GLKit.h>
+
 #import "SPPoolObject.h"
 
 @class SPPoint;
@@ -90,9 +92,8 @@
 // Copies all of the matrix data from the source object into the calling Matrix object.
 - (void)copyFromMatrix:(SPMatrix *)matrix;
 
-/// Copies all of the matrix data to a 3D OpenGL matrix (an array of 16 floats,
-/// where every four elements is a column of a 4x4 matrix).
-- (void)copyToGLMatrix:(float *)matrix;
+/// Creates a 3D GLKit matrix that is equivalent to this instance.
+- (GLKMatrix4)convertToGLKMatrix;
 
 /// Applies the geometric transformation represented by the matrix to the specified point.
 - (SPPoint*)transformPoint:(SPPoint*)point;

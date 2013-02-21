@@ -12,6 +12,8 @@
 #import <Foundation/Foundation.h>
 #import "SPDisplayObject.h"
 
+@class SPVertexData;
+
 /** ------------------------------------------------------------------------------------------------
 
  An SPQuad represents a rectangle with a uniform color or a color gradient. 
@@ -55,16 +57,19 @@
 
 @interface SPQuad : SPDisplayObject
 {
-    float mVertexCoords[8];
-    uint mVertexColors[4];
+    SPVertexData *mVertexData;
 }
 
 /// --------------------
 /// @name Initialization
 /// --------------------
 
-/// Initializes a quad with a certain size and color. _Designated Initializer_.
-- (id)initWithWidth:(float)width height:(float)height color:(uint)color; 
+/// Initializes a quad with a certain size and color. The `pma` parameter indicates how the colors
+/// of the object are stored. _Designated Initializer_.
+- (id)initWithWidth:(float)width height:(float)height color:(uint)color premultipliedAlpha:(BOOL)pma;
+
+/// Initializes a quad with a certain size and color, using premultiplied alpha values.
+- (id)initWithWidth:(float)width height:(float)height color:(uint)color;
 
 /// Initializes a white quad with a certain size.
 - (id)initWithWidth:(float)width height:(float)height; 
@@ -79,11 +84,17 @@
 /// Returns the color of a vertex.
 - (uint)colorOfVertex:(int)vertexID;
 
-// Sets the alpha value of a vertex.
+/// Sets the alpha value of a vertex.
 - (void)setAlpha:(float)alpha ofVertex:(int)vertexID;
 
-// Returns the alpha value of a vertex.
+/// Returns the alpha value of a vertex.
 - (float)alphaOfVertex:(int)vertexID;
+
+/// Copies the raw vertex data to a VertexData instance.
+- (void)copyVertexDataTo:(SPVertexData *)targetData atIndex:(int)targetIndex;
+
+/// Call this method after manually changing the contents of 'mVertexData'.
+- (void)vertexDataDidChange;
 
 /// Factory method.
 + (id)quadWithWidth:(float)width height:(float)height;
@@ -100,5 +111,9 @@
 
 /// Sets the colors of all vertices simultaneously. Returns the color of vertex '0'.
 @property (nonatomic, assign) uint color;
+
+/// Indicates if the rgb values are stored premultiplied with the alpha value. This can have
+/// effect on the rendering. (Most developers don't have to care, though.)
+@property (nonatomic, readonly) BOOL premultipliedAlpha;
 
 @end

@@ -31,6 +31,8 @@
 		DE14414112421F4D00FFA95A /* SPTweenTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DE75E8660FBDC57E00C64495 /* SPTweenTest.m */; };
 		DE14414212421F4E00FFA95A /* SPStageTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DED67F330FA3514C0050E779 /* SPStageTest.m */; };
 		DE18FE4511B083B200D01F04 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE18FE4411B083B200D01F04 /* AVFoundation.framework */; };
+		DE19443216D27E9E00E5CCD9 /* SPVertexData.h in Headers */ = {isa = PBXBuildFile; fileRef = DE19443016D27E9E00E5CCD9 /* SPVertexData.h */; };
+		DE19443316D27E9E00E5CCD9 /* SPVertexData.m in Sources */ = {isa = PBXBuildFile; fileRef = DE19443116D27E9E00E5CCD9 /* SPVertexData.m */; };
 		DE20D9CC10713B0C006658C9 /* SPRenderSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = DE20D9CA10713B0C006658C9 /* SPRenderSupport.m */; };
 		DE33072512D2EBCD009CC5E7 /* SPUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = DE33072312D2EBCD009CC5E7 /* SPUtils.h */; settings = {ATTRIBUTES = (); }; };
 		DE33072612D2EBCD009CC5E7 /* SPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = DE33072412D2EBCD009CC5E7 /* SPUtils.m */; };
@@ -65,7 +67,6 @@
 		DE611388134F8F8300AB742E /* SPImage.h in Headers */ = {isa = PBXBuildFile; fileRef = DE08535C0FEC21F500DAF53C /* SPImage.h */; settings = {ATTRIBUTES = (); }; };
 		DE611389134F8F8300AB742E /* SPButton.h in Headers */ = {isa = PBXBuildFile; fileRef = DED85311100BC9DA0014F729 /* SPButton.h */; settings = {ATTRIBUTES = (); }; };
 		DE61138A134F8F8300AB742E /* SPMovieClip.h in Headers */ = {isa = PBXBuildFile; fileRef = DEE94E8011B43DE60000FE20 /* SPMovieClip.h */; settings = {ATTRIBUTES = (); }; };
-		DE61138B134F8F8300AB742E /* SPCompiledSprite.h in Headers */ = {isa = PBXBuildFile; fileRef = DE2CC35F11EF75B600439B43 /* SPCompiledSprite.h */; settings = {ATTRIBUTES = (); }; };
 		DE61138C134F8FA600AB742E /* SPTexture.h in Headers */ = {isa = PBXBuildFile; fileRef = DE0853F80FEC2CFF00DAF53C /* SPTexture.h */; settings = {ATTRIBUTES = (); }; };
 		DE61138D134F8FA600AB742E /* SPGLTexture.h in Headers */ = {isa = PBXBuildFile; fileRef = DECF84310FF649D50026A4ED /* SPGLTexture.h */; settings = {ATTRIBUTES = (); }; };
 		DE61138E134F8FA600AB742E /* SPSubTexture.h in Headers */ = {isa = PBXBuildFile; fileRef = DECF84B90FF681BA0026A4ED /* SPSubTexture.h */; settings = {ATTRIBUTES = (); }; };
@@ -94,6 +95,7 @@
 		DEAAF3DC16BC0E46004EB9D5 /* SPOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = DEAAF3DA16BC0E46004EB9D5 /* SPOverlayView.m */; };
 		DEB5142C14F1848B00066104 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEB5142B14F1848B00066104 /* SenTestingKit.framework */; };
 		DEB796D616BEB23D0082D612 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE8E6A7D16B4303E007EE8BA /* GLKit.framework */; };
+		DEB9E80A16D3B26300D2C8C7 /* SPVertexDataTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DEB9E80916D3B26300D2C8C7 /* SPVertexDataTest.m */; };
 		DEC734811386BC1400234D95 /* SPTextureAtlas.h in Headers */ = {isa = PBXBuildFile; fileRef = DECF84260FF619150026A4ED /* SPTextureAtlas.h */; settings = {ATTRIBUTES = (); }; };
 		DEC734AA1386C02600234D95 /* SPTextureAtlas.m in Sources */ = {isa = PBXBuildFile; fileRef = DECF84270FF619150026A4ED /* SPTextureAtlas.m */; };
 		DED8B48711B0827E00A1766C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -109,7 +111,6 @@
 		DEE63A5211AED38100D60321 /* SPAudioEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = DEE63A4C11AED38100D60321 /* SPAudioEngine.m */; };
 		DEE63A5411AED38100D60321 /* SPSound.m in Sources */ = {isa = PBXBuildFile; fileRef = DEE63A4E11AED38100D60321 /* SPSound.m */; };
 		DEE63A5611AED38100D60321 /* SPSoundChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = DEE63A5011AED38100D60321 /* SPSoundChannel.m */; };
-		DEE6516B11F9DF200065207E /* SPCompiledSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = DE2CC36011EF75B600439B43 /* SPCompiledSprite.m */; };
 		DEE94E8311B43DE60000FE20 /* SPMovieClip.m in Sources */ = {isa = PBXBuildFile; fileRef = DEE94E8111B43DE60000FE20 /* SPMovieClip.m */; };
 		DEEA57441387905C0030A901 /* pvrtc_image.pvr in Resources */ = {isa = PBXBuildFile; fileRef = DEEA573F13878E060030A901 /* pvrtc_image.pvr */; };
 		DEEA5746138791AE0030A901 /* pvrtc_image@2x.pvr in Resources */ = {isa = PBXBuildFile; fileRef = DEEA5745138791AB0030A901 /* pvrtc_image@2x.pvr */; };
@@ -177,11 +178,11 @@
 		DE13D18912AADBF6000C77E6 /* SPRenderTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPRenderTexture.h; sourceTree = "<group>"; };
 		DE13D18A12AADBF6000C77E6 /* SPRenderTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPRenderTexture.m; sourceTree = "<group>"; };
 		DE18FE4411B083B200D01F04 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		DE19443016D27E9E00E5CCD9 /* SPVertexData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPVertexData.h; sourceTree = "<group>"; };
+		DE19443116D27E9E00E5CCD9 /* SPVertexData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPVertexData.m; sourceTree = "<group>"; };
 		DE1F9446104704440084D470 /* SPJugglerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPJugglerTest.m; sourceTree = "<group>"; };
 		DE20D9C910713B0C006658C9 /* SPRenderSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPRenderSupport.h; sourceTree = "<group>"; };
 		DE20D9CA10713B0C006658C9 /* SPRenderSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPRenderSupport.m; sourceTree = "<group>"; };
-		DE2CC35F11EF75B600439B43 /* SPCompiledSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPCompiledSprite.h; sourceTree = "<group>"; };
-		DE2CC36011EF75B600439B43 /* SPCompiledSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPCompiledSprite.m; sourceTree = "<group>"; };
 		DE2ED8040F6D52080012B6BA /* SPDisplayObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPDisplayObject.h; sourceTree = "<group>"; };
 		DE2ED8050F6D52080012B6BA /* SPDisplayObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPDisplayObject.m; sourceTree = "<group>"; };
 		DE2ED8080F6D53020012B6BA /* SPDisplayObjectContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPDisplayObjectContainer.h; sourceTree = "<group>"; };
@@ -233,6 +234,8 @@
 		DEABCF5B0F7AE187003B6C9D /* SPPointTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPPointTest.m; sourceTree = "<group>"; };
 		DEB21CF80F93C9780080D5C2 /* SPDisplayObjectContainerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPDisplayObjectContainerTest.m; sourceTree = "<group>"; };
 		DEB5142B14F1848B00066104 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		DEB9E80716D3990A00D2C8C7 /* SPFunctions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPFunctions.h; sourceTree = "<group>"; };
+		DEB9E80916D3B26300D2C8C7 /* SPVertexDataTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPVertexDataTest.m; sourceTree = "<group>"; };
 		DEC2B6800F6D51430063AB1D /* SPEventDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPEventDispatcher.h; sourceTree = "<group>"; };
 		DEC2B6810F6D51430063AB1D /* SPEventDispatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPEventDispatcher.m; sourceTree = "<group>"; };
 		DEC54F6211B7765500E439B0 /* SPMovieClipTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPMovieClipTest.m; sourceTree = "<group>"; };
@@ -405,18 +408,10 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		DE20D9C810713AD0006658C9 /* Rendering */ = {
-			isa = PBXGroup;
-			children = (
-				DE20D9C910713B0C006658C9 /* SPRenderSupport.h */,
-				DE20D9CA10713B0C006658C9 /* SPRenderSupport.m */,
-			);
-			name = Rendering;
-			sourceTree = "<group>";
-		};
 		DE469D310F93870A00F56E91 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				DEB9E80716D3990A00D2C8C7 /* SPFunctions.h */,
 				DE469D240F9386FD00F56E91 /* SPMacros.h */,
 				DE469D250F9386FD00F56E91 /* SPMatrix.h */,
 				DE469D260F9386FD00F56E91 /* SPMatrix.m */,
@@ -430,6 +425,8 @@
 				DE469D2A0F9386FD00F56E91 /* SPRectangle.m */,
 				DE33072312D2EBCD009CC5E7 /* SPUtils.h */,
 				DE33072412D2EBCD009CC5E7 /* SPUtils.m */,
+				DE19443016D27E9E00E5CCD9 /* SPVertexData.h */,
+				DE19443116D27E9E00E5CCD9 /* SPVertexData.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -463,6 +460,7 @@
 				DED67F330FA3514C0050E779 /* SPStageTest.m */,
 				DE75E8660FBDC57E00C64495 /* SPTweenTest.m */,
 				DE33072812D2ECB1009CC5E7 /* SPUtilsTest.m */,
+				DEB9E80916D3B26300D2C8C7 /* SPVertexDataTest.m */,
 			);
 			path = UnitTests;
 			sourceTree = "<group>";
@@ -490,7 +488,6 @@
 		DEDCD3B00FADF1720022011C /* Display */ = {
 			isa = PBXGroup;
 			children = (
-				DE20D9C810713AD0006658C9 /* Rendering */,
 				DEE09D771083647D00ECC896 /* Text */,
 				DED85A940FB49E90000BAA95 /* Internal */,
 				DE2ED8040F6D52080012B6BA /* SPDisplayObject.h */,
@@ -509,8 +506,6 @@
 				DED85312100BC9DA0014F729 /* SPButton.m */,
 				DEE94E8011B43DE60000FE20 /* SPMovieClip.h */,
 				DEE94E8111B43DE60000FE20 /* SPMovieClip.m */,
-				DE2CC35F11EF75B600439B43 /* SPCompiledSprite.h */,
-				DE2CC36011EF75B600439B43 /* SPCompiledSprite.m */,
 			);
 			name = Display;
 			sourceTree = "<group>";
@@ -541,10 +536,12 @@
 				DE85779116B58EDF00725EC0 /* Internal */,
 				DE85778C16B58E4B00725EC0 /* SparrowClass.h */,
 				DE85778D16B58E4B00725EC0 /* SparrowClass.m */,
-				DE8E6A8016B430C4007EE8BA /* SPViewController.h */,
-				DE8E6A8116B430C4007EE8BA /* SPViewController.m */,
 				DEAAF3D916BC0E46004EB9D5 /* SPOverlayView.h */,
 				DEAAF3DA16BC0E46004EB9D5 /* SPOverlayView.m */,
+				DE20D9C910713B0C006658C9 /* SPRenderSupport.h */,
+				DE20D9CA10713B0C006658C9 /* SPRenderSupport.m */,
+				DE8E6A8016B430C4007EE8BA /* SPViewController.h */,
+				DE8E6A8116B430C4007EE8BA /* SPViewController.m */,
 			);
 			name = System;
 			sourceTree = "<group>";
@@ -688,7 +685,6 @@
 				DE611388134F8F8300AB742E /* SPImage.h in Headers */,
 				DE611389134F8F8300AB742E /* SPButton.h in Headers */,
 				DE61138A134F8F8300AB742E /* SPMovieClip.h in Headers */,
-				DE61138B134F8F8300AB742E /* SPCompiledSprite.h in Headers */,
 				DE61138C134F8FA600AB742E /* SPTexture.h in Headers */,
 				DE61138D134F8FA600AB742E /* SPGLTexture.h in Headers */,
 				DE61138E134F8FA600AB742E /* SPSubTexture.h in Headers */,
@@ -712,6 +708,7 @@
 				DE85778E16B58E4B00725EC0 /* SparrowClass.h in Headers */,
 				DEAAF3D716BC0D21004EB9D5 /* SPResizeEvent.h in Headers */,
 				DEAAF3DB16BC0E46004EB9D5 /* SPOverlayView.h in Headers */,
+				DE19443216D27E9E00E5CCD9 /* SPVertexData.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -837,6 +834,7 @@
 				DEF8F2D312E1CDF40043D2F8 /* SPPoolObjectTest.m in Sources */,
 				DE0456E813882B4E005FFBCE /* SPButtonTest.m in Sources */,
 				DE57B32314E8F789002BD1A8 /* SPMacrosTest.m in Sources */,
+				DEB9E80A16D3B26300D2C8C7 /* SPVertexDataTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -883,13 +881,13 @@
 				DEF1735D11B075B000A11DD7 /* SPAVSound.m in Sources */,
 				DEF1736111B075BC00A11DD7 /* SPAVSoundChannel.m in Sources */,
 				DEE94E8311B43DE60000FE20 /* SPMovieClip.m in Sources */,
-				DEE6516B11F9DF200065207E /* SPCompiledSprite.m in Sources */,
 				DE13D18C12AADBF6000C77E6 /* SPRenderTexture.m in Sources */,
 				DE33072612D2EBCD009CC5E7 /* SPUtils.m in Sources */,
 				DE8E6A8316B430C4007EE8BA /* SPViewController.m in Sources */,
 				DE85778F16B58E4B00725EC0 /* SparrowClass.m in Sources */,
 				DEAAF3D816BC0D21004EB9D5 /* SPResizeEvent.m in Sources */,
 				DEAAF3DC16BC0E46004EB9D5 /* SPOverlayView.m in Sources */,
+				DE19443316D27E9E00E5CCD9 /* SPVertexData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -907,14 +905,21 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
@@ -932,11 +937,18 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
@@ -953,7 +965,6 @@
 		DEEA9337101E32A40071DD21 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_OBJC_ARC = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
@@ -968,7 +979,6 @@
 		DEEA9338101E32A40071DD21 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_OBJC_ARC = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",

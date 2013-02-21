@@ -23,6 +23,11 @@
     return result;    
 }
 
++ (BOOL)isPowerOfTwo:(int)number
+{
+    return ((number != 0) && !(number & (number - 1)));
+}
+
 + (int)randomIntBetweenMin:(int)minValue andMax:(int)maxValue
 {
     return (int)(minValue + [self randomFloat] * (maxValue - minValue));

@@ -10,6 +10,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <GLKit/GLKit.h>
 #import "SPPoolObject.h"
 
 /** The SPPoint class describes a two dimensional point or vector. */
@@ -65,6 +66,9 @@
 
 /// Copies the values from another point into the current point.
 - (void)copyFromPoint:(SPPoint *)point;
+
+/// Creates a GLKit vector that is equivalent to this instance.
+- (GLKVector2)convertToGLKVector;
 
 /// Calculates the distance between two points.
 + (float)distanceFromPoint:(SPPoint *)p1 toPoint:(SPPoint *)p2;

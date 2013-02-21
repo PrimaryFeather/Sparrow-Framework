@@ -11,24 +11,24 @@
 
 #import "SPRenderSupport.h"
 #import "SPDisplayObject.h"
+#import "SPVertexData.h"
 #import "SPTexture.h"
 #import "SPMacros.h"
+#import "SPQuad.h"
 
-#import <OpenGLES/EAGL.h>
-#import <OpenGLES/ES1/gl.h>
-#import <OpenGLES/ES1/glext.h>
+#import <GLKit/GLKit.h>
 
 @implementation SPRenderSupport
 {
-    uint mBoundTextureID;
-    BOOL mPremultipliedAlpha;
-    
     SPMatrix *mProjectionMatrix;
     SPMatrix *mModelViewMatrix;
     SPMatrix *mMvpMatrix;
     NSMutableArray *mMatrixStack;
     int mMatrixStackSize;
-    float *mGLMatrix;
+    
+    GLKBaseEffect *mBaseEffect;
+    uint mBoundTextureName;
+    uint mFrameCount;
 }
 
 @synthesize usingPremultipliedAlpha = mPremultipliedAlpha;
@@ -40,69 +40,21 @@
         mProjectionMatrix = [[SPMatrix alloc] init];
         mModelViewMatrix  = [[SPMatrix alloc] init];
         mMvpMatrix        = [[SPMatrix alloc] init];
-        mGLMatrix = calloc(16, sizeof(float));
         
         mMatrixStack = [[NSMutableArray alloc] initWithCapacity:16];
         mMatrixStackSize = 0;
         
+        mBaseEffect = [[GLKBaseEffect alloc] init];
+        
         [self loadIdentity];
-        [self setupOrthographicProjectionWithX:0 y:0 width:320 height:480];
+        [self setupOrthographicProjectionWithLeft:0 right:320 top:0 bottom:480];
     }
     return self;
 }
 
-- (void)dealloc
-{
-    free(mGLMatrix);
-}
-
 - (void)nextFrame
 {
-    mBoundTextureID = UINT_MAX;
-    mPremultipliedAlpha = YES;
-    [self bindTexture:nil];
     [self resetMatrix];
-}
-
-- (void)bindTexture:(SPTexture *)texture
-{
-    uint newTextureID = texture.textureID;
-    BOOL newPMA = texture.premultipliedAlpha;
-    
-    if (newTextureID != mBoundTextureID)
-        glBindTexture(GL_TEXTURE_2D, newTextureID);        
-    
-    if (newPMA != mPremultipliedAlpha || !mBoundTextureID)
-    {
-        if (newPMA) glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-        else        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    }
-    
-    mBoundTextureID = newTextureID;
-    mPremultipliedAlpha = newPMA;
-}
-
-- (uint)convertColor:(uint)color alpha:(float)alpha
-{
-    return [SPRenderSupport convertColor:color alpha:alpha premultiplyAlpha:mPremultipliedAlpha];
-}
-
-+ (uint)convertColor:(uint)color alpha:(float)alpha premultiplyAlpha:(BOOL)pma
-{
-    if (pma)
-    {
-        return (GLubyte)(SP_COLOR_PART_RED(color) * alpha) |
-               (GLubyte)(SP_COLOR_PART_GREEN(color) * alpha) << 8 |
-               (GLubyte)(SP_COLOR_PART_BLUE(color) * alpha) << 16 |
-               (GLubyte)(alpha * 255) << 24;
-    }
-    else
-    {
-        return (GLubyte)SP_COLOR_PART_RED(color) |
-               (GLubyte)SP_COLOR_PART_GREEN(color) << 8 |
-               (GLubyte)SP_COLOR_PART_BLUE(color) << 16 |
-               (GLubyte)(alpha * 255) << 24;
-    }
 }
 
 + (void)clearWithColor:(uint)color alpha:(float)alpha;
@@ -118,7 +70,7 @@
 + (uint)checkForOpenGLError
 {
     GLenum error = glGetError();
-    if (error != 0) NSLog(@"Warning: There was an OpenGL error: #%d", error);
+    if (error != 0) NSLog(@"Warning: There was an OpenGL error: 0x%x", error);
     return error;
 }
 
@@ -150,22 +102,14 @@
     [mModelViewMatrix copyFromMatrix:currentMatrix];
 }
 
-- (void)setupOrthographicProjectionWithX:(float)x y:(float)y
-                                   width:(float)width height:(float)height
+- (void)setupOrthographicProjectionWithLeft:(float)left right:(float)right
+                                        top:(float)top bottom:(float)bottom;
 {
-    [mProjectionMatrix setA:2.0f/width b:0.0f c:0.0f d:-2.0f/height
-                         tx:-(2.0f*x + width ) / width
-                         ty: (2.0f*y + height) / height];
+    [mProjectionMatrix setA:2.0f/(right-left) b:0.0f c:0.0f d:2.0f/(top-bottom)
+                         tx:-(right+left) / (right-left)
+                         ty:-(top+bottom) / (top-bottom)];
     
-    float glMatrix[16];
-    [mProjectionMatrix copyToGLMatrix:glMatrix];
-    
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glLoadMatrixf(glMatrix);
-    
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
+    mBaseEffect.transform.projectionMatrix = [mProjectionMatrix convertToGLKMatrix];
 }
 
 - (void)prependMatrix:(SPMatrix *)matrix
@@ -173,12 +117,57 @@
     [mModelViewMatrix prependMatrix:matrix];
 }
 
-- (void)uploadMatrix
+#pragma mark - rendering
+
+- (void)renderQuad:(SPQuad *)quad parentAlpha:(float)parentAlpha texture:(SPTexture *)texture
 {
-    [mModelViewMatrix copyToGLMatrix:mGLMatrix];
+    static SPVertexData *vertexData = nil;
+    if (!vertexData) vertexData = [[SPVertexData alloc] initWithSize:4];
     
-    glMatrixMode(GL_MODELVIEW);
-    glLoadMatrixf(mGLMatrix);
+    // TODO: rename texture.filter to texture.smoothing
+    
+    [vertexData setPremultipliedAlpha:quad.premultipliedAlpha updateVertices:NO];
+    [quad copyVertexDataTo:vertexData atIndex:0];
+    
+    uint textureName = texture.name;
+    
+    if (textureName != mBoundTextureName || mFrameCount == 0)
+    {
+        mBaseEffect.texture2d0.enabled = (texture != nil);
+        mBaseEffect.texture2d0.name = textureName;
+        mBoundTextureName = textureName;
+        
+        if (quad.premultipliedAlpha) glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+        else                         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        
+        glEnableVertexAttribArray(GLKVertexAttribPosition);
+        glEnableVertexAttribArray(GLKVertexAttribColor);
+        
+        if (texture)
+            glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
+        else
+            glDisableVertexAttribArray(GLKVertexAttribTexCoord0);
+    }
+    
+    mBaseEffect.transform.modelviewMatrix = [mModelViewMatrix convertToGLKMatrix];
+    [mBaseEffect prepareToDraw];
+    
+    long vertices = (long)vertexData.vertices;
+    
+    glVertexAttribPointer(GLKVertexAttribPosition, 2, GL_FLOAT, GL_FALSE, sizeof(SPVertex),
+                          (void *)(vertices + offsetof(SPVertex, position)));
+    
+    glVertexAttribPointer(GLKVertexAttribColor, 4, GL_FLOAT, GL_FALSE, sizeof(SPVertex),
+                          (void *)(vertices + offsetof(SPVertex, color)));
+    
+    if (texture)
+    {
+        glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, sizeof(SPVertex),
+                              (void *)(vertices + offsetof(SPVertex, texCoords)));
+    }
+    
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    ++mFrameCount;
 }
 
 @end

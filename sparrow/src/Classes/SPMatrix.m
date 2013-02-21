@@ -149,18 +149,18 @@ static void setValues(SPMatrix *matrix, float a, float b, float c, float d, floa
     setValues(self, matrix->mA, matrix->mB, matrix->mC, matrix->mD, matrix->mTx, matrix->mTy);
 }
 
-- (void)copyToGLMatrix:(float *)matrix
+- (GLKMatrix4)convertToGLKMatrix;
 {
-    memset(matrix, 0, 16 * sizeof(float));
+    GLKMatrix4 matrix = GLKMatrix4Identity;
     
-    matrix[0] = mA;
-    matrix[1] = mB;
-    matrix[4] = mC;
-    matrix[5] = mD;
-    matrix[10] = 1.0f;
-    matrix[12] = mTx;
-    matrix[13] = mTy;
-    matrix[15] = 1.0f;
+    matrix.m00 = mA;
+    matrix.m01 = mB;
+    matrix.m10 = mC;
+    matrix.m11 = mD;
+    matrix.m30 = mTx;
+    matrix.m31 = mTy;
+    
+    return matrix;
 }
 
 - (BOOL)isEquivalent:(SPMatrix *)other

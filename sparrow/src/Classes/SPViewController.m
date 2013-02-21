@@ -60,8 +60,8 @@
         mStage = [[SPStage alloc] init];
         mJuggler = [[SPJuggler alloc] init];
         mTouchProcessor = [[SPTouchProcessor alloc] initWithRoot:mStage];
+        mContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
         mSupport = [[SPRenderSupport alloc] init];
-        mContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1];
         
         if (!mContext || ![EAGLContext setCurrentContext:mContext])
             NSLog(@"Could not create render context");
@@ -158,9 +158,7 @@
         [EAGLContext setCurrentContext:mContext];
         
         glDisable(GL_CULL_FACE);
-        glDisable(GL_LIGHTING);
         glDisable(GL_DEPTH_TEST);
-        glEnable(GL_TEXTURE_2D);
         glEnable(GL_BLEND);
         
         [mStage render:mSupport];

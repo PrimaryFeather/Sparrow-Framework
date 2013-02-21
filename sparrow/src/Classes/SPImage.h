@@ -35,7 +35,6 @@
 @interface SPImage : SPQuad 
 {
     SPTexture *mTexture;
-    float mTexCoords[8];
 }
 
 /// --------------------
@@ -45,8 +44,11 @@
 /// Initialize a quad with a texture mapped onto it. _Designated Initializer_.
 - (id)initWithTexture:(SPTexture*)texture;
 
-/// Initialize a quad with a texture loaded from a file.
+/// Initialize a quad with a texture loaded from a file. No mipmaps will be created.
 - (id)initWithContentsOfFile:(NSString*)path;
+
+/// Initialize a quad with a texture loaded from a file.
+- (id)initWithContentsOfFile:(NSString *)path generateMipmaps:(BOOL)mipmaps;
 
 /// Factory method.
 + (id)imageWithTexture:(SPTexture*)texture;

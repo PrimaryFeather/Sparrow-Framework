@@ -16,10 +16,6 @@
 #import "SPEvent_Internal.h"
 #import "SPRenderSupport.h"
 
-#import <OpenGLES/EAGL.h>
-#import <OpenGLES/ES1/gl.h>
-#import <OpenGLES/ES1/glext.h>
-
 // --- C functions ---------------------------------------------------------------------------------
 
 static void getChildEventListeners(SPDisplayObject *object, NSString *eventType, 
@@ -272,7 +268,6 @@ static void getChildEventListeners(SPDisplayObject *object, NSString *eventType,
         {
             [support pushMatrix];
             [support prependMatrix:child.transformationMatrix];
-            [support uploadMatrix];
             
             child.alpha *= alpha;
             [child render:support];

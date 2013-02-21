@@ -20,7 +20,6 @@
 #import "SPTextField.h"
 #import "SPStage.h"
 #import "SPUtils.h"
-#import "SPCompiledSprite.h"
 #import "SparrowClass.h"
 
 #define CHAR_SPACE   32
@@ -267,7 +266,7 @@
         }
     }
     
-    SPSprite *outerContainer = [SPCompiledSprite sprite];
+    SPSprite *outerContainer = [SPSprite sprite]; // [SPCompiledSprite sprite]; // TODO: flatten
     [outerContainer addChild:lineContainer];    
     
     if (vAlign != SPVAlignTop)

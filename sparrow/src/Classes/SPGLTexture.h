@@ -36,14 +36,13 @@
 
 /// Initializes a texture with the given properties. Width and height are expected pixel dimensions.
 /// _Designated Initializer_.
-- (id)initWithTextureID:(uint)textureID width:(float)width height:(float)height
+- (id)initWithName:(uint)name width:(float)width height:(float)height
         containsMipmaps:(BOOL)mipmaps scale:(float)scaleFactor premultipliedAlpha:(BOOL)pma;
 
 /// Initializes an uncompressed texture with with raw pixel data and a set of properties.
 /// Width and height are expected pixel dimensions.
 - (id)initWithData:(const void *)imgData width:(float)width height:(float)height
-   generateMipmaps:(BOOL)mipmaps colorSpace:(SPColorSpace)colorSpace
-             scale:(float)scaleFactor premultipliedAlpha:(BOOL)pma;
+   generateMipmaps:(BOOL)mipmaps scale:(float)scale premultipliedAlpha:(BOOL)pma;
 
 /// Initializes a texture with a GLKit texture info object and a certain scale factor.
 - (id)initWithTextureInfo:(GLKTextureInfo *)info scale:(float)scale;

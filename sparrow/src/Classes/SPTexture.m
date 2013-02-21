@@ -16,6 +16,7 @@
 #import "SPGLTexture.h"
 #import "SPSubTexture.h"
 #import "SPNSExtensions.h"
+#import "SPVertexData.h"
 #import "SPStage.h"
 #import "SparrowClass.h"
 
@@ -58,11 +59,17 @@
                     format:@"Error loading texture: %@", [error localizedDescription]];
         return nil;
     }
+    else if (mipmaps && (![SPUtils isPowerOfTwo:info.width] || ![SPUtils isPowerOfTwo:info.height])
+             && glGetError() == GL_INVALID_OPERATION)
+    {
+        [NSException raise:SP_EXC_INVALID_OPERATION
+                    format:@"Mipmapping is only supported for textures with sidelengths that "
+                           @"are powers of two."];
+    }
     
     return [[SPGLTexture alloc] initWithTextureInfo:info scale:[fullPath contentScaleFactor]];
 }
 
-/// Initializes an empty texture with a certain size (in points).
 - (id)initWithWidth:(float)width height:(float)height
 {
     return [self initWithWidth:width height:height draw:NULL];
@@ -77,43 +84,20 @@
                draw:(SPTextureDrawingBlock)drawingBlock
 {
     return [self initWithWidth:width height:height generateMipmaps:mipmaps
-                    colorSpace:SPColorSpaceRGBA draw:drawingBlock];
+                         scale:Sparrow.contentScaleFactor draw:drawingBlock];
 }
 
 - (id)initWithWidth:(float)width height:(float)height generateMipmaps:(BOOL)mipmaps
-         colorSpace:(SPColorSpace)colorSpace draw:(SPTextureDrawingBlock)drawingBlock
+              scale:(float)scale draw:(SPTextureDrawingBlock)drawingBlock
 {
-    return [self initWithWidth:width height:height generateMipmaps:mipmaps
-                    colorSpace:colorSpace scale:Sparrow.contentScaleFactor draw:drawingBlock];
-}
-
-- (id)initWithWidth:(float)width height:(float)height generateMipmaps:(BOOL)mipmaps
-         colorSpace:(SPColorSpace)colorSpace scale:(float)scale
-               draw:(SPTextureDrawingBlock)drawingBlock
-{
-    // only textures with sides that are powers of 2 are allowed by OpenGL ES.
+    // only textures with sidelengths that are powers of 2 support all OpenGL ES features.
     int legalWidth  = [SPUtils nextPowerOfTwo:width  * scale];
     int legalHeight = [SPUtils nextPowerOfTwo:height * scale];
     
-    CGColorSpaceRef cgColorSpace;
-    CGBitmapInfo bitmapInfo;
-    BOOL premultipliedAlpha;
-    int bytesPerPixel;
-    
-    if (colorSpace == SPColorSpaceRGBA)
-    {
-        bytesPerPixel = 4;
-        cgColorSpace = CGColorSpaceCreateDeviceRGB();
-        bitmapInfo = kCGBitmapByteOrder32Big | kCGImageAlphaPremultipliedLast;
-        premultipliedAlpha = YES;
-    }
-    else
-    {
-        bytesPerPixel = 1;
-        cgColorSpace = CGColorSpaceCreateDeviceGray();
-        bitmapInfo = kCGImageAlphaNone;
-        premultipliedAlpha = NO;
-    }
+    CGColorSpaceRef cgColorSpace = CGColorSpaceCreateDeviceRGB();
+    CGBitmapInfo bitmapInfo = kCGBitmapByteOrder32Big | kCGImageAlphaPremultipliedLast;
+    BOOL premultipliedAlpha = YES;
+    int bytesPerPixel = 4;
     
     void *imageData = calloc(legalWidth * legalHeight * bytesPerPixel, 1);
     CGContextRef context = CGBitmapContextCreate(imageData, legalWidth, legalHeight, 8, 
@@ -136,7 +120,6 @@
                                                          width:legalWidth
                                                         height:legalHeight
                                                generateMipmaps:mipmaps
-                                                    colorSpace:colorSpace
                                                          scale:scale
                                             premultipliedAlpha:premultipliedAlpha];
     
@@ -155,7 +138,7 @@
 - (id)initWithContentsOfImage:(UIImage *)image generateMipmaps:(BOOL)mipmaps
 {
     return [self initWithWidth:image.size.width height:image.size.height generateMipmaps:mipmaps
-                    colorSpace:SPColorSpaceRGBA scale:image.scale draw:^(CGContextRef context)
+                         scale:image.scale draw:^(CGContextRef context)
             {
                 [image drawAtPoint:CGPointMake(0, 0)];
             }];
@@ -199,10 +182,9 @@
     return [[self alloc] initWithWidth:width height:height draw:drawingBlock];
 }
 
-- (void)adjustTextureCoordinates:(const float *)texCoords saveAtTarget:(float *)targetTexCoords 
-                     numVertices:(int)numVertices
+- (void)adjustVertexData:(SPVertexData *)vertexData atIndex:(int)index numVertices:(int)count
 {
-    memcpy(targetTexCoords, texCoords, numVertices * 2 * sizeof(float));
+    // override in subclasses
 }
 
 - (float)width
@@ -217,7 +199,7 @@
     return 0;
 }
 
-- (uint)textureID
+- (uint)name
 {
     [NSException raise:SP_EXC_ABSTRACT_METHOD format:@"Override this method in subclasses."];
     return 0;    

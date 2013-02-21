@@ -47,10 +47,9 @@
     STAssertTrue(SP_IS_FLOAT_EQUAL(y, quad.y), @"wrong y");
     STAssertTrue(SP_IS_FLOAT_EQUAL(width, quad.width), @"wrong width");
     STAssertTrue(SP_IS_FLOAT_EQUAL(height, quad.height), @"wrong height");
-    
 }
 
-- (void)testWidth
+- (void)testWidthAfterRotation
 {
     float width = 30;
     float height = 40;

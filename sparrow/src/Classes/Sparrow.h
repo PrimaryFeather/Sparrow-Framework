@@ -28,7 +28,6 @@
 #import "SPButton.h"
 #import "SPStage.h"
 #import "SPSprite.h"
-#import "SPCompiledSprite.h"
 #import "SPMovieClip.h"
 #import "SPTexture.h"
 #import "SPSubTexture.h"
@@ -52,4 +51,5 @@
 #import "SPAudioEngine.h"
 #import "SPSound.h"
 #import "SPSoundChannel.h"
+#import "SPFunctions.h"
 #import "SparrowClass.h"

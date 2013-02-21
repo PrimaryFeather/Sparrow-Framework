@@ -15,12 +15,13 @@
 #import "SPGLTexture.h"
 #import "SPRenderSupport.h"
 #import "SPMacros.h"
-
-#import <OpenGLES/EAGL.h>
-#import <OpenGLES/ES1/gl.h>
-#import <OpenGLES/ES1/glext.h>
+#import "SPVertexData.h"
 
 @implementation SPImage
+{
+    SPVertexData *mVertexDataCache;
+    BOOL mVertexDataCacheInvalid;
+}
 
 @synthesize texture = mTexture;
 
@@ -30,22 +31,31 @@
     
     SPRectangle *frame = texture.frame;    
     float width  = frame ? frame.width  : texture.width;
-    float height = frame ? frame.height : texture.height;    
+    float height = frame ? frame.height : texture.height;
+    BOOL pma = texture.premultipliedAlpha;
     
-    if ((self = [super initWithWidth:width height:height]))
+    if ((self = [super initWithWidth:width height:height color:SP_WHITE premultipliedAlpha:pma]))
     {
-        self.texture = texture;
-        mTexCoords[0] = 0.0f; mTexCoords[1] = 0.0f;
-        mTexCoords[2] = 1.0f; mTexCoords[3] = 0.0f;
-        mTexCoords[4] = 0.0f; mTexCoords[5] = 1.0f;
-        mTexCoords[6] = 1.0f; mTexCoords[7] = 1.0f;
+        mVertexData.vertices[1].texCoords.x = 1.0f;
+        mVertexData.vertices[2].texCoords.y = 1.0f;
+        mVertexData.vertices[3].texCoords.x = 1.0f;
+        mVertexData.vertices[3].texCoords.y = 1.0f;
+        
+        mTexture = texture;
+        mVertexDataCache = [[SPVertexData alloc] initWithSize:4 premultipliedAlpha:pma];
+        mVertexDataCacheInvalid = YES;
     }
     return self;
 }
 
+- (id)initWithContentsOfFile:(NSString *)path generateMipmaps:(BOOL)mipmaps
+{
+    return [self initWithTexture:[SPTexture textureWithContentsOfFile:path generateMipmaps:mipmaps]];
+}
+
 - (id)initWithContentsOfFile:(NSString*)path
 {
-    return [self initWithTexture:[SPTexture textureWithContentsOfFile:path]];
+    return [self initWithContentsOfFile:path generateMipmaps:NO];
 }
 
 - (id)initWithWidth:(float)width height:(float)height
@@ -55,19 +65,13 @@
 
 - (void)setTexCoords:(SPPoint*)coords ofVertex:(int)vertexID
 {
-    if (vertexID < 0 || vertexID > 3)
-        [NSException raise:SP_EXC_INDEX_OUT_OF_BOUNDS format:@"invalid vertex id"];
-    
-    mTexCoords[2*vertexID  ] = coords.x;
-    mTexCoords[2*vertexID+1] = coords.y;    
+    [mVertexData setTexCoords:coords atIndex:vertexID];
+    [self vertexDataDidChange];
 }
 
 - (SPPoint*)texCoordsOfVertex:(int)vertexID
 {
-    if (vertexID < 0 || vertexID > 3)
-        [NSException raise:SP_EXC_INDEX_OUT_OF_BOUNDS format:@"invalid vertex id"];
-    
-    return [SPPoint pointWithX:mTexCoords[vertexID*2] y:mTexCoords[vertexID*2+1]];
+    return [mVertexData texCoordsAtIndex:vertexID];
 }
 
 - (void)readjustSize
@@ -76,53 +80,49 @@
     float width  = frame ? frame.width  : mTexture.width;
     float height = frame ? frame.height : mTexture.height;
 
-    mVertexCoords[2] = width; 
-    mVertexCoords[5] = height; 
-    mVertexCoords[6] = width;
-    mVertexCoords[7] = height;
+    mVertexData.vertices[1].position.x = width;
+    mVertexData.vertices[2].position.y = height;
+    mVertexData.vertices[3].position.x = width;
+    mVertexData.vertices[3].position.y = height;
+    
+    [self vertexDataDidChange];
+}
+
+- (void)vertexDataDidChange
+{
+    mVertexDataCacheInvalid = YES;
+}
+
+- (void)copyVertexDataTo:(SPVertexData *)targetData atIndex:(int)targetIndex
+{
+    if (mVertexDataCacheInvalid)
+    {
+        mVertexDataCacheInvalid = NO;
+        [mVertexData copyToVertexData:mVertexDataCache];
+        [mTexture adjustVertexData:mVertexDataCache atIndex:0 numVertices:4];
+    }
+    
+    [mVertexDataCache copyToVertexData:targetData atIndex:targetIndex];
 }
 
 - (void)render:(SPRenderSupport *)support
 {
-    static float texCoords[8];
-    static uint colors[4];
-    float alpha = self.alpha;
-    
-    [support bindTexture:mTexture];
-    [mTexture adjustTextureCoordinates:mTexCoords saveAtTarget:texCoords numVertices:4];
-    
-    for (int i=0; i<4; ++i)
+    [support renderQuad:self parentAlpha:1.0f texture:mTexture];
+}
+
+- (void)setTexture:(SPTexture *)value
+{
+    if (value == nil)
     {
-        uint vertexColor = mVertexColors[i];
-        float vertexAlpha = (vertexColor >> 24) / 255.0f * alpha;
-        colors[i] = [support convertColor:vertexColor alpha:vertexAlpha];
+        [NSException raise:SP_EXC_INVALID_OPERATION format:@"texture cannot be nil!"];
     }
-    
-    // TODO: move frame adjustments into "adjustVertexCoordinates" method.
-    
-    SPRectangle *frame = mTexture.frame;
-    if (frame)
+    else if (value != mTexture)
     {
-        glTranslatef(-frame.x, -frame.y, 0.0f);
-        glScalef(mTexture.width / frame.width, mTexture.height / frame.height, 1.0f);
+        mTexture = value;
+        [mVertexData setPremultipliedAlpha:mTexture.premultipliedAlpha updateVertices:YES];
+        [mVertexDataCache setPremultipliedAlpha:mTexture.premultipliedAlpha updateVertices:NO];
+        [self vertexDataDidChange];
     }
-    
-    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-    glEnableClientState(GL_VERTEX_ARRAY);
-    glEnableClientState(GL_COLOR_ARRAY);
-    
-    glTexCoordPointer(2, GL_FLOAT, 0, texCoords);
-    glVertexPointer(2, GL_FLOAT, 0, mVertexCoords);
-    glColorPointer(4, GL_UNSIGNED_BYTE, 0, colors);
-    
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-    
-    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-    glDisableClientState(GL_VERTEX_ARRAY);
-    glDisableClientState(GL_COLOR_ARRAY);
-    
-    // Rendering was tested with vertex buffers, too -- but for simple quads and images like these,
-    // the overhead seems to outweigh the benefit. The "glDrawArrays"-approach is faster here.
 }
 
 + (id)imageWithTexture:(SPTexture*)texture
