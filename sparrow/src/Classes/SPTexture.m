@@ -244,13 +244,13 @@
 
 #pragma mark - Asynchronous Texture Loading
 
-+ (void)loadTextureFromFile:(NSString *)path onComplete:(SPTextureLoadingBlock)callback
++ (void)loadFromFile:(NSString *)path onComplete:(SPTextureLoadingBlock)callback
 {
-    return [self loadTextureFromFile:path generateMipmaps:NO onComplete:callback];
+    return [self loadFromFile:path generateMipmaps:NO onComplete:callback];
 }
 
-+ (void)loadTextureFromFile:(NSString *)path generateMipmaps:(BOOL)mipmaps
-                 onComplete:(SPTextureLoadingBlock)callback
++ (void)loadFromFile:(NSString *)path generateMipmaps:(BOOL)mipmaps
+          onComplete:(SPTextureLoadingBlock)callback
 {
     float contentScaleFactor = Sparrow.contentScaleFactor;
     NSString *fullPath = [SPUtils absolutePathToFile:path withScaleFactor:contentScaleFactor];
@@ -275,20 +275,20 @@
      }];
 }
 
-+ (void)loadTextureFromURL:(NSURL *)url onComplete:(SPTextureLoadingBlock)callback
++ (void)loadFromURL:(NSURL *)url onComplete:(SPTextureLoadingBlock)callback
 {
-    return [self loadTextureFromURL:url generateMipmaps:NO onComplete:callback];
+    return [self loadFromURL:url generateMipmaps:NO onComplete:callback];
 }
 
-+ (void)loadTextureFromURL:(NSURL *)url generateMipmaps:(BOOL)mipmaps
-                onComplete:(SPTextureLoadingBlock)callback
++ (void)loadFromURL:(NSURL *)url generateMipmaps:(BOOL)mipmaps
+         onComplete:(SPTextureLoadingBlock)callback
 {
     float scale = [[url path] contentScaleFactor];
-    return [self loadTextureFromURL:url generateMipmaps:mipmaps scale:scale onComplete:callback];
+    return [self loadFromURL:url generateMipmaps:mipmaps scale:scale onComplete:callback];
 }
 
-+ (void)loadTextureFromURL:(NSURL *)url generateMipmaps:(BOOL)mipmaps scale:(float)scale
-                onComplete:(SPTextureLoadingBlock)callback
++ (void)loadFromURL:(NSURL *)url generateMipmaps:(BOOL)mipmaps scale:(float)scale
+         onComplete:(SPTextureLoadingBlock)callback
 {
     NSDictionary *options = @{ GLKTextureLoaderGenerateMipmaps: @(mipmaps) };
     EAGLSharegroup *sharegroup = Sparrow.currentController.context.sharegroup;
@@ -306,18 +306,18 @@
      }];
 }
 
-+ (void)loadTextureFromSuffixedURL:(NSURL *)url onComplete:(SPTextureLoadingBlock)callback
++ (void)loadFromSuffixedURL:(NSURL *)url onComplete:(SPTextureLoadingBlock)callback
 {
-    return [self loadTextureFromSuffixedURL:url generateMipmaps:NO onComplete:callback];
+    return [self loadFromSuffixedURL:url generateMipmaps:NO onComplete:callback];
 }
 
-+ (void)loadTextureFromSuffixedURL:(NSURL *)url generateMipmaps:(BOOL)mipmaps
-                        onComplete:(SPTextureLoadingBlock)callback
++ (void)loadFromSuffixedURL:(NSURL *)url generateMipmaps:(BOOL)mipmaps
+                 onComplete:(SPTextureLoadingBlock)callback
 {
     float scale = Sparrow.contentScaleFactor;
     NSString *suffixedString = [[url absoluteString] stringByAppendingScaleSuffixToFilename:scale];
     NSURL *suffixedURL = [NSURL URLWithString:suffixedString];
-    return [self loadTextureFromURL:suffixedURL generateMipmaps:mipmaps scale:scale
+    return [self loadFromURL:suffixedURL generateMipmaps:mipmaps scale:scale
                          onComplete:callback];
 }
 

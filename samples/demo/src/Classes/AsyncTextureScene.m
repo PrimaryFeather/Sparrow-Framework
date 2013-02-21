@@ -51,8 +51,8 @@
     mFileImage.visible = NO;
     mLogText.text = @"Loading texture ...";
     
-    [SPTexture loadTextureFromFile:@"async_local.png"
-                        onComplete:^(SPTexture *texture, NSError *outError)
+    [SPTexture loadFromFile:@"async_local.png"
+                 onComplete:^(SPTexture *texture, NSError *outError)
     {
         if (outError)
             mLogText.text = [outError localizedDescription];
@@ -89,8 +89,8 @@
     NSURL *url = scale == 1.0f ? [NSURL URLWithString:@"http://i.imgur.com/24mT16x.png"] :
                                  [NSURL URLWithString:@"http://i.imgur.com/kE2Bqnk.png"];
     
-    [SPTexture loadTextureFromURL:url generateMipmaps:NO scale:scale
-                       onComplete:^(SPTexture *texture, NSError *outError)
+    [SPTexture loadFromURL:url generateMipmaps:NO scale:scale
+                onComplete:^(SPTexture *texture, NSError *outError)
      {
          if (outError)
              mLogText.text = [outError localizedDescription];
