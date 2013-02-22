@@ -22,14 +22,14 @@
     BOOL mRepeat;
     BOOL mPremultipliedAlpha;
     BOOL mMipmaps;
-    SPTextureFilter mFilter;
+    SPTextureSmoothing mSmoothing;
 }
 
 @synthesize name = mName;
 @synthesize repeat = mRepeat;
 @synthesize premultipliedAlpha = mPremultipliedAlpha;
 @synthesize scale = mScale;
-@synthesize filter = mFilter;
+@synthesize smoothing = mSmoothing;
 
 - (id)initWithName:(uint)name width:(float)width height:(float)height
         containsMipmaps:(BOOL)mipmaps scale:(float)scale premultipliedAlpha:(BOOL)pma
@@ -44,7 +44,7 @@
         mPremultipliedAlpha = pma;
         
         self.repeat = NO;
-        self.filter = SPTextureFilterBilinear;
+        self.smoothing = SPTextureSmoothingBilinear;
     }
     
     return self;
@@ -112,19 +112,19 @@
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, mRepeat ? GL_REPEAT : GL_CLAMP_TO_EDGE); 
 }
 
-- (void)setFilter:(SPTextureFilter)filterType
+- (void)setSmoothing:(SPTextureSmoothing)filterType
 {
-    mFilter = filterType;
+    mSmoothing = filterType;
     glBindTexture(GL_TEXTURE_2D, mName); 
     
     int magFilter, minFilter;
     
-    if (filterType == SPTextureFilterNearestNeighbor)
+    if (filterType == SPTextureSmoothingNone)
     {
         magFilter = GL_NEAREST;
         minFilter = mMipmaps ? GL_NEAREST_MIPMAP_NEAREST : GL_NEAREST;
     }
-    else if (filterType == SPTextureFilterBilinear)
+    else if (filterType == SPTextureSmoothingBilinear)
     {
         magFilter = GL_LINEAR;
         minFilter = mMipmaps ? GL_LINEAR_MIPMAP_NEAREST : GL_LINEAR;

@@ -140,14 +140,14 @@
     return mBaseTexture.repeat;
 }
 
-- (SPTextureFilter)filter
+- (SPTextureSmoothing)smoothing
 {    
-    return mBaseTexture.filter;
+    return mBaseTexture.smoothing;
 }
 
-- (void)setFilter:(SPTextureFilter)value
+- (void)setSmoothing:(SPTextureSmoothing)value
 {
-    mBaseTexture.filter = value;
+    mBaseTexture.smoothing = value;
 }
 
 - (BOOL)premultipliedAlpha

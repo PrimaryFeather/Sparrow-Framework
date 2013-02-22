@@ -225,13 +225,13 @@
     return NO;
 }
 
-- (SPTextureFilter)filter
+- (SPTextureSmoothing)smoothing
 {
     [NSException raise:SP_EXC_ABSTRACT_METHOD format:@"Override this method in subclasses."];
-    return SPTextureFilterBilinear;
+    return SPTextureSmoothingBilinear;
 }
 
-- (void)setFilter:(SPTextureFilter)filter
+- (void)setSmoothing:(SPTextureSmoothing)filter
 {
     [NSException raise:SP_EXC_ABSTRACT_METHOD format:@"Override this method in subclasses."];
 }

@@ -19,10 +19,10 @@
 
 typedef enum 
 {
-    SPTextureFilterNearestNeighbor,
-    SPTextureFilterBilinear,
-    SPTextureFilterTrilinear
-} SPTextureFilter;
+    SPTextureSmoothingNone,
+    SPTextureSmoothingBilinear,
+    SPTextureSmoothingTrilinear
+} SPTextureSmoothing;
 
 typedef void (^SPTextureDrawingBlock)(CGContextRef context);
 typedef void (^SPTextureLoadingBlock)(SPTexture *texture, NSError *outError);
@@ -245,8 +245,8 @@ typedef void (^SPTextureLoadingBlock)(SPTexture *texture, NSError *outError);
 /// not loaded from a texture atlas (i.e. no subtextures). (Default: `NO`)
 @property (nonatomic, assign) BOOL repeat;
 
-/// The filter type influences how the texture appears when it is scaled up or down.
-/// (Default: `SPTextureFilterBilinear`)
-@property (nonatomic, assign) SPTextureFilter filter;
+/// The smoothing type influences how the texture appears when it is scaled up or down.
+/// (Default: `SPTextureSmoothingBilinear`)
+@property (nonatomic, assign) SPTextureSmoothing smoothing;
 
 @end
