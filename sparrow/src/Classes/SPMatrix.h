@@ -96,7 +96,10 @@
 - (GLKMatrix4)convertToGLKMatrix;
 
 /// Applies the geometric transformation represented by the matrix to the specified point.
-- (SPPoint*)transformPoint:(SPPoint*)point;
+- (SPPoint *)transformPoint:(SPPoint*)point;
+
+/// Applies the geometric transformation represented by the matrix to the specified coordinates.
+- (SPPoint *)transformPointWithX:(float)x y:(float)y;
 
 /// ----------------
 /// @name Properties

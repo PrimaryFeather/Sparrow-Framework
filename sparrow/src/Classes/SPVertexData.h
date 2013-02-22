@@ -112,7 +112,7 @@ typedef struct
 - (SPRectangle *)bounds;
 
 /// Calculates the bounding rectangle of all vertices after being transformed by a matrix.
-- (SPRectangle *)boundsAfterTransformation:(SPMatrix *)transformationMatrix;
+- (SPRectangle *)boundsAfterTransformation:(SPMatrix *)matrix;
 
 /// Returns a pointer to the raw vertex data.
 @property (nonatomic, readonly) SPVertex* vertices;

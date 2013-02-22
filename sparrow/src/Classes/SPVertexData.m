@@ -241,19 +241,16 @@ void unmultiplyAlpha(SPVertex *vertex)
     return [self boundsAfterTransformation:nil];
 }
 
-- (SPRectangle *)boundsAfterTransformation:(SPMatrix *)transformationMatrix
+- (SPRectangle *)boundsAfterTransformation:(SPMatrix *)matrix
 {
     float minX = FLT_MAX, maxX = -FLT_MAX, minY = FLT_MAX, maxY = -FLT_MAX;
     
-    if (transformationMatrix)
+    if (matrix)
     {
-        SPPoint *point = [[SPPoint alloc] init];
-        
         for (int i=0; i<4; ++i)
         {
-            point.x = mVertices[i].position.x;
-            point.y = mVertices[i].position.y;
-            SPPoint *transformedPoint = [transformationMatrix transformPoint:point];
+            GLKVector2 position = mVertices[i].position;
+            SPPoint *transformedPoint = [matrix transformPointWithX:position.x y:position.y];
             float tfX = transformedPoint.x;
             float tfY = transformedPoint.y;
             minX = MIN(minX, tfX);
@@ -266,12 +263,11 @@ void unmultiplyAlpha(SPVertex *vertex)
     {
         for (int i=0; i<4; ++i)
         {
-            float x = mVertices[i].position.x;
-            float y = mVertices[i].position.y;
-            minX = MIN(minX, x);
-            maxX = MAX(maxX, x);
-            minY = MIN(minY, y);
-            maxY = MAX(maxY, y);
+            GLKVector2 position = mVertices[i].position;
+            minX = MIN(minX, position.x);
+            maxX = MAX(maxX, position.x);
+            minY = MIN(minY, position.y);
+            maxY = MAX(maxY, position.y);
         }
     }
     

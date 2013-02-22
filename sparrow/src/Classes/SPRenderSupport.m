@@ -124,8 +124,6 @@
     static SPVertexData *vertexData = nil;
     if (!vertexData) vertexData = [[SPVertexData alloc] initWithSize:4];
     
-    // TODO: rename texture.filter to texture.smoothing
-    
     [vertexData setPremultipliedAlpha:quad.premultipliedAlpha updateVertices:NO];
     [quad copyVertexDataTo:vertexData atIndex:0];
     

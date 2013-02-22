@@ -20,6 +20,7 @@
 #import "SPPoint.h"
 #import "SPSprite.h"
 #import "SPQuad.h"
+#import "SPStage.h"
 
 #define E 0.0001f
 
@@ -35,12 +36,26 @@
 
 @implementation SPDisplayObjectTest
 
-- (void)testRoot
+- (void)testBase
 {
-    SPSprite *root = [[SPSprite alloc] init];    
+    SPSprite *base = [[SPSprite alloc] init];
     SPSprite *child = [[SPSprite alloc] init];
     SPSprite *grandChild = [[SPSprite alloc] init];
     
+    [base addChild:child];
+    [child addChild:grandChild];
+    
+    STAssertEqualObjects(base, grandChild.base, @"wrong base");
+}
+
+- (void)testRoot
+{
+    SPStage  *stage = [[SPStage alloc] init];
+    SPSprite *root = [[SPSprite alloc] init];
+    SPSprite *child = [[SPSprite alloc] init];
+    SPSprite *grandChild = [[SPSprite alloc] init];
+    
+    [stage addChild:root];
     [root addChild:child];
     [child addChild:grandChild];
     
@@ -160,9 +175,11 @@
 
 - (void)testLocalToGlobal
 {
+    SPSprite *root = [[SPSprite alloc] init];
     SPSprite *sprite = [[SPSprite alloc] init];
     sprite.x = 10;
-    sprite.y = 20;    
+    sprite.y = 20;
+    [root addChild:sprite];
     SPSprite *sprite2 = [[SPSprite alloc] init];
     sprite2.x = 150;
     sprite2.y = 200;    
@@ -171,6 +188,12 @@
     SPPoint *localPoint = [SPPoint pointWithX:0 y:0];
     SPPoint *globalPoint = [sprite2 localToGlobal:localPoint];
     SPPoint *expectedPoint = [SPPoint pointWithX:160 y:220];    
+    STAssertTrue([globalPoint isEquivalent:expectedPoint], @"wrong global point");
+    
+    // the position of the root object should be irrelevant -- we want the coordinates
+    // *within* the root coordinate system!
+    root.x = 50;
+    globalPoint = [sprite2 localToGlobal:localPoint];
     STAssertTrue([globalPoint isEquivalent:expectedPoint], @"wrong global point");
 }
 
@@ -192,9 +215,11 @@
 
 - (void)testGlobalToLocal
 {
+    SPSprite *root = [[SPSprite alloc] init];
     SPSprite *sprite = [[SPSprite alloc] init];
     sprite.x = 10;
     sprite.y = 20;
+    [root addChild:sprite];
     SPSprite *sprite2 = [[SPSprite alloc] init];
     sprite2.x = 150;
     sprite2.y = 200;    
@@ -203,6 +228,12 @@
     SPPoint *globalPoint = [SPPoint pointWithX:160 y:220];
     SPPoint *localPoint = [sprite2 globalToLocal:globalPoint];
     SPPoint *expectedPoint = [SPPoint pointWithX:0 y:0];    
+    STAssertTrue([localPoint isEquivalent:expectedPoint], @"wrong local point");
+    
+    // the position of the root object should be irrelevant -- we want the coordinates
+    // *within* the root coordinate system!
+    root.x = 50;
+    localPoint = [sprite2 globalToLocal:globalPoint];
     STAssertTrue([localPoint isEquivalent:expectedPoint], @"wrong local point");
 }
 

@@ -128,8 +128,7 @@
     [identMatrix rotateBy:PI/2.0f];    
     [identMatrix scaleBy:0.5f];
     [identMatrix translateXBy:0.0f yBy:5.0];
-    SPPoint *point = [[SPPoint alloc] initWithX:10 y:0];
-    SPPoint *ctPoint = [identMatrix transformPoint:point];
+    SPPoint *ctPoint = [identMatrix transformPointWithX:10 y:0];
     STAssertTrue(SP_IS_FLOAT_EQUAL(0.0f, ctPoint.x), @"wrong x value: %f", ctPoint.x);
     STAssertTrue(SP_IS_FLOAT_EQUAL(10.0f, ctPoint.y), @"wrong y value: %f", ctPoint.y);    
 }

@@ -42,16 +42,14 @@
 
 - (SPPoint*)locationInSpace:(SPDisplayObject*)space
 {
-    SPPoint *point = [SPPoint pointWithX:mGlobalX y:mGlobalY];
     SPMatrix *transformationMatrix = [mTarget.root transformationMatrixToSpace:space];
-    return [transformationMatrix transformPoint:point];
+    return [transformationMatrix transformPointWithX:mGlobalX y:mGlobalY];
 }
 
 - (SPPoint*)previousLocationInSpace:(SPDisplayObject*)space
 {
-    SPPoint *point = [SPPoint pointWithX:mPreviousGlobalX y:mPreviousGlobalY];
     SPMatrix *transformationMatrix = [mTarget.root transformationMatrixToSpace:space];
-    return [transformationMatrix transformPoint:point];
+    return [transformationMatrix transformPointWithX:mPreviousGlobalX y:mPreviousGlobalX];
 }
 
 @end

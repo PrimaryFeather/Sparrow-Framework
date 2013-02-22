@@ -138,6 +138,12 @@ static void setValues(SPMatrix *matrix, float a, float b, float c, float d, floa
                              y:mB*point.x + mD*point.y + mTy];
 }
 
+- (SPPoint *)transformPointWithX:(float)x y:(float)y
+{
+    return [SPPoint pointWithX:mA*x + mC*y + mTx
+                             y:mB*x + mD*y + mTy];
+}
+
 - (void)invert
 {
     float det = self.determinant;

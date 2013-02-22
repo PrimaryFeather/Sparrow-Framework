@@ -88,7 +88,7 @@
 - (void)removeFromParent;
 
 /// Creates a matrix that represents the transformation from the local coordinate system to another.
-- (SPMatrix*)transformationMatrixToSpace:(SPDisplayObject*)targetCoordinateSpace;
+- (SPMatrix*)transformationMatrixToSpace:(SPDisplayObject*)targetSpace;
 
 /// Returns a rectangle that completely encloses the object as it appears in another coordinate system.
 - (SPRectangle*)boundsInSpace:(SPDisplayObject*)targetCoordinateSpace;
@@ -157,11 +157,16 @@
 /// The display object container that contains this display object.
 @property (weak, nonatomic, readonly) SPDisplayObjectContainer *parent;
 
-/// The topmost object in the display tree the object is part of.
+/// The root object the display object is connected to (i.e. an instance of the class
+/// that was passed to `[SPViewController startWithRoot:]`), or nil if the object is not connected
+/// to it.
 @property (weak, nonatomic, readonly) SPDisplayObject *root;
 
 /// The stage the display object is connected to, or nil if it is not connected to a stage.
 @property (weak, nonatomic, readonly) SPStage *stage;
+
+/// The topmost object in the display tree the object is part of.
+@property (weak, nonatomic, readonly) SPDisplayObject *base;
 
 /// The transformation matrix of the object relative to its parent.
 /// @returns CAUTION: not a copy, but the actual object!

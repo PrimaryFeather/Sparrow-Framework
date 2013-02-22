@@ -91,34 +91,34 @@ float square(float value) { return value * value; }
     [mParent removeChild:self];
 }
 
-- (SPMatrix *)transformationMatrixToSpace:(SPDisplayObject *)targetCoordinateSpace
+- (SPMatrix *)transformationMatrixToSpace:(SPDisplayObject *)targetSpace
 {           
-    if (targetCoordinateSpace == self)
+    if (targetSpace == self)
     {
         return [SPMatrix matrixWithIdentity];
-    }        
-    else if (!targetCoordinateSpace)
+    }
+    else if (targetSpace == mParent || (!targetSpace && !mParent))
     {
-        // targetCoordinateSpace 'nil' represents the target coordinate of the root object.
-        // -> move up from self to root
+        return [self.transformationMatrix copy];
+    }
+    else if (!targetSpace || targetSpace == self.base)
+    {
+        // targetCoordinateSpace 'nil' represents the target coordinate of the base object.
+        // -> move up from self to base
         SPMatrix *selfMatrix = [[SPMatrix alloc] init];
         SPDisplayObject *currentObject = self;
-        while (currentObject)
+        while (currentObject != targetSpace)
         {
             [selfMatrix appendMatrix:currentObject.transformationMatrix];
             currentObject = currentObject->mParent;
         }        
         return selfMatrix; 
     }
-    else if (targetCoordinateSpace->mParent == self) // optimization
+    else if (targetSpace->mParent == self)
     {
-        SPMatrix *targetMatrix = [targetCoordinateSpace.transformationMatrix copy];
+        SPMatrix *targetMatrix = [targetSpace.transformationMatrix copy];
         [targetMatrix invert];
         return targetMatrix;
-    }
-    else if (mParent == targetCoordinateSpace) // optimization
-    {        
-        return [self.transformationMatrix copy];
     }
     
     // 1.: Find a common parent of self and the target coordinate space.
@@ -138,7 +138,7 @@ float square(float value) { return value * value; }
         currentObject = currentObject->mParent;
     }
 
-    currentObject = targetCoordinateSpace;    
+    currentObject = targetSpace;    
     while (currentObject && !commonParent)
     {        
         for (int i=0; i<count; ++i)
@@ -166,7 +166,7 @@ float square(float value) { return value * value; }
     
     // 3.: Now move up from target until we reach the common parent
     SPMatrix *targetMatrix = [[SPMatrix alloc] init];
-    currentObject = targetCoordinateSpace;
+    currentObject = targetSpace;
     while (currentObject && currentObject != commonParent)
     {
         [targetMatrix appendMatrix:currentObject.transformationMatrix];
@@ -204,33 +204,15 @@ float square(float value) { return value * value; }
 
 - (SPPoint *)localToGlobal:(SPPoint *)localPoint
 {
-    // move up until parent is nil
-    SPMatrix *transformationMatrix = [[SPMatrix alloc] init];
-    SPDisplayObject *currentObject = self;    
-    while (currentObject)
-    {
-        [transformationMatrix appendMatrix:currentObject.transformationMatrix];
-        currentObject = [currentObject parent];
-    }
-    
-    SPPoint *globalPoint = [transformationMatrix transformPoint:localPoint];
-    return globalPoint;
+    SPMatrix *matrix = [self transformationMatrixToSpace:self.base];
+    return [matrix transformPoint:localPoint];
 }
 
 - (SPPoint *)globalToLocal:(SPPoint *)globalPoint
 {
-    // move up until parent is nil, then invert matrix
-    SPMatrix *transformationMatrix = [[SPMatrix alloc] init];
-    SPDisplayObject *currentObject = self;    
-    while (currentObject)
-    {
-        [transformationMatrix appendMatrix:currentObject.transformationMatrix];
-        currentObject = [currentObject parent];
-    }
-    
-    [transformationMatrix invert];
-    SPPoint *localPoint = [transformationMatrix transformPoint:globalPoint];
-    return localPoint;
+    SPMatrix *matrix = [self transformationMatrixToSpace:self.base];
+    [matrix invert];
+    return [matrix transformPoint:globalPoint];
 }
 
 - (void)dispatchEvent:(SPEvent*)event
@@ -369,18 +351,29 @@ float square(float value) { return value * value; }
     mAlpha = MAX(0.0f, MIN(1.0f, value));
 }
 
-- (SPDisplayObject *)root
+- (SPDisplayObject *)base
 {
     SPDisplayObject *currentObject = self;
-    while (currentObject->mParent) 
-        currentObject = currentObject->mParent;
+    while (currentObject->mParent) currentObject = currentObject->mParent;
     return currentObject;
+}
+
+- (SPDisplayObject *)root
+{
+    Class stageClass = [SPStage class];
+    SPDisplayObject *currentObject = self;
+    while (currentObject->mParent)
+    {
+        if ([currentObject->mParent isMemberOfClass:stageClass]) return currentObject;
+        else currentObject = currentObject->mParent;
+    }
+    return nil;
 }
 
 - (SPStage*)stage
 {
-    SPDisplayObject *root = self.root;
-    if ([root isKindOfClass:[SPStage class]]) return (SPStage*) root;
+    SPDisplayObject *base = self.base;
+    if ([base isKindOfClass:[SPStage class]]) return (SPStage*) base;
     else return nil;
 }
 

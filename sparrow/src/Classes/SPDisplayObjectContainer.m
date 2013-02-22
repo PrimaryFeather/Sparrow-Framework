@@ -196,8 +196,7 @@ static void getChildEventListeners(SPDisplayObject *object, NSString *eventType,
     if (numChildren == 0)
     {
         SPMatrix *transformationMatrix = [self transformationMatrixToSpace:targetCoordinateSpace];
-        SPPoint *point = [SPPoint pointWithX:self.x y:self.y];
-        SPPoint *transformedPoint = [transformationMatrix transformPoint:point];
+        SPPoint *transformedPoint = [transformationMatrix transformPointWithX:self.x y:self.y];
         return [SPRectangle rectangleWithX:transformedPoint.x y:transformedPoint.y 
                                      width:0.0f height:0.0f];
     }
