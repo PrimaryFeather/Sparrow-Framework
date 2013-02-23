@@ -44,7 +44,7 @@
 /// ------------------
 
 /// Initializes a movie with the first frame and the default number of frames per second. _Designated initializer_.
-- (id)initWithFrame:(SPTexture *)texture fps:(float)fps; // designated initializer
+- (id)initWithFrame:(SPTexture *)texture fps:(float)fps;
 
 /// Initializes a movie with an array of textures and the default number of frames per second.
 - (id)initWithFrames:(NSArray *)textures fps:(float)fps;
@@ -59,20 +59,30 @@
 /// @name Frame Manipulation Methods
 /// --------------------------------
 
-/// Adds a frame with the default duration.
-- (int)addFrame:(SPTexture *)texture;
+/// Adds a frame with a certain texture, using the default duration.
+- (void)addFrameWithTexture:(SPTexture *)texture;
 
-/// Adds a frame with a specified duration.
-- (int)addFrame:(SPTexture *)texture withDuration:(double)duration;
+/// Adds a frame with a certain texture and duration.
+- (void)addFrameWithTexture:(SPTexture *)texture duration:(double)duration;
 
-/// Inserts a frame at the index specified.
-- (void)insertFrame:(SPTexture *)texture atIndex:(int)frameID;
+/// Adds a frame with a certain texture, duration and sound.
+- (void)addFrameWithTexture:(SPTexture *)texture duration:(double)duration sound:(SPSoundChannel *)sound;
 
-/// Removes the frame at the index specified.
+/// Inserts a frame at the specified index. The successors will move down.
+- (void)addFrameWithTexture:(SPTexture *)texture atIndex:(int)frameID;
+
+/// Adds a frame with a certain texture and duration.
+- (void)addFrameWithTexture:(SPTexture *)texture duration:(double)duration atIndex:(int)frameID;
+
+/// Adds a frame with a certain texture, duration and sound.
+- (void)addFrameWithTexture:(SPTexture *)texture duration:(double)duration
+                     sound:(SPSoundChannel *)sound atIndex:(int)frameID;
+
+/// Removes the frame at the specified index. The successors will move up.
 - (void)removeFrameAtIndex:(int)frameID;
 
 /// Sets the texture of a certain frame.
-- (void)setFrame:(SPTexture *)texture atIndex:(int)frameID;
+- (void)setTexture:(SPTexture *)texture atIndex:(int)frameID;
 
 /// Sets the sound that will be played back when a certain frame is active.
 - (void)setSound:(SPSoundChannel *)sound atIndex:(int)frameID;
@@ -81,7 +91,7 @@
 - (void)setDuration:(double)duration atIndex:(int)frameID;
 
 /// Returns the texture of a frame at a certain index.
-- (SPTexture *)frameAtIndex:(int)frameID;
+- (SPTexture *)textureAtIndex:(int)frameID;
 
 /// Returns the sound of a frame at a certain index.
 - (SPSoundChannel *)soundAtIndex:(int)frameID;
@@ -109,11 +119,17 @@
 /// The number of frames of the clip.
 @property (nonatomic, readonly) int numFrames;
 
-/// The accumulated duration of all frames.
-@property (nonatomic, readonly) double duration;
+/// The total duration of the clip in seconds.
+@property (nonatomic, readonly) double totalTime;
 
-/// Indicates if the movie is currently playing.
+/// The time that has passed since the clip was started (each loop starts at zero).
+@property (nonatomic, readonly) double currentTime;
+
+/// Indicates if the movie is currently playing. Returns `NO` when the end has been reached.
 @property (nonatomic, readonly) BOOL isPlaying;
+
+/// Indicates if a (non-looping) movie has come to its end.
+@property (nonatomic, readonly) BOOL isComplete;
 
 /// Indicates if the movie is looping.
 @property (nonatomic, assign)   BOOL loop;

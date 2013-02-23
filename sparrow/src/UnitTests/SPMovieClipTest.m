@@ -60,7 +60,7 @@
     STAssertEquals(0, movie.currentFrame, @"wrong start value");
     STAssertEquals(YES, movie.loop, @"wrong default value");
     STAssertEquals(YES, movie.isPlaying, @"wrong default value");
-    STAssertEqualsWithAccuracy(frameDuration, movie.duration, E, @"wrong duration");
+    STAssertEqualsWithAccuracy(frameDuration, movie.totalTime, E, @"wrong totalTime");
     
     [movie pause];
     STAssertFalse(movie.isPlaying, @"property returns wrong value");
@@ -71,13 +71,13 @@
     movie.loop = NO;
     STAssertFalse(movie.loop, @"property returns wrong value");    
     
-    [movie addFrame:frame1];
+    [movie addFrameWithTexture:frame1];
     
     STAssertEquals(2, movie.numFrames, @"wrong number of frames");
-    STAssertEqualsWithAccuracy(2 * frameDuration, movie.duration, E, @"wrong duration");
+    STAssertEqualsWithAccuracy(2 * frameDuration, movie.totalTime, E, @"wrong totalTime");
     
-    STAssertEqualObjects(frame0, [movie frameAtIndex:0], @"wrong frame");
-    STAssertEqualObjects(frame1, [movie frameAtIndex:1], @"wrong frame");
+    STAssertEqualObjects(frame0, [movie textureAtIndex:0], @"wrong frame");
+    STAssertEqualObjects(frame1, [movie textureAtIndex:1], @"wrong frame");
     
     STAssertEqualsWithAccuracy(frameDuration, [movie durationAtIndex:0] , E, @"wrong frame duration");
     STAssertEqualsWithAccuracy(frameDuration, [movie durationAtIndex:1] , E, @"wrong frame duration");
@@ -85,36 +85,36 @@
     STAssertNil([movie soundAtIndex:0], @"sound not nil");
     STAssertNil([movie soundAtIndex:1], @"sound not nil");
     
-    [movie addFrame:frame2 withDuration:0.5];
+    [movie addFrameWithTexture:frame2 duration:0.5];
     STAssertEqualsWithAccuracy(0.5, [movie durationAtIndex:2], E, @"wrong frame duration");
-    STAssertEqualsWithAccuracy(1.0, movie.duration, E, @"wrong duration");
+    STAssertEqualsWithAccuracy(1.0, movie.totalTime, E, @"wrong totalTime");
     
-    [movie insertFrame:frame3 atIndex:2]; // -> 0, 1, 3, 2
+    [movie addFrameWithTexture:frame3 atIndex:2]; // -> 0, 1, 3, 2
     STAssertEquals(4, movie.numFrames, @"wrong number of frames");
-    STAssertEqualsWithAccuracy(1.0 + frameDuration, movie.duration, E, @"wrong duration");
-    STAssertEqualObjects(frame1, [movie frameAtIndex:1], @"wrong frame");
-    STAssertEqualObjects(frame3, [movie frameAtIndex:2], @"wrong frame");
-    STAssertEqualObjects(frame2, [movie frameAtIndex:3], @"wrong frame");
+    STAssertEqualsWithAccuracy(1.0 + frameDuration, movie.totalTime, E, @"wrong totalTime");
+    STAssertEqualObjects(frame1, [movie textureAtIndex:1], @"wrong frame");
+    STAssertEqualObjects(frame3, [movie textureAtIndex:2], @"wrong frame");
+    STAssertEqualObjects(frame2, [movie textureAtIndex:3], @"wrong frame");
     
     [movie removeFrameAtIndex:0]; // -> 1, 3, 2
     STAssertEquals(3, movie.numFrames, @"wrong number of frames");
-    STAssertEqualObjects(frame1, [movie frameAtIndex:0], @"wrong frame");
-    STAssertEqualsWithAccuracy(1.0, movie.duration, E, @"wrong duration");
+    STAssertEqualObjects(frame1, [movie textureAtIndex:0], @"wrong frame");
+    STAssertEqualsWithAccuracy(1.0, movie.totalTime, E, @"wrong totalTime");
     
     [movie removeFrameAtIndex:1]; // -> 1, 2
     STAssertEquals(2, movie.numFrames, @"wrong number of frames");
-    STAssertEqualObjects(frame1, [movie frameAtIndex:0], @"wrong frame");
-    STAssertEqualObjects(frame2, [movie frameAtIndex:1], @"wrong frame");
-    STAssertEqualsWithAccuracy(0.75, movie.duration, E, @"wrong duration");
+    STAssertEqualObjects(frame1, [movie textureAtIndex:0], @"wrong frame");
+    STAssertEqualObjects(frame2, [movie textureAtIndex:1], @"wrong frame");
+    STAssertEqualsWithAccuracy(0.75, movie.totalTime, E, @"wrong totalTime");
     
-    [movie setFrame:frame3 atIndex:1];
-    STAssertEqualObjects(frame3, [movie frameAtIndex:1], @"wrong frame");    
+    [movie setTexture:frame3 atIndex:1];
+    STAssertEqualObjects(frame3, [movie textureAtIndex:1], @"wrong frame");    
     
     [movie setDuration:0.75 atIndex:1];
-    STAssertEqualsWithAccuracy(1.0, movie.duration, E, @"wrong duration");
+    STAssertEqualsWithAccuracy(1.0, movie.totalTime, E, @"wrong totalTime");
     
-    [movie insertFrame:frame3 atIndex:2];
-    STAssertEquals(frame3, [movie frameAtIndex:2], @"wrong frame");
+    [movie addFrameWithTexture:frame3 atIndex:2];
+    STAssertEquals(frame3, [movie textureAtIndex:2], @"wrong frame");
 }
 
 - (void)testAdvanceTime
@@ -129,9 +129,9 @@
     
     SPMovieClip *movie = [SPMovieClip movieWithFrame:frame0 fps:fps];
     
-    [movie addFrame:frame1];
-    [movie addFrame:frame2 withDuration:0.5];
-    [movie addFrame:frame3];
+    [movie addFrameWithTexture:frame1];
+    [movie addFrameWithTexture:frame2 duration:0.5];
+    [movie addFrameWithTexture:frame3];
     
     STAssertEquals(0, movie.currentFrame, @"wrong current frame");
     [movie advanceTime:frameDuration / 2.0];
@@ -148,7 +148,7 @@
     STAssertEquals(0, movie.currentFrame, @"movie did not loop");
     
     movie.loop = NO;
-    [movie advanceTime:movie.duration + frameDuration];
+    [movie advanceTime:movie.totalTime + frameDuration];
     STAssertEquals(3, movie.currentFrame, @"movie looped");
     STAssertFalse(movie.isPlaying, @"movie returned true for 'isPlaying' after reaching end");
     
