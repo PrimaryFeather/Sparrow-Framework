@@ -216,7 +216,7 @@ float square(float value) { return value * value; }
 }
 
 - (void)dispatchEvent:(SPEvent*)event
-{   
+{
     // on one given moment, there is only one set of touches -- thus, 
     // we process only one touch event with a certain timestamp
     if ([event isKindOfClass:[SPTouchEvent class]])
@@ -231,7 +231,16 @@ float square(float value) { return value * value; }
 
 - (void)broadcastEvent:(SPEvent *)event
 {
+    if (event.bubbles)
+        [NSException raise:SP_EXC_INVALID_OPERATION
+                    format:@"Broadcast of bubbling events is prohibited"];
+
     [self dispatchEvent:event];
+}
+
+- (void)broadcastEventWithType:(NSString *)type
+{
+    [self dispatchEventWithType:type];
 }
 
 - (float)width

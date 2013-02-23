@@ -72,6 +72,12 @@
 /// Dispatches an event to all objects that have registered for events of the same type.
 - (void)dispatchEvent:(SPEvent*)event;
 
+/// Creates a new (non-bubbling) event object and dispatches it.
+- (void)dispatchEventWithType:(NSString *)type;
+
+/// Creates a new event object and dispatches it.
+- (void)dispatchEventWithType:(NSString *)type bubbles:(BOOL)bubbles;
+
 /// Returns if there are listeners registered for a certain event type.
 - (BOOL)hasEventListenerForType:(NSString*)eventType;
 

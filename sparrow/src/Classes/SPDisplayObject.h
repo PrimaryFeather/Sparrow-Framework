@@ -105,6 +105,9 @@
 /// Dispatches an event on all children (recursively). The event must not bubble. */
 - (void)broadcastEvent:(SPEvent *)event;
 
+/// Creates an event and dispatches it on all children (recursively). */
+- (void)broadcastEventWithType:(NSString *)type;
+
 /// ----------------
 /// @name Properties
 /// ----------------

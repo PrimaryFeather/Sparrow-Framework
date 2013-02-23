@@ -192,10 +192,7 @@
 - (void)dispatchSoundCompletedEvent
 {
     if (!mLoop)
-    {
-        SPEvent *event = [[SPEvent alloc] initWithType:SP_EVENT_TYPE_SOUND_COMPLETED];
-        [self dispatchEvent:event];
-    }
+        [self dispatchEventWithType:SP_EVENT_TYPE_SOUND_COMPLETED];
 }
 
 - (void)onInterruptionBegan:(NSNotification *)notification

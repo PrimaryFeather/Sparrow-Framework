@@ -63,7 +63,7 @@
 {
     SPEventDispatcher *dispatcher = [[SPEventDispatcher alloc] init];
     [dispatcher addEventListener:@selector(onEvent:) atObject:self forType:EVENT_TYPE];    
-    [dispatcher dispatchEvent:[SPEvent eventWithType:EVENT_TYPE]];    
+    [dispatcher dispatchEventWithType:EVENT_TYPE];
     STAssertEquals(1, mTestCounter, @"event listener not called");    
     
     [dispatcher removeEventListener:@selector(onEvent:) atObject:self forType:EVENT_TYPE];    
@@ -87,12 +87,12 @@
     [sprite2 addChild:sprite3];
     [sprite3 addChild:sprite4];
     
-    [sprite4 dispatchEvent:[SPEvent eventWithType:EVENT_TYPE]];
+    [sprite4 dispatchEventWithType:EVENT_TYPE];
     
     STAssertEquals(1, mTestCounter, @"event bubbled, but should not have");
     mTestCounter = 0;
     
-    [sprite4 dispatchEvent:[SPEvent eventWithType:EVENT_TYPE bubbles:YES]];
+    [sprite4 dispatchEventWithType:EVENT_TYPE bubbles:YES];
     STAssertEquals(2, mTestCounter, @"event bubbling incorrect");
     
     [sprite1 removeEventListenersAtObject:self forType:EVENT_TYPE];

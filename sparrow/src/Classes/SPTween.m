@@ -111,12 +111,8 @@ typedef float (*FnPtrTransition) (id, SEL, float);
 
     if (mCurrentTime <= 0) return; // the delay is not over yet
 
-    if (previousTime <= 0 && mCurrentTime > 0 && mLoopCount == 0 &&
-        [self hasEventListenerForType:SP_EVENT_TYPE_TWEEN_STARTED])
-    {
-        SPEvent *event = [[SPEvent alloc] initWithType:SP_EVENT_TYPE_TWEEN_STARTED];        
-        [self dispatchEvent:event];
-    }   
+    if (previousTime <= 0 && mCurrentTime > 0 && mLoopCount == 0)
+        [self dispatchEventWithType:SP_EVENT_TYPE_TWEEN_STARTED];
     
     float ratio = mCurrentTime / mTotalTime;
     FnPtrTransition transFunc = (FnPtrTransition) mTransitionFunc;
@@ -135,11 +131,7 @@ typedef float (*FnPtrTransition) (id, SEL, float);
         prop.currentValue = prop.startValue + prop.delta * transitionValue;
     }
    
-    if ([self hasEventListenerForType:SP_EVENT_TYPE_TWEEN_UPDATED])
-    {
-        SPEvent *event = [[SPEvent alloc] initWithType:SP_EVENT_TYPE_TWEEN_UPDATED];
-        [self dispatchEvent:event];    
-    }
+    [self dispatchEventWithType:SP_EVENT_TYPE_TWEEN_UPDATED];
     
     if (previousTime < mTotalTime && mCurrentTime == mTotalTime)
     {
@@ -158,14 +150,10 @@ typedef float (*FnPtrTransition) (id, SEL, float);
             }
 		}
         
-        if ([self hasEventListenerForType:SP_EVENT_TYPE_TWEEN_COMPLETED])
-        {
-            SPEvent *event = [[SPEvent alloc] initWithType:SP_EVENT_TYPE_TWEEN_COMPLETED];
-            [self dispatchEvent:event];
-        }
+        [self dispatchEventWithType:SP_EVENT_TYPE_TWEEN_COMPLETED];
         
-        SPEvent *event = [[SPEvent alloc] initWithType:SP_EVENT_TYPE_REMOVE_FROM_JUGGLER];
-        [self dispatchEvent:event];
+        if (mLoop == SPLoopTypeNone)
+            [self dispatchEventWithType:SP_EVENT_TYPE_REMOVE_FROM_JUGGLER];
     }
     
     [self advanceTime:carryOverTime];

@@ -262,11 +262,8 @@
         durationSum += fd;
     }
     
-    if (previousTime < mTotalTime && mCurrentTime == mTotalTime &&
-        [self hasEventListenerForType:SP_EVENT_TYPE_MOVIE_COMPLETED])
-    {
-        [self dispatchEvent:[SPEvent eventWithType:SP_EVENT_TYPE_MOVIE_COMPLETED]];        
-    }
+    if (previousTime < mTotalTime && mCurrentTime == mTotalTime)
+        [self dispatchEventWithType:SP_EVENT_TYPE_MOVIE_COMPLETED];
     
     [self advanceTime:carryOverTime];
 }

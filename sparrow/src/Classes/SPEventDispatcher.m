@@ -80,6 +80,18 @@
     return mEventListeners[eventType] != nil;
 }
 
+- (void)dispatchEventWithType:(NSString *)type
+{
+    if ([self hasEventListenerForType:type])
+        [self dispatchEvent:[[SPEvent alloc] initWithType:type bubbles:NO]];
+}
+
+- (void)dispatchEventWithType:(NSString *)type bubbles:(BOOL)bubbles
+{
+    if (bubbles || [self hasEventListenerForType:type])
+        [self dispatchEvent:[[SPEvent alloc] initWithType:type bubbles:bubbles]];
+}
+
 - (void)dispatchEvent:(SPEvent*)event
 {
     NSMutableArray *listeners = mEventListeners[event.type];   

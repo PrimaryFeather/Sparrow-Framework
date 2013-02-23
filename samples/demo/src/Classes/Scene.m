@@ -33,7 +33,7 @@
 - (void)onBackButtonTriggered:(SPEvent *)event
 {
     [mBackButton removeEventListenersAtObject:self forType:SP_EVENT_TYPE_TRIGGERED];
-    [self dispatchEvent:[SPEvent eventWithType:EVENT_TYPE_SCENE_CLOSING bubbles:YES]];
+    [self dispatchEventWithType:EVENT_TYPE_SCENE_CLOSING bubbles:YES];
 }
 
 @end

@@ -125,7 +125,7 @@
     else if (touch.phase == SPTouchPhaseEnded && mIsDown)
     {
         [self resetContents];
-        [self dispatchEvent:[SPEvent eventWithType:SP_EVENT_TYPE_TRIGGERED]];
+        [self dispatchEventWithType:SP_EVENT_TYPE_TRIGGERED];
     }    
     else if (touch.phase == SPTouchPhaseCancelled && mIsDown)
     {

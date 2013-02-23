@@ -104,9 +104,6 @@
 /// Sorts the children using the given NSComparator block. Only available in iOS 4 and above!
 - (void)sortChildren:(NSComparator)comparator;
 
-/// Dispatches an event on all children (recursively). The event must not bubble. */
-- (void)broadcastEvent:(SPEvent *)event;
-
 /// ----------------
 /// @name Properties
 /// ----------------

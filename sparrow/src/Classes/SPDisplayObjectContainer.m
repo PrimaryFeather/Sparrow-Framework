@@ -70,14 +70,10 @@ static void getChildEventListeners(SPDisplayObject *object, NSString *eventType,
         [mChildren insertObject:child atIndex:MIN(mChildren.count, index)];
         child.parent = self;
         
-        SPEvent *addedEvent = [[SPEvent alloc] initWithType:SP_EVENT_TYPE_ADDED];    
-        [child dispatchEvent:addedEvent];
+        [child dispatchEventWithType:SP_EVENT_TYPE_ADDED];
         
         if (self.stage)
-        {
-            SPEvent *addedToStageEvent = [[SPEvent alloc] initWithType:SP_EVENT_TYPE_ADDED_TO_STAGE];
-            [child broadcastEvent:addedToStageEvent];
-        }
+            [child broadcastEventWithType:SP_EVENT_TYPE_ADDED_TO_STAGE];
     }
     else [NSException raise:SP_EXC_INDEX_OUT_OF_BOUNDS format:@"Invalid child index"]; 
 }
@@ -137,15 +133,10 @@ static void getChildEventListeners(SPDisplayObject *object, NSString *eventType,
     if (index >= 0 && index < [mChildren count])
     {
         SPDisplayObject *child = mChildren[index];
-
-        SPEvent *remEvent = [[SPEvent alloc] initWithType:SP_EVENT_TYPE_REMOVED];    
-        [child dispatchEvent:remEvent];
+        [child dispatchEventWithType:SP_EVENT_TYPE_REMOVED];
         
         if (self.stage)
-        {
-            SPEvent *remFromStageEvent = [[SPEvent alloc] initWithType:SP_EVENT_TYPE_REMOVED_FROM_STAGE];
-            [child broadcastEvent:remFromStageEvent];
-        }        
+            [child broadcastEventWithType:SP_EVENT_TYPE_REMOVED_FROM_STAGE];
         
         child.parent = nil; 
         index = [mChildren indexOfObject:child]; // index might have changed in event handler
@@ -248,6 +239,12 @@ static void getChildEventListeners(SPDisplayObject *object, NSString *eventType,
     getChildEventListeners(self, event.type, listeners);
     [event setTarget:self];
     [listeners makeObjectsPerformSelector:@selector(dispatchEvent:) withObject:event];
+}
+
+- (void)broadcastEventWithType:(NSString *)type
+{
+    SPEvent *event = [[SPEvent alloc] initWithType:type bubbles:NO];
+    [self broadcastEvent:event];
 }
 
 - (void)dealloc 
