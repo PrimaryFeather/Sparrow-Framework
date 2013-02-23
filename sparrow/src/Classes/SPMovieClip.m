@@ -263,7 +263,7 @@
     }
     
     if (previousTime < mTotalTime && mCurrentTime == mTotalTime)
-        [self dispatchEventWithType:SP_EVENT_TYPE_MOVIE_COMPLETED];
+        [self dispatchEventWithType:SP_EVENT_TYPE_COMPLETED];
     
     [self advanceTime:carryOverTime];
 }

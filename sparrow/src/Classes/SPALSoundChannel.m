@@ -177,7 +177,7 @@
         [self revokeSoundCompletedEvent];
         if (remainingTime >= 0.0)
         {        
-            [self performSelector:@selector(dispatchSoundCompletedEvent) withObject:nil
+            [self performSelector:@selector(dispatchCompletedEvent) withObject:nil
                        afterDelay:remainingTime];   
         }
     }
@@ -186,13 +186,13 @@
 - (void)revokeSoundCompletedEvent
 {
     [NSObject cancelPreviousPerformRequestsWithTarget:self 
-        selector:@selector(dispatchSoundCompletedEvent) object:nil];
+        selector:@selector(dispatchCompletedEvent) object:nil];
 }
 
-- (void)dispatchSoundCompletedEvent
+- (void)dispatchCompletedEvent
 {
     if (!mLoop)
-        [self dispatchEventWithType:SP_EVENT_TYPE_SOUND_COMPLETED];
+        [self dispatchEventWithType:SP_EVENT_TYPE_COMPLETED];
 }
 
 - (void)onInterruptionBegan:(NSNotification *)notification

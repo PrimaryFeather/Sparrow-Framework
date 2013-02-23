@@ -160,7 +160,7 @@
 {
     SPSoundChannel *channel = [self createChannel];
     [channel addEventListener:@selector(onSoundCompleted:) atObject:self
-                      forType:SP_EVENT_TYPE_SOUND_COMPLETED];
+                      forType:SP_EVENT_TYPE_COMPLETED];
     [channel play];
     
     if (!mPlayingChannels) mPlayingChannels = [[NSMutableSet alloc] init];    

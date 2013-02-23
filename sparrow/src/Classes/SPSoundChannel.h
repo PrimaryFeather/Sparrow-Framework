@@ -13,8 +13,6 @@
 #import "SPSound.h"
 #import "SPEventDispatcher.h"
 
-#define SP_EVENT_TYPE_SOUND_COMPLETED @"soundCompleted"
-
 /** ------------------------------------------------------------------------------------------------
 
  An SPSoundChannel represents an audio source. Use this class to control sound playback.
@@ -22,7 +20,7 @@
  Sound channels are created with the method `[SPSound createChannel]`. They allow control over
  playback (`play`, `pause`, `stop`) and properties as the volume or if the sound should loop.
  
- Furthermore, it will dispatch events of type `SP_EVENT_TYPE_SOUND_COMPLETED` when the sound
+ Furthermore, it will dispatch events of type `SP_EVENT_TYPE_COMPLETED` when the sound
  is finished.
  
  Before releasing a channel, it is a good habit to call `stop` or to remove any event listeners.
@@ -64,7 +62,7 @@
 /// The volume of the sound. Range: [0.0 - 1.0]
 @property (nonatomic, assign) float volume;
 
-/// Indicates if the sound should loop. Looping sounds don't dispatch SOUND_COMPLETED events.
+/// Indicates if the sound should loop. Looping sounds don't dispatch COMPLETED events.
 @property (nonatomic, assign) BOOL loop;
 
 @end

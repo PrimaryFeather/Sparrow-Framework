@@ -198,7 +198,7 @@
     
     SPMovieClip *movie = [SPMovieClip movieWithFrames:frames fps:fps];    
     [movie addEventListener:@selector(onMovieCompleted:) atObject:self 
-                    forType:SP_EVENT_TYPE_MOVIE_COMPLETED];
+                    forType:SP_EVENT_TYPE_COMPLETED];
     
     movie.loop = NO;
     

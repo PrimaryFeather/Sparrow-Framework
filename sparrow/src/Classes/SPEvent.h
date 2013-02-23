@@ -16,6 +16,7 @@
 #define SP_EVENT_TYPE_REMOVED @"removed"
 #define SP_EVENT_TYPE_REMOVED_FROM_STAGE @"removedFromStage"
 #define SP_EVENT_TYPE_REMOVE_FROM_JUGGLER @"removeFromJuggler"
+#define SP_EVENT_TYPE_COMPLETED @"completed"
 
 @class SPEventDispatcher;
 

@@ -34,7 +34,7 @@
         SPSound *sound = [SPSound soundWithContentsOfFile:@"sound0.caf"];
         mSoundChannel = [sound createChannel];
         [mSoundChannel addEventListener:@selector(onSoundCompleted:) atObject:self
-                                forType:SP_EVENT_TYPE_SOUND_COMPLETED];
+                                forType:SP_EVENT_TYPE_COMPLETED];
         
         SPTexture *buttonTexture = [SPTexture textureWithContentsOfFile:@"button_square.png"];
         
