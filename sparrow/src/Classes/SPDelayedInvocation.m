@@ -69,8 +69,11 @@
     double previousTime = mCurrentTime;    
     mCurrentTime = MIN(mTotalTime, currentTime);
     
-    if (previousTime < mTotalTime && mCurrentTime >= mTotalTime)    
-        [mInvocations makeObjectsPerformSelector:@selector(invoke)];        
+    if (previousTime < mTotalTime && mCurrentTime >= mTotalTime)
+    {
+        [mInvocations makeObjectsPerformSelector:@selector(invoke)];
+        [self dispatchEvent:[SPEvent eventWithType:SP_EVENT_TYPE_REMOVE_FROM_JUGGLER]];
+    }
 }
 
 - (BOOL)isComplete

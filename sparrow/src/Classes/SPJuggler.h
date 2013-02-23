@@ -71,6 +71,9 @@
 /// delayed invocations).
 - (void)removeObjectsWithTarget:(id)object;
 
+/// Determines if an object has been added to the juggler.
+- (BOOL)containsObject:(id<SPAnimatable>)object;
+
 /// Delays the execution of a certain method. Returns a proxy object on which to call the method
 /// instead. Execution will be delayed until `time` has passed.
 - (id)delayInvocationAtTarget:(id)target byTime:(double)time;

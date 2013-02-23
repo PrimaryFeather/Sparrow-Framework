@@ -19,6 +19,7 @@
 #import "SPQuad.h"
 #import "SPTween.h"
 #import "SPJuggler.h"
+#import "SPDelayedInvocation.h"
 
 // -------------------------------------------------------------------------------------------------
 
@@ -75,9 +76,15 @@
     
     [tween1 animateProperty:@"rotation" targetValue:1.0f];
     [tween2 animateProperty:@"rotation" targetValue:1.0f];
+
+    STAssertFalse([mJuggler containsObject:tween1], @"tween found in juggler too soon");
+    STAssertFalse([mJuggler containsObject:tween2], @"tween found in juggler too soon");
     
     [mJuggler addObject:tween1];
     [mJuggler addObject:tween2];
+    
+    STAssertTrue([mJuggler containsObject:tween1], @"tween not found in juggler");
+    STAssertTrue([mJuggler containsObject:tween2], @"tween not found in juggler");
     
     [mJuggler removeObjectsWithTarget:quad1];    
     [mJuggler advanceTime:1.0];
@@ -86,6 +93,40 @@
     STAssertEquals(1.0f, quad2.rotation, @"wrong tween was removed");
     
     mJuggler = nil;
+}
+
+- (void)testRemovalOfTween
+{
+    SPJuggler *juggler = [SPJuggler juggler];
+    SPQuad *quad = [SPQuad quadWithWidth:100 height:100];
+    SPTween *tween = [SPTween tweenWithTarget:quad time:1.0];
+    
+    [juggler addObject:tween];
+    [juggler advanceTime:0.5];
+    
+    STAssertTrue([juggler containsObject:tween], @"tween was removed too soon");
+    
+    [juggler advanceTime:0.5];
+    
+    STAssertFalse([juggler containsObject:tween], @"tween was not removed in time");
+}
+
+- (void)testRemovalOfDelayedInvocation
+{
+    SPJuggler *juggler = [SPJuggler juggler];
+    SPQuad *quad = [SPQuad quadWithWidth:100 height:100];
+    id delayedInv = [juggler delayInvocationAtTarget:quad byTime:1.0];
+    [delayedInv setX:100];
+    
+    [juggler addObject:delayedInv];
+    [juggler advanceTime:0.5];
+    
+    STAssertTrue([juggler containsObject:delayedInv], @"delayed invocation was removed too soon");
+    
+    [juggler advanceTime:0.5];
+    
+    STAssertFalse([juggler containsObject:delayedInv], @"delayed invocation was not removed in time");
+    STAssertEquals(100.0f, quad.x, @"delayed invocation not executed");
 }
 
 - (void)onTweenCompleted:(SPEvent*)event

@@ -33,7 +33,7 @@ typedef float (*FnPtrTransition) (id, SEL, float);
     int mLoopCount;
 }
 
-@synthesize time = mTotalTime;
+@synthesize totalTime = mTotalTime;
 @synthesize currentTime = mCurrentTime;
 @synthesize delay = mDelay;
 @synthesize target = mTarget;
@@ -163,6 +163,9 @@ typedef float (*FnPtrTransition) (id, SEL, float);
             SPEvent *event = [[SPEvent alloc] initWithType:SP_EVENT_TYPE_TWEEN_COMPLETED];
             [self dispatchEvent:event];
         }
+        
+        SPEvent *event = [[SPEvent alloc] initWithType:SP_EVENT_TYPE_REMOVE_FROM_JUGGLER];
+        [self dispatchEvent:event];
     }
     
     [self advanceTime:carryOverTime];

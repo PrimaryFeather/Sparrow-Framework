@@ -109,7 +109,7 @@ typedef enum
 @property (weak, nonatomic, readonly) NSString *transition;
 
 /// The total time the tween will take (in seconds).
-@property (nonatomic, readonly) double time;
+@property (nonatomic, readonly) double totalTime;
 
 /// The time that has passed since the tween was started (in seconds).
 @property (nonatomic, readonly) double currentTime;

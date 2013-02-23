@@ -11,6 +11,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SPAnimatable.h"
+#import "SPEventDispatcher.h"
 
 /** ------------------------------------------------------------------------------------------------
  
@@ -20,10 +21,13 @@
  The easiest way to delay an invocation is by calling [SPJuggler delayInvocationAtTarget:byTime:].
  This method will create a delayed invocation for you, adding it to the juggler right away.
  
+ DelayedCall dispatches an Event of type `SP_EVENT_TYPE_REMOVE_FROM_JUGGLER` when it is finished,
+ so that the juggler automatically removes it when it's no longer needed.
+ 
 ------------------------------------------------------------------------------------------------- */
 
 
-@interface SPDelayedInvocation : NSObject <SPAnimatable>
+@interface SPDelayedInvocation : SPEventDispatcher <SPAnimatable>
 
 /// ------------------
 /// @name Initializers
