@@ -75,6 +75,11 @@ void unmultiplyAlpha(SPVertex *vertex)
     return [self initWithSize:0];
 }
 
+- (void)dealloc
+{
+    free(mVertices);
+}
+
 - (void)copyToVertexData:(SPVertexData *)target
 {
     [self copyToVertexData:target atIndex:0];
