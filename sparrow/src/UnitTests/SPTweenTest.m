@@ -48,24 +48,14 @@
     mStartedCount = mUpdatedCount = mCompletedCount = mRepeatedCount = 0;
 }
 
-- (void)onTweenStarted:(SPEvent*)event
+- (SPTween *)tweenWithTarget:(id)target time:(double)time
 {
-    mStartedCount++;
-}
-
-- (void)onTweenUpdated:(SPEvent*)event
-{
-    mUpdatedCount++;
-}
-
-- (void)onTweenCompleted:(SPEvent*)event
-{
-    mCompletedCount++;
-}
-
-- (void)onTweenRepeated:(SPEvent *)event
-{
-    mRepeatedCount++;
+    SPTween *tween = [SPTween tweenWithTarget:target time:time];
+    tween.onStart = ^{ mStartedCount++; };
+    tween.onUpdate = ^{ mUpdatedCount++; };
+    tween.onRepeat = ^{ mRepeatedCount++; };
+    tween.onComplete = ^{ mCompletedCount++; };
+    return tween;
 }
 
 - (void)testBasicTween
@@ -83,13 +73,10 @@
     quad.y = startY;
     quad.alpha = startAlpha;
     
-    SPTween *tween = [SPTween tweenWithTarget:quad time:totalTime transition:SP_TRANSITION_LINEAR];
+    SPTween *tween = [self tweenWithTarget:quad time:totalTime];
     [tween animateProperty:@"x" targetValue:endX];
     [tween animateProperty:@"y" targetValue:endY];
     [tween animateProperty:@"alpha" targetValue:endAlpha];    
-    [tween addEventListener:@selector(onTweenStarted:) atObject:self forType:SP_EVENT_TYPE_TWEEN_STARTED];
-    [tween addEventListener:@selector(onTweenUpdated:) atObject:self forType:SP_EVENT_TYPE_TWEEN_UPDATED];    
-    [tween addEventListener:@selector(onTweenCompleted:) atObject:self forType:SP_EVENT_TYPE_TWEEN_COMPLETED];    
     
     STAssertEqualsWithAccuracy(startX, quad.x, E, @"wrong x");
     STAssertEqualsWithAccuracy(startY, quad.y, E, @"wrong y");
@@ -122,10 +109,6 @@
     STAssertEquals(1, mStartedCount, @"too many start events dispatched");
     STAssertEquals(3, mUpdatedCount, @"missing update event");
     STAssertEquals(1, mCompletedCount, @"missing completed event");
-    
-    [tween removeEventListenersAtObject:self forType:SP_EVENT_TYPE_TWEEN_STARTED];
-    [tween removeEventListenersAtObject:self forType:SP_EVENT_TYPE_TWEEN_UPDATED];    
-    [tween removeEventListenersAtObject:self forType:SP_EVENT_TYPE_TWEEN_COMPLETED];    
 }
 
 - (void)testSequentialTweens
@@ -173,7 +156,7 @@
     STAssertEqualsWithAccuracy(100.0f, quad.width, E, @"wrong x value");
 }
 
-- (void)testTweenWithRepeatingLoop
+- (void)testRepeatingTween
 {
     float startX = 100.0f;    
     float deltaX = 50.0f;
@@ -182,10 +165,8 @@
     SPQuad *quad = [SPQuad quadWithWidth:100 height:100];
     quad.x = startX;
     
-    SPTween *tween = [SPTween tweenWithTarget:quad time:totalTime transition:SP_TRANSITION_LINEAR];
+    SPTween *tween = [self tweenWithTarget:quad time:totalTime];
     [tween animateProperty:@"x" targetValue:startX + deltaX];
-    [tween addEventListener:@selector(onTweenCompleted:) atObject:self forType:SP_EVENT_TYPE_TWEEN_COMPLETED];
-    [tween addEventListener:@selector(onTweenRepeated:)  atObject:self forType:SP_EVENT_TYPE_TWEEN_REPEATED];
     tween.repeatCount = 5;
     
     [tween advanceTime:0.0];
@@ -215,7 +196,7 @@
     STAssertEquals(1, mCompletedCount, @"completed event not fired");
 }
 
-- (void)testTweenWithReversingLoop
+- (void)testReversingTween
 {
     float startX = 100.0f;    
     float deltaX = 50.0f;
@@ -224,10 +205,8 @@
     SPQuad *quad = [SPQuad quadWithWidth:100 height:100];
     quad.x = startX;
     
-    SPTween *tween = [SPTween tweenWithTarget:quad time:totalTime transition:SP_TRANSITION_LINEAR];
+    SPTween *tween = [self tweenWithTarget:quad time:totalTime];
     [tween animateProperty:@"x" targetValue:startX + deltaX];
-    [tween addEventListener:@selector(onTweenCompleted:) atObject:self forType:SP_EVENT_TYPE_TWEEN_COMPLETED];
-    [tween addEventListener:@selector(onTweenRepeated:)  atObject:self forType:SP_EVENT_TYPE_TWEEN_REPEATED];
     tween.repeatCount = 5;
     tween.reverse = YES;
     
@@ -278,10 +257,8 @@
     SPQuad *quad = [SPQuad quadWithWidth:100 height:100];
     quad.x = startX;
     
-    SPTween *tween = [SPTween tweenWithTarget:quad time:totalTime transition:SP_TRANSITION_LINEAR];
+    SPTween *tween = [self tweenWithTarget:quad time:totalTime];
     [tween animateProperty:@"x" targetValue:startX + deltaX];
-    [tween addEventListener:@selector(onTweenCompleted:) atObject:self forType:SP_EVENT_TYPE_TWEEN_COMPLETED];
-    [tween addEventListener:@selector(onTweenRepeated:)  atObject:self forType:SP_EVENT_TYPE_TWEEN_REPEATED];
     
     [tween advanceTime:totalTime / 2.0f];
     STAssertEquals(0, mCompletedCount, @"completed event fired too soon");
@@ -313,7 +290,7 @@
     SPQuad *quad = [SPQuad quadWithWidth:100 height:100];
     quad.x = startX;
     
-    SPTween *tween = [SPTween tweenWithTarget:quad time:totalTime transition:SP_TRANSITION_LINEAR];
+    SPTween *tween = [self tweenWithTarget:quad time:totalTime];
     tween.repeatCount = 2;
     tween.repeatDelay = delay;
     [tween animateProperty:@"x" targetValue:startX + deltaX];
@@ -337,10 +314,8 @@
 - (void)testInfiniteRepeat
 {
     SPQuad *quad = [SPQuad quadWithWidth:100 height:100];
-    SPTween *tween = [SPTween tweenWithTarget:quad time:1.0 transition:SP_TRANSITION_LINEAR];
+    SPTween *tween = [self tweenWithTarget:quad time:1.0];
     tween.repeatCount = 0;
-    
-    [tween addEventListener:@selector(onTweenRepeated:)  atObject:self forType:SP_EVENT_TYPE_TWEEN_REPEATED];
     [tween advanceTime:1000];
     
     STAssertEquals(1000, mRepeatedCount, @"wrong number of repetitions");
@@ -384,21 +359,13 @@
 - (void)makeTweenWithTime:(double)time andAdvanceBy:(double)advanceTime
 {
     SPQuad *quad = [SPQuad quadWithWidth:100 height:100];
-    SPTween *tween = [SPTween tweenWithTarget:quad time:time];
+    SPTween *tween = [self tweenWithTarget:quad time:time];
     [tween animateProperty:@"x" targetValue:100.0f];
-    [tween addEventListener:@selector(onTweenStarted:) atObject:self forType:SP_EVENT_TYPE_TWEEN_STARTED];
-    [tween addEventListener:@selector(onTweenUpdated:) atObject:self forType:SP_EVENT_TYPE_TWEEN_UPDATED];    
-    [tween addEventListener:@selector(onTweenCompleted:) atObject:self forType:SP_EVENT_TYPE_TWEEN_COMPLETED]; 
-    
     [tween advanceTime:advanceTime];
     
     STAssertEquals(1, mUpdatedCount, @"short tween did not call onUpdate");
     STAssertEquals(1, mStartedCount, @"short tween did not call onStarted");
     STAssertEquals(1, mCompletedCount, @"short tween did not call onCompleted");
-    
-    [tween removeEventListenersAtObject:self forType:SP_EVENT_TYPE_TWEEN_STARTED];
-    [tween removeEventListenersAtObject:self forType:SP_EVENT_TYPE_TWEEN_UPDATED];    
-    [tween removeEventListenersAtObject:self forType:SP_EVENT_TYPE_TWEEN_COMPLETED]; 
 }
 
 - (void)testShortTween

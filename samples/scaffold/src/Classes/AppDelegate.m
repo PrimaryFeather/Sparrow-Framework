@@ -6,6 +6,15 @@
 #import "AppDelegate.h"
 #import "Game.h"
 
+// --- c functions ---
+
+void onUncaughtException(NSException *exception)
+{
+    NSLog(@"uncaught exception: %@", exception.description);
+}
+
+// ---
+
 @implementation AppDelegate
 {
     SPViewController *mViewController;
@@ -14,6 +23,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    NSSetUncaughtExceptionHandler(&onUncaughtException);
+    
     CGRect screenBounds = [UIScreen mainScreen].bounds;
     mWindow = [[UIWindow alloc] initWithFrame:screenBounds];
     

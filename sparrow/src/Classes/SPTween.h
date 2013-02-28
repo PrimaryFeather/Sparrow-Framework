@@ -14,10 +14,7 @@
 #import "SPAnimatable.h"
 #import "SPTransitions.h"
 
-#define SP_EVENT_TYPE_TWEEN_STARTED   @"tweenStarted"
-#define SP_EVENT_TYPE_TWEEN_UPDATED   @"tweenUpdated"
-#define SP_EVENT_TYPE_TWEEN_COMPLETED @"tweenCompleted"
-#define SP_EVENT_TYPE_TWEEN_REPEATED  @"tweenRepeated"
+typedef void (^SPCallbackBlock)();
 
 /** ------------------------------------------------------------------------------------------------
  
@@ -121,6 +118,17 @@
 /// every second repetition will be reversed. (Default: `NO`)
 @property (nonatomic, assign) BOOL reverse;
 
-// TODO: nextTween
+/// A block that will be called when the tween starts (after a possible delay).
+@property (nonatomic, copy) SPCallbackBlock onStart;
+
+/// A block that will be called each time the tween is advanced.
+@property (nonatomic, copy) SPCallbackBlock onUpdate;
+
+/// A block that will be called each time the tween finishes one repetition
+/// (except the last, which will trigger 'onComplete').
+@property (nonatomic, copy) SPCallbackBlock onRepeat;
+
+/// A block that will be called when the tween is complete.
+@property (nonatomic, copy) SPCallbackBlock onComplete;
 
 @end

@@ -31,10 +31,9 @@
     {
         // define some sample transitions for the animation demo. There are more available!
         mTransitions = [[NSMutableArray alloc] initWithObjects:
-                        SP_TRANSITION_LINEAR, SP_TRANSITION_EASE_OUT, 
-                        SP_TRANSITION_EASE_IN_OUT, SP_TRANSITION_EASE_OUT_BACK,
+                        SP_TRANSITION_LINEAR, SP_TRANSITION_EASE_IN_OUT, SP_TRANSITION_EASE_OUT_BACK,
                         SP_TRANSITION_EASE_OUT_BOUNCE, SP_TRANSITION_EASE_OUT_ELASTIC, nil];
-        [self setupScene];        
+        [self setupScene];
     }
     return self;
 }
@@ -95,18 +94,16 @@
     // to animate any numeric property of an arbitrary object (not just display objects!), you
     // can create a 'Tween'. One tween object animates one target for a certain time, with
     // a certain transition function.    
-    SPTween *tween = [SPTween tweenWithTarget:mEgg time:3.5f transition:transition];
+    SPTween *tween = [SPTween tweenWithTarget:mEgg time:2.0f transition:transition];
 
     // you can animate any property as long as it's numeric (float, double, int). 
-    // it is animated from it's current value to a target value.    
-    [tween animateProperty:@"x" targetValue:305];
-    [tween animateProperty:@"y" targetValue:365];
-    [tween animateProperty:@"scaleX" targetValue:0.5];
-    [tween animateProperty:@"scaleY" targetValue:0.5];
+    // it is animated from it's current value to a target value.
+    [tween moveToX:305 y:365];
+    [tween scaleTo:0.5f];
     [tween animateProperty:@"rotation" targetValue:PI_HALF];
-    [tween addEventListener:@selector(onTweenComplete:) atObject:self 
-                    forType:SP_EVENT_TYPE_TWEEN_COMPLETED retainObject:YES];
-
+    
+    tween.onComplete = ^{ mStartButton.enabled = YES; };
+    
     // the tween alone is useless -- once in every frame, it has to be advanced, so that the 
     // animation occurs. This is done by the 'Juggler'. It receives the tween and will use it to 
     // animate the object. 
@@ -117,16 +114,10 @@
     // show which tweening function is used
     mTransitionLabel.text = transition;
     mTransitionLabel.alpha = 1.0f;
-    SPTween *hideTween = [SPTween tweenWithTarget:mTransitionLabel time:3.0f 
+    SPTween *hideTween = [SPTween tweenWithTarget:mTransitionLabel time:2.0f
                                        transition:SP_TRANSITION_EASE_IN];
     [hideTween animateProperty:@"alpha" targetValue:0.0f];
     [Sparrow.juggler addObject:hideTween];
-}
-
-- (void)onTweenComplete:(SPEvent*)event
-{    
-    mStartButton.enabled = YES;
-    [(SPTween*)event.target removeEventListenersAtObject:self forType:SP_EVENT_TYPE_TWEEN_COMPLETED];
 }
 
 - (void)onDelayButtonPressed:(SPEvent *)event

@@ -90,7 +90,8 @@
     SPTween *tween = [SPTween tweenWithTarget:image time:1.5 transition:SP_TRANSITION_EASE_IN_OUT];
     [tween animateProperty:@"y" targetValue:image.y + 30];
     [tween animateProperty:@"rotation" targetValue:0.1];
-    tween.loop = SPLoopTypeReverse;
+    tween.repeatCount = 0; // repeat indefinitely
+    tween.reverse = YES;
     [Sparrow.juggler addObject:tween];
     
 

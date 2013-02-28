@@ -33,6 +33,11 @@ typedef float (*FnPtrTransition) (id, SEL, float);
     double mRepeatDelay;
     BOOL mReverse;
     int mCurrentCycle;
+    
+    SPCallbackBlock mOnStart;
+    SPCallbackBlock mOnUpdate;
+    SPCallbackBlock mOnRepeat;
+    SPCallbackBlock mOnComplete;
 }
 
 @synthesize totalTime = mTotalTime;
@@ -42,6 +47,10 @@ typedef float (*FnPtrTransition) (id, SEL, float);
 @synthesize repeatCount = mRepeatCount;
 @synthesize repeatDelay = mRepeatDelay;
 @synthesize reverse = mReverse;
+@synthesize onStart = mOnStart;
+@synthesize onUpdate = mOnUpdate;
+@synthesize onRepeat = mOnRepeat;
+@synthesize onComplete = mOnComplete;
 
 - (id)initWithTarget:(id)target time:(double)time transition:(NSString*)transition
 {
@@ -116,7 +125,7 @@ typedef float (*FnPtrTransition) (id, SEL, float);
     if (isStarting)
     {
         mCurrentCycle++;
-        [self dispatchEventWithType:SP_EVENT_TYPE_TWEEN_STARTED];
+        if (mOnStart) mOnStart();
     }
     
     float ratio = mCurrentTime / mTotalTime;
@@ -131,8 +140,8 @@ typedef float (*FnPtrTransition) (id, SEL, float);
                                            transFunc(transClass, mTransition, ratio);
         prop.currentValue = prop.startValue + prop.delta * transitionValue;
     }
-   
-    [self dispatchEventWithType:SP_EVENT_TYPE_TWEEN_UPDATED];
+    
+    if (mOnUpdate) mOnUpdate();
     
     if (previousTime < mTotalTime && mCurrentTime >= mTotalTime)
     {
@@ -141,12 +150,12 @@ typedef float (*FnPtrTransition) (id, SEL, float);
             mCurrentTime = -mRepeatDelay;
             mCurrentCycle++;
             if (mRepeatCount > 1) mRepeatCount--;
-            [self dispatchEventWithType:SP_EVENT_TYPE_TWEEN_REPEATED];
+            if (mOnRepeat) mOnRepeat();
         }
         else
         {
             [self dispatchEventWithType:SP_EVENT_TYPE_REMOVE_FROM_JUGGLER];
-            [self dispatchEventWithType:SP_EVENT_TYPE_TWEEN_COMPLETED];
+            if (mOnComplete) mOnComplete();
         }
     }
     
