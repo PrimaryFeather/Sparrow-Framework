@@ -14,16 +14,10 @@
 #import "SPAnimatable.h"
 #import "SPTransitions.h"
 
-typedef enum 
-{
-    SPLoopTypeNone,
-    SPLoopTypeRepeat,
-    SPLoopTypeReverse
-} SPLoopType;
-
 #define SP_EVENT_TYPE_TWEEN_STARTED   @"tweenStarted"
 #define SP_EVENT_TYPE_TWEEN_UPDATED   @"tweenUpdated"
 #define SP_EVENT_TYPE_TWEEN_COMPLETED @"tweenCompleted"
+#define SP_EVENT_TYPE_TWEEN_REPEATED  @"tweenRepeated"
 
 /** ------------------------------------------------------------------------------------------------
  
@@ -56,8 +50,8 @@ typedef enum
  
  Tweens can loop in two ways:
  
- - `SPLoopTypeRepeat`: Starts the animation from the beginning when it's finished.
- - `SPLoopTypeReverse`: Reverses the animation when it's finished, tweening back to the start value.
+ - `reverse = NO`: Starts the animation from the beginning when it's finished.
+ - `reverse = YES`: Reverses the animation when it's finished, tweening back to the start value.
  
 ------------------------------------------------------------------------------------------------- */
 
@@ -115,9 +109,18 @@ typedef enum
 @property (nonatomic, readonly) double currentTime;
 
 /// The delay before the tween is started.
-@property (nonatomic, assign)   double delay;
+@property (nonatomic, assign) double delay;
 
-/// The type of loop. (Default: SPLoopTypeNone)
-@property (nonatomic, assign)   SPLoopType loop;
+/// The number of times the tween will be executed. Set to 0 to tween indefinitely. (Default: 1)
+@property (nonatomic, assign) int repeatCount;
+
+/// The number seconds to wait between repeat cycles. (Default: 0)
+@property (nonatomic, assign) double repeatDelay;
+
+/// Indicates if the tween should be reversed when it is repeating. If enabled,
+/// every second repetition will be reversed. (Default: `NO`)
+@property (nonatomic, assign) BOOL reverse;
+
+// TODO: nextTween
 
 @end
