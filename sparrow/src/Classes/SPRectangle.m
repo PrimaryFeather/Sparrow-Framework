@@ -160,7 +160,8 @@
 
 - (NSString*)description
 {
-    return [NSString stringWithFormat:@"(x: %f, y: %f, width: %f, height: %f)", mX, mY, mWidth, mHeight];
+    return [NSString stringWithFormat:@"[SPRectangle: x=%f, y=%f, width=%f, height=%f]",
+            mX, mY, mWidth, mHeight];
 }
 
 + (id)rectangleWithX:(float)x y:(float)y width:(float)width height:(float)height

@@ -184,7 +184,7 @@ static void setValues(SPMatrix *matrix, float a, float b, float c, float d, floa
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"(a=%f, b=%f, c=%f, d=%f, tx=%f, ty=%f)", 
+    return [NSString stringWithFormat:@"[SPMatrix: a=%f, b=%f, c=%f, d=%f, tx=%f, ty=%f]", 
             mA, mB, mC, mD, mTx, mTy];
 }
 

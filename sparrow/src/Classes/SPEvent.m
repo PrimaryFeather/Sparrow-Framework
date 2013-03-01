@@ -58,6 +58,12 @@
     mStopsPropagation = YES;
 }
 
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"[%@: type=\"%@\", bubbles=%@]",
+            NSStringFromClass([self class]), mType, mBubbles ? @"YES" : @"NO"];
+}
+
 + (id)eventWithType:(NSString*)type bubbles:(BOOL)bubbles
 {
     return [[self alloc] initWithType:type bubbles:bubbles];

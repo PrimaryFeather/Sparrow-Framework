@@ -132,7 +132,7 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"(x=%f, y=%f)", mX, mY];
+    return [NSString stringWithFormat:@"[SPPoint: x=%f, y=%f]", mX, mY];
 }
 
 + (float)distanceFromPoint:(SPPoint*)p1 toPoint:(SPPoint*)p2

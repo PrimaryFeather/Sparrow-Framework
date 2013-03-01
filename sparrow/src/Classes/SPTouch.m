@@ -49,7 +49,13 @@
 - (SPPoint*)previousLocationInSpace:(SPDisplayObject*)space
 {
     SPMatrix *transformationMatrix = [mTarget.root transformationMatrixToSpace:space];
-    return [transformationMatrix transformPointWithX:mPreviousGlobalX y:mPreviousGlobalX];
+    return [transformationMatrix transformPointWithX:mPreviousGlobalX y:mPreviousGlobalY];
+}
+
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"[SPTouch: globalX=%.1f, globalY=%.1f, phase=%d, tapCount=%d]",
+            mGlobalX, mGlobalY, mPhase, mTapCount];
 }
 
 @end
