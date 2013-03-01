@@ -15,64 +15,79 @@
 #import "SPEvent_Internal.h"
 #import "SPMacros.h"
 #import "SPNSExtensions.h"
+#import "SPEventListener.h"
 
 @implementation SPEventDispatcher
 {
     NSMutableDictionary *mEventListeners;
 }
 
-- (void)addEventListener:(SEL)listener atObject:(id)object forType:(NSString*)eventType 
-            retainObject:(BOOL)doRetain
+- (void)addEventListener:(SPEventListener *)listener forType:(NSString *)eventType
 {
     if (!mEventListeners)
         mEventListeners = [[NSMutableDictionary alloc] init];
     
-    NSInvocation *invocation = [NSInvocation invocationWithTarget:object selector:listener];
-    if (doRetain) [invocation retainArguments];    
-    
-    // When an event listener is added or removed, a new NSArray object is created, instead of 
-    // changing the array. The reason for this is that we can avoid creating a copy of the NSArray 
-    // in the "dispatchEvent"-method, which is called far more often than 
-    // "add"- and "removeEventListener".    
+    // When an event listener is added or removed, a new NSArray object is created, instead of
+    // changing the array. The reason for this is that we can avoid creating a copy of the NSArray
+    // in the "dispatchEvent"-method, which is called far more often than
+    // "add"- and "removeEventListener".
     
     NSArray *listeners = mEventListeners[eventType];
     if (!listeners)
     {
-        listeners = @[invocation];
+        listeners = @[listener];
         mEventListeners[eventType] = listeners;
     }
-    else 
+    else
     {
-        listeners = [listeners arrayByAddingObject:invocation];
+        listeners = [listeners arrayByAddingObject:listener];
         mEventListeners[eventType] = listeners;
-    }    
+    }
 }
 
-- (void)addEventListener:(SEL)listener atObject:(id)object forType:(NSString*)eventType
+- (void)addEventListenerForType:(NSString *)eventType block:(SPEventBlock)block
 {
-    [self addEventListener:listener atObject:object forType:eventType retainObject:NO];
+    SPEventListener *listener = [[SPEventListener alloc] initWithBlock:block];
+    [self addEventListener:listener forType:eventType];
 }
 
-- (void)removeEventListener:(SEL)listener atObject:(id)object forType:(NSString*)eventType
+- (void)addEventListener:(SEL)selector atObject:(id)object forType:(NSString*)eventType
+{
+    SPEventListener *listener = [[SPEventListener alloc] initWithTarget:object selector:selector];
+    [self addEventListener:listener forType:eventType];
+}
+
+- (void)removeEventListenersForType:(NSString *)eventType withTarget:(id)object
+                        andSelector:(SEL)selector orBlock:(SPEventBlock)block
 {
     NSArray *listeners = mEventListeners[eventType];
     if (listeners)
     {
         NSMutableArray *remainingListeners = [[NSMutableArray alloc] init];
-        for (NSInvocation *inv in listeners)
+        for (SPEventListener *listener in listeners)
         {
-            if (inv.target != object || (listener != nil && inv.selector != listener))
-                [remainingListeners addObject:inv];
+            if (![listener fitsTarget:object andSelector:selector orBlock:block])
+                [remainingListeners addObject:listener];
         }
-                
+        
         if (remainingListeners.count == 0) [mEventListeners removeObjectForKey:eventType];
         else mEventListeners[eventType] = remainingListeners;
     }
 }
 
+- (void)removeEventListener:(SEL)selector atObject:(id)object forType:(NSString*)eventType
+{
+    [self removeEventListenersForType:eventType withTarget:object andSelector:selector orBlock:nil];
+}
+
 - (void)removeEventListenersAtObject:(id)object forType:(NSString*)eventType
 {
-    [self removeEventListener:nil atObject:object forType:eventType];
+    [self removeEventListenersForType:eventType withTarget:object andSelector:nil orBlock:nil];
+}
+
+- (void)removeEventListenerForType:(NSString *)eventType block:(SPEventBlock)block;
+{
+    [self removeEventListenersForType:eventType withTarget:nil andSelector:nil orBlock:block];
 }
 
 - (BOOL)hasEventListenerForType:(NSString*)eventType
@@ -107,15 +122,14 @@
     if (listeners.count != 0)
     {
         event.currentTarget = self;
-        SPEvent *__unsafe_unretained unsafeEvent = event;
         
         // we can enumerate directly over the array, since "add"- and "removeEventListener" won't
         // change it, but instead always create a new array.
-        for (NSInvocation *inv in listeners)
+        for (SPEventListener *listener in listeners)
         {
-            [inv setArgument:&unsafeEvent atIndex:2];
-            [inv invoke];
-            if (event.stopsImmediatePropagation) 
+            [listener invokeWithEvent:event];
+            
+            if (event.stopsImmediatePropagation)
             {
                 stopImmediatePropagation = YES;
                 break;

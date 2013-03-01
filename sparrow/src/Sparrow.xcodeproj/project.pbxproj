@@ -98,6 +98,8 @@
 		DEB9E80A16D3B26300D2C8C7 /* SPVertexDataTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DEB9E80916D3B26300D2C8C7 /* SPVertexDataTest.m */; };
 		DEC734811386BC1400234D95 /* SPTextureAtlas.h in Headers */ = {isa = PBXBuildFile; fileRef = DECF84260FF619150026A4ED /* SPTextureAtlas.h */; settings = {ATTRIBUTES = (); }; };
 		DEC734AA1386C02600234D95 /* SPTextureAtlas.m in Sources */ = {isa = PBXBuildFile; fileRef = DECF84270FF619150026A4ED /* SPTextureAtlas.m */; };
+		DED29C0716DFB48E000C2BD7 /* SPEventListener.h in Headers */ = {isa = PBXBuildFile; fileRef = DED29C0516DFB48E000C2BD7 /* SPEventListener.h */; };
+		DED29C0816DFB48E000C2BD7 /* SPEventListener.m in Sources */ = {isa = PBXBuildFile; fileRef = DED29C0616DFB48E000C2BD7 /* SPEventListener.m */; };
 		DED8B48711B0827E00A1766C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		DED8B48811B0827E00A1766C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE9CF1EB0FED3128008A32FF /* CoreGraphics.framework */; };
 		DED8B48911B0827E00A1766C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD15070DC6FC5B0079059D /* QuartzCore.framework */; };
@@ -245,6 +247,8 @@
 		DECF84320FF649D50026A4ED /* SPGLTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPGLTexture.m; sourceTree = "<group>"; };
 		DECF84B90FF681BA0026A4ED /* SPSubTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPSubTexture.h; sourceTree = "<group>"; };
 		DECF84BA0FF681BA0026A4ED /* SPSubTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPSubTexture.m; sourceTree = "<group>"; };
+		DED29C0516DFB48E000C2BD7 /* SPEventListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPEventListener.h; sourceTree = "<group>"; };
+		DED29C0616DFB48E000C2BD7 /* SPEventListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPEventListener.m; sourceTree = "<group>"; };
 		DED2B6F90FA0CF5900083578 /* SPQuadTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPQuadTest.m; sourceTree = "<group>"; };
 		DED4EFC90FF9439D0093AD29 /* SPTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPTextField.h; sourceTree = "<group>"; };
 		DED4EFCA0FF9439D0093AD29 /* SPTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPTextField.m; sourceTree = "<group>"; };
@@ -472,6 +476,8 @@
 				DEDCD3AD0FADEE280022011C /* SPTouchProcessor.m */,
 				DEDCD3CF0FADF52B0022011C /* SPTouch_Internal.h */,
 				DEDCD44A0FADFF250022011C /* SPEvent_Internal.h */,
+				DED29C0516DFB48E000C2BD7 /* SPEventListener.h */,
+				DED29C0616DFB48E000C2BD7 /* SPEventListener.m */,
 			);
 			name = Internal;
 			sourceTree = "<group>";
@@ -709,6 +715,7 @@
 				DEAAF3D716BC0D21004EB9D5 /* SPResizeEvent.h in Headers */,
 				DEAAF3DB16BC0E46004EB9D5 /* SPOverlayView.h in Headers */,
 				DE19443216D27E9E00E5CCD9 /* SPVertexData.h in Headers */,
+				DED29C0716DFB48E000C2BD7 /* SPEventListener.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -888,6 +895,7 @@
 				DEAAF3D816BC0D21004EB9D5 /* SPResizeEvent.m in Sources */,
 				DEAAF3DC16BC0E46004EB9D5 /* SPOverlayView.m in Sources */,
 				DE19443316D27E9E00E5CCD9 /* SPVertexData.m in Sources */,
+				DED29C0816DFB48E000C2BD7 /* SPEventListener.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

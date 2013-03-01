@@ -115,6 +115,31 @@
     [sprite removeEventListenersAtObject:self forType:EVENT_TYPE];
 }
 
+- (void)testAddAndRemoveBlockEventHandlers
+{
+    NSString *eventType = @"eventType";
+    int __block testCounter = 0;
+    
+    SPEventBlock block = ^(SPEvent *event)
+    {
+        testCounter++;
+    };
+    
+    SPSprite *sprite = [SPSprite sprite];
+    
+    [sprite addEventListenerForType:eventType block:block];
+    [sprite dispatchEventWithType:eventType];
+    
+    STAssertTrue([sprite hasEventListenerForType:eventType], @"event handler not recognized");
+    STAssertEquals(1, testCounter, @"event block was not called");
+    
+    [sprite removeEventListenerForType:eventType block:block];
+    [sprite dispatchEventWithType:eventType];
+    
+    STAssertTrue(![sprite hasEventListenerForType:eventType], @"event handler not removed");
+    STAssertEquals(1, testCounter, @"event block was called, but shouldn't have been");
+}
+
 - (void)onEvent:(SPEvent*)event
 {
     mTestCounter++;
