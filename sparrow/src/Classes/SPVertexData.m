@@ -56,12 +56,8 @@ void unmultiplyAlpha(SPVertex *vertex)
 {
     if ((self = [super init]))
     {
-        mNumVertices = numVertices;
-        mVertices = calloc(numVertices, sizeof(SPVertex));
         mPremultipliedAlpha = pma;
-        
-        for (int i=0; i<numVertices; ++i)
-            mVertices[i].color.a = 1.0f; // alpha should be '1' per default
+        self.numVertices = numVertices;
     }
     
     return self;
@@ -247,24 +243,37 @@ void unmultiplyAlpha(SPVertex *vertex)
 - (void)appendVertex:(SPVertex)vertex
 {
     self.numVertices += 1;
-    mVertices[mNumVertices-1] = vertex;
     
-    if (mPremultipliedAlpha)
-        premultiplyAlpha(&mVertices[mNumVertices-1]);
+    if (mVertices) // just to shut down an Analyzer warning ... this will never be NULL.
+    {
+        mVertices[mNumVertices-1] = vertex;
+        if (mPremultipliedAlpha) premultiplyAlpha(&mVertices[mNumVertices-1]);
+    }
 }
 
 - (void)setNumVertices:(int)value
 {
     if (value != mNumVertices)
     {
-        mVertices = realloc(mVertices, sizeof(SPVertex) * value);
-        
-        if (value > mNumVertices)
+        if (value)
         {
-            memset(&mVertices[mNumVertices], 0, sizeof(SPVertex) * (value - mNumVertices));
-
-            for (int i=mNumVertices; i<value; ++i)
-                mVertices[i].color.a = 1.0f; // alpha should be '1' per default
+            if (mVertices)
+                mVertices = realloc(mVertices, sizeof(SPVertex) * value);
+            else
+                mVertices = malloc(sizeof(SPVertex) * value);
+            
+            if (value > mNumVertices)
+            {
+                memset(&mVertices[mNumVertices], 0, sizeof(SPVertex) * (value - mNumVertices));
+                
+                for (int i=mNumVertices; i<value; ++i)
+                    mVertices[i].color.a = 1.0f; // alpha should be '1' per default
+            }
+        }
+        else
+        {
+            free(mVertices);
+            mVertices = NULL;
         }
         
         mNumVertices = value;
@@ -337,7 +346,7 @@ void unmultiplyAlpha(SPVertex *vertex)
 
 - (SPVertex *)vertices
 {
-    return mNumVertices ? mVertices : NULL;
+    return mVertices;
 }
 
 @end
