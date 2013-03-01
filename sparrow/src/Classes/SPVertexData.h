@@ -104,6 +104,9 @@ typedef struct
 /// Updates the alpha value of a vertex.
 - (void)setAlpha:(float)alpha atIndex:(int)index;
 
+/// Multiplies all alpha values with a certain factor.
+- (void)scaleAlphaBy:(float)factor;
+
 /// Changes the way alpha and color values are stored.
 /// Optionally, all exisiting vertices are updated.
 - (void)setPremultipliedAlpha:(BOOL)value updateVertices:(BOOL)update;

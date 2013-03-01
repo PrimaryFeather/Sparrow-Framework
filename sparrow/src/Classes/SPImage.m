@@ -107,7 +107,7 @@
 
 - (void)render:(SPRenderSupport *)support
 {
-    [support renderQuad:self parentAlpha:1.0f texture:mTexture];
+    [support renderQuad:self texture:mTexture];
 }
 
 - (void)setTexture:(SPTexture *)value

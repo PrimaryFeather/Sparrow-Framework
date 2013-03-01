@@ -119,6 +119,50 @@
     [self compareVertex:vertex withVertex:vertexData.vertices[0]];
 }
 
+- (void)testScaleAlphaWithoutPMA
+{
+    SPVertexData *vertexData = [[SPVertexData alloc] initWithSize:0 premultipliedAlpha:NO];
+    
+    SPVertex vertex = [self defaultVertex];
+    vertex.color.r = 0.8f;
+    vertex.color.g = 0.6f;
+    vertex.color.b = 0.4f;
+    vertex.color.a = 0.5f;
+    
+    [vertexData appendVertex:vertex];
+    [vertexData scaleAlphaBy:0.5f];
+    
+    SPVertex expectedVertex;
+    expectedVertex.color.r = vertex.color.r;
+    expectedVertex.color.g = vertex.color.g;
+    expectedVertex.color.b = vertex.color.b;
+    expectedVertex.color.a = vertex.color.a * 0.5f;
+    
+    [self compareVertex:expectedVertex withVertex:vertexData.vertices[0]];
+}
+
+- (void)testScaleAlphaWithPMA
+{
+    SPVertexData *vertexData = [[SPVertexData alloc] initWithSize:0 premultipliedAlpha:YES];
+    
+    SPVertex vertex = [self defaultVertex];
+    vertex.color.r = 0.8f;
+    vertex.color.g = 0.6f;
+    vertex.color.b = 0.4f;
+    vertex.color.a = 0.5f;
+    
+    [vertexData appendVertex:vertex];
+    [vertexData scaleAlphaBy:0.5f];
+    
+    SPVertex expectedVertex;
+    expectedVertex.color.r = vertex.color.r * 0.25f;
+    expectedVertex.color.g = vertex.color.g * 0.25f;
+    expectedVertex.color.b = vertex.color.b * 0.25f;
+    expectedVertex.color.a = vertex.color.a * 0.5f;
+    
+    [self compareVertex:expectedVertex withVertex:vertexData.vertices[0]];
+}
+
 - (void)testCopy
 {
     SPVertex defaultVertex = [self defaultVertex];

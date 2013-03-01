@@ -16,6 +16,8 @@
 #import "SPMacros.h"
 #import "SPFunctions.h"
 
+#define MIN_ALPHA 0.001f
+
 /// --- C methods ----------------------------------------------------------------------------------
 
 void premultiplyAlpha(SPVertex *vertex)
@@ -156,7 +158,7 @@ void unmultiplyAlpha(SPVertex *vertex)
     
     if (mPremultipliedAlpha)
     {
-        alpha = MAX(0.001f, alpha); // zero alpha would wipe out all color data
+        alpha = MAX(MIN_ALPHA, alpha); // zero alpha would wipe out all color data
         multiplier *= alpha;
     }
     
@@ -212,6 +214,34 @@ void unmultiplyAlpha(SPVertex *vertex)
         [NSException raise:SP_EXC_INDEX_OUT_OF_BOUNDS format:@"Invalid vertex index"];
     
     return mVertices[index].color.a;
+}
+
+- (void)scaleAlphaBy:(float)factor
+{
+    if (factor == 1.0f) return;
+    
+    for (int i=0; i<mNumVertices; ++i)
+    {
+        SPVertex *vertex = &mVertices[i];
+        
+        float oldAlpha = vertex->color.a;
+        float newAlpha = oldAlpha * factor;
+        
+        if (mPremultipliedAlpha)
+        {
+            if (newAlpha < MIN_ALPHA) newAlpha = MIN_ALPHA;
+            if (oldAlpha < MIN_ALPHA) oldAlpha = MIN_ALPHA;
+        }
+        
+        vertex->color.a = newAlpha;
+        
+        if (mPremultipliedAlpha)
+        {
+            vertex->color.r = vertex->color.r / oldAlpha * newAlpha;
+            vertex->color.g = vertex->color.g / oldAlpha * newAlpha;
+            vertex->color.b = vertex->color.b / oldAlpha * newAlpha;
+        }
+    }
 }
 
 - (void)appendVertex:(SPVertex)vertex

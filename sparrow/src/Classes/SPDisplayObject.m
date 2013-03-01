@@ -448,6 +448,11 @@ float square(float value) { return value * value; }
     }
 }
 
+- (BOOL)hasVisibleArea
+{
+    return mAlpha != 0.0f && mVisible && mScaleX != 0.0f && mScaleY != 0.0f;
+}
+
 @end
 
 // -------------------------------------------------------------------------------------------------

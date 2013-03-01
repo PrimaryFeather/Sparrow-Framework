@@ -255,21 +255,18 @@ static void getChildEventListeners(SPDisplayObject *object, NSString *eventType,
 
 - (void)render:(SPRenderSupport *)support
 {
-    float alpha = self.alpha;
-    
     for (SPDisplayObject *child in mChildren)
     {
-        float childAlpha = child.alpha;
-        if (childAlpha != 0.0f && child.visible)
+        if (child.hasVisibleArea)
         {
+            [support pushAlpha:child.alpha];
             [support pushMatrix];
             [support prependMatrix:child.transformationMatrix];
             
-            child.alpha *= alpha;
             [child render:support];
-            child.alpha = childAlpha;
             
             [support popMatrix];
+            [support popAlpha];
         }
     }
 }

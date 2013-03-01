@@ -110,7 +110,7 @@
 
 - (void)render:(SPRenderSupport *)support
 {
-    [support renderQuad:self parentAlpha:1.0f texture:nil];
+    [support renderQuad:self texture:nil];
 }
 
 + (id)quadWithWidth:(float)width height:(float)height

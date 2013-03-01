@@ -26,6 +26,9 @@
     NSMutableArray *mMatrixStack;
     int mMatrixStackSize;
     
+    float *mAlphaStack;
+    int mAlphaStackSize;
+    
     GLKBaseEffect *mBaseEffect;
     uint mBoundTextureName;
     uint mFrameCount;
@@ -44,12 +47,21 @@
         mMatrixStack = [[NSMutableArray alloc] initWithCapacity:16];
         mMatrixStackSize = 0;
         
+        mAlphaStack = calloc(SP_MAX_DISPLAY_TREE_DEPTH, sizeof(float));
+        mAlphaStack[0] = 1.0f;
+        mAlphaStackSize = 1;
+        
         mBaseEffect = [[GLKBaseEffect alloc] init];
         
         [self loadIdentity];
         [self setupOrthographicProjectionWithLeft:0 right:320 top:0 bottom:480];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    free(mAlphaStack);
 }
 
 - (void)nextFrame
@@ -70,8 +82,38 @@
 + (uint)checkForOpenGLError
 {
     GLenum error = glGetError();
-    if (error != 0) NSLog(@"Warning: There was an OpenGL error: 0x%x", error);
+    if (error != 0) NSLog(@"There was an OpenGL error: 0x%x", error);
     return error;
+}
+
+#pragma mark - alpha stack
+
+- (float)pushAlpha:(float)alpha
+{
+    if (mAlphaStackSize < SP_MAX_DISPLAY_TREE_DEPTH)
+    {
+        float newAlpha = mAlphaStack[mAlphaStackSize-1] * alpha;
+        mAlphaStack[mAlphaStackSize++] = newAlpha;
+        return newAlpha;
+    }
+    else
+    {
+        [NSException raise:SP_EXC_INVALID_OPERATION format:@"The display tree is too deep"];
+        return 0.0f;
+    }
+}
+
+- (float)popAlpha
+{
+    if (mAlphaStackSize > 0)
+        --mAlphaStackSize;
+    
+    return mAlphaStack[mAlphaStackSize-1];
+}
+
+- (float)alpha
+{
+    return mAlphaStack[mAlphaStackSize-1];
 }
 
 #pragma mark - matrix manipulation
@@ -119,13 +161,14 @@
 
 #pragma mark - rendering
 
-- (void)renderQuad:(SPQuad *)quad parentAlpha:(float)parentAlpha texture:(SPTexture *)texture
+- (void)renderQuad:(SPQuad *)quad texture:(SPTexture *)texture
 {
     static SPVertexData *vertexData = nil;
     if (!vertexData) vertexData = [[SPVertexData alloc] initWithSize:4];
     
     [vertexData setPremultipliedAlpha:quad.premultipliedAlpha updateVertices:NO];
     [quad copyVertexDataTo:vertexData atIndex:0];
+    [vertexData scaleAlphaBy:self.alpha];
     
     uint textureName = texture.name;
     

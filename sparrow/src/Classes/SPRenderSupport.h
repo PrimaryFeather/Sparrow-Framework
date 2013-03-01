@@ -39,7 +39,13 @@
 - (void)nextFrame;
 
 /// Renders a quad using the current MVP matrix.
-- (void)renderQuad:(SPQuad *)quad parentAlpha:(float)parentAlpha texture:(SPTexture *)texture;
+- (void)renderQuad:(SPQuad *)quad texture:(SPTexture *)texture;
+
+/// Adds a new alpha value to the alpha stack, multiplying it with the current alpha value.
+- (float)pushAlpha:(float)alpha;
+
+/// Restores the alpha value that was last pushed to the stack.
+- (float)popAlpha;
 
 /// Clears OpenGL's color buffer.
 + (void)clearWithColor:(uint)color alpha:(float)alpha;
@@ -89,5 +95,7 @@
 /// CAUTION: Use with care! Each call returns the same instance.
 @property (nonatomic, readonly) SPMatrix *projectionMatrix;
 
+/// Returns the current (accumulated) alpha value.
+@property (nonatomic, readonly) float alpha;
 
 @end
