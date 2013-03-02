@@ -124,7 +124,6 @@
         // prepare viewport and OpenGL matrices
         glViewport(0, 0, width * scale, height * scale);
         [mRenderSupport setupOrthographicProjectionWithLeft:0 right:width top:height bottom:0];
-        [mRenderSupport nextFrame];
     }
     
     block();
@@ -132,6 +131,9 @@
     if (stdFramebuffer != -1)
     {
         mFramebufferIsActive = NO;
+        
+        [mRenderSupport finishQuadBatch];
+        [mRenderSupport nextFrame];
         
         // return to standard frame buffer
         glBindFramebufferOES(GL_FRAMEBUFFER_OES, stdFramebuffer);

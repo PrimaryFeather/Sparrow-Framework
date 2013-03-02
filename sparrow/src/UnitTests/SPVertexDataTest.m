@@ -7,6 +7,7 @@
 //
 
 #import "SPVertexData.h"
+#import "SPMatrix.h"
 
 #import <SenTestingKit/SenTestingKit.h>
 
@@ -161,6 +162,33 @@
     expectedVertex.color.a = vertex.color.a * 0.5f;
     
     [self compareVertex:expectedVertex withVertex:vertexData.vertices[0]];
+}
+
+- (void)testTransformVertices
+{
+    SPVertexData *vertexData = [[SPVertexData alloc] initWithSize:0 premultipliedAlpha:YES];
+    
+    SPVertex defaultVertex = [self defaultVertex];
+    SPVertex secondVertex = [self defaultVertex];
+    secondVertex.position.x = 1.0f;
+    secondVertex.position.y = 2.0f;
+    
+    [vertexData appendVertex:defaultVertex];
+    [vertexData appendVertex:secondVertex];
+    [vertexData appendVertex:defaultVertex];
+    
+    SPMatrix *matrix = [[SPMatrix alloc] init];
+    [matrix rotateBy:M_PI];
+    
+    [vertexData transformVerticesWithMatrix:matrix atIndex:1 numVertices:1];
+    
+    SPVertex expectedVertex = defaultVertex;
+    expectedVertex.position.x = -1.0f;
+    expectedVertex.position.y = -2.0f;
+    
+    [self compareVertex:vertexData.vertices[0] withVertex:defaultVertex];
+    [self compareVertex:vertexData.vertices[1] withVertex:expectedVertex];
+    [self compareVertex:vertexData.vertices[2] withVertex:defaultVertex];
 }
 
 - (void)testCopy

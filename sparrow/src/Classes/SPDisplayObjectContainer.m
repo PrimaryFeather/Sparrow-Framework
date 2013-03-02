@@ -180,27 +180,27 @@ static void getChildEventListeners(SPDisplayObject *object, NSString *eventType,
     return [mChildren count];
 }
 
-- (SPRectangle*)boundsInSpace:(SPDisplayObject*)targetCoordinateSpace
+- (SPRectangle*)boundsInSpace:(SPDisplayObject*)targetSpace
 {    
     int numChildren = [mChildren count];
 
     if (numChildren == 0)
     {
-        SPMatrix *transformationMatrix = [self transformationMatrixToSpace:targetCoordinateSpace];
+        SPMatrix *transformationMatrix = [self transformationMatrixToSpace:targetSpace];
         SPPoint *transformedPoint = [transformationMatrix transformPointWithX:self.x y:self.y];
         return [SPRectangle rectangleWithX:transformedPoint.x y:transformedPoint.y 
                                      width:0.0f height:0.0f];
     }
     else if (numChildren == 1)
     {
-        return [mChildren[0] boundsInSpace:targetCoordinateSpace];
+        return [mChildren[0] boundsInSpace:targetSpace];
     }
     else
     {
         float minX = FLT_MAX, maxX = -FLT_MAX, minY = FLT_MAX, maxY = -FLT_MAX;    
         for (SPDisplayObject *child in mChildren)
         {
-            SPRectangle *childBounds = [child boundsInSpace:targetCoordinateSpace];        
+            SPRectangle *childBounds = [child boundsInSpace:targetSpace];        
             minX = MIN(minX, childBounds.x);
             maxX = MAX(maxX, childBounds.x + childBounds.width);
             minY = MIN(minY, childBounds.y);

@@ -69,7 +69,7 @@
  You will need to implement the following methods when you subclass SPDisplayObject:
  
 	- (void)render:(SPRenderSupport*)support;
-	- (SPRectangle*)boundsInSpace:(SPDisplayObject*)targetCoordinateSpace;
+	- (SPRectangle*)boundsInSpace:(SPDisplayObject*)targetSpace;
  
  Have a look at SPQuad for a sample implementation of those methods. 
  
@@ -91,7 +91,7 @@
 - (SPMatrix*)transformationMatrixToSpace:(SPDisplayObject*)targetSpace;
 
 /// Returns a rectangle that completely encloses the object as it appears in another coordinate system.
-- (SPRectangle*)boundsInSpace:(SPDisplayObject*)targetCoordinateSpace;
+- (SPRectangle*)boundsInSpace:(SPDisplayObject*)targetSpace;
 
 /// Transforms a point from the local coordinate system to global (stage) coordinates.
 - (SPPoint*)localToGlobal:(SPPoint*)localPoint;

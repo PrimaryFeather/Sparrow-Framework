@@ -107,7 +107,7 @@
 
 - (void)render:(SPRenderSupport *)support
 {
-    [support renderQuad:self texture:mTexture];
+    [support batchQuad:self texture:mTexture];
 }
 
 - (void)setTexture:(SPTexture *)value

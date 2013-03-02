@@ -12,6 +12,7 @@
 #import "SPRenderSupport.h"
 #import "SPDisplayObject.h"
 #import "SPVertexData.h"
+#import "SPQuadBatch.h"
 #import "SPTexture.h"
 #import "SPMacros.h"
 #import "SPQuad.h"
@@ -21,7 +22,7 @@
 @implementation SPRenderSupport
 {
     SPMatrix *mProjectionMatrix;
-    SPMatrix *mModelViewMatrix;
+    SPMatrix *mModelviewMatrix;
     SPMatrix *mMvpMatrix;
     NSMutableArray *mMatrixStack;
     int mMatrixStackSize;
@@ -31,17 +32,21 @@
     
     GLKBaseEffect *mBaseEffect;
     uint mBoundTextureName;
-    uint mFrameCount;
+    
+    NSMutableArray *mQuadBatches;
+    int mCurrentQuadBatchID;
 }
 
 @synthesize usingPremultipliedAlpha = mPremultipliedAlpha;
+@synthesize modelviewMatrix = mModelviewMatrix;
+@synthesize projectionMatrix = mProjectionMatrix;
 
 - (id)init
 {
     if ((self = [super init]))
     {
         mProjectionMatrix = [[SPMatrix alloc] init];
-        mModelViewMatrix  = [[SPMatrix alloc] init];
+        mModelviewMatrix  = [[SPMatrix alloc] init];
         mMvpMatrix        = [[SPMatrix alloc] init];
         
         mMatrixStack = [[NSMutableArray alloc] initWithCapacity:16];
@@ -52,6 +57,9 @@
         mAlphaStackSize = 1;
         
         mBaseEffect = [[GLKBaseEffect alloc] init];
+        
+        mQuadBatches = [[NSMutableArray alloc] initWithObjects:[[SPQuadBatch alloc] init], nil];
+        mCurrentQuadBatchID = 0;
         
         [self loadIdentity];
         [self setupOrthographicProjectionWithLeft:0 right:320 top:0 bottom:480];
@@ -67,6 +75,7 @@
 - (void)nextFrame
 {
     [self resetMatrix];
+    mCurrentQuadBatchID = 0;
 }
 
 + (void)clearWithColor:(uint)color alpha:(float)alpha;
@@ -120,7 +129,7 @@
 
 - (void)loadIdentity
 {
-    [mModelViewMatrix identity];
+    [mModelviewMatrix identity];
 }
 
 - (void)resetMatrix
@@ -135,13 +144,13 @@
         [mMatrixStack addObject:[SPMatrix matrixWithIdentity]];
     
     SPMatrix *currentMatrix = mMatrixStack[mMatrixStackSize++];
-    [currentMatrix copyFromMatrix:mModelViewMatrix];
+    [currentMatrix copyFromMatrix:mModelviewMatrix];
 }
 
 - (void)popMatrix
 {
     SPMatrix *currentMatrix = mMatrixStack[--mMatrixStackSize];
-    [mModelViewMatrix copyFromMatrix:currentMatrix];
+    [mModelviewMatrix copyFromMatrix:currentMatrix];
 }
 
 - (void)setupOrthographicProjectionWithLeft:(float)left right:(float)right
@@ -151,64 +160,50 @@
                          tx:-(right+left) / (right-left)
                          ty:-(top+bottom) / (top-bottom)];
     
-    mBaseEffect.transform.projectionMatrix = [mProjectionMatrix convertToGLKMatrix];
+    mBaseEffect.transform.projectionMatrix = [mProjectionMatrix convertToGLKMatrix4];
 }
 
 - (void)prependMatrix:(SPMatrix *)matrix
 {
-    [mModelViewMatrix prependMatrix:matrix];
+    [mModelviewMatrix prependMatrix:matrix];
+}
+
+- (SPMatrix *)mvpMatrix
+{
+    [mMvpMatrix copyFromMatrix:mModelviewMatrix];
+    [mMvpMatrix appendMatrix:mProjectionMatrix];
+    return mMvpMatrix;
 }
 
 #pragma mark - rendering
 
-- (void)renderQuad:(SPQuad *)quad texture:(SPTexture *)texture
+- (void)batchQuad:(SPQuad *)quad texture:(SPTexture *)texture
 {
-    static SPVertexData *vertexData = nil;
-    if (!vertexData) vertexData = [[SPVertexData alloc] initWithSize:4];
+    if ([self.currentQuadBatch isStateChangeWithQuad:quad texture:texture numQuads:1])
+        [self finishQuadBatch];
     
-    [vertexData setPremultipliedAlpha:quad.premultipliedAlpha updateVertices:NO];
-    [quad copyVertexDataTo:vertexData atIndex:0];
-    [vertexData scaleAlphaBy:self.alpha];
+    [self.currentQuadBatch addQuad:quad texture:texture alpha:self.alpha matrix:mModelviewMatrix];
+}
+
+- (void)finishQuadBatch
+{
+    SPQuadBatch *currentBatch = self.currentQuadBatch;
     
-    uint textureName = texture.name;
-    
-    if (textureName != mBoundTextureName || mFrameCount == 0)
+    if (currentBatch.numQuads)
     {
-        mBaseEffect.texture2d0.enabled = (texture != nil);
-        mBaseEffect.texture2d0.name = textureName;
-        mBoundTextureName = textureName;
+        [currentBatch renderWithAlpha:1.0f matrix:mProjectionMatrix];
+        [currentBatch reset];
         
-        if (quad.premultipliedAlpha) glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-        else                         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        ++mCurrentQuadBatchID;
         
-        glEnableVertexAttribArray(GLKVertexAttribPosition);
-        glEnableVertexAttribArray(GLKVertexAttribColor);
-        
-        if (texture)
-            glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
-        else
-            glDisableVertexAttribArray(GLKVertexAttribTexCoord0);
+        if (mQuadBatches.count <= mCurrentQuadBatchID)
+            [mQuadBatches addObject:[[SPQuadBatch alloc] init]];
     }
-    
-    mBaseEffect.transform.modelviewMatrix = [mModelViewMatrix convertToGLKMatrix];
-    [mBaseEffect prepareToDraw];
-    
-    long vertices = (long)vertexData.vertices;
-    
-    glVertexAttribPointer(GLKVertexAttribPosition, 2, GL_FLOAT, GL_FALSE, sizeof(SPVertex),
-                          (void *)(vertices + offsetof(SPVertex, position)));
-    
-    glVertexAttribPointer(GLKVertexAttribColor, 4, GL_FLOAT, GL_FALSE, sizeof(SPVertex),
-                          (void *)(vertices + offsetof(SPVertex, color)));
-    
-    if (texture)
-    {
-        glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, sizeof(SPVertex),
-                              (void *)(vertices + offsetof(SPVertex, texCoords)));
-    }
-    
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-    ++mFrameCount;
+}
+
+- (SPQuadBatch *)currentQuadBatch
+{
+    return mQuadBatches[mCurrentQuadBatchID];
 }
 
 @end

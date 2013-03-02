@@ -161,7 +161,9 @@
         glDisable(GL_DEPTH_TEST);
         glEnable(GL_BLEND);
         
+        [mSupport nextFrame];
         [mStage render:mSupport];
+        [mSupport finishQuadBatch];
         
         #if DEBUG
         [SPRenderSupport checkForOpenGLError];

@@ -155,7 +155,7 @@ static void setValues(SPMatrix *matrix, float a, float b, float c, float d, floa
     setValues(self, matrix->mA, matrix->mB, matrix->mC, matrix->mD, matrix->mTx, matrix->mTy);
 }
 
-- (GLKMatrix4)convertToGLKMatrix;
+- (GLKMatrix4)convertToGLKMatrix4
 {
     GLKMatrix4 matrix = GLKMatrix4Identity;
     
@@ -167,6 +167,13 @@ static void setValues(SPMatrix *matrix, float a, float b, float c, float d, floa
     matrix.m31 = mTy;
     
     return matrix;
+}
+
+- (GLKMatrix3)convertToGLKMatrix3
+{
+    return GLKMatrix3Make(mA,  mB,  0.0f,
+                          mC,  mD,  0.0f,
+                          mTx, mTy, 1.0f);
 }
 
 - (BOOL)isEquivalent:(SPMatrix *)other

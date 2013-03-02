@@ -103,7 +103,7 @@ float square(float value) { return value * value; }
     }
     else if (!targetSpace || targetSpace == self.base)
     {
-        // targetCoordinateSpace 'nil' represents the target coordinate of the base object.
+        // targetSpace 'nil' represents the target coordinate of the base object.
         // -> move up from self to base
         SPMatrix *selfMatrix = [[SPMatrix alloc] init];
         SPDisplayObject *currentObject = self;
@@ -180,7 +180,7 @@ float square(float value) { return value * value; }
     return selfMatrix;
 }
 
-- (SPRectangle*)boundsInSpace:(SPDisplayObject*)targetCoordinateSpace
+- (SPRectangle*)boundsInSpace:(SPDisplayObject*)targetSpace
 {
     [NSException raise:SP_EXC_ABSTRACT_METHOD 
                 format:@"Method needs to be implemented in subclass"];

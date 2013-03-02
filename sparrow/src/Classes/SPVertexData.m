@@ -214,9 +214,17 @@ void unmultiplyAlpha(SPVertex *vertex)
 
 - (void)scaleAlphaBy:(float)factor
 {
+    [self scaleAlphaBy:factor atIndex:0 numVertices:mNumVertices];
+}
+
+- (void)scaleAlphaBy:(float)factor atIndex:(int)index numVertices:(int)count
+{
     if (factor == 1.0f) return;
     
-    for (int i=0; i<mNumVertices; ++i)
+    if (index < 0 || index + count > mNumVertices)
+        [NSException raise:SP_EXC_INDEX_OUT_OF_BOUNDS format:@"Invalid index range"];
+    
+    for (int i=index; i<index+count; ++i)
     {
         SPVertex *vertex = &mVertices[i];
         
@@ -248,6 +256,21 @@ void unmultiplyAlpha(SPVertex *vertex)
     {
         mVertices[mNumVertices-1] = vertex;
         if (mPremultipliedAlpha) premultiplyAlpha(&mVertices[mNumVertices-1]);
+    }
+}
+
+- (void)transformVerticesWithMatrix:(SPMatrix *)matrix atIndex:(int)index numVertices:(int)count
+{
+    if (index < 0 || index + count > mNumVertices)
+        [NSException raise:SP_EXC_INDEX_OUT_OF_BOUNDS format:@"Invalid index range"];
+    
+    GLKMatrix3 glkMatrix = [matrix convertToGLKMatrix3];
+    
+    for (int i=index; i<index+count; ++i)
+    {
+        GLKVector2 pos = mVertices[i].position;
+        mVertices[i].position.x = glkMatrix.m00 * pos.x + glkMatrix.m10 * pos.y + glkMatrix.m20;
+        mVertices[i].position.y = glkMatrix.m11 * pos.y + glkMatrix.m01 * pos.x + glkMatrix.m21;
     }
 }
 

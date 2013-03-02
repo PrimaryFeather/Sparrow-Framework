@@ -38,8 +38,12 @@
 /// Resets matrix stack and blend mode.
 - (void)nextFrame;
 
-/// Renders a quad using the current MVP matrix.
-- (void)renderQuad:(SPQuad *)quad texture:(SPTexture *)texture;
+/// Adds a quad to the current batch of unrendered quads. If there is a state change,
+/// all previous quads are rendered at once, and the batch is reset.
+- (void)batchQuad:(SPQuad *)quad texture:(SPTexture *)texture;
+
+/// Renders the current quad batch and resets it.
+- (void)finishQuadBatch;
 
 /// Adds a new alpha value to the alpha stack, multiplying it with the current alpha value.
 - (float)pushAlpha:(float)alpha;
@@ -89,7 +93,7 @@
 
 /// Returns the current modelview matrix.
 /// CAUTION: Use with care! Each call returns the same instance.
-@property (nonatomic, readonly) SPMatrix *modelViewMatrix;
+@property (nonatomic, readonly) SPMatrix *modelviewMatrix;
 
 /// Returns the current projection matrix.
 /// CAUTION: Use with care! Each call returns the same instance.

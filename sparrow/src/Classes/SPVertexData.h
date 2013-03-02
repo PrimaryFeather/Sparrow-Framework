@@ -107,9 +107,15 @@ typedef struct
 /// Multiplies all alpha values with a certain factor.
 - (void)scaleAlphaBy:(float)factor;
 
+/// Multiplies a range of alpha values with a certain factor.
+- (void)scaleAlphaBy:(float)factor atIndex:(int)index numVertices:(int)count;
+
 /// Changes the way alpha and color values are stored.
 /// Optionally, all exisiting vertices are updated.
 - (void)setPremultipliedAlpha:(BOOL)value updateVertices:(BOOL)update;
+
+/// Transforms the positions of subsequent vertices by multiplication with a transformation matrix.
+- (void)transformVerticesWithMatrix:(SPMatrix *)matrix atIndex:(int)index numVertices:(int)count;
 
 /// Calculates the bounding rectangle of all vertices.
 - (SPRectangle *)bounds;

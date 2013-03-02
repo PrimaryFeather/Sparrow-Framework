@@ -121,9 +121,9 @@ static NSMutableDictionary *bitmapFonts = nil;
     return [mTextArea boundsInSpace:self.parent];
 }
 
-- (SPRectangle *)boundsInSpace:(SPDisplayObject *)targetCoordinateSpace
+- (SPRectangle *)boundsInSpace:(SPDisplayObject *)targetSpace
 {
-    return [mHitArea boundsInSpace:targetCoordinateSpace];
+    return [mHitArea boundsInSpace:targetSpace];
 }
 
 - (void)setWidth:(float)width

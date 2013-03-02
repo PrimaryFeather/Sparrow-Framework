@@ -93,7 +93,10 @@
 - (void)copyFromMatrix:(SPMatrix *)matrix;
 
 /// Creates a 3D GLKit matrix that is equivalent to this instance.
-- (GLKMatrix4)convertToGLKMatrix;
+- (GLKMatrix4)convertToGLKMatrix4;
+
+/// Creates a 2D GLKit matrix that is equivalent to this instance.
+- (GLKMatrix3)convertToGLKMatrix3;
 
 /// Applies the geometric transformation represented by the matrix to the specified point.
 - (SPPoint *)transformPoint:(SPPoint*)point;

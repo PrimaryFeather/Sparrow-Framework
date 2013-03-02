@@ -53,10 +53,10 @@
     return [self initWithWidth:32 height:32];
 }
 
-- (SPRectangle*)boundsInSpace:(SPDisplayObject*)targetCoordinateSpace
+- (SPRectangle*)boundsInSpace:(SPDisplayObject*)targetSpace
 {
-    SPMatrix *transformationMatrix = targetCoordinateSpace == self ?
-        nil : [self transformationMatrixToSpace:targetCoordinateSpace];
+    SPMatrix *transformationMatrix = targetSpace == self ?
+        nil : [self transformationMatrixToSpace:targetSpace];
     
     return [mVertexData boundsAfterTransformation:transformationMatrix];
 }
@@ -110,7 +110,7 @@
 
 - (void)render:(SPRenderSupport *)support
 {
-    [support renderQuad:self texture:nil];
+    [support batchQuad:self texture:nil];
 }
 
 + (id)quadWithWidth:(float)width height:(float)height
