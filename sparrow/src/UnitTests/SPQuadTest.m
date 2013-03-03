@@ -63,7 +63,7 @@
 
 - (void)testVertexColorAndAlpha
 {
-    SPQuad *quad = [SPQuad quadWithWidth:20 height:20];
+    SPQuad *quad = [[SPQuad alloc] initWithWidth:100 height:100 color:0xffffff premultipliedAlpha:NO];
     
     [quad setColor:0xff0000 ofVertex:0];
     [quad setColor:0x00ff00 ofVertex:1];

@@ -216,7 +216,7 @@
     glVertexAttribPointer(GLKVertexAttribPosition, 2, GL_FLOAT, GL_FALSE, sizeof(SPVertex),
                           (void *)(offsetof(SPVertex, position)));
     
-    glVertexAttribPointer(GLKVertexAttribColor, 4, GL_FLOAT, GL_FALSE, sizeof(SPVertex),
+    glVertexAttribPointer(GLKVertexAttribColor, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(SPVertex),
                           (void *)(offsetof(SPVertex, color)));
     
     if (mTexture)

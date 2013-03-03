@@ -19,10 +19,21 @@
 
 typedef struct
 {
+    unsigned char r;
+    unsigned char g;
+    unsigned char b;
+    unsigned char a;
+} SPVertexColor;
+
+typedef struct
+{
     GLKVector2 position;
     GLKVector2 texCoords;
-    GLKVector4 color;
+    SPVertexColor color;
 } SPVertex;
+
+SPVertexColor SPVertexColorMake(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
+SPVertexColor SPVertexColorMakeWithColorAndAlpha(uint rgb, float alpha);
 
 /** ------------------------------------------------------------------------------------------------
  
@@ -90,7 +101,7 @@ typedef struct
 - (void)setTexCoords:(SPPoint *)texCoords atIndex:(int)index;
 
 /// Updates the RGB color and the alpha value of a vertex.
-- (void)setColor:(int)color alpha:(float)alpha atIndex:(int)index;
+- (void)setColor:(uint)color alpha:(float)alpha atIndex:(int)index;
 
 /// Returns the RGB color of a vertex (without premultiplied alpha).
 - (uint)colorAtIndex:(int)index;

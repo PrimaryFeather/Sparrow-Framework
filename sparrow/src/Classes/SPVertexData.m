@@ -14,29 +14,48 @@
 #import "SPRectangle.h"
 #import "SPPoint.h"
 #import "SPMacros.h"
-#import "SPFunctions.h"
 
-#define MIN_ALPHA 0.001f
+#define MIN_ALPHA (5.0f / 255.0f)
 
 /// --- C methods ----------------------------------------------------------------------------------
 
-void premultiplyAlpha(SPVertex *vertex)
+SPVertexColor SPVertexColorMake(unsigned char r, unsigned char g, unsigned char b, unsigned char a)
 {
-    GLKVector4 color = vertex->color;
-    vertex->color.r = color.r * color.a;
-    vertex->color.g = color.g * color.a;
-    vertex->color.b = color.b * color.a;
+    SPVertexColor vertexColor = { .r = r, .g = g, .b = b, .a = a };
+    return vertexColor;
 }
 
-void unmultiplyAlpha(SPVertex *vertex)
+SPVertexColor SPVertexColorMakeWithColorAndAlpha(uint rgb, float alpha)
 {
-    GLKVector4 color = vertex->color;
-    if (color.a != 0.0f)
-    {
-        vertex->color.r = color.r / color.a;
-        vertex->color.g = color.g / color.a;
-        vertex->color.b = color.b / color.a;
-    }
+    SPVertexColor vertexColor = {
+        .r = SP_COLOR_PART_RED(rgb),
+        .g = SP_COLOR_PART_GREEN(rgb),
+        .b = SP_COLOR_PART_BLUE(rgb),
+        .a = (unsigned char)(alpha * 255.0f)
+    };
+    return vertexColor;
+}
+
+SPVertexColor premultiplyAlpha(SPVertexColor color)
+{
+    float alpha = color.a / 255.0f;
+    return SPVertexColorMake(color.r * alpha,
+                             color.g * alpha,
+                             color.b * alpha,
+                             color.a);
+}
+
+SPVertexColor unmultiplyAlpha(SPVertexColor color)
+{
+    float alpha = color.a / 255.0f;
+    
+    if (alpha != 0.0f)
+        return SPVertexColorMake(color.r / alpha,
+                                 color.g / alpha,
+                                 color.b / alpha,
+                                 color.a);
+    else
+        return color;
 }
 
 /// --- Class implementation -----------------------------------------------------------------------
@@ -85,7 +104,7 @@ void unmultiplyAlpha(SPVertex *vertex)
 
 - (void)copyToVertexData:(SPVertexData *)target atIndex:(int)targetIndex
 {
-    if (target.numVertices - targetIndex < mNumVertices)
+    if (target->mNumVertices - targetIndex < mNumVertices)
         [NSException raise:SP_EXC_INDEX_OUT_OF_BOUNDS format:@"Target too small"];
     
     memcpy(&target->mVertices[targetIndex], mVertices, sizeof(SPVertex) * mNumVertices);
@@ -107,7 +126,7 @@ void unmultiplyAlpha(SPVertex *vertex)
     mVertices[index] = vertex;
     
     if (mPremultipliedAlpha)
-        premultiplyAlpha(&mVertices[index]);
+        mVertices[index].color = premultiplyAlpha(vertex.color);
 }
 
 - (SPPoint *)positionAtIndex:(int)index
@@ -144,24 +163,15 @@ void unmultiplyAlpha(SPVertex *vertex)
     mVertices[index].texCoords = GLKVector2Make(texCoords.x, texCoords.y);
 }
 
-- (void)setColor:(int)color alpha:(float)alpha atIndex:(int)index
+- (void)setColor:(uint)color alpha:(float)alpha atIndex:(int)index
 {
     if (index < 0 || index >= mNumVertices)
         [NSException raise:SP_EXC_INDEX_OUT_OF_BOUNDS format:@"Invalid vertex index"];
     
-    alpha = SP_CLAMP(alpha, 0.0f, 1.0f);
-    float multiplier = 1.0f / 255.0f;
+    alpha = SP_CLAMP(alpha, mPremultipliedAlpha ? MIN_ALPHA : 0.0f, 1.0f);
     
-    if (mPremultipliedAlpha)
-    {
-        alpha = MAX(MIN_ALPHA, alpha); // zero alpha would wipe out all color data
-        multiplier *= alpha;
-    }
-    
-    mVertices[index].color.r = SP_COLOR_PART_RED(color)   * multiplier;
-    mVertices[index].color.g = SP_COLOR_PART_GREEN(color) * multiplier;
-    mVertices[index].color.b = SP_COLOR_PART_BLUE(color)  * multiplier;
-    mVertices[index].color.a = alpha;
+    SPVertexColor vertexColor = SPVertexColorMakeWithColorAndAlpha(color, alpha);
+    mVertices[index].color = mPremultipliedAlpha ? premultiplyAlpha(vertexColor) : vertexColor;
 }
 
 - (uint)colorAtIndex:(int)index
@@ -169,39 +179,21 @@ void unmultiplyAlpha(SPVertex *vertex)
     if (index < 0 || index >= mNumVertices)
         [NSException raise:SP_EXC_INDEX_OUT_OF_BOUNDS format:@"Invalid vertex index"];
 
-    GLKVector4 color = mVertices[index].color;
-    float alpha = color.a;
-    
-    if (mPremultipliedAlpha && alpha != 0.0f)
-    {
-        color.r /= alpha;
-        color.g /= alpha;
-        color.b /= alpha;
-    }
-    
-    return GLKVector4ToSPColor(color);
+    SPVertexColor vertexColor = mVertices[index].color;
+    if (mPremultipliedAlpha) vertexColor = unmultiplyAlpha(vertexColor);
+    return SP_COLOR(vertexColor.r, vertexColor.g, vertexColor.b);
 }
 
 - (void)setColor:(uint)color atIndex:(int)index
 {
-    float alpha = mVertices[index].color.a;
+    float alpha = [self alphaAtIndex:index];
     [self setColor:color alpha:alpha atIndex:index];
 }
 
 - (void)setAlpha:(float)alpha atIndex:(int)index
 {
-    if (index < 0 || index >= mNumVertices)
-        [NSException raise:SP_EXC_INDEX_OUT_OF_BOUNDS format:@"Invalid vertex index"];
-    
-    if (mPremultipliedAlpha)
-    {
-        uint color = [self colorAtIndex:index];
-        [self setColor:color alpha:alpha atIndex:index];
-    }
-    else
-    {
-        mVertices[index].color.a = alpha;
-    }
+    uint color = [self colorAtIndex:index];
+    [self setColor:color alpha:alpha atIndex:index];
 }
 
 - (float)alphaAtIndex:(int)index
@@ -209,7 +201,7 @@ void unmultiplyAlpha(SPVertex *vertex)
     if (index < 0 || index >= mNumVertices)
         [NSException raise:SP_EXC_INDEX_OUT_OF_BOUNDS format:@"Invalid vertex index"];
     
-    return mVertices[index].color.a;
+    return mVertices[index].color.a / 255.0f;
 }
 
 - (void)scaleAlphaBy:(float)factor
@@ -219,31 +211,27 @@ void unmultiplyAlpha(SPVertex *vertex)
 
 - (void)scaleAlphaBy:(float)factor atIndex:(int)index numVertices:(int)count
 {
-    if (factor == 1.0f) return;
-    
     if (index < 0 || index + count > mNumVertices)
         [NSException raise:SP_EXC_INDEX_OUT_OF_BOUNDS format:@"Invalid index range"];
+    
+    if (factor == 1.0f) return;
     
     for (int i=index; i<index+count; ++i)
     {
         SPVertex *vertex = &mVertices[i];
-        
-        float oldAlpha = vertex->color.a;
-        float newAlpha = oldAlpha * factor;
+        SPVertexColor vertexColor = vertex->color;
+        float newAlpha = vertexColor.a / 255.0f * factor;
         
         if (mPremultipliedAlpha)
         {
-            if (newAlpha < MIN_ALPHA) newAlpha = MIN_ALPHA;
-            if (oldAlpha < MIN_ALPHA) oldAlpha = MIN_ALPHA;
+            vertexColor = unmultiplyAlpha(vertexColor);
+            vertexColor.a = (unsigned char)(SP_CLAMP(newAlpha, MIN_ALPHA, 1.0f) * 255.0f);
+            vertex->color = premultiplyAlpha(vertexColor);
         }
-        
-        vertex->color.a = newAlpha;
-        
-        if (mPremultipliedAlpha)
+        else
         {
-            vertex->color.r = vertex->color.r / oldAlpha * newAlpha;
-            vertex->color.g = vertex->color.g / oldAlpha * newAlpha;
-            vertex->color.b = vertex->color.b / oldAlpha * newAlpha;
+            vertex->color = SPVertexColorMake(vertexColor.r, vertexColor.g, vertexColor.b,
+                                              SP_CLAMP(newAlpha, 0.0f, 1.0f) * 255.0f);
         }
     }
 }
@@ -254,8 +242,8 @@ void unmultiplyAlpha(SPVertex *vertex)
     
     if (mVertices) // just to shut down an Analyzer warning ... this will never be NULL.
     {
+        if (mPremultipliedAlpha) vertex.color = premultiplyAlpha(vertex.color);
         mVertices[mNumVertices-1] = vertex;
-        if (mPremultipliedAlpha) premultiplyAlpha(&mVertices[mNumVertices-1]);
     }
 }
 
@@ -290,7 +278,7 @@ void unmultiplyAlpha(SPVertex *vertex)
                 memset(&mVertices[mNumVertices], 0, sizeof(SPVertex) * (value - mNumVertices));
                 
                 for (int i=mNumVertices; i<value; ++i)
-                    mVertices[i].color.a = 1.0f; // alpha should be '1' per default
+                    mVertices[i].color = SPVertexColorMakeWithColorAndAlpha(0, 1.0f);
             }
         }
         else
@@ -355,12 +343,12 @@ void unmultiplyAlpha(SPVertex *vertex)
         if (value)
         {
             for (int i=0; i<mNumVertices; ++i)
-                premultiplyAlpha(&mVertices[i]);
+                mVertices[i].color = premultiplyAlpha(mVertices[i].color);
         }
         else
         {
             for (int i=0; i<mNumVertices; ++i)
-                unmultiplyAlpha(&mVertices[i]);
+                mVertices[i].color = unmultiplyAlpha(mVertices[i].color);
         }
     }
     

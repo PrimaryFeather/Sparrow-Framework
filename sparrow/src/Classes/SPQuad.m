@@ -15,7 +15,6 @@
 #import "SPPoint.h"
 #import "SPRenderSupport.h"
 #import "SPVertexData.h"
-#import "SPFunctions.h"
 
 @implementation SPQuad
 
@@ -31,7 +30,7 @@
         mVertexData.vertices[3].position.y = height;
         
         for (int i=0; i<4; ++i)
-            mVertexData.vertices[i].color = GLKVector4MakeWithColor(color, 1.0f);
+            mVertexData.vertices[i].color = SPVertexColorMakeWithColorAndAlpha(color, 1.0f);
         
         [self vertexDataDidChange];
     }

@@ -8,6 +8,7 @@
 
 #import "SPVertexData.h"
 #import "SPMatrix.h"
+#import "SPMacros.h"
 
 #import <SenTestingKit/SenTestingKit.h>
 
@@ -96,11 +97,7 @@
     SPVertexData *vertexData = [[SPVertexData alloc] initWithSize:0 premultipliedAlpha:NO];
     
     SPVertex vertex = [self defaultVertex];
-    vertex.color.r = 0.8f;
-    vertex.color.g = 0.6f;
-    vertex.color.b = 0.4f;
-    vertex.color.a = 0.5f;
-    
+    vertex.color = SPVertexColorMake(80, 60, 40, 204); // alpha = 4/5
     [vertexData appendVertex:vertex];
     
     [self compareVertex:vertex withVertex:vertexData.vertices[0]];
@@ -108,10 +105,7 @@
     [vertexData setPremultipliedAlpha:YES updateVertices:YES];
     
     SPVertex pmaVertex = [self defaultVertex];
-    pmaVertex.color.r = 0.4f;
-    pmaVertex.color.g = 0.3f;
-    pmaVertex.color.b = 0.2f;
-    pmaVertex.color.a = 0.5f;
+    pmaVertex.color = SPVertexColorMake(64, 48, 32, 204);
     
     [self compareVertex:pmaVertex withVertex:vertexData.vertices[0]];
     
@@ -125,19 +119,13 @@
     SPVertexData *vertexData = [[SPVertexData alloc] initWithSize:0 premultipliedAlpha:NO];
     
     SPVertex vertex = [self defaultVertex];
-    vertex.color.r = 0.8f;
-    vertex.color.g = 0.6f;
-    vertex.color.b = 0.4f;
-    vertex.color.a = 0.5f;
+    vertex.color = SPVertexColorMake(80, 60, 40, 128);
     
     [vertexData appendVertex:vertex];
     [vertexData scaleAlphaBy:0.5f];
     
     SPVertex expectedVertex;
-    expectedVertex.color.r = vertex.color.r;
-    expectedVertex.color.g = vertex.color.g;
-    expectedVertex.color.b = vertex.color.b;
-    expectedVertex.color.a = vertex.color.a * 0.5f;
+    expectedVertex.color = SPVertexColorMake(80, 60, 40, 64);
     
     [self compareVertex:expectedVertex withVertex:vertexData.vertices[0]];
 }
@@ -147,19 +135,13 @@
     SPVertexData *vertexData = [[SPVertexData alloc] initWithSize:0 premultipliedAlpha:YES];
     
     SPVertex vertex = [self defaultVertex];
-    vertex.color.r = 0.8f;
-    vertex.color.g = 0.6f;
-    vertex.color.b = 0.4f;
-    vertex.color.a = 0.5f;
+    vertex.color = SPVertexColorMake(80, 60, 40, 204);
     
     [vertexData appendVertex:vertex];
-    [vertexData scaleAlphaBy:0.5f];
+    [vertexData scaleAlphaBy:0.8f]; // factor = 4/5
     
     SPVertex expectedVertex;
-    expectedVertex.color.r = vertex.color.r * 0.25f;
-    expectedVertex.color.g = vertex.color.g * 0.25f;
-    expectedVertex.color.b = vertex.color.b * 0.25f;
-    expectedVertex.color.a = vertex.color.a * 0.5f;
+    expectedVertex.color = SPVertexColorMake(80 * 0.64f, 60 * 0.64f, 40 * 0.64f, 204 * 0.8f);
     
     [self compareVertex:expectedVertex withVertex:vertexData.vertices[0]];
 }
@@ -217,7 +199,7 @@
     SPVertex vertex = {
         .position = GLKVector2Make(0.0f, 0.0f),
         .texCoords = GLKVector2Make(0.0f, 0.0f),
-        .color = GLKVector4Make(0.0f, 0.0f, 0.0f, 1.0f)
+        .color = SPVertexColorMakeWithColorAndAlpha(0, 1.0f)
     };
     return vertex;
 }
@@ -227,7 +209,7 @@
     SPVertex vertex = {
         .position = GLKVector2Make(1.0f, 2.0f),
         .texCoords = GLKVector2Make(3.0f, 4.0f),
-        .color = GLKVector4Make(5.0f, 6.0f, 7.0f, 8.0f)
+        .color = SPVertexColorMake(5, 6, 7, 127)
     };
     
     return vertex;
@@ -235,10 +217,7 @@
 
 - (void)compareVertex:(SPVertex)v1 withVertex:(SPVertex)v2
 {
-    STAssertEqualsWithAccuracy(v1.color.r,     v2.color.r,     E, @"wrong color.r");
-    STAssertEqualsWithAccuracy(v1.color.g,     v2.color.g,     E, @"wrong color.g");
-    STAssertEqualsWithAccuracy(v1.color.b,     v2.color.b,     E, @"wrong color.b");
-    STAssertEqualsWithAccuracy(v1.color.a,     v2.color.a,     E, @"wrong color.a");
+    STAssertEquals(v1.color, v2.color, @"wrong color");
     STAssertEqualsWithAccuracy(v1.position.x,  v2.position.x,  E, @"wrong position.x");
     STAssertEqualsWithAccuracy(v1.position.y,  v2.position.y,  E, @"wrong position.y");
     STAssertEqualsWithAccuracy(v1.texCoords.x, v2.texCoords.x, E, @"wrong texCoords.x");
