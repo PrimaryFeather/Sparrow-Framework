@@ -75,4 +75,7 @@
 /// Stops rendering and event handling. Call this when the application moves into the background.
 - (void)stop;
 
+/// Sets the current thread's EAGLContext to a new context that uses the main context's sharegroup. Call this when loading textures from a background thread. Returns YES if the new context was successfully set.
+- (BOOL)useNewSharedEAGLContext;
+
 @end
