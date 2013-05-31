@@ -1,6 +1,17 @@
 Sparrow Framework: The Open Source Game Engine for iOS
 ======================================================
 
+Important: Legacy Version!
+--------------------------
+
+This repository contains the 1.x version of the Sparrow Framework. The latest version (v2) 
+has moved to a new repository:
+
+  * [Gamua/Sparrow-Framework](https://github.com/Gamua/Starling-Framework/)
+
+Use Sparrow Framework 1.x if you need support iOS 3 and 4. All other users should upgrade to 
+Sparrow 2, as it builds on modern technologies like iOS 5, OpenGL ES 2, ARC, etc.
+
 What is Sparrow?
 ----------------
  
