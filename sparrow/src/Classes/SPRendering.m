@@ -44,6 +44,18 @@
 
 - (void)render:(SPRenderSupport *)support
 {    
+    if (mClipRect != nil)
+    {
+        SPRectangle *clip = [support pushClipRect:[self clipBoundsInSpace:self.stage]];
+        // Don't bother rendering our children if our clipping bounds
+        // are empty
+        if (clip.isEmpty)
+        {
+            [support popClipRect];
+            return;
+        }
+    }
+    
     float alpha = self.alpha;
     
     for (SPDisplayObject *child in mChildren)
@@ -62,6 +74,9 @@
             glPopMatrix();        
         }
     }
+    
+    if (mClipRect != nil)
+        [support popClipRect];
 }
 
 @end
