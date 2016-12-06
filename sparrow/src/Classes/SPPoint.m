@@ -121,6 +121,12 @@
     }
 }
 
+- (NSUInteger)hash
+{
+    // Equality is not transitive in SPPoint, so we can't compute a good hash function.
+    return 0;
+}
+
 - (NSString *)description
 {
     return [NSString stringWithFormat:@"(x=%f, y=%f)", mX, mY];
