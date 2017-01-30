@@ -28,7 +28,7 @@
 
 - (void)testObjectPooling
 {
-    #ifndef DISABLE_MEMORY_POOLING
+    #ifdef SP_ENABLE_MEMORY_POOLING
     
     [SPPoint purgePool]; // clean existing pool
     

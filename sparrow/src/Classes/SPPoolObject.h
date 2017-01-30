@@ -23,6 +23,19 @@
 
 @end
 
+#ifdef SP_ENABLE_MEMORY_POOLING
+    #define SP_IMPLEMENT_MEMORY_POOL() \
+    + (SPPoolInfo *)poolInfo \
+    {   \
+        static dispatch_once_t once; \
+        static SPPoolInfo *poolInfo = nil;  \
+        dispatch_once(&once, ^{ poolInfo = [[SPPoolInfo alloc] init]; }); \
+        return poolInfo;    \
+    }   \
+#else
+    #define SP_IMPLEMENT_MEMORY_POOL() + (SPPoolInfo *)poolInfo { return nil; }
+#endif
+
 /** ------------------------------------------------------------------------------------------------
  
  The SPPoolObject class is an alternative to the base class `NSObject` that manages a pool of 
@@ -33,22 +46,22 @@
  is requested. That way, object initialization is accelerated. You can release the memory of all 
  recycled objects anytime by calling the `purgePool` method.
  
+ Because it is not thread-safe, memory pooling is disabled by default. To enable it, you should
+ define SP_ENABLE_MEMORY_POOLING in Sparrow, and in your project. (SPPoolObject is unsafe for
+ use in multithreaded applications. If your game has multiple threads (e.g. for loading assets
+ or network communication), you should not use SPPoolObject.)
+
  Sparrow uses this class for `SPPoint`, `SPRectangle` and `SPMatrix`, as they are created very often 
  as helper objects.
  
- To use memory pooling for another class, you just have to inherit from SPPoolObject and implement
- the following method:
+ To use memory pooling for another class, you just have to inherit from SPPoolObject and put
+ the following macro somewhere in your implementation:
  
- 	+ (SPPoolInfo *)poolInfo
- 	{
- 	    static SPPoolInfo *poolInfo = nil;
- 	    if (!poolInfo) poolInfo = [[SPPoolInfo alloc] init];
- 	    return poolInfo;
- 	}
+    SP_IMPLEMENT_MEMORY_POOL();
  
  ------------------------------------------------------------------------------------------------- */
 
-#ifndef DISABLE_MEMORY_POOLING
+#ifdef SP_ENABLE_MEMORY_POOLING
 
 @interface SPPoolObject : NSObject 
 {
