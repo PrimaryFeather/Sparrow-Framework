@@ -11,14 +11,9 @@
 
 #import "SPPoolObject.h"
 #import <malloc/malloc.h>
+#import <libkern/OSAtomic.h>
 
-#define COMPLAIN_MISSING_IMP @"Class %@ needs this code:\n\
-+ (SPPoolInfo *) poolInfo\n\
-{\n\
-  static SPPoolInfo *poolInfo = nil;\n\
-  if (!poolInfo) poolInfo = [[SPPoolInfo alloc] init];\n\
-  return poolInfo;\n\
-}"
+#define COMPLAIN_MISSING_IMP @"Class %@ needs this code:\nSP_IMPLEMENT_MEMORY_POOL();"
 
 @implementation SPPoolInfo
 // empty
@@ -30,59 +25,68 @@
 
 + (id)allocWithZone:(NSZone *)zone
 {
+    BOOL recycled = NO;
+    SPPoolObject *object = nil;
     SPPoolInfo *poolInfo = [self poolInfo];
-    if (!poolInfo->poolClass) // first allocation
+    @synchronized(poolInfo) 
     {
-        poolInfo->poolClass = self;
-        poolInfo->lastElement = NULL;
-    }
-    else 
-    {
-        if (poolInfo->poolClass != self)
-            [NSException raise:NSGenericException format:COMPLAIN_MISSING_IMP, self];
+        if (!poolInfo->poolClass) // first allocation
+        {
+            poolInfo->poolClass = self;
+            poolInfo->lastElement = NULL;
+        }
+        else 
+        {
+            if (poolInfo->poolClass != self)
+                [NSException raise:NSGenericException format:COMPLAIN_MISSING_IMP, self];
+        }
+        
+        if (!poolInfo->lastElement) 
+        {
+            // pool is empty -> allocate
+            object = NSAllocateObject(self, 0, NULL);
+        }
+        else 
+        {
+            // recycle element, update poolInfo
+            object = poolInfo->lastElement;
+            poolInfo->lastElement = object->mPoolPredecessor;
+            recycled = YES;
+        }
     }
     
-    if (!poolInfo->lastElement) 
+    if (recycled) 
     {
-        // pool is empty -> allocate
-        SPPoolObject *object = NSAllocateObject(self, 0, NULL);
-        object->mRetainCount = 1;
-        return object;
-    }
-    else 
-    {
-        // recycle element, update poolInfo
-        SPPoolObject *object = poolInfo->lastElement;
-        poolInfo->lastElement = object->mPoolPredecessor;
-
         // zero out memory. (do not overwrite isa & mPoolPredecessor, thus the offset)
         unsigned int sizeOfFields = sizeof(Class) + sizeof(SPPoolObject *);
         memset((char*)(id)object + sizeOfFields, 0, malloc_size(object) - sizeOfFields);
-        object->mRetainCount = 1;
-        return object;
     }
+    
+    object->mRetainCount = 1;
+    return object;
 }
 
-- (uint)retainCount
+- (uint32_t)retainCount
 {
     return mRetainCount;
 }
 
 - (id)retain
 {
-    ++mRetainCount;
+    OSAtomicIncrement32Barrier((int32_t*) &mRetainCount);
     return self;
 }
 
 - (oneway void)release
-{
-    --mRetainCount;
-    
-    if (!mRetainCount)
+{   
+    if (!OSAtomicDecrement32Barrier((int32_t*) &mRetainCount))
     {
         SPPoolInfo *poolInfo = [isa poolInfo];
-        self->mPoolPredecessor = poolInfo->lastElement;
-        poolInfo->lastElement = self;
+        @synchronized(poolInfo) 
+        {
+            self->mPoolPredecessor = poolInfo->lastElement;
+            poolInfo->lastElement = self;
+        }
     }
 }
 
@@ -95,18 +99,21 @@
 
 + (int)purgePool
 {
-    SPPoolInfo *poolInfo = [self poolInfo];    
-    SPPoolObject *lastElement;    
-    
-    int count=0;
-    while ((lastElement = poolInfo->lastElement))
+    SPPoolInfo *poolInfo = [self poolInfo];
+    @synchronized(poolInfo)
     {
-        ++count;        
-        poolInfo->lastElement = lastElement->mPoolPredecessor;
-        [lastElement purge];
+        SPPoolObject *lastElement;    
+        
+        int count=0;
+        while ((lastElement = poolInfo->lastElement))
+        {
+            ++count;        
+            poolInfo->lastElement = lastElement->mPoolPredecessor;
+            [lastElement purge];
+        }
+        
+        return count;
     }
-    
-    return count;
 }
 
 + (SPPoolInfo *)poolInfo
