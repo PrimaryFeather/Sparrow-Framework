@@ -26,6 +26,7 @@
   @private
     SPDisplayObjectContainer *mRoot;
     NSMutableSet *mCurrentTouches;
+    int mTouchIdCounter;
 }
 
 /// ------------------
